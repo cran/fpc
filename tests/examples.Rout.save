@@ -1,19 +1,21 @@
 
 R : Copyright 2003, The R Development Core Team
-Version 1.7.1  (2003-06-16)
+Version 1.8.0  (2003-10-08)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
-Type `license()' or `licence()' for distribution details.
+Type 'license()' or 'licence()' for distribution details.
 
 R is a collaborative project with many contributors.
-Type `contributors()' for more information.
+Type 'contributors()' for more information.
 
-Type `demo()' for some demos, `help()' for on-line help, or
-`help.start()' for a HTML browser interface to help.
-Type `q()' to quit R.
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for a HTML browser interface to help.
+Type 'q()' to quit R.
 
 > library(fpc)
+Loading required package: cluster 
+Loading required package: lqs 
 > example(batcoord)
 
 batcrd> set.seed(4634)
@@ -124,720 +126,15 @@ fixmhl> set.seed(20000)
 
 fixmhl> face <- rFace(400, dMoNo = 2, dNoEy = 0, p = 3)
 
-fixmhl> ff1 <- fixmahal(face)
-Iteration run no.  100  of  400 
-Iteration run no.  200  of  400 
-Iteration run no.  300  of  400 
-Iteration run no.  400  of  400 
-
-fixmhl> summary(ff1)
-  *  Mahalanobis Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  fuzzy  was used.
-Number of representative FPCs:  7 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-12  iteration runs led to  5  skipped clusters.
-  Weight 1 for r^2<=  6.251389  weight 0 for r^2>  11.34487  
-  Constant ca=  6.251389  corresponding to alpha=  0.9 
-
- FPC  1 
-  Times found (group members):  82 
-  Ratio to size:  2.670037 
-  Mean:
-[1]  1.9855195 16.9548049  0.3408780
-  Covariance matrix:
-           [,1]        [,2]        [,3]
-[1,] 0.06408158 0.036289031 0.035777546
-[2,] 0.03628903 0.047264376 0.005511073
-[3,] 0.03577755 0.005511073 0.065565468
-  Number of points (sum of weights):  30.71118 
-
- FPC  2 
-  Times found (group members):  23 
-  Ratio to size:  1.303087 
-  Mean:
-[1] -2.4347609  6.0291215  0.5056224
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,]  0.08264881 -0.41797526  0.01358218
-[2,] -0.41797526  2.13071764 -0.09151873
-[3,]  0.01358218 -0.09151873  0.05882431
-  Number of points (sum of weights):  17.6504 
-
- FPC  3 
-  Times found (group members):  115 
-  Ratio to size:  1.302458 
-  Mean:
-[1] -0.01849859  3.08683447  0.47335513
-  Covariance matrix:
-             [,1]         [,2]        [,3]
-[1,] 0.1872889575 0.0008835305 0.008760614
-[2,] 0.0008835305 0.0427160939 0.004916752
-[3,] 0.0087606136 0.0049167518 0.123746102
-  Number of points (sum of weights):  88.29459 
-
- FPC  4 
-  Times found (group members):  38 
-  Ratio to size:  1.122414 
-  Mean:
-[1] -2.0187951 17.0991735  0.8817624
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,] 0.135316540 0.004021851 0.069548284
-[2,] 0.004021851 0.151169664 0.001996444
-[3,] 0.069548284 0.001996444 0.520674353
-  Number of points (sum of weights):  33.85559 
-
- FPC  5 
-  Times found (group members):  29 
-  Ratio to size:  0.949155 
-  Mean:
-[1] 0.04343609 5.45393479 0.42399866
-  Covariance matrix:
-             [,1]         [,2]         [,3]
-[1,]  0.017829334 -0.003570683 -0.008252175
-[2,] -0.003570683  0.110347368  0.002818236
-[3,] -0.008252175  0.002818236  0.067939529
-  Number of points (sum of weights):  30.55349 
-
- FPC  6 
-  Times found (group members):  19 
-  Ratio to size:  0.7042111 
-  Mean:
-[1] 0.01270410 0.45927356 0.53528351
-  Covariance matrix:
-            [,1]       [,2]        [,3]
-[1,]  0.49353566 0.05600038 -0.02187336
-[2,]  0.05600038 0.20582357  0.02672412
-[3,] -0.02187336 0.02672412  0.13116853
-  Number of points (sum of weights):  26.98055 
-
- FPC  7 
-  Times found (group members):  83 
-  Ratio to size:  0.5012297 
-  Mean:
-[1] 0.004387464 3.656559614 0.464773596
-  Covariance matrix:
-           [,1]        [,2]        [,3]
-[1,] 0.19620788  0.01266285  0.01472608
-[2,] 0.01266285  3.80381087 -0.03549498
-[3,] 0.01472608 -0.03549498  0.11875359
-  Number of points (sum of weights):  165.5927 
-
-Number of points (rounded weights) in intersection of representative FPCs
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7]
-[1,]   31    0    0    0    0    0    0
-[2,]    0   18    0    0    0    0    0
-[3,]    0    0   88    0    0    0   88
-[4,]    0    0    0   34    0    0    0
-[5,]    0    0    0    0   31    0   31
-[6,]    0    0    0    0    0   27   22
-[7,]    0    0   88    0   31   22  166
-
-fixmhl> cff1 <- fpclusters(ff1)
-
-fixmhl> plot(face, col = 1 + cff1[[1]])
-
-fixmhl> plot(face, col = 1 + cff1[[6]])
-
-fixmhl> plot(ff1, face, 6)
-
-fixmhl> ff2 <- fixmahal(face, method = "ml")
-Iteration run no.  100  of  400 
-Iteration run no.  200  of  400 
-Iteration run no.  300  of  400 
-Iteration run no.  400  of  400 
-
-fixmhl> summary(ff2)
-  *  Mahalanobis Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  ml  was used.
-Number of representative FPCs:  8 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-10  iteration runs led to  4  skipped clusters.
-  Constant ca=  11.34487  corresponding to alpha=  0.99 
-
- FPC  1 
-  Times found (group members):  39 
-  Ratio to size:  1.21875 
-  Mean:
-[1]  1.9992129 16.9754269  0.3422242
-  Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.07111235 0.04725665 0.03623563
-[2,] 0.04725665 0.06325189 0.00644901
-[3,] 0.03623563 0.00644901 0.06471585
-  Number of points (sum of weights):  32 
-
- FPC  2 
-  Times found (group members):  114 
-  Ratio to size:  1.175258 
-  Mean:
-[1] -0.002952468  3.092617828  0.563504064
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,] 0.186346317 0.002290709 0.017830190
-[2,] 0.002290709 0.044102374 0.005512363
-[3,] 0.017830190 0.005512363 0.216086350
-  Number of points (sum of weights):  97 
-
- FPC  3 
-  Times found (group members):  38 
-  Ratio to size:  0.974359 
-  Mean:
-[1] -2.063972 17.122154  1.171474
-  Covariance matrix:
-             [,1]         [,2]        [,3]
-[1,]  0.141980453 -0.005291416 -0.04129874
-[2,] -0.005291416  0.151822444  0.06315440
-[3,] -0.041298744  0.063154403  1.05661283
-  Number of points (sum of weights):  39 
-
- FPC  4 
-  Times found (group members):  25 
-  Ratio to size:  0.78125 
-  Mean:
-[1] 0.05082678 5.47552806 0.44998714
-  Covariance matrix:
-             [,1]         [,2]         [,3]
-[1,]  0.019458416 -0.001364064 -0.003206776
-[2,] -0.001364064  0.117215918  0.014664277
-[3,] -0.003206776  0.014664277  0.080922797
-  Number of points (sum of weights):  32 
-
- FPC  5 
-  Times found (group members):  24 
-  Ratio to size:  0.7741935 
-  Mean:
-[1] -2.068473  4.763380  0.551884
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,]  0.48687329 -1.84140463 -0.01599718
-[2,] -1.84140463  7.15663131  0.03165796
-[3,] -0.01599718  0.03165796  0.11293781
-  Number of points (sum of weights):  31 
-
- FPC  6 
-  Times found (group members):  41 
-  Ratio to size:  0.640625 
-  Mean:
-[1]  2.0023314 16.9912195  0.8113632
-  Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.16989800 0.01494743 0.07567029
-[2,] 0.01494743 0.10511782 0.05339772
-[3,] 0.07567029 0.05339772 0.50698594
-  Number of points (sum of weights):  64 
-
- FPC  7 
-  Times found (group members):  19 
-  Ratio to size:  0.5588235 
-  Mean:
-[1] 0.06302309 0.57174146 0.75406311
-  Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.59215226 0.08812666 0.04580088
-[2,] 0.08812666 0.30729720 0.03845204
-[3,] 0.04580088 0.03845204 0.39951332
-  Number of points (sum of weights):  34 
-
- FPC  8 
-  Times found (group members):  91 
-  Ratio to size:  0.4572864 
-  Mean:
-[1] 0.005380035 3.855460441 0.609370709
-  Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.22111114 0.02215423 0.01978615
-[2,] 0.02215423 4.87394188 0.17045661
-[3,] 0.01978615 0.17045661 0.25671640
-  Number of points (sum of weights):  199 
-
-Number of points (rounded weights) in intersection of representative FPCs
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
-[1,]   32    0    0    0    0   32    0    0
-[2,]    0   97    0    0    0    0    0   97
-[3,]    0    0   39    0    0    0    0    0
-[4,]    0    0    0   32    0    0    0   32
-[5,]    0    0    0    0   31    0    7    8
-[6,]   32    0    0    0    0   64    0    0
-[7,]    0    0    0    0    7    0   34   30
-[8,]    0   97    0   32    8    0   30  199
-
-fixmhl> ff3 <- fixmahal(face, method = "ml", calpha = 0.95, 
-    subset = 50)
-
-fixmhl> summary(ff3)
-  *  Mahalanobis Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  ml  was used.
-Number of representative FPCs:  13 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-1  iteration runs led to  1  skipped clusters.
-  Constant ca=  7.814728  corresponding to alpha=  0.95 
-
- FPC  1 
-  Times found (group members):  7 
-  Ratio to size:  1.806452 
-  Mean:
-[1]  1.9833912 16.9520538  0.3412041
-  Covariance matrix:
-           [,1]        [,2]        [,3]
-[1,] 0.06539584 0.036947376 0.036888056
-[2,] 0.03694738 0.047810616 0.005894076
-[3,] 0.03688806 0.005894076 0.066770158
-  Number of points (sum of weights):  31 
-
- FPC  2 
-  Times found (group members):  4 
-  Ratio to size:  1.684211 
-  Mean:
-[1] -2.4491962  6.0990730  0.4805526
-  Covariance matrix:
-            [,1]       [,2]        [,3]
-[1,]  0.08876238 -0.4452903  0.02130918
-[2,] -0.44529033  2.2508428 -0.12669915
-[3,]  0.02130918 -0.1266991  0.06492912
-  Number of points (sum of weights):  19 
-
- FPC  3 
-  Times found (group members):  6 
-  Ratio to size:  1.6 
-  Mean:
-[1] 0.09354605 0.52333465 0.61697438
-  Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.54641100 0.12167701 0.03099470
-[2,] 0.12167701 0.26275338 0.04821234
-[3,] 0.03099470 0.04821234 0.20053501
-  Number of points (sum of weights):  30 
-
- FPC  4 
-  Times found (group members):  6 
-  Ratio to size:  1.5 
-  Mean:
-[1] -2.0264078 17.0930984  0.7737922
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,] 0.136213591 0.001245528 0.050896436
-[2,] 0.001245528 0.164337421 0.002900854
-[3,] 0.050896436 0.002900854 0.366216482
-  Number of points (sum of weights):  32 
-
- FPC  5 
-  Times found (group members):  13 
-  Ratio to size:  1.195402 
-  Mean:
-[1] -0.006969771  3.080925741  0.472069523
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,] 0.185299354 0.003066874 0.006977802
-[2,] 0.003066874 0.040882199 0.003949813
-[3,] 0.006977802 0.003949813 0.120272891
-  Number of points (sum of weights):  87 
-
- FPC  6 
-  Times found (group members):  2 
-  Ratio to size:  0.6153846 
-  Mean:
-[1] 1.3471584 2.3550979 0.6661242
-  Covariance matrix:
-            [,1]      [,2]        [,3]
-[1,]  0.54350991  1.577993 -0.07136887
-[2,]  1.57799291  4.836062 -0.22442401
-[3,] -0.07136887 -0.224424  0.26716400
-  Number of points (sum of weights):  26 
-
- FPC  7 
-  Times found (group members):  2 
-  Ratio to size:  0.5333333 
-  Mean:
-[1] 0.03157278 5.46707570 0.43996108
-  Covariance matrix:
-             [,1]         [,2]         [,3]
-[1,]  0.014761033 -0.003553871 -0.005489876
-[2,] -0.003553871  0.119848570  0.006133787
-[3,] -0.005489876  0.006133787  0.068253747
-  Number of points (sum of weights):  30 
-
- FPC  8 
-  Times found (group members):  2 
-  Ratio to size:  0.2857143 
-  Mean:
-[1]  1.9637469 16.9664180  0.6026648
-  Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.16118010 0.01621027 0.02590092
-[2,] 0.01621027 0.10565062 0.01954518
-[3,] 0.02590092 0.01954518 0.21500195
-  Number of points (sum of weights):  56 
-
- FPC  9 
-  Times found (group members):  4 
-  Ratio to size:  0.2666667 
-  Mean:
-[1] -0.03312205  3.95142946  0.40925672
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,]  0.12000426  0.02944778 -0.01033347
-[2,]  0.02944778  1.78712579 -0.05813351
-[3,] -0.01033347 -0.05813351  0.09101767
-  Number of points (sum of weights):  120 
-
- FPC  10 
-  Times found (group members):  1 
-  Ratio to size:  0.2051282 
-  Mean:
-[1] 0.03213971 5.76135294 0.70543133
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,]  0.01204833 -0.01000532 -0.01428667
-[2,] -0.01000532  0.41191566  0.23206785
-[3,] -0.01428667  0.23206785  0.27727709
-  Number of points (sum of weights):  39 
-
- FPC  11 
-  Times found (group members):  1 
-  Ratio to size:  0.1951220 
-  Mean:
-[1] 0.1081908 4.6662246 0.4487532
-  Covariance matrix:
-            [,1]       [,2]        [,3]
-[1,]  0.04127807 -0.1302019 -0.02019146
-[2,] -0.13020195  2.4550356 -0.25937963
-[3,] -0.02019146 -0.2593796  0.06870475
-  Number of points (sum of weights):  41 
-
- FPC  12 
-  Times found (group members):  1 
-  Ratio to size:  0.1904762 
-  Mean:
-[1] 0.1569107 4.6852290 0.2758609
-  Covariance matrix:
-             [,1]        [,2]         [,3]
-[1,]  0.016417441 -0.15085975  0.003775727
-[2,] -0.150859751  2.53643555 -0.068515511
-[3,]  0.003775727 -0.06851551  0.026656226
-  Number of points (sum of weights):  42 
-
- FPC  13 
-  Times found (group members):  1 
-  Ratio to size:  0.1212121 
-  Mean:
-[1] 0.1205752 4.7078102 0.3967834
-  Covariance matrix:
-            [,1]        [,2]        [,3]
-[1,]  0.02961358 -0.16352202 -0.01194298
-[2,] -0.16352202  2.33646755 -0.02458348
-[3,] -0.01194298 -0.02458348  0.07147296
-  Number of points (sum of weights):  66 
-
-Number of points (rounded weights) in intersection of representative FPCs
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11] [,12] [,13]
- [1,]   31    0    0    0    0    0    0   31    0     0     0     0     0
- [2,]    0   19    0    0    0    0    0    0    0     0     0     0     0
- [3,]    0    0   30    0    0   14    0    0    0     0     0     0     0
- [4,]    0    0    0   32    0    0    0    0    0     0     0     0     0
- [5,]    0    0    0    0   87    0    0    0   80     0    18    18    27
- [6,]    0    0   14    0    0   26    0    0    0     0     0     0     0
- [7,]    0    0    0    0    0    0   30    0   30    29    16    18    30
- [8,]   31    0    0    0    0    0    0   56    0     0     0     0     0
- [9,]    0    0    0    0   80    0   30    0  120    29    40    41    63
-[10,]    0    0    0    0    0    0   29    0   29    39    16    18    30
-[11,]    0    0    0    0   18    0   16    0   40    16    41    24    36
-[12,]    0    0    0    0   18    0   18    0   41    18    24    42    42
-[13,]    0    0    0    0   27    0   30    0   63    30    36    42    66
-
-fixmhl> set.seed(3000)
-
-fixmhl> face2 <- rFace(400, dMoNo = 2, dNoEy = 0)
-
-fixmhl> ff5 <- fixmahal(face2)
-Iteration run no.  100  of  400 
-Iteration run no.  200  of  400 
-Iteration run no.  300  of  400 
-Iteration run no.  400  of  400 
-
-fixmhl> summary(ff5)
-  *  Mahalanobis Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  fuzzy  was used.
-Number of representative FPCs:  4 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-4  iteration runs led to  3  skipped clusters.
-  Weight 1 for r^2<=  10.64464  weight 0 for r^2>  16.81189  
-  Constant ca=  10.64464  corresponding to alpha=  0.9 
-
- FPC  1 
-  Times found (group members):  74 
-  Ratio to size:  1.205781 
-  Mean:
-[1]  2.0113161 16.9731774 -0.2923510  0.1389359  0.4383539  0.9498034
-  Covariance matrix:
-            [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
-[1,]  0.14751700 -0.01944605  0.01727135 -0.01263239 -0.23621984  0.05328460
-[2,] -0.01944605  0.19681145  0.00846849  0.03871039 -0.10950606 -0.03745076
-[3,]  0.01727135  0.00846849  1.22151243  0.13130960 -0.09587864  0.04166852
-[4,] -0.01263239  0.03871039  0.13130960  0.96771340  0.16337073  0.08899267
-[5,] -0.23621984 -0.10950606 -0.09587864  0.16337073  3.27613595  0.04997123
-[6,]  0.05328460 -0.03745076  0.04166852  0.08899267  0.04997123  0.50411389
-  Number of points (sum of weights):  61.37101 
-
- FPC  2 
-  Times found (group members):  228 
-  Ratio to size:  1.115920 
-  Mean:
-[1]  0.0001220668  3.7994376004 -0.0087441603  0.0027034899  0.0231069118
-[6]  0.8599747719
-  Covariance matrix:
-              [,1]        [,2]         [,3]        [,4]          [,5]
-[1,]  0.5861911894  0.06541625 -0.005025134 -0.00791446  0.0003896819
-[2,]  0.0654162506  3.92346380  0.112613410 -0.08540190 -0.2750044667
-[3,] -0.0050251343  0.11261341  0.852177375 -0.05693364  0.0907232225
-[4,] -0.0079144597 -0.08540190 -0.056933643  0.94659373 -0.0402165225
-[5,]  0.0003896819 -0.27500447  0.090723222 -0.04021652  1.3684903445
-[6,]  0.0261673576  0.05382738 -0.062992198  0.01181733 -0.0014412386
-             [,6]
-[1,]  0.026167358
-[2,]  0.053827379
-[3,] -0.062992198
-[4,]  0.011817335
-[5,] -0.001441239
-[6,]  0.433610456
-  Number of points (sum of weights):  204.3158 
-
- FPC  3 
-  Times found (group members):  63 
-  Ratio to size:  0.7628471 
-  Mean:
-[1] -0.01374268  3.06337862  0.07619319  0.10824565  0.15577679  0.82331552
-  Covariance matrix:
-            [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
-[1,]  0.13495660  0.01165811  0.02030393 -0.04131643 -0.10359208  0.02359366
-[2,]  0.01165811  0.02745052  0.00844791 -0.03224992  0.04125061 -0.01828586
-[3,]  0.02030393  0.00844791  0.60340521 -0.09352049  0.12099815  0.00382720
-[4,] -0.04131643 -0.03224992 -0.09352049  0.76592939 -0.28973231  0.01368958
-[5,] -0.10359208  0.04125061  0.12099815 -0.28973231  1.96327181 -0.04492682
-[6,]  0.02359366 -0.01828586  0.00382720  0.01368958 -0.04492682  0.49315066
-  Number of points (sum of weights):  82.58535 
-
- FPC  4 
-  Times found (group members):  32 
-  Ratio to size:  0.3339215 
-  Mean:
-[1]  0.6785080 16.9731646 -0.2220711  0.0961567  0.5565874  0.8935854
-  Covariance matrix:
-            [,1]        [,2]        [,3]       [,4]        [,5]        [,6]
-[1,]  3.50306901 -0.07401376 -0.13894304 0.16849599 -0.18749967  0.28369132
-[2,] -0.07401376  0.25519945  0.06010581 0.01960076 -0.11555369 -0.01571626
-[3,] -0.13894304  0.06010581  1.08504706 0.04725729 -0.16623663 -0.03879339
-[4,]  0.16849599  0.01960076  0.04725729 0.98671443  0.24266287  0.07442185
-[5,] -0.18749967 -0.11555369 -0.16623663 0.24266287  2.82309243  0.07504956
-[6,]  0.28369132 -0.01571626 -0.03879339 0.07442185  0.07504956  0.51568772
-  Number of points (sum of weights):  95.8309 
-
-Number of points (rounded weights) in intersection of representative FPCs
-     [,1] [,2] [,3] [,4]
-[1,]   61    0    0   61
-[2,]    0  204   82    0
-[3,]    0   82   83    0
-[4,]   61    0    0   96
-
-fixmhl> ff6 <- fixmahal(face2, startn = 30)
-Iteration run no.  100  of  400 
-Iteration run no.  200  of  400 
-Iteration run no.  300  of  400 
-Iteration run no.  400  of  400 
-
-fixmhl> summary(ff6)
-  *  Mahalanobis Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  fuzzy  was used.
-Number of representative FPCs:  8 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-22  iteration runs led to  20  skipped clusters.
-  Weight 1 for r^2<=  10.64464  weight 0 for r^2>  16.81189  
-  Constant ca=  10.64464  corresponding to alpha=  0.9 
-
- FPC  1 
-  Times found (group members):  206 
-  Ratio to size:  1.007470 
-  Mean:
-[1]  0.000603790  3.800211651 -0.009196970  0.002654645  0.024126361
-[6]  0.860220943
-  Covariance matrix:
-             [,1]        [,2]         [,3]         [,4]         [,5]
-[1,]  0.589973504  0.06510772 -0.005493155 -0.006941688  0.001799847
-[2,]  0.065107722  3.92229118  0.112752901 -0.085481654 -0.274607968
-[3,] -0.005493155  0.11275290  0.852532976 -0.057215754  0.090548346
-[4,] -0.006941688 -0.08548165 -0.057215754  0.946555626 -0.039944715
-[5,]  0.001799847 -0.27460797  0.090548346 -0.039944715  1.369859156
-[6,]  0.026678271  0.05348438 -0.063040144  0.012023338 -0.001008280
-            [,6]
-[1,]  0.02667827
-[2,]  0.05348438
-[3,] -0.06304014
-[4,]  0.01202334
-[5,] -0.00100828
-[6,]  0.43364050
-  Number of points (sum of weights):  204.4725 
-
- FPC  2 
-  Times found (group members):  60 
-  Ratio to size:  0.9768369 
-  Mean:
-[1]  2.0114528 16.9728423 -0.2921267  0.1390839  0.4413946  0.9520697
-  Covariance matrix:
-            [,1]         [,2]         [,3]        [,4]        [,5]        [,6]
-[1,]  0.14792240 -0.019176595  0.017573171 -0.01211000 -0.23479614  0.05438745
-[2,] -0.01917660  0.196850856  0.008427297  0.03906854 -0.10854630 -0.03740639
-[3,]  0.01757317  0.008427297  1.221161103  0.13108254 -0.09398413  0.04260021
-[4,] -0.01211000  0.039068536  0.131082541  0.96776768  0.16441701  0.08964593
-[5,] -0.23479614 -0.108546302 -0.093984130  0.16441701  3.26223912  0.05120003
-[6,]  0.05438745 -0.037406389  0.042600208  0.08964593  0.05120003  0.50848785
-  Number of points (sum of weights):  61.42274 
-
- FPC  3 
-  Times found (group members):  22 
-  Ratio to size:  0.7928435 
-  Mean:
-[1] -1.8782796 17.1104671 -0.1160300 -0.0735062  0.5278943  0.6189630
-  Covariance matrix:
-            [,1]         [,2]        [,3]         [,4]        [,5]        [,6]
-[1,]  0.12108586 -0.084564426 -0.03505787  0.030841573 -0.06422272  0.04208978
-[2,] -0.08456443  0.341853675  0.16980817 -0.004972879 -0.08690719  0.07187775
-[3,] -0.03505787  0.169808166  0.69226050 -0.261456780 -0.32888029 -0.08937128
-[4,]  0.03084157 -0.004972879 -0.26145678  0.893817853  0.51728737  0.01792170
-[5,] -0.06422272 -0.086907193 -0.32888029  0.517287368  2.38694289  0.04393562
-[6,]  0.04208978  0.071877747 -0.08937128  0.017921703  0.04393562  0.23417418
-  Number of points (sum of weights):  27.74823 
-
- FPC  4 
-  Times found (group members):  60 
-  Ratio to size:  0.7265314 
-  Mean:
-[1] -0.01370464  3.06337148  0.07616524  0.10823067  0.15577602  0.82328871
-  Covariance matrix:
-            [,1]         [,2]         [,3]        [,4]        [,5]         [,6]
-[1,]  0.13493529  0.011668159  0.020294130 -0.04130306 -0.10362754  0.023621356
-[2,]  0.01166816  0.027449843  0.008440573 -0.03225041  0.04124867 -0.018295639
-[3,]  0.02029413  0.008440573  0.603438890 -0.09349147  0.12093927  0.003834781
-[4,] -0.04130306 -0.032250415 -0.093491468  0.76597201 -0.28969866  0.013671401
-[5,] -0.10362754  0.041248670  0.120939267 -0.28969866  1.96320357 -0.044898145
-[6,]  0.02362136 -0.018295639  0.003834781  0.01367140 -0.04489815  0.493149878
-  Number of points (sum of weights):  82.58418 
-
- FPC  5 
-  Times found (group members):  11 
-  Ratio to size:  0.3159785 
-  Mean:
-[1]  2.00880128 16.89460213 -0.26363700  0.05882418  0.53580650  0.39537686
-  Covariance matrix:
-            [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
-[1,]  0.12524450  0.03943987  0.13279757 -0.01180251 -0.66992626  0.02888694
-[2,]  0.03943987  0.18362291  0.02739029  0.07521834 -0.56263666 -0.01926336
-[3,]  0.13279757  0.02739029  0.93794811 -0.04152960 -0.13166272 -0.01625756
-[4,] -0.01180251  0.07521834 -0.04152960  0.92345788 -0.01182512  0.05890974
-[5,] -0.66992626 -0.56263666 -0.13166272 -0.01182512 12.37685552 -0.25918432
-[6,]  0.02888694 -0.01926336 -0.01625756  0.05890974 -0.25918432  0.05845569
-  Number of points (sum of weights):  34.8125 
-
- FPC  6 
-  Times found (group members):  13 
-  Ratio to size:  0.1357374 
-  Mean:
-[1]  0.67908479 16.97322454 -0.22237660  0.09573837  0.55747729  0.89303908
-  Covariance matrix:
-            [,1]        [,2]        [,3]       [,4]        [,5]        [,6]
-[1,]  3.50162927 -0.07466815 -0.14014472 0.16957614 -0.19152644  0.28398897
-[2,] -0.07466815  0.25529302  0.06025301 0.01973335 -0.11590551 -0.01557125
-[3,] -0.14014472  0.06025301  1.08446640 0.04767924 -0.16568210 -0.03967005
-[4,]  0.16957614  0.01973335  0.04767924 0.98657135  0.24301986  0.07430255
-[5,] -0.19152644 -0.11590551 -0.16568210 0.24301986  2.81236990  0.07574431
-[6,]  0.28398897 -0.01557125 -0.03967005 0.07430255  0.07574431  0.51486183
-  Number of points (sum of weights):  95.77314 
-
- FPC  7 
-  Times found (group members):  4 
-  Ratio to size:  0.1290323 
-  Mean:
-[1]  0.2647573  4.7921864  0.5249916 -0.3567417 -0.3425786  0.4256054
-  Covariance matrix:
-            [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
-[1,]  0.04095529 -0.30355333 -0.09762389 -0.02500126  0.04138110  0.00740625
-[2,] -0.30355333  4.17840768  0.04876094  0.67841452 -0.08202900  0.14179824
-[3,] -0.09762389  0.04876094  0.97100004 -0.25334670  0.10784661 -0.01199122
-[4,] -0.02500126  0.67841452 -0.25334670  0.78981709 -0.08106016 -0.04225036
-[5,]  0.04138110 -0.08202900  0.10784661 -0.08106016  0.58450466  0.06204814
-[6,]  0.00740625  0.14179824 -0.01199122 -0.04225036  0.06204814  0.06668633
-  Number of points (sum of weights):  31 
-
- FPC  8 
-  Times found (group members):  3 
-  Ratio to size:  0.1071899 
-  Mean:
-[1] -0.4091523  7.7338876 -0.2925723  0.7093870  0.4378526  0.6335151
-  Covariance matrix:
-            [,1]       [,2]        [,3]        [,4]        [,5]        [,6]
-[1,]  1.20294766 -4.4866669  0.19132413 -0.26841138 -0.40614295  0.08036273
-[2,] -4.48666691 32.5740705 -2.22219889  1.06544185  3.11188543 -0.74412231
-[3,]  0.19132413 -2.2221989  0.48449940  0.06750369  0.06605859 -0.07042657
-[4,] -0.26841138  1.0654419  0.06750369  0.26611432  0.23817891  0.09343303
-[5,] -0.40614295  3.1118854  0.06605859  0.23817891  2.14240381 -0.12384224
-[6,]  0.08036273 -0.7441223 -0.07042657  0.09343303 -0.12384224  0.23028823
-  Number of points (sum of weights):  27.98771 
-
-Number of points (rounded weights) in intersection of representative FPCs
-     [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8]
-[1,]  204    0    0   82    0    0   31   20
-[2,]    0   61    0    0   31   61    0    0
-[3,]    0    0   28    0    0   28    0    7
-[4,]   82    0    0   83    0    0   10    7
-[5,]    0   31    0    0   35   31    0    0
-[6,]    0   61   28    0   31   96    0    7
-[7,]   31    0    0   10    0    0   31    5
-[8,]   20    0    7    7    0    7    5   28
-
-fixmhl> cff6 <- fpclusters(ff6)
-
-fixmhl> plot(face2, col = 1 + cff6[[3]])
-
-fixmhl> plot(ff6, face2, 3)
-
 fixmhl> initg <- list()
 
-fixmhl> grface <- as.integer(attr(face2, "grouping"))
+fixmhl> grface <- as.integer(attr(face, "grouping"))
 
 fixmhl> for (i in 1:5) initg[[i]] <- (grface == i)
 
-fixmhl> ff7 <- fixmahal(face2, pointit = FALSE, init.group = initg)
+fixmhl> ff0 <- fixmahal(face, pointit = FALSE, init.group = initg)
 
-fixmhl> summary(ff7)
+fixmhl> summary(ff0)
   *  Mahalanobis Fixed Point Clusters  *
 
 Often a clear cluster in the data leads to several similar FPCs.
@@ -846,227 +143,107 @@ The summary shows the representative FPCs of groups of similar FPCs.
 Method  fuzzy  was used.
 Number of representative FPCs:  5 
 
-FPCs with less than   points were skipped.
+FPCs with less than  16  points were skipped.
 0  iteration runs led to  0  skipped clusters.
-  Weight 1 for r^2<=  10.64464  weight 0 for r^2>  16.81189  
-  Constant ca=  10.64464  corresponding to alpha=  0.9 
+  Weight 1 for r^2<=  6.251389  weight 0 for r^2>  11.34487  
+  Constant ca=  6.251389  corresponding to alpha=  0.9 
 
  FPC  1 
   Times found (group members):  1 
   Mean:
-[1] -1.87963340 17.10787065 -0.11020170 -0.07422974  0.52160849  0.61650525
+[1] -2.059856 17.120851  1.144176
   Covariance matrix:
-            [,1]         [,2]        [,3]         [,4]        [,5]        [,6]
-[1,]  0.12106040 -0.083349445 -0.03688802  0.030963096 -0.06184189  0.04275260
-[2,] -0.08334944  0.342173058  0.16535251 -0.004484004 -0.08248574  0.07318423
-[3,] -0.03688802  0.165352512  0.69797988 -0.261466588 -0.33671494 -0.09259110
-[4,]  0.03096310 -0.004484004 -0.26146659  0.890382791  0.51635920  0.01829418
-[5,] -0.06184189 -0.082485737 -0.33671494  0.516359204  2.38728503  0.04761738
-[6,]  0.04275260  0.073184231 -0.09259110  0.018294182  0.04761738  0.23474808
-  Number of points (sum of weights):  27.84752 
+              [,1]          [,2]        [,3]
+[1,]  0.1380273772 -0.0005850577 -0.02221587
+[2,] -0.0005850577  0.1493604214  0.05120692
+[3,] -0.0222158688  0.0512069203  0.99970636
+  Number of points (sum of weights):  38.26940 
 
  FPC  2 
   Times found (group members):  1 
   Mean:
-[1]  2.0217988 16.9754882 -0.2793881  0.1527951  0.4697567  0.9848590
+[1]  1.990335 16.990115  1.168523
   Covariance matrix:
-             [,1]        [,2]        [,3]         [,4]        [,5]        [,6]
-[1,]  0.152899835 -0.01726197  0.02741567 -0.005986567 -0.21606598  0.07617480
-[2,] -0.017261968  0.19358055  0.01011781  0.038812979 -0.10884949 -0.03173564
-[3,]  0.027415673  0.01011781  1.21984474  0.138639950 -0.05033646  0.06880882
-[4,] -0.005986567  0.03881298  0.13863995  0.959530344  0.19338798  0.11153960
-[5,] -0.216065985 -0.10884949 -0.05033646  0.193387979  3.41760566  0.11327598
-[6,]  0.076174799 -0.03173564  0.06880882  0.111539597  0.11327598  0.57091881
-  Number of points (sum of weights):  62.42713 
+            [,1]        [,2]       [,3]
+[1,] 0.155013896 0.002647451 0.04614691
+[2,] 0.002647451 0.102943657 0.04792916
+[3,] 0.046146913 0.047929158 1.19384338
+  Number of points (sum of weights):  73.87413 
 
  FPC  3 
   Times found (group members):  1 
   Mean:
-[1] -0.01399817  3.06342556  0.07643577  0.10833599  0.15572621  0.82360887
+[1] -0.01706032  3.08725211  0.47432734
   Covariance matrix:
-            [,1]         [,2]         [,3]        [,4]        [,5]        [,6]
-[1,]  0.13510040  0.011587186  0.020410713 -0.04141734 -0.10341777  0.02342962
-[2,]  0.01158719  0.027452505  0.008515762 -0.03225095  0.04122117 -0.01821055
-[3,]  0.02041071  0.008515762  0.603171053 -0.09369148  0.12127595  0.00379960
-[4,] -0.04141734 -0.032250952 -0.093691475  0.76565430 -0.28991184  0.01386824
-[5,] -0.10341777  0.041221173  0.121275949 -0.28991184  1.96387227 -0.04509419
-[6,]  0.02342962 -0.018210548  0.003799600  0.01386824 -0.04509419  0.49330202
-  Number of points (sum of weights):  82.59434 
+            [,1]        [,2]        [,3]
+[1,] 0.188194114 0.001181821 0.009039074
+[2,] 0.001181821 0.042873492 0.004792551
+[3,] 0.009039074 0.004792551 0.124434523
+  Number of points (sum of weights):  88.37003 
 
  FPC  4 
   Times found (group members):  2 
   Mean:
-[1]  0.0006132081  3.8002040738 -0.0091918136  0.0026464336  0.0242440083
-[6]  0.8602304286
+[1] 0.01031798 3.84049017 0.57963428
   Covariance matrix:
-             [,1]        [,2]         [,3]         [,4]         [,5]
-[1,]  0.589994671  0.06511769 -0.005492363 -0.006957012  0.001801971
-[2,]  0.065117687  3.92222248  0.112744856 -0.085470538 -0.274696830
-[3,] -0.005492363  0.11274486  0.852579609 -0.057234369  0.090615438
-[4,] -0.006957012 -0.08547054 -0.057234369  0.946537984 -0.039987027
-[5,]  0.001801971 -0.27469683  0.090615438 -0.039987027  1.370281036
-[6,]  0.026685285  0.05347416 -0.063050118  0.012038215 -0.001007035
-             [,6]
-[1,]  0.026685285
-[2,]  0.053474162
-[3,] -0.063050118
-[4,]  0.012038215
-[5,] -0.001007035
-[6,]  0.433645141
-  Number of points (sum of weights):  204.4793 
+           [,1]       [,2]       [,3]
+[1,] 0.17635831 0.01533119 0.02026135
+[2,] 0.01533119 4.36327556 0.11767498
+[3,] 0.02026135 0.11767498 0.22623388
+  Number of points (sum of weights):  183.4207 
 
  FPC  5 
   Times found (group members):  1 
   Mean:
-[1]  0.17720432  7.52074211 -0.09759858  0.01129932  0.14926280  0.86380527
+[1] 0.4248803 6.8480685 0.5883182
   Covariance matrix:
-           [,1]        [,2]        [,3]        [,4]        [,5]        [,6]
-[1,]  1.6698233  1.83073355 -0.13011098  0.08645549  0.15253060  0.12653498
-[2,]  1.8307336 36.56717607 -0.42895698  0.09972612  0.58488160 -0.05541112
-[3,] -0.1301110 -0.42895698  0.93992135 -0.02864184 -0.06420119 -0.07617737
-[4,]  0.0864555  0.09972612 -0.02864184  0.99416327  0.02872063  0.03501679
-[5,]  0.1525306  0.58488160 -0.06420119  0.02872063  1.64185780  0.01837804
-[6,]  0.1265350 -0.05541112 -0.07617737  0.03501679  0.01837804  0.44752988
-  Number of points (sum of weights):  307.9714 
+          [,1]        [,2]       [,3]
+[1,] 0.8496890  4.53978778 0.01344090
+[2,] 4.5397878 33.51962628 0.07652022
+[3,] 0.0134409  0.07652022 0.23095281
+  Number of points (sum of weights):  245.1377 
 
 Number of points (rounded weights) in intersection of representative FPCs
      [,1] [,2] [,3] [,4] [,5]
-[1,]   28    0    0    0   24
-[2,]    0   62    0    0   54
-[3,]    0    0   83   82   82
-[4,]    0    0   82  204  204
-[5,]   24   54   82  204  308
+[1,]   38    0    0    0    0
+[2,]    0   74    0    0   54
+[3,]    0    0   88   88   88
+[4,]    0    0   88  183  182
+[5,]    0   54   88  182  245
 
-fixmhl> x <- c(1, 2, 3, 6, 6, 7, 8, 120)
+fixmhl> cff0 <- fpclusters(ff0)
 
-fixmhl> ff8 <- fixmahal(x)
+fixmhl> plot(face, col = 1 + cff0[[1]])
 
-fixmhl> summary(ff8)
-  *  Mahalanobis Fixed Point Clusters  *
+fixmhl> plot(face, col = 1 + cff0[[4]])
 
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  fuzzy  was used.
-Number of representative FPCs:  2 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-0  iteration runs led to  0  skipped clusters.
-  Weight 1 for r^2<=  2.705543  weight 0 for r^2>  6.634897  
-  Constant ca=  2.705543  corresponding to alpha=  0.9 
-
- FPC  1 
-  Times found (group members):  4 
-  Ratio to size:  1 
-  Mean:
-[1] 6.75
-  Covariance matrix:
-       [,1]
-[1,] 0.6875
-  Number of points (sum of weights):  4 
-
- FPC  2 
-  Times found (group members):  5 
-  Ratio to size:  0.7142857 
-  Mean:
-[1] 4.714286
-  Covariance matrix:
-         [,1]
-[1,] 6.204082
-  Number of points (sum of weights):  7 
-
-Number of points (rounded weights) in intersection of representative FPCs
-     [,1] [,2]
-[1,]    4    4
-[2,]    4    7
-
-fixmhl> ff9 <- fixmahal(x, mnc = 3, startn = 3)
-
-fixmhl> summary(ff9)
-  *  Mahalanobis Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs.
-
-Method  fuzzy  was used.
-Number of representative FPCs:  3 
-
-FPCs with less than   points were skipped.
-FPCs with ratio of times found to number of points less than  0.1  were skipped.
-0  iteration runs led to  0  skipped clusters.
-  Weight 1 for r^2<=  2.705543  weight 0 for r^2>  6.634897  
-  Constant ca=  2.705543  corresponding to alpha=  0.9 
-
- FPC  1 
-  Times found (group members):  4 
-  Ratio to size:  1.333333 
-  Mean:
-[1] 6.333333
-  Covariance matrix:
-          [,1]
-[1,] 0.2222222
-  Number of points (sum of weights):  3 
-
- FPC  2 
-  Times found (group members):  3 
-  Ratio to size:  1 
-  Mean:
-[1] 2
-  Covariance matrix:
-          [,1]
-[1,] 0.6666667
-  Number of points (sum of weights):  3 
-
- FPC  3 
-  Times found (group members):  2 
-  Ratio to size:  0.2857143 
-  Mean:
-[1] 4.714286
-  Covariance matrix:
-         [,1]
-[1,] 6.204082
-  Number of points (sum of weights):  7 
-
-Number of points (rounded weights) in intersection of representative FPCs
-     [,1] [,2] [,3]
-[1,]    3    0    3
-[2,]    0    3    3
-[3,]    3    3    7
+fixmhl> plot(ff0, face, 4)
 > example(fixreg)
 
-fixreg> set.seed(1000)
+fixreg> set.seed(190000)
 
 fixreg> data(tonedata)
 
 fixreg> attach(tonedata)
 
-fixreg> tonefix <- fixreg(stretchratio, tuned)
-Iteration run no.  100  of  853 
-Iteration run no.  200  of  853 
-Iteration run no.  300  of  853 
-Iteration run no.  400  of  853 
-Iteration run no.  500  of  853 
-Iteration run no.  600  of  853 
-Iteration run no.  700  of  853 
-Iteration run no.  800  of  853 
+fixreg> tonefix <- fixreg(stretchratio, tuned, mtf = 1, ir = 20)
 
 fixreg> summary(tonefix)
   *  Fixed Point Clusters  *
 
 Often a clear cluster in the data leads to several similar FPCs.
 The summary shows the representative FPCs of groups of similar FPCs,
-which were found at least  3  times.
+which were found at least  1  times.
 
 Constant ca=  10.07010 
 Number of representative FPCs:  3 
 
-FPCs with less than  23  points were skipped.
-13  iterations led to skipped FPCs.
+FPCs with less than  50  points were skipped.
+0  iterations led to skipped FPCs.
 
  FPC  1 
-  Times found (group members):  705 
-  Ratio to estimated expectation:  1.543309 
+  Times found (group members):  17 
+  Ratio to estimated expectation:  1.587200 
   Regression parameters:
  Intercept          X 
 1.90507095 0.04772128 
@@ -1074,17 +251,17 @@ FPCs with less than  23  points were skipped.
   Number of points:  122 
 
  FPC  2 
-  Times found (group members):  128 
-  Ratio to estimated expectation:  1.276183 
+  Times found (group members):  3 
+  Ratio to estimated expectation:  2.082420 
   Regression parameters:
- Intercept          X 
-0.02298716 0.99078534 
-  Error variance:  0.0001996863 
-  Number of points:  74 
+  Intercept           X 
+0.003507292 0.998653704 
+  Error variance:  3.688176e-05 
+  Number of points:  63 
 
  FPC  3 
-  Times found (group members):  7 
-  Ratio to estimated expectation:  0.09886692 
+  Times found (group members):  1 
+  Ratio to estimated expectation:  0.602382 
   Regression parameters:
 Intercept         X 
 0.7941830 0.6018805 
@@ -1093,284 +270,9 @@ Intercept         X
 
 Number of points in intersection of  representative FPCs
      [,1] [,2] [,3]
-[1,]  122   57   61
-[2,]   57   74   58
-[3,]   61   58   66
-
-fixreg> plot(tonefix, stretchratio, tuned, 1)
-
-fixreg> plot(tonefix, stretchratio, tuned, 2)
-
-fixreg> plot(tonefix, stretchratio, tuned, 3, bw = FALSE, 
-    pch = 5)
-
-fixreg> toneclus <- fpclusters(tonefix, stretchratio, tuned)
-
-fixreg> plot(stretchratio, tuned, col = 1 + toneclus[[2]])
-
-fixreg> tonefix2 <- fixreg(stretchratio, tuned, distcut = 1, 
-    mtf = 1, countmode = 50)
-Iteration run no.  50  of  405 
-Iteration run no.  100  of  405 
-Iteration run no.  150  of  405 
-Iteration run no.  200  of  405 
-Iteration run no.  250  of  405 
-Iteration run no.  300  of  405 
-Iteration run no.  350  of  405 
-Iteration run no.  400  of  405 
-
-fixreg> summary(tonefix2)
-  *  Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs,
-which were found at least  1  times.
-
-Constant ca=  10.07010 
-Number of representative FPCs:  11 
-
-FPCs with less than  19  points were skipped.
-6  iterations led to skipped FPCs.
-
- FPC  1 
-  Times found (group members):  209 
-  Ratio to estimated expectation:  0.9636161 
-  Regression parameters:
- Intercept          X 
-1.90507095 0.04772128 
-  Error variance:  0.002815126 
-  Number of points:  122 
-
- FPC  2 
-  Times found (group members):  127 
-  Ratio to estimated expectation:  0.3265548 
-  Regression parameters:
-Intercept         X 
-1.4007163 0.3043854 
-  Error variance:  0.04101127 
-  Number of points:  148 
-
- FPC  3 
-  Times found (group members):  36 
-  Ratio to estimated expectation:  0.7559614 
-  Regression parameters:
- Intercept          X 
-0.02298716 0.99078534 
-  Error variance:  0.0001996863 
-  Number of points:  74 
-
- FPC  4 
-  Times found (group members):  12 
-  Ratio to estimated expectation:  0.4113423 
-  Regression parameters:
-  Intercept           X 
-0.003507292 0.998653704 
-  Error variance:  3.688176e-05 
-  Number of points:  63 
-
- FPC  5 
-  Times found (group members):  5 
-  Ratio to estimated expectation:  0.1633586 
-  Regression parameters:
-  Intercept           X 
-0.002199219 0.999117278 
-  Error variance:  4.315434e-05 
-  Number of points:  64 
-
- FPC  6 
-  Times found (group members):  3 
-  Ratio to estimated expectation:  0.06847256 
-  Regression parameters:
- Intercept          X 
-0.01619272 0.99344279 
-  Error variance:  0.0001499116 
-  Number of points:  72 
-
- FPC  7 
-  Times found (group members):  2 
-  Ratio to estimated expectation:  0.05683058 
-  Regression parameters:
-Intercept         X 
-0.8072335 0.5947268 
-  Error variance:  0.001274263 
-  Number of points:  67 
-
- FPC  8 
-  Times found (group members):  2 
-  Ratio to estimated expectation:  0.05949452 
-  Regression parameters:
-Intercept         X 
-0.7941830 0.6018805 
-  Error variance:  0.001118718 
-  Number of points:  66 
-
- FPC  9 
-  Times found (group members):  1 
-  Ratio to estimated expectation:  0.002624497 
-  Regression parameters:
-Intercept         X 
-1.4307290 0.2884666 
-  Error variance:  0.03860368 
-  Number of points:  147 
-
- FPC  10 
-  Times found (group members):  1 
-  Ratio to estimated expectation:  0.02598073 
-  Regression parameters:
- Intercept          X 
-0.00875143 0.99621217 
-  Error variance:  9.303602e-05 
-  Number of points:  69 
-
- FPC  11 
-  Times found (group members):  1 
-  Ratio to estimated expectation:  0.02716168 
-  Regression parameters:
-  Intercept           X 
-0.008245679 0.996656867 
-  Error variance:  8.112243e-05 
-  Number of points:  68 
-
-Number of points in intersection of  representative FPCs
-      [,1] [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10] [,11]
- [1,]  122  122   57   46   47   55   62   61  122    52    51
- [2,]  122  148   73   62   63   71   67   66  147    68    67
- [3,]   57   73   74   63   64   72   58   58   72    69    68
- [4,]   46   62   63   63   63   63   47   47   61    63    63
- [5,]   47   63   64   63   64   64   48   48   62    64    64
- [6,]   55   71   72   63   64   72   56   56   70    69    68
- [7,]   62   67   58   47   48   56   67   66   67    53    52
- [8,]   61   66   58   47   48   56   66   66   66    53    52
- [9,]  122  147   72   61   62   70   67   66  147    67    66
-[10,]   52   68   69   63   64   69   53   53   67    69    68
-[11,]   51   67   68   63   64   68   52   52   66    68    68
-
-fixreg> tonefix3 <- fixreg(stretchratio, tuned, ca = 7)
-Iteration run no.  100  of  853 
-Iteration run no.  200  of  853 
-Iteration run no.  300  of  853 
-Iteration run no.  400  of  853 
-Iteration run no.  500  of  853 
-Iteration run no.  600  of  853 
-Iteration run no.  700  of  853 
-Iteration run no.  800  of  853 
-
-fixreg> summary(tonefix3)
-  *  Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs,
-which were found at least  3  times.
-
-Constant ca=  7 
-Number of representative FPCs:  6 
-
-FPCs with less than  23  points were skipped.
-32  iterations led to skipped FPCs.
-
- FPC  1 
-  Times found (group members):  662 
-  Ratio to estimated expectation:  1.485712 
-  Regression parameters:
- Intercept          X 
-1.90519296 0.04703232 
-  Error variance:  0.00261923 
-  Number of points:  121 
-
- FPC  2 
-  Times found (group members):  110 
-  Ratio to estimated expectation:  2.304051 
-  Regression parameters:
-  Intercept           X 
-0.003465378 0.998753102 
-  Error variance:  2.003485e-05 
-  Number of points:  58 
-
- FPC  3 
-  Times found (group members):  37 
-  Ratio to estimated expectation:  0.7355921 
-  Regression parameters:
-Intercept         X 
-0.1928311 0.9049595 
-  Error variance:  0.0001496315 
-  Number of points:  59 
-
- FPC  4 
-  Times found (group members):  6 
-  Ratio to estimated expectation:  0.9551337 
-  Regression parameters:
-  Intercept           X 
-0.002443173 0.999343415 
-  Error variance:  1.935983e-06 
-  Number of points:  30 
-
- FPC  5 
-  Times found (group members):  4 
-  Ratio to estimated expectation:  0.4320235 
-  Regression parameters:
- Intercept          X 
-1.86287238 0.07050633 
-  Error variance:  3.727830e-05 
-  Number of points:  34 
-
- FPC  6 
-  Times found (group members):  3 
-  Ratio to estimated expectation:  0.8430093 
-  Regression parameters:
-Intercept         X 
-0.5151947 0.7427684 
-  Error variance:  1.908485e-05 
-  Number of points:  25 
-
-Number of points in intersection of  representative FPCs
-     [,1] [,2] [,3] [,4] [,5] [,6]
-[1,]  121   41   53   18   34   25
-[2,]   41   58   44   30   12   19
-[3,]   53   44   59   20   14   25
-[4,]   18   30   20   30    6    9
-[5,]   34   12   14    6   34   13
-[6,]   25   19   25    9   13   25
-
-fixreg> subset <- c(rep(FALSE, 5), rep(TRUE, 24), rep(FALSE, 
-    121))
-
-fixreg> tonefix4 <- fixreg(stretchratio, tuned, mtf = 1, ir = 0, 
-    init.group = list(subset))
-
-fixreg> summary(tonefix4)
-  *  Fixed Point Clusters  *
-
-Often a clear cluster in the data leads to several similar FPCs.
-The summary shows the representative FPCs of groups of similar FPCs,
-which were found at least  1  times.
-
-Constant ca=  10.07010 
-Number of representative FPCs:  2 
-
-FPCs with less than  1  points were skipped.
-0  iterations led to skipped FPCs.
-
- FPC  1 
-  Times found (group members):  1 
-  Regression parameters:
-Intercept         X 
-1.4007163 0.3043854 
-  Error variance:  0.04101127 
-  Number of points:  148 
-
- FPC  2 
-  Times found (group members):  1 
-  Regression parameters:
- Intercept          X 
-0.02298716 0.99078534 
-  Error variance:  0.0001996863 
-  Number of points:  74 
-
-Number of points in intersection of  representative FPCs
-     [,1] [,2]
-[1,]  148   73
-[2,]   73   74
-There were 50 or more warnings (use warnings() to see the first 50)
+[1,]  122   46   61
+[2,]   46   63   47
+[3,]   61   47   66
 > example(itnumber)
 
 itnmbr> itnumber(500, 4, 150, 2)
@@ -1389,7 +291,6 @@ mhlnfx> mahalanofix(cbind(x, y), gv = c(0, 0, 0, 1, 1, 1,
 
 mhlnfx> mahalanofix(cbind(x, y), gv = c(0, 0, 0, 1, 1, 1, 
     1, 1, 0, 0), method = "mcd")
-Loading required package: lqs 
 
 mhlnfx> mahalanofuz(cbind(x, y), gv = c(0, 0, 0.5, 0.5, 1, 
     1, 1, 0.5, 0.5, 0))
@@ -1483,25 +384,16 @@ rndcnf> randconf(10, 3)
  [1] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE
 > example(simmatrix)
 
-smmtrx> set.seed(1000)
+smmtrx> set.seed(190000)
 
 smmtrx> data(tonedata)
 
 smmtrx> attach(tonedata)
 
-smmtrx> tonefix <- fixreg(stretchratio, tuned)
-Iteration run no.  100  of  853 
-Iteration run no.  200  of  853 
-Iteration run no.  300  of  853 
-Iteration run no.  400  of  853 
-Iteration run no.  500  of  853 
-Iteration run no.  600  of  853 
-Iteration run no.  700  of  853 
-Iteration run no.  800  of  853 
+smmtrx> tonefix <- fixreg(stretchratio, tuned, mtf = 1, ir = 20)
 
 smmtrx> simmatrix(tonefix)[sseg(2, 3)]
-[1] 58
-There were 50 or more warnings (use warnings() to see the first 50)
+[1] 47
 > example(solvecov)
 
 solvcv> x <- c(1, 0, 0, 1, 0, 1, 0, 0, 1)
@@ -1522,9 +414,9 @@ tdecmp> y <- rnorm(10)
 tdecmp> z <- cov(cbind(x, y))
 
 tdecmp> tdecomp(z)
-           [,1]      [,2]
-[1,] -0.3957165 0.9165623
-[2,]  0.6865547 0.2964130
+          [,1]       [,2]
+[1,] 1.2422312 -0.3487061
+[2,] 0.3295093  1.1738448
 > example(wfu)
 
 wfu> md <- seq(0, 10, by = 0.1)
@@ -1551,48 +443,32 @@ wfu> wfu(md, ca = 5, ca2 = 8)
 
 dscrpr> set.seed(4634)
 
-dscrpr> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+dscrpr> face <- rFace(300, dMoNo = 2, dNoEy = 0, p = 3)
 
 dscrpr> grface <- as.integer(attr(face, "grouping"))
 
 dscrpr> discrproj(face, grface, method = "nc")$units
-            [,1]         [,2]        [,3]         [,4]         [,5]
-[1,] -0.05430766  0.264864922 -0.97229008  0.046120924 -0.002764366
-[2,] -0.40922538 -0.004126885  0.03212026 -0.002573860  0.004768235
-[3,] -0.01159099 -0.075077983 -0.05245081  0.054498959 -0.732197843
-[4,] -0.02442292  0.027448369 -0.01478230  0.271619386  0.716801104
-[5,] -0.01945702 -0.438889570 -0.11181842 -0.001989178  0.015725623
-[6,] -0.03329626  0.014635685 -0.03542714  1.251803528 -0.268466446
-             [,6]
-[1,]  0.003133096
-[2,] -0.005739886
-[3,] -0.692487159
-[4,] -0.675150804
-[5,]  0.006516852
-[6,]  0.252952843
+            [,1]       [,2]        [,3]
+[1,]  0.84359426 1.14608710 -0.02209846
+[2,] -0.33649001 0.27903245 -0.01187219
+[3,] -0.06808816 0.03965075  1.00303099
 
 dscrpr> discrproj(face, grface, method = "wnc")$units
-             [,1]         [,2]         [,3]        [,4]        [,5]        [,6]
-[1,]  0.107588565 -0.999246403 -0.027019356  0.05452344 -0.07058808  0.04290862
-[2,] -0.407632233 -0.032513319 -0.004958429  0.02301978 -0.01180329 -0.02571945
-[3,] -0.014845279 -0.019238739 -0.260963640 -0.66535102 -0.71062554 -0.10378467
-[4,]  0.047658892  0.014366164  0.102056085  0.64369713 -0.49065379 -0.61400130
-[5,] -0.007792531  0.021960503 -0.439756285  0.10342436  0.02942595  0.01756836
-[6,] -0.039728207  0.008295798  0.106029324  0.40250716 -0.69265269  1.02517327
+            [,1]        [,2]         [,3]
+[1,] -0.07433352 1.420772600  0.039179197
+[2,] -0.43725296 0.002745807 -0.005281343
+[3,] -0.03831248 0.001676168 -1.005389819
 
 dscrpr> discrproj(face, grface == 1, method = "arc")$units
-            [,1]        [,2]         [,3]         [,4]         [,5]        [,6]
-[1,]  0.09102443 -0.04807315  0.156747825 -0.004375993 -0.123233935 -0.55853486
-[2,] -0.37128975  0.03459055  0.009074984 -0.022582843  0.002818247  0.01009735
-[3,] -0.15459331  0.13641658 -0.243671105  0.950687697  0.154514780 -0.09727902
-[4,] -0.13913789 -0.03618811 -0.104138002  0.138747539 -0.913284820  0.12548003
-[5,]  0.08405170  0.48419120 -0.044024146 -0.016028356 -0.011263349 -0.01730878
-[6,]  0.06350538  0.26027138  1.196821337  0.339268018  0.021000657  0.08924623
+           [,1]        [,2]        [,3]
+[1,]  1.2952782 -0.50007753 -0.33960121
+[2,] -0.6533164 -0.05164296 -0.08010673
+[3,]  0.0805180  0.66005066 -0.46509088
 > example(ncoord)
 
 ncoord> set.seed(4634)
 
-ncoord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+ncoord> face <- rFace(200, dMoNo = 2, dNoEy = 0, p = 3)
 
 ncoord> grface <- as.integer(attr(face, "grouping"))
 
@@ -1611,18 +487,14 @@ ancord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
 
 ancord> grface <- as.integer(attr(face, "grouping"))
 
-ancord> ancf <- ancoord(face, grface == 1)
-
 ancord> ancf2 <- ancoord(face, grface == 4)
-
-ancord> plot(ancf$proj, col = 1 + (grface == 1))
 
 ancord> plot(ancf2$proj, col = 1 + (grface == 4))
 > example(mvdcoord)
 
 mvdcrd> set.seed(4634)
 
-mvdcrd> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+mvdcrd> face <- rFace(300, dMoNo = 2, dNoEy = 0, p = 3)
 
 mvdcrd> grface <- as.integer(attr(face, "grouping"))
 
@@ -1634,25 +506,26 @@ mvdcrd> plot(mcf$proj, col = grface)
 mhlnds> x <- cbind(rnorm(50), rnorm(50))
 
 mhlnds> mahalanodisc(x, c(0, 0), cov(x))
- [1] 0.7853645 0.9029247 3.0453547 3.1316702 1.5570599 0.9772008 3.7743563
- [8] 0.6250608 3.8815145 3.3659115 0.3289647 2.1538140 0.8448918 0.1180581
-[15] 0.1038401 2.3672358 1.5059937 0.4485766 4.8755633 5.2191409 1.0415590
-[22] 1.5237681 4.5147452 2.0341446 0.7817296 0.5773009 3.8604172 1.0109320
-[29] 0.9062726 5.5169439 0.5994155 1.2125346 1.9166366 0.7328406 4.1198769
-[36] 0.8985834 4.0991743 1.5649241 0.8323982 3.0335201 0.1431493 3.5273882
-[43] 0.5826207 0.6304554 0.0729673 3.7399749 2.3018328 1.2127332 0.6562377
-[50] 4.8317550
+ [1] 1.752739996 3.355701694 1.615350036 3.876778080 2.260527932 0.974627068
+ [7] 1.439599768 4.403967757 4.404140724 0.967717841 5.114622004 0.594395978
+[13] 1.500249405 4.535283437 3.041514903 1.372799825 1.814936043 0.272382965
+[19] 0.405190056 0.136991151 4.126285498 3.144678733 2.158986321 0.300648653
+[25] 1.127232115 0.161730962 3.804493848 1.028796408 1.749850954 1.353834854
+[31] 1.144988315 3.103345280 2.027051599 2.318267715 0.743680996 1.923610615
+[37] 3.196255652 1.745472930 0.088628685 2.969444954 2.407224033 3.288060107
+[43] 0.002262337 0.137664908 2.190792974 0.496892564 6.507558987 0.593724772
+[49] 2.844162023 0.610332239
 
 mhlnds> mahalanodisc(x, c(0, 0), matrix(0, ncol = 2, nrow = 2))
- [1]  4323621807  8349101744 19924508414 26035971233  8912179490  6318435442
- [7] 21263945289  3170689087 35291440676 21020072653  1728209430 10907572381
-[13]  4973202032   775827775   958847167 16777577765 13073819755  4083437229
-[19] 38098265908 32299126073  8996938785 13848843540 32362717364 13117958147
-[25]  7231619087  5308642829 32277313665  5626623952  5176706219 34518381331
-[31]  3311899834  9534983624 12978248421  6440465859 32085772535  6524790601
-[37] 31354018880  8578932171  6466997639 25186460273   863983876 31869576472
-[43]  3043711096  3199350361   550814506 18926943904 12552677026  8047710118
-[49]  5795298954 41116147969
+ [1] 11599051772 33016977993 18749060179 44995427256 19101996725  6024546847
+ [7]  8831487205 28202711347 45490048654  8861346204 46893554628  6505176833
+[13] 16621111452 27630710389 34349618061 15369344770 13585316188  1677134749
+[19]  3028384292   895077936 25139382154 33419517850 24535165929  1987366082
+[25]  9980727570  1698383682 38008268876  7101056763 11380065726 13469379654
+[31] 12602104902 20790730356 20612033653 26757429943  8630029640 18836396352
+[37] 26634923689 14634759760   833784358 22488629721 15694460016 36612310739
+[43]    13783526  1349873692 15245740244  3102497868 51283959377  3761037955
+[49] 26877643390  6995152921
 > example(c.weight)
 
 c.wght> c.weight(4, 1)
@@ -1682,11 +555,7 @@ awcord> grface <- as.integer(attr(face, "grouping"))
 
 awcord> awcf <- awcoord(face, grface == 1)
 
-awcord> awcf2 <- ancoord(face, grface == 1, method = "mcd")
-
 awcord> plot(awcf$proj, col = 1 + (grface == 1))
-
-awcord> plot(awcf2$proj, col = 1 + (grface == 1))
 > example(regmix)
 
 regmix> set.seed(12234)
@@ -1695,24 +564,19 @@ regmix> data(tonedata)
 
 regmix> attach(tonedata)
 
-regmix> rmt1 <- regmix(stretchratio, tuned)
+regmix> rmt1 <- regmix(stretchratio, tuned, nclust = 1:2)
 Iteration  1  for  1  clusters.
 Iteration  1  for  2  clusters.
-Iteration  1  for  3  clusters.
-Iteration  1  for  4  clusters.
-Iteration  1  for  5  clusters.
-Iteration  1  for  6  clusters.
-Iteration  1  for  7  clusters.
 
 regmix> rmt1$g
-  [1] 2 5 5 4 4 5 5 5 5 5 5 5 5 5 6 5 5 5 5 5 5 5 5 2 5 5 5 5 5 5 6 6 6 6 6 1 1
- [38] 6 3 5 6 3 5 6 6 6 5 6 6 6 6 6 5 6 5 2 2 6 6 4 1 6 6 6 6 5 5 5 2 5 5 5 5 5
- [75] 5 6 5 2 5 3 6 6 6 6 2 1 6 3 6 6 6 6 6 6 6 5 5 5 5 5 6 5 5 5 6 5 5 6 6 6 6
-[112] 6 6 6 6 6 6 6 6 6 6 3 6 6 6 1 6 6 6 3 5 5 5 5 4 5 5 3 6 6 6 6 6 6 6 6 2 1
-[149] 6 2
+  [1] 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
+ [38] 2 1 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 1 1 1 2 2 1 2 2 2 2 2 1 2 2 1 2 2 2 2 2
+ [75] 2 2 2 1 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2
+[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2
+[149] 2 1
 
 regmix> rmt1$bic
-[1]   3.732369 247.322353 241.362511 248.598882 248.897335 418.263953 369.814133
+[1]   3.732369 247.322353
 
 regmix> cln <- 3
 
@@ -1761,4 +625,83 @@ rndcmt> randcmatrix(10, 2, 1)
  [8,]    0    1
  [9,]    1    0
 [10,]    1    0
+> example(cluster.stats)
+
+clstr.> set.seed(20000)
+
+clstr.> face <- rFace(200, dMoNo = 2, dNoEy = 0, p = 2)
+
+clstr.> dface <- dist(face)
+
+clstr.> complete3 <- cutree(hclust(dface), 3)
+
+clstr.> cluster.stats(dface, complete3, alt.clustering = as.integer(attr(face, 
+    "grouping")))
+$n
+[1] 200
+
+$cluster.number
+[1] 3
+
+$cluster.size
+[1] 136  60   4
+
+$diameter
+[1] 10.795191  5.756704  9.000000
+
+$average.distance
+[1] 3.032856 2.205095 7.047772
+
+$median.distance
+[1] 2.842125 1.478951 8.321658
+
+$separation
+[1] 5.874239 5.874239 7.222125
+
+$average.toother
+[1] 13.77209 13.02913 20.75148
+
+$separation.matrix
+          [,1]     [,2]      [,3]
+[1,]  0.000000 5.874239 14.975187
+[2,]  5.874239 0.000000  7.222125
+[3,] 14.975187 7.222125  0.000000
+
+$average.between
+[1] 13.72910
+
+$average.within
+[1] 2.901325
+
+$n.between
+[1] 8944
+
+$n.within
+[1] 10956
+
+$clus.avg.silwidths
+        1         2         3 
+0.7522817 0.8179603 0.3548236 
+
+$avg.silwidth
+[1] 0.7640361
+
+$g2
+NULL
+
+$g3
+NULL
+
+$hubertgamma
+[1] 0.8834354
+
+$dunn
+[1] 0.5441534
+
+$wb.ratio
+[1] 0.2113267
+
+$corrected.rand
+[1] 0.345064
+
 > 

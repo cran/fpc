@@ -1,4 +1,14 @@
-# No C-code used.
+.packageName <- "fpc"
+.First.lib <- function(lib,pkg){
+  require(cluster)
+  if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9){
+    require(lqs)
+    require(mva)
+  }
+  else require(MASS)
+}
+  
+
 #
 # generic functions
 #
