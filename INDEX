@@ -1,3 +1,7 @@
+adcoord                 Asymmetric discriminant coordinates
+ancoord                 Asymmetric neighborhood based discriminant
+                        coordinates
+awcoord                 Asymmetric weighted discriminant coordinates
 batcoord                Bhattacharyya discriminant projection
 can                     Generation of the tuning constant for
                         regression fixed point clusters
@@ -8,25 +12,36 @@ cmahal                  Generation of tuning constant for Mahalanobis
 con.comp                Connectivity components of an undirected graph
 cov.wml                 Weighted Covariance Matrices (Maximum
                         Likelihood)
+c.weight                Weight function for AWC
 discrcoord              Discriminant coordinates/canonical variates
+discrproj               Linear dimension reduction for classification
 fixmahal                Mahalanobis Fixed Point Clusters
 fixreg                  Linear Regression Fixed Point Clusters
+fpclusters              Extracting clusters from fixed point cluster
+                        objects
 itnumber                Number of regression fixed point cluster
                         iterations
+mahalanodisc            Mahalanobis for AWC
 mahalanofix             Mahalanobis distances from center of indexed
                         points
 mahalconf               Mahalanobis fixed point clusters initial
                         configuration
 minsize                 Minimum size of regression fixed point cluster
+mvdcoord                Mean/variance differences discriminant
+                        coordinates
+ncoord                  Neighborhood based discriminant coordinates
 plotcluster             Discriminant projection plot.
-rFace                   "Face-shaped" clustered benchmark datasets
+randcmatrix             Random partition matrix
 randconf                Generate a sample indicator vector
+regmix                  Mixture Model ML for Clusterwise Linear
+                        Regression
+rFace                   "Face-shaped" clustered benchmark datasets
 simmatrix               Extracting intersections between clusters from
                         fpc-object
 solvecov                Inversion of (possibly singular) symmetric
                         matrices
 sseg                    Position in a similarity vector
-t.decomp                Root of singularity-corrected eigenvalue
+tdecomp                 Root of singularity-corrected eigenvalue
                         decomposition
 tonedata                Tone perception data
 wfu                     Weight function (for Mahalabobis distances)

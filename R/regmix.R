@@ -24,7 +24,8 @@ randcmatrix <- function (n,cln,p){
 # output: coef=regression coefficients, var=residual variances, eps=cluster 
 # proportions, z=posterior probabilities, loglik= loglikelihood, warn= T
 # if too small or collinear cluster 
-emiteration <- function (indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6) {
+regem <- function (indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6,
+                         warnings=FALSE) {
   n <- length(dep)
   p <- ncol(as.matrix(indep))
   loglik <- (-1.e8)
@@ -42,7 +43,7 @@ emiteration <- function (indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6) {
     for(i in 1:cln){
       eps[i] <- sum(m[,i])/n
       if (sum(m[,i]>0.01) < p+2){
-        warning("Too small cluster")
+        if (warnings) warning("Too small cluster")
         smallcluster <- TRUE
       } # if too small cluster
       else{
@@ -53,13 +54,13 @@ emiteration <- function (indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6) {
         for (j in 2:(p+1))
           if (is.na(rc[j,i])){
             smallcluster <- TRUE
-            warning("Collinear regressors")
+            if (warnings) warning("Collinear regressors")
           } # if collinearity
         res <- residuals(reg)
         rv[i] <- weighted.mean(res^2,m[,i])
         if (rv[i]<minsig){
           rv[i] <- minsig
-          warning("Error variance smaller than minimum.")
+          if (warnings) warning("Error variance smaller than minimum.")
         } # if error variance below minimum
       } # else (cluster large enough)
     } # for i
@@ -85,7 +86,7 @@ emiteration <- function (indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6) {
   out <- list(coef=rc, vars=rv, z=m, g=g, eps=eps, loglik=loglik,
               warn=smallcluster)
   out
-} # emiteration     
+} # regem     
 
 
 
@@ -93,7 +94,8 @@ emiteration <- function (indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6) {
 # ir=iteration runs, nclust= cluster numbers vector, icrit=iteration stopping 
 # criterion, minsig = minimum error variance
 regmix <- function (indep, dep,
-                    ir=1, nclust=1:7, icrit=1.e-5, minsig=1.e-6){
+                    ir=1, nclust=1:7, icrit=1.e-5, minsig=1.e-6,
+                    warnings=FALSE){
   n <- length(dep)
   p <- ncol(as.matrix(indep))
   clnopt <- min(nclust)
@@ -109,11 +111,11 @@ regmix <- function (indep, dep,
   for (cln in nclust){
     for (i in 1:ir){
       cat("Iteration ",i," for ",cln," clusters.\n")
-      emi <- emiteration(indep, dep, m=randcmatrix(n,cln,p), cln=cln,
-                         icrit=icrit, minsig=minsig)
+      emi <- regem(indep, dep, m=randcmatrix(n,cln,p), cln=cln,
+                         icrit=icrit, minsig=minsig, warnings=warnings)
       if (emi$warn)   
-        emi <- emiteration(indep, dep, m=randcmatrix(n,cln,p), cln=cln,
-                           icrit=icrit, minsig=minsig)
+        emi <- regem(indep, dep, m=randcmatrix(n,cln,p), cln=cln,
+                           icrit=icrit, minsig=minsig, warnings=warnings)
       if (!emi$warn){
         bicval <- 2*emi$loglik - log(n)*((p+3)*cln-1)
         if (bicval > clbic[cln])

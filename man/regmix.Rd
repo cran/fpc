@@ -1,6 +1,6 @@
 \name{regmix}
 \alias{regmix}
-\alias{emiteration}
+\alias{regem}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Mixture Model ML for Clusterwise Linear Regression}
 \description{
@@ -13,9 +13,9 @@
   (BIC).
 }
 \usage{
-regmix(indep, dep, ir=1, nclust=1:7, icrit=1.e-5, minsig=1.e-6)
+regmix(indep, dep, ir=1, nclust=1:7, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
 
-emiteration(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6) 
+regem(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6, warnings=FALSE) 
 
 }
 %- maybe also `usage' for other objects documented here.
@@ -32,6 +32,13 @@ emiteration(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6)
   \item{minsig}{positive numerical. Minimum value for the variance
     parameters (likelihood is unbounded if variances are allowed to
     converge to 0).}
+  \item{warnings}{logical. If \code{TRUE}, warnings are given during the
+    EM iteration in case of collinear regressors, too small mixture
+    components and error variances
+    smaller than minimum. In the former two cases, the algorithm is
+    terminated without a result, but an optimal solution is still
+    computed from other algorithm runs (if there are others). In the
+    latter case, the corresponding variance is set to the minimum.}
   \item{cln}{positive integer. (Single) number of clusters.}
   \item{m}{matrix of positive numericals. Number of columns must be
     \code{cln}. Number of rows must be number of data points. Columns
@@ -42,9 +49,9 @@ emiteration(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6)
 \details{
   The result of the EM iteration depends on the initial configuration,
   which is generated randomly by \code{\link{randcmatrix}} for \code{regmix}.
-  \code{regmix} calls \code{emiteration}. To provide the initial configuration
+  \code{regmix} calls \code{regem}. To provide the initial configuration
   manually, use parameter \code{m} of
-  \code{emiteration} directly. Take a look at the example about how to
+  \code{regem} directly. Take a look at the example about how to
   generate \code{m} if you want to specify initial parameters.
 
   The original paper DeSarbo and Cron (1988) suggests the AIC for
@@ -52,13 +59,16 @@ emiteration(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6)
   Wedel and DeSarbo (1995). The BIC is defined here as
   \code{2*loglik - log(n)*((p+3)*cln-1)}, \code{p} being the number of
   independent variables, i.e., the larger the better.
+
+  See the entry for the input parameter \code{warnings} for the
+  treatment of several numerical problems.
 }
 \value{
   \code{regmix} returns a list
   containing the components \code{clnopt, loglik, bic,
     coef, var, eps, z, g}.
 
-  \code{emiteration}  returns a list
+  \code{regem}  returns a list
   containing the components \code{loglik, 
     coef, var, z, g, warn}.
   
@@ -93,7 +103,7 @@ emiteration(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6)
 \seealso{
 \code{\link{fixreg}} for fixed point clusters for clusterwise linear regression.
 
-\code{\link{EMclust}} for Normal mixture model fitting (non-regression).
+\code{\link[mclust]{EMclust}} for Normal mixture model fitting (non-regression).
 }
 \examples{
 set.seed(12234)
@@ -123,7 +133,7 @@ for (i in 1:cln)
     for (i in 1:cln)
       m[j,i] <- m[j,i]/stm[j]
   } 
-rmt2 <- emiteration(stretchratio, tuned, m, cln)
+rmt2 <- regem(stretchratio, tuned, m, cln)
 rmt2bic <- 2*rmt2$loglik - log(150)*(4*cln-1)
 rmt2bic
 }

@@ -1,7 +1,7 @@
 Package: fpc
 Title: Fixed point clusters, clusterwise regression and discriminant plots
-Version: 1.0
-Date: 2002-07-12
+Version: 1.0-1
+Date: 2003-06-30
 Author: Christian Hennig <hennig@math.uni-hamburg.de>
 Depends: R (>= 1.5), lqs
 Description: Fuzzy and crisp fixed point cluster analysis 

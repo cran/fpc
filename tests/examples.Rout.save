@@ -1738,7 +1738,7 @@ regmix> for (j in 1:n) {
     for (i in 1:cln) m[j, i] <- m[j, i]/stm[j]
 }
 
-regmix> rmt2 <- emiteration(stretchratio, tuned, m, cln)
+regmix> rmt2 <- regem(stretchratio, tuned, m, cln)
 
 regmix> rmt2bic <- 2 * rmt2$loglik - log(150) * (4 * cln - 
     1)

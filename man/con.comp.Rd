@@ -3,7 +3,7 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Connectivity components of an undirected graph}
 \description{
-  Computer the connectivity components of an undirected graph from a
+  Computes the connectivity components of an undirected graph from a
   matrix giving the edges.
 }
 \usage{
