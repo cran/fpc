@@ -122,11 +122,11 @@ cov.wml <- function (x, wt = rep(1/nrow(x), nrow(x)),
 solvecov <- function(m, cmax=1e10){
   options(show.error.messages = FALSE)
   covinv <- try(solve(m))
-  if(is.null(class(covinv)))
-     coll=FALSE
-  else{
+  if(class(covinv)!="try-error")
+     coll=FALSE 
+  else{ 
     p <- nrow(m)
-    cove <- La.eigen(m, symmetric=TRUE)
+    cove <- eigen(m, symmetric=TRUE)
     coll <- TRUE
     if (min(cove$values)<1/cmax){
       covewi <- diag(p)
@@ -184,7 +184,9 @@ mahalanofix <- function (x, n=nrow(as.matrix(x)), p=ncol(as.matrix(x)),
       covg <- cov(xg)
   }
   else{
-    require(lqs)
+    if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
+      require(lqs)
+    else require(MASS)
     grob <- cov.rob(xg, method=method)
     mg <- grob$center
     covg <- grob$cov
@@ -585,7 +587,6 @@ fixmahal <- function (dat, n=nrow(as.matrix(dat)), p=ncol(as.matrix(dat)),
                 pointit=pointit, subset=subset, 
                 mnc=mnc, startn=startn, mer=mer, distcut=distcut)
   class(out) <- "mfpc"
-# print ("fixreg ende")
   out   
 }
 
@@ -619,7 +620,7 @@ summary.mfpc <- function(object, ...){
               ser=expectratio, 
               tskip=tskip, skc=object$skc, tsc=object$tsc, sim=sim, 
               ca=ca, ca2=object$ca2, calpha=object$calpha,
-              mer=object$mer,
+              mer=object$mer, mnc=object$mnc,
               method=method, cgen=object$cgen,
               pointit=object$pointit)
   class(out) <- "summary.mfpc"
@@ -718,7 +719,7 @@ plot.mfpc <- function(x, dat, no, bw=FALSE,
         plot(dat,col=col, pch=pch, main=main, xlab=xlab, ylab=ylab, ...)
         points(as.vector(mg[1]),as.vector(mg[2]),pch="M",
                  col=ifelse(bw, col, "blue"), ...)
-        cge <- La.eigen(covg, symmetric=TRUE)
+        cge <- eigen(covg, symmetric=TRUE)
         poly <- rep(0, times=200)
         dim(poly) <- c(100,2)
         for(i in 1:100)

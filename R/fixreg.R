@@ -190,7 +190,7 @@ fixreg <- function (indep=rep(1,n), dep, n=length(dep),
     if(!fpc$coll){
       j <- 1
       while(j<=nc) {
-        if ((clist[[j]]==fpc$coef) & (vlist[[j]]==fpc$var)) {
+        if (identical(clist[[j]],fpc$coef) & identical(vlist[[j]],fpc$var)) {
           neu <- FALSE
           cnum <- j
         }          # if j found
@@ -250,7 +250,7 @@ fixreg <- function (indep=rep(1,n), dep, n=length(dep),
       if(!fpc$coll){
         cnum <- nc +1
         for (j in 1:nc) {
-          if ((clist[[j]]==fpc$coef) & (vlist[[j]]==fpc$var)) {
+          if (identical(clist[[j]],fpc$coef) & identical(vlist[[j]],fpc$var)) {
             neu <- FALSE
             cnum <- j
           }         # if j found
@@ -384,7 +384,7 @@ summary.rfpc <- function(object, ...){
 
 fpclusters.rfpc <- function(object, indep=NA, dep=NA, ca=object$ca, ...){
   glist <- list()
-  if (is.na(indep) & !is.na(dep))
+  if (identical(indep,NA) & !identical(dep,NA))
     indep <- rep(1,n)
 # cat("stn= ",object$stn,"\n")
   if(object$stn>0)

@@ -91,9 +91,9 @@ awcoord(xd, clvecd, clnum=1, mahal="square", method="classical",
   face <- rFace(600,dMoNo=2,dNoEy=0)
   grface <- as.integer(attr(face,"grouping"))
   awcf <- awcoord(face,grface==1)
-  awcf2 <- ancoord(face,grface==1, method="mcd")
+  # awcf2 <- ancoord(face,grface==1, method="mcd")
   plot(awcf$proj,col=1+(grface==1))
-  plot(awcf2$proj,col=1+(grface==1))
+  # plot(awcf2$proj,col=1+(grface==1))
   # ...done in one step by function plotcluster.
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS

@@ -3,16 +3,17 @@ ancoord                 Asymmetric neighborhood based discriminant
                         coordinates
 awcoord                 Asymmetric weighted discriminant coordinates
 batcoord                Bhattacharyya discriminant projection
+c.weight                Weight function for AWC
 can                     Generation of the tuning constant for
                         regression fixed point clusters
 clusexpect              Expected value of the number of times a fixed
                         point cluster is found
+cluster.stats           Cluster validation statistics
 cmahal                  Generation of tuning constant for Mahalanobis
                         fixed point clusters.
 con.comp                Connectivity components of an undirected graph
 cov.wml                 Weighted Covariance Matrices (Maximum
                         Likelihood)
-c.weight                Weight function for AWC
 discrcoord              Discriminant coordinates/canonical variates
 discrproj               Linear dimension reduction for classification
 fixmahal                Mahalanobis Fixed Point Clusters
@@ -31,11 +32,11 @@ mvdcoord                Mean/variance differences discriminant
                         coordinates
 ncoord                  Neighborhood based discriminant coordinates
 plotcluster             Discriminant projection plot.
+rFace                   "Face-shaped" clustered benchmark datasets
 randcmatrix             Random partition matrix
 randconf                Generate a sample indicator vector
 regmix                  Mixture Model ML for Clusterwise Linear
                         Regression
-rFace                   "Face-shaped" clustered benchmark datasets
 simmatrix               Extracting intersections between clusters from
                         fpc-object
 solvecov                Inversion of (possibly singular) symmetric

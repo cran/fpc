@@ -27,7 +27,7 @@ solvecov(m, cmax = 1e+10)
   \email{hennig@math.uni-hamburg.de}
   \url{http://www.math.uni-hamburg.de/home/hennig/}}
 
-\seealso{\code{\link{solve}}, \code{\link{La.eigen}}}
+\seealso{\code{\link{solve}}, \code{\link{eigen}}}
 
 \examples{
   x <- c(1,0,0,1,0,1,0,0,1)

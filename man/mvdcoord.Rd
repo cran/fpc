@@ -57,7 +57,7 @@ mvdcoord(xd, clvecd, clnum=1, sphere="mcd", ...)
 
 \examples{
   set.seed(4634)
-  face <- rFace(600,dMoNo=2,dNoEy=0)
+  face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
   grface <- as.integer(attr(face,"grouping"))
   mcf <- mvdcoord(face,grface)
   plot(mcf$proj,col=grface)

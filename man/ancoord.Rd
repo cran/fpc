@@ -72,9 +72,7 @@ ancoord(xd, clvecd, clnum=1, nn=50, method="mcd", countmode=1000, ...)
   set.seed(4634)
   face <- rFace(600,dMoNo=2,dNoEy=0)
   grface <- as.integer(attr(face,"grouping"))
-  ancf <- ancoord(face,grface==1)
   ancf2 <- ancoord(face,grface==4)
-  plot(ancf$proj,col=1+(grface==1))
   plot(ancf2$proj,col=1+(grface==4))
   # ...done in one step by function plotcluster.
 }

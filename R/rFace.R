@@ -1,3 +1,124 @@
+# d is a distance object or matrix, clustering is assumed to be numbered
+# 1 to clusternumber
+# If alt.clustering is another clustering, the corrected rand index will
+# be computed.
+# silhouette, G2 and G3 indicate if the corresponding statistics are
+# computed. Silhouette requires library cluster, G2 and G3 may take very long
+# for large n.
+cluster.stats <- function(d,clustering,alt.clustering=NULL,
+                          silhouette=TRUE,G2=FALSE,G3=FALSE){
+  if (silhouette) require(cluster)
+  cn <- max(clustering)
+  n <- length(clustering)
+  dmat <- as.matrix(d)
+  diameter <- average.distance <- median.distance <- separation <-
+    average.toother <- 
+    cluster.size <- within.dist <- between.dist <- numeric(0)
+  separation.matrix <- matrix(0,ncol=cn,nrow=cn)
+  di <- list()
+  for (i in 1:cn){
+    cluster.size[i] <- sum(clustering==i)
+    di <- as.dist(dmat[clustering==i,clustering==i])
+    within.dist <- c(within.dist,di)
+    diameter[i] <- max(di)
+    average.distance[i] <- mean(di)
+    median.distance[i] <- median(di)
+    bv <- numeric(0)
+    for (j in 1:cn){
+      if (j!=i){
+        sij <- dmat[clustering==i,clustering==j]
+        bv <- c(bv,sij)
+        if (i<j){
+          separation.matrix[i,j] <- separation.matrix[j,i] <- min(sij)
+          between.dist <- c(between.dist,sij)
+        }
+      }
+    }
+    separation[i] <- min(bv)
+    average.toother[i] <- mean(bv)
+  }
+  average.between <- mean(between.dist)
+  average.within <- mean(within.dist)
+  nwithin <- length(within.dist)
+  nbetween <- length(between.dist)
+  clus.avg.widths <- avg.width <- NULL
+  if (silhouette){
+    sc <- summary(silhouette(clustering,dmatrix=dmat))
+    clus.avg.widths <- sc$clus.avg.widths
+    avg.width <- sc$avg.width
+  }
+  g2 <- g3 <- corrected.rand <- cn2 <- NULL
+  if (G2){
+    splus <- sminus <- 0
+    for (i in 1:nwithin)
+      for (j in 1:nbetween){
+        if (within.dist[i]<between.dist[j]) splus <- splus+1
+        if (within.dist[i]>between.dist[j]) sminus <- sminus+1
+      }
+    g2 <- (splus-sminus)/(splus+sminus)
+  }
+  if (G3){
+    sdist <- sort(c(within.dist,between.dist))
+    sr <- nwithin+nbetween
+    dmin <- sum(sdist[1:nwithin])
+    dmax <- sum(sdist[(sr-nwithin+1):sr])
+    g3 <- (sum(within.dist)-dmin)/(dmax-dmin)
+  }
+  if (!is.null(alt.clustering)){
+    choose2 <- function(v){
+      out <- numeric(0)
+      for (i in 1:length(v))
+        out[i] <- ifelse(v[i]>=2,choose(v[i],2),0)
+      out
+    }
+    cn2 <- max(alt.clustering)
+    nij <- table(clustering,alt.clustering)
+    dsum <- sum(choose2(nij))
+    cs2 <- numeric(0)
+    for (i in 1:cn2)
+      cs2[i] <- sum(alt.clustering==i)
+    sum1 <- sum(choose2(cluster.size))
+    sum2 <- sum(choose2(cs2))
+    corrected.rand <- (dsum-sum1*sum2/choose2(n))/
+      ((sum1+sum2)/2-sum1*sum2/choose2(n))
+  }
+  hubertgamma <- cor(c(within.dist,between.dist),c(rep(0,nwithin),
+                                                   rep(1,nbetween)))
+  dunn <- min(as.dist(separation))/max(diameter)
+  out <- list(n=n,
+              cluster.number=cn,
+              cluster.size=cluster.size, # vector of cluster sizes
+              diameter=diameter, # vector of cluster diameters
+              average.distance=average.distance,
+                                        # vector of within cl. av. dist.
+              median.distance=median.distance,
+                                        # vector of within cl. median dist.
+              separation=separation, # vector of min. clusterwise between dist.
+              average.toother=average.toother, 
+                                     # vector of mean clusterwise between dist.
+              separation.matrix=separation.matrix,
+                                     # clusterwise matrix of min. between dist.
+              average.between=average.between, # mean between cl. distance
+              average.within=average.within, # mean within cl. distance
+              n.between=nbetween, # number of between cl. distances
+              n.within=nwithin, # number of within cl. distances
+              clus.avg.silwidths=clus.avg.widths,
+                                # vector of cluster avg. silhouette widths
+              avg.silwidth=avg.width, # average silhouette width
+              g2=g2, # Goodman and Kruskal coefficient, see Gordon p. 62
+              g3=g3, # G3 index, see Gordon p. 62
+              hubertgamma=hubertgamma, # Correlation between distances and
+                                        # 0-1-vector same/different cluster
+              dunn=dunn, # Dunn index, see Halkidi et al. (2002)
+                         # Min. sepatation / max. diameter
+              wb.ratio=average.within/average.between,
+              corrected.rand=corrected.rand) # Corrected rand index between
+                                        # clustering and alt.clustering
+#  class(out) <- "cluster.stats"
+  out
+}
+
+
 #
 # face benchmark dataset by M. Maechler and C. Hennig
 #

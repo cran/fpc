@@ -9,7 +9,9 @@ ncoord <- function(xd, clvecd, nn=50, weighted=FALSE,
     sphere <- "matrix"
   }
   if (sphere!="none"){
-    require(lqs)
+    if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
+      require(lqs)
+    else require(MASS)
     if (sphere=="matrix")
       Sig <- cv
     else
@@ -58,7 +60,7 @@ ncoord <- function(xd, clvecd, nn=50, weighted=FALSE,
     B <- B+Bi
   }
   B <- B/n
-  em <- La.eigen(B, symmetric=TRUE)
+  em <- eigen(B, symmetric=TRUE)
   units <- em$vectors
   if (sphere!="none")
     units <- Y %*% units
@@ -70,7 +72,9 @@ ncoord <- function(xd, clvecd, nn=50, weighted=FALSE,
 # nearest neighbor pooled linear dimension reduction 
 ancoord <- function(xd, clvecd, clnum=1, nn=50, method="mcd",
                     countmode=1000, ...){
-  require(lqs)
+  if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
+      require(lqs)
+  else require(MASS)
   x <- as.matrix(xd)
   p <- ncol(x)
   n <- nrow(x)
@@ -121,7 +125,7 @@ ancoord <- function(xd, clvecd, clnum=1, nn=50, method="mcd",
   Tm <- tdecomp(S1)
   Tinv <- solve(Tm)
   Z <- t(Tinv) %*% B %*% Tinv
-  dc <- La.eigen(Z, symmetric=TRUE)
+  dc <- eigen(Z, symmetric=TRUE)
   units <- Tinv %*% dc$vectors
   proj <- x %*% units    
   list(ev=dc$values, units=units, proj=proj, nn=nn)
@@ -136,9 +140,10 @@ mvdcoord <- function(xd, clvecd, clnum=1, sphere="mcd", ...){
     cv <- sphere
     sphere="matrix"
   }
-  require(lqs)
+  if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
+      require(lqs)
+  else require(MASS)
   if (sphere!="none"){
-    require(lqs)
     if (sphere=="matrix")
       Sig <- cv
     else
@@ -165,7 +170,7 @@ mvdcoord <- function(xd, clvecd, clnum=1, sphere="mcd", ...){
     vardiff <- cbind(vardiff,vx[[i]]-vx[[1]])
   }
   M <- cbind(meandiff,vardiff)
-  em <- La.eigen(M %*% t(M), symmetric=TRUE)
+  em <- eigen(M %*% t(M), symmetric=TRUE)
   units <- em$vectors
   if (sphere!="none")
     units <- Y %*% units
@@ -217,7 +222,7 @@ adcoord <- function(xd, clvecd, clnum=1) {
   Tm <- tdecomp(S1)
   Tinv <- solve(Tm)
   Z <- t(Tinv) %*% B %*% Tinv
-  dc <- La.eigen(Z, symmetric=TRUE)
+  dc <- eigen(Z, symmetric=TRUE)
   units <- Tinv %*% dc$vectors
   proj <- x %*% units    
   list(ev=dc$values, units=units, proj=proj)
@@ -237,7 +242,9 @@ awcoord <- function(xd, clvecd, clnum=1, mahal="square", method="classical",
                      clweight=switch(method,classical=FALSE,TRUE), alpha=0.99,
                      subsample=0, countmode=1000, ...) {
   x <- as.matrix(xd)
-  require(lqs)
+  if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
+      require(lqs)
+  else require(MASS)
   n <- nrow(x)
   p <- ncol(x)
   dcl <- as.integer(clnum)
@@ -306,7 +313,7 @@ awcoord <- function(xd, clvecd, clnum=1, mahal="square", method="classical",
   Tm <- tdecomp(S1)
   Tinv <- solve(Tm)
   Z <- t(Tinv) %*% B %*% Tinv
-  dc <- La.eigen(Z, symmetric=TRUE)
+  dc <- eigen(Z, symmetric=TRUE)
   units <- Tinv %*% dc$vectors
   proj <- x %*% units    
   list(ev=dc$values, units=units, proj=proj, wg=wg)

@@ -26,7 +26,7 @@
 fixmahal(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)), 
                       method = "fuzzy", cgen = "fixed",
                       ca = NA, ca2 = NA,
-                      calpha = ifelse(method=="fuzzy",0.9,0.95),
+                      calpha = ifelse(method=="fuzzy",0.9,0.99),
                       calpha2 = 0.99,
                       pointit = TRUE, subset = n,
                       mnc = min(floor(n/2),10+2*p), nc1 = 100+20*p,
@@ -40,6 +40,8 @@ fixmahal(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
 
 \method{summary}{mfpc}(object, ...)
 
+\method{print}{summary.mfpc}(x, maxnc=30, ...)
+
 \method{plot}{mfpc}(x, dat, no, bw=FALSE, main=c("Representative FPC No. ",no),
                     xlab=NULL, ylab=NULL,
                     pch=NULL, col=NULL, ...)
@@ -47,7 +49,7 @@ fixmahal(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
 \method{fpclusters}{mfpc}(object, dat=NA, ca=object$ca, p=object$p, ...)
 
 fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
-                  gv, ca, ca2, method = "classical", plot,
+                  gv, ca, ca2, method = "ml", plot,
                   maxit = 5*n, iter = n*1e-6) 
 }
 %- maybe also `usage' for other objects documented here.
@@ -142,7 +144,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     vectors of found FPCs are given in the value of \code{fixmahal}.
     May need lots of memory, but is a bit faster.}
   \item{countmode}{optional positive integer. Every \code{countmode}
-    algorithm runs \code{fixreg} shows a message.}
+    algorithm runs \code{fixmahal} shows a message.}
   \item{plot}{optional string. If \code{"start"}, you get a scatterplot
     of the first two variables to highlight the initial configuration,
     \code{"iteration"} generates such a plot at each iteration,
@@ -150,7 +152,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     The default is \code{"none"}.}
   \item{object}{object of class \code{mfpc}, output of \code{fixmahal}.}
   \item{x}{object of class \code{mfpc}, output of \code{fixmahal}.}
-  \item{maxnc}{optional positive integer. Maximum number of FPCs
+  \item{maxnc}{positive integer. Maximum number of FPCs
     to be reported.}
   \item{no}{positive integer. Number of the representative FPC to
     be plotted.}
@@ -191,7 +193,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
   in between.\cr
   A fixed point algorithm is started from the whole dataset,
   algorithms are started from the subsets specified in
-  \code{init.group}, and further algorithms are strated from further
+  \code{init.group}, and further algorithms are started from further
   initial configurations as explained under \code{subset} and in the
   function \code{\link{mahalconf}}. \cr
   Usually some of the FPCs are unstable, and more than one FPC may
@@ -217,7 +219,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
   includes \code{fixmahal} for \code{p=1}.  See also Hennig and
   Christlieb (2002). \cr
   Generally, the default settings are recommended for
-  \code{fixreg}. For large datasets, the use of
+  \code{fixmahal}. For large datasets, the use of
   \code{init.group} together with \code{pointit=FALSE}
   is useful. Occasionally, \code{mnc} and \code{startn} may be chosen
   smaller than the default,
@@ -365,49 +367,54 @@ for computation of initial configurations, weights, tuning constants.
 computed by \code{fixmahal}.
 
 \code{\link{batcoord}}, \code{\link{cov.rob}}, \code{\link{solvecov}},
-\code{\link{cov.wml}} for computation of projections, (inverted)
-covariance matrices.
+\code{\link{cov.wml}}, \code{\link{plotcluster}}
+for computation of projections, (inverted)
+covariance matrices, plotting.
 
 \code{\link{rFace}} for generation of example data, see below.
 }
 \examples{
   set.seed(20000)
-  face <- rFace(400,dMoNo=2,dNoEy=0,p=3)
-  ff1 <- fixmahal(face)
-  # Executions of fixmahal may need some patience
-  summary(ff1)
-  cff1 <- fpclusters(ff1)
-  plot(face, col=1+cff1[[1]])
-  plot(face, col=1+cff1[[6]]) # Why does this come out as a cluster? 
-  plot(ff1, face, 6) # A bit clearer...
-  ff2 <- fixmahal(face,method="ml")
-  summary(ff2)
-  ff3 <- fixmahal(face,method="ml",calpha=0.95,subset=50)
-  summary(ff3)
-  # ...fast, but lots of clusters. mer=0.3 may be useful here.
-  set.seed(3000)
-  face2 <- rFace(400,dMoNo=2,dNoEy=0)
-  ff5 <- fixmahal(face2)
-  summary(ff5)
-  # misses right eye of face data; with p=6,
-  # initial configurations are too large for 40 point clusters 
-  ff6 <- fixmahal(face2, startn=30)
-  summary(ff6)
-  cff6 <- fpclusters(ff6)
-  plot(face2, col=1+cff6[[3]])
-  plot(ff6, face2, 3)
-  # ... or with use of prior information...
+  face <- rFace(400,dMoNo=2,dNoEy=0, p=3)
+  # The first example uses grouping information via init.group.
   initg <- list()
-  grface <- as.integer(attr(face2,"grouping"))
+  grface <- as.integer(attr(face,"grouping"))
   for (i in 1:5) initg[[i]] <- (grface==i)
-  ff7 <- fixmahal(face2, pointit=FALSE, init.group=initg)
-  summary(ff7)
-  x <- c(1,2,3,6,6,7,8,120)
-  ff8 <- fixmahal(x)
-  summary(ff8)
+  ff0 <- fixmahal(face, pointit=FALSE, init.group=initg)
+  summary(ff0)
+  cff0 <- fpclusters(ff0)
+  plot(face, col=1+cff0[[1]])
+  plot(face, col=1+cff0[[4]]) # Why does this come out as a cluster? 
+  plot(ff0, face, 4) # A bit clearer...
+  # Without grouping information, examples need more time:
+  # ff1 <- fixmahal(face)
+  # summary(ff1)
+  # cff1 <- fpclusters(ff1)
+  # plot(face, col=1+cff1[[1]])
+  # plot(face, col=1+cff1[[6]]) # Why does this come out as a cluster? 
+  # plot(ff1, face, 6) # A bit clearer...
+  # ff2 <- fixmahal(face,method="ml")
+  # summary(ff2)
+  # ff3 <- fixmahal(face,method="ml",calpha=0.95,subset=50)
+  # summary(ff3)
+  ## ...fast, but lots of clusters. mer=0.3 may be useful here.
+  # set.seed(3000)
+  # face2 <- rFace(400,dMoNo=2,dNoEy=0)
+  # ff5 <- fixmahal(face2)
+  # summary(ff5)
+  ## misses right eye of face data; with p=6,
+  ## initial configurations are too large for 40 point clusters 
+  # ff6 <- fixmahal(face2, startn=30)
+  # summary(ff6)
+  # cff6 <- fpclusters(ff6)
+  # plot(face2, col=1+cff6[[3]])
+  # plot(ff6, face2, 3)
+  # x <- c(1,2,3,6,6,7,8,120)
+  # ff8 <- fixmahal(x)
+  # summary(ff8)
   # ...dataset a bit too small for the defaults...
-  ff9 <- fixmahal(x, mnc=3, startn=3)
-  summary(ff9)
+  # ff9 <- fixmahal(x, mnc=3, startn=3)
+  # summary(ff9)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

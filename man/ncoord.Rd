@@ -75,7 +75,7 @@ ncoord(xd, clvecd, nn=50, weighted=FALSE,
 
 \examples{
   set.seed(4634)
-  face <- rFace(600,dMoNo=2,dNoEy=0)
+  face <- rFace(200,dMoNo=2,dNoEy=0,p=3)
   grface <- as.integer(attr(face,"grouping"))
   ncf <- ncoord(face,grface)
   plot(ncf$proj,col=grface)

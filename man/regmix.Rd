@@ -111,7 +111,9 @@ data(tonedata)
 # Note: If you do not use the installed package, replace this by
 # tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 attach(tonedata)
-rmt1 <- regmix(stretchratio,tuned)
+rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
+# nclust=1:2 makes the example fast;
+# a more serious application would rather use the default.
 rmt1$g
 rmt1$bic
 # start with initial parameter values

@@ -34,6 +34,8 @@ fixreg(indep=rep(1,n), dep, n=length(dep),
 
 \method{summary}{rfpc}(object, ...)
 
+\method{print}{summary.rfpc}(x, maxnc=30, ...)
+
 \method{plot}{rfpc}(x, indep=rep(1,n), dep, no, bw=TRUE,
                       main=c("Representative FPC No. ",no),
                       xlab="Linear combination of independents",
@@ -109,7 +111,7 @@ rfpi(indep, dep, p, gv, ca, maxit, plot)
     of first independent vs. dependent variable at each iteration.}
   \item{object}{object of class \code{rfpc}, output of \code{fixreg}.}
   \item{x}{object of class \code{rfpc}, output of \code{fixreg}.}
-  \item{maxnc}{optional positive integer. Maximum number of FPCs
+  \item{maxnc}{positive integer. Maximum number of FPCs
     to be reported.}
   \item{no}{positive integer. Number of the representative FPC to
     be plotted.}
@@ -303,30 +305,36 @@ probability..
 computed by \code{fixreg}.
 }
 \examples{
-set.seed(1000)
+set.seed(190000)
 data(tonedata)
 # Note: If you do not use the installed package, replace this by
 # tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 attach(tonedata)
-tonefix <- fixreg(stretchratio,tuned)
-# Default - good for these data
+tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)
 summary(tonefix)
-plot(tonefix,stretchratio,tuned,1)
-plot(tonefix,stretchratio,tuned,2)
-plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
-toneclus <- fpclusters(tonefix,stretchratio,tuned)
-plot(stretchratio,tuned,col=1+toneclus[[2]])
-tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
-# Every found fixed point cluster is reported,
-# no matter how instable it may be.
-summary(tonefix2)
-tonefix3 <- fixreg(stretchratio,tuned,ca=7)
-# ca defaults to 10.07 for these data.
-summary(tonefix3)
-subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
-tonefix4 <- fixreg(stretchratio,tuned,
-                   mtf=1,ir=0,init.group=list(subset))
-summary(tonefix4)
+# This is designed to have a fast example; default setting would be better.
+# If you want to see more (and you have a bit more time),
+# try out the following:
+# set.seed(1000)
+# tonefix <- fixreg(stretchratio,tuned)
+## Default - good for these data
+# summary(tonefix)
+# plot(tonefix,stretchratio,tuned,1)
+# plot(tonefix,stretchratio,tuned,2)
+# plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
+# toneclus <- fpclusters(tonefix,stretchratio,tuned)
+# plot(stretchratio,tuned,col=1+toneclus[[2]])
+# tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
+## Every found fixed point cluster is reported,
+## no matter how instable it may be.
+# summary(tonefix2)
+# tonefix3 <- fixreg(stretchratio,tuned,ca=7)
+## ca defaults to 10.07 for these data.
+# summary(tonefix3)
+# subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
+# tonefix4 <- fixreg(stretchratio,tuned,
+#                    mtf=1,ir=0,init.group=list(subset))
+# summary(tonefix4)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{robust}% __ONLY ONE__ keyword per line

@@ -92,7 +92,7 @@
 
 \examples{
 set.seed(4634)
-face <- rFace(600,dMoNo=2,dNoEy=0)
+face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
 grface <- as.integer(attr(face,"grouping"))
 discrproj(face,grface, method="nc")$units
 discrproj(face,grface, method="wnc")$units
