@@ -1,0 +1,17 @@
+Package: fpc
+Title: Fixed point clusters, clusterwise regression and discriminant plots
+Version: 1.0
+Date: 2002-07-12
+Author: Christian Hennig <hennig@math.uni-hamburg.de>
+Depends: R (>= 1.5), lqs
+Description: Fuzzy and crisp fixed point cluster analysis 
+  based on Mahalanobis distance and linear regression fixed point
+  clusters. Semi-explorative, semi-model-based clustering methods, 
+  operating on n*p data, do not need prespecification of number of 
+  clusters, produce overlapping clusters. Discriminant projections separate
+  groups optimally, used to visualize the separation of
+  groupings. Corresponding plot methods. Clusterwise linear 
+  regression by normal mixture modeling.
+Maintainer: Christian Hennig <hennig@math.uni-hamburg.de>
+License: GPL
+URL: http://www.math.uni-hamburg.de/home/hennig/

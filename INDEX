@@ -1,0 +1,32 @@
+batcoord                Bhattacharyya discriminant projection
+can                     Generation of the tuning constant for
+                        regression fixed point clusters
+clusexpect              Expected value of the number of times a fixed
+                        point cluster is found
+cmahal                  Generation of tuning constant for Mahalanobis
+                        fixed point clusters.
+con.comp                Connectivity components of an undirected graph
+cov.wml                 Weighted Covariance Matrices (Maximum
+                        Likelihood)
+discrcoord              Discriminant coordinates/canonical variates
+fixmahal                Mahalanobis Fixed Point Clusters
+fixreg                  Linear Regression Fixed Point Clusters
+itnumber                Number of regression fixed point cluster
+                        iterations
+mahalanofix             Mahalanobis distances from center of indexed
+                        points
+mahalconf               Mahalanobis fixed point clusters initial
+                        configuration
+minsize                 Minimum size of regression fixed point cluster
+plotcluster             Discriminant projection plot.
+rFace                   "Face-shaped" clustered benchmark datasets
+randconf                Generate a sample indicator vector
+simmatrix               Extracting intersections between clusters from
+                        fpc-object
+solvecov                Inversion of (possibly singular) symmetric
+                        matrices
+sseg                    Position in a similarity vector
+t.decomp                Root of singularity-corrected eigenvalue
+                        decomposition
+tonedata                Tone perception data
+wfu                     Weight function (for Mahalabobis distances)
