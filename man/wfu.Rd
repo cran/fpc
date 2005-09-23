@@ -26,8 +26,8 @@ wfu(md, ca, ca2, a1 = 1/(ca - ca2), a0 = -a1 * ca2)
 }
 
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{\code{\link{fixmahal}}}
 

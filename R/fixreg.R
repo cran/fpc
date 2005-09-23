@@ -483,7 +483,7 @@ print.summary.rfpc <- function(x, maxnc=30, ...){
     for(i in 1:minnc)
       for(j in 1:minnc)
         sm[i,j] <- x$sim[sseg(i,j)]
-    print.matrix(sm)
+    print(sm)
   }
   invisible(x)
 }

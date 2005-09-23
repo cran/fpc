@@ -1,8 +1,8 @@
 Package: fpc
 Title: Fixed point clusters, clusterwise regression and discriminant plots
-Version: 1.1-2
-Date: 2004-04-23
-Author: Christian Hennig <hennig@math.uni-hamburg.de>
+Version: 1.1-3
+Date: 2005-09-23
+Author: Christian Hennig <chrish@stats.ucl.ac.uk>
 Depends: R (>= 1.5), MASS, cluster
 Description: Fuzzy and crisp fixed point cluster analysis 
   based on Mahalanobis distance and linear regression fixed point
@@ -15,6 +15,7 @@ Description: Fuzzy and crisp fixed point cluster analysis
   regression by normal mixture modeling. Cluster validation statistics
   for distance based clustering. Note: If you use an R-version older
   than 1.9.0, you will need packages lqs and mva installed.
-Maintainer: Christian Hennig <hennig@math.uni-hamburg.de>
+Maintainer: Christian Hennig <chrish@stats.ucl.ac.uk>
 License: GPL
-URL: http://www.math.uni-hamburg.de/home/hennig/
+URL: http://www.www.homepages.ucl.ac.uk/~ucakche/
+Packaged: Fri Sep 23 21:03:30 2005; chrish

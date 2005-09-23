@@ -98,8 +98,8 @@ regem(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
     Classification} 12, 21-56.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 \seealso{
 \code{\link{fixreg}} for fixed point clusters for clusterwise linear regression.
 

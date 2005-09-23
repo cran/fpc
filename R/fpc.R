@@ -299,8 +299,14 @@ fpmi <- function (dat, n=nrow(as.matrix(dat)), p=ncol(as.matrix(dat)),
       gv <- md<=cn
     }
 #  print(gv)
-     if (plot=="iteration" || plot=="both")
-       plot(dat,col=1+gv,pch=1+gv)
+     if (plot=="iteration" || plot=="both"){
+       if (method=="fuzzy")
+         plotgv <- as.integer(gv>0.99)+
+           3*as.integer(gv>0.01 & gv<=0.99)
+       else
+         plotgv <- gv
+       plot(dat,col=1+plotgv,pch=1+plotgv)
+     }
   } # while change
   out <- list(mg=mg, covg=covg, md=md, gv=gv, coll=coll, method=method, ca=cn)
   out
@@ -312,11 +318,11 @@ fpmi <- function (dat, n=nrow(as.matrix(dat)), p=ncol(as.matrix(dat)),
 fixmahal <- function (dat, n=nrow(as.matrix(dat)), p=ncol(as.matrix(dat)), 
                       method="fuzzy", cgen="fixed", 
                       ca=NA, ca2=NA,
-                      calpha=ifelse(method=="fuzzy",0.9,0.99),
-                      calpha2=0.99,
+                      calpha=ifelse(method=="fuzzy",0.95,0.99),
+                      calpha2=0.995,
                       pointit=TRUE, subset=n,
-                      mnc=min(floor(n/2),10+2*p), nc1=100+20*p,
-                      startn=min(floor(n/2),ifelse(cgen=="auto",mnc,2*mnc)),
+                      nc1=100+20*p,
+                      startn = 18+p, mnc = floor(startn/2), 
                       mer=ifelse(pointit,0.1,0), distcut=0.85,  
                       maxit=5*n, iter=n*1e-5, 
                       init.group=list(), 
@@ -616,16 +622,17 @@ summary.mfpc <- function(object, ...){
       clist[[i]] <- object$means[[object$sfpc[object$sto[i]]]]
 #    cat(i, object$vars[[object$sfpc[object$sto[i]]]], "\n")
       vlist[[i]] <- object$covs[[object$sfpc[object$sto[i]]]]
-#    cat(i, object$stfound[object$sto[i]], "\n")
       tf[i] <- object$stfound[object$sto[i]]
       sn[i] <- object$imatrix[sseg(object$sfpc[object$sto[i]],object$sfpc[object$sto[i]])]
       expectratio[i] <- object$ser[object$sto[i]]
       if (object$cgen=="auto")
         ca[i] <- object$ca[object$sfpc[object$sto[i]]]
     }
-#    print(expectratio)
   tskip <- sum(object$nfound)-sum(tf)
-  sim <- simmatrix(object)
+  if (strn>0)
+    sim <- simmatrix(object)
+  else
+    sim <- NULL
   out <- list(means=clist, covs=vlist, stn=strn, stfound=tf, sn=sn, 
               ser=expectratio, 
               tskip=tskip, skc=object$skc, tsc=object$tsc, sim=sim, 
@@ -644,8 +651,8 @@ summary.mfpc <- function(object, ...){
 fpclusters.mfpc <- function(object, dat=NA, ca=object$ca, p=object$p, ...){
   glist <- list()
   if (object$method=="fuzzy"){
-    ca <- qchisq(0.9,object$p)
-    ca2 <- 10*qchisq(0.9,object$p)
+    ca <- object$ca
+    ca2 <- object$ca2
   }
 # cat("stn= ",object$stn,"\n")
   if (object$stn>0)
@@ -807,7 +814,7 @@ print.summary.mfpc <- function(x, maxnc=30, ...){
     for(i in 1:minnc)
       for(j in 1:minnc)
         sm[i,j] <- round(x$sim[sseg(i,j)])
-    print.matrix(sm)
+    print(sm)
   }
   invisible(x)
 }

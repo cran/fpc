@@ -78,8 +78,8 @@
   Recognition} (2nd ed.). Boston: Academic Press.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{
   \code{\link{discrcoord}}, \code{\link{batcoord}},

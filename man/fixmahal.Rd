@@ -26,11 +26,11 @@
 fixmahal(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)), 
                       method = "fuzzy", cgen = "fixed",
                       ca = NA, ca2 = NA,
-                      calpha = ifelse(method=="fuzzy",0.9,0.99),
-                      calpha2 = 0.99,
+                      calpha = ifelse(method=="fuzzy",0.95,0.99),
+                      calpha2 = 0.995,
                       pointit = TRUE, subset = n,
-                      mnc = min(floor(n/2),10+2*p), nc1 = 100+20*p,
-                      startn = min(floor(n/2),ifelse(cgen=="auto",mnc,2*mnc)),
+                      nc1 = 100+20*p,
+                      startn = 18+p, mnc = floor(startn/2), 
                       mer = ifelse(pointit,0.1,0), 
                       distcut = 0.85, maxit = 5*n, iter = n*1e-5,
                       init.group = list(), 
@@ -75,7 +75,8 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     moment, may be very slowly and requires library \code{lqs}.
     The default is
     \code{method="fuzzy"}, where weighted means and covariance matrices
-    are used. The weights are computed by \code{\link{wfu}}, i.e., a
+    are used (Hennig, 2005).
+    The weights are computed by \code{\link{wfu}}, i.e., a
     function that is constant 1 for arguments smaller than \code{ca}, 0 for
     arguments larger than \code{ca2} and continuously linear in between.
     Convergence is only proven for \code{method="ml"} up to now.}  
@@ -105,8 +106,6 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     (cf. \code{\link{mahalconf}}) are built from
     a subset of \code{subset} points from the data. No effect if
     \code{pointit=FALSE}. Default: all points.}
-  \item{mnc}{optional positive integer. Minimum size of clusters
-    to be reported.}
   \item{nc1}{optional positive integer. Tuning constant needed by
     \code{\link{cmahal}} to generate \code{ca} automatically. Only 
     needed for \code{cgen="auto"}.} 
@@ -114,6 +113,8 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     configurations. The default value is chosen to prevent that small 
     meaningless FPCs are found, but it should be decreased if 
     clusters of size smaller than the default value are of interest.} 
+  \item{mnc}{optional positive integer. Minimum size of clusters
+    to be reported.}
   \item{mer}{optional nonnegative number. FPCs (groups of them,
     respectively, see details)
     are only reported as stable if the ratio 
@@ -123,7 +124,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     the ratio is adjusted, but for small \code{subset}, the results
     may extremely vary and have to be taken with care.}
   \item{distcut}{optional value between 0 and 1. A similarity
-    measure between FPCs, given in Hennig (2002a), and the corresponding
+    measure between FPCs, given in Hennig (2002), and the corresponding
     Single Linkage groups of FPCs with similarity larger
     than \code{distcut} are computed.
     A single representative FPC is selected for each group.}
@@ -214,10 +215,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
   of an FPC, adjusted suitably if \code{subset<n}.
   Usually only the representative FPCs of stable groups
   are of interest. \cr
-  The choice of the involved tuning constants is somewhat experimental
-  at the moment. Hennig (2002) treats the linear regression case, which
-  includes \code{fixmahal} for \code{p=1}.  See also Hennig and
-  Christlieb (2002). \cr
+  Default tuning constants are taken from Hennig (2005).\cr
   Generally, the default settings are recommended for
   \code{fixmahal}. For large datasets, the use of
   \code{init.group} together with \code{pointit=FALSE}
@@ -348,14 +346,20 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
   computation and comparison, \emph{Journal of
     Classification} 19, 249-276.
 
+  Hennig, C. (2005) Fuzzy and Crisp Mahalanobis Fixed Point Clusters,
+  in Baier, D., Decker, R., and Schmidt-Thieme, L. (eds.):
+  \emph{Data Analysis and Decision Support}. Springer, Heidelberg,
+  47-56, \url{http://www.homepages.ucl.ac.uk/~ucakche/papers/fuzzyfix.ps}
+  
+
   Hennig, C. and Christlieb, N. (2002) Validating visual clusters in
   large datasets: Fixed point clusters of spectral features,
   \emph{Computational Statistics and Data Analysis} 40, 723-739.
 
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{
 \code{\link{fixreg}} for linear regression fixed point clusters.

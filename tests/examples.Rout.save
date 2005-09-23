@@ -1,21 +1,22 @@
 
-R : Copyright 2003, The R Development Core Team
-Version 1.8.0  (2003-10-08)
+R : Copyright 2004, The R Foundation for Statistical Computing
+Version 2.0.1  (2004-11-15), ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
 Type 'license()' or 'licence()' for distribution details.
 
 R is a collaborative project with many contributors.
-Type 'contributors()' for more information.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
 
 Type 'demo()' for some demos, 'help()' for on-line help, or
 'help.start()' for a HTML browser interface to help.
 Type 'q()' to quit R.
 
 > library(fpc)
+Loading required package: MASS 
 Loading required package: cluster 
-Loading required package: lqs 
 > example(batcoord)
 
 batcrd> set.seed(4634)
@@ -143,73 +144,73 @@ The summary shows the representative FPCs of groups of similar FPCs.
 Method  fuzzy  was used.
 Number of representative FPCs:  5 
 
-FPCs with less than  16  points were skipped.
+FPCs with less than  10  points were skipped.
 0  iteration runs led to  0  skipped clusters.
-  Weight 1 for r^2<=  6.251389  weight 0 for r^2>  11.34487  
-  Constant ca=  6.251389  corresponding to alpha=  0.9 
+  Weight 1 for r^2<=  7.814728  weight 0 for r^2>  12.83816  
+  Constant ca=  7.814728  corresponding to alpha=  0.95 
 
  FPC  1 
   Times found (group members):  1 
   Mean:
-[1] -2.059856 17.120851  1.144176
+[1] -2.063972 17.122154  1.171474
   Covariance matrix:
-              [,1]          [,2]        [,3]
-[1,]  0.1380273772 -0.0005850577 -0.02221587
-[2,] -0.0005850577  0.1493604214  0.05120692
-[3,] -0.0222158688  0.0512069203  0.99970636
-  Number of points (sum of weights):  38.26940 
+             [,1]         [,2]        [,3]
+[1,]  0.141980453 -0.005291416 -0.04129874
+[2,] -0.005291416  0.151822444  0.06315440
+[3,] -0.041298744  0.063154403  1.05661283
+  Number of points (sum of weights):  39 
 
  FPC  2 
   Times found (group members):  1 
   Mean:
-[1]  1.990335 16.990115  1.168523
+[1]  1.993244 17.004407  1.198732
   Covariance matrix:
             [,1]        [,2]       [,3]
-[1,] 0.155013896 0.002647451 0.04614691
-[2,] 0.002647451 0.102943657 0.04792916
-[3,] 0.046146913 0.047929158 1.19384338
-  Number of points (sum of weights):  73.87413 
+[1,] 0.154367583 0.003790366 0.04265682
+[2,] 0.003790366 0.115949936 0.05666278
+[3,] 0.042656815 0.056662784 1.29583273
+  Number of points (sum of weights):  76.46754 
 
  FPC  3 
   Times found (group members):  1 
   Mean:
-[1] -0.01706032  3.08725211  0.47432734
+[1] -0.00431782  3.09119802  0.55818871
   Covariance matrix:
             [,1]        [,2]        [,3]
-[1,] 0.188194114 0.001181821 0.009039074
-[2,] 0.001181821 0.042873492 0.004792551
-[3,] 0.009039074 0.004792551 0.124434523
-  Number of points (sum of weights):  88.37003 
+[1,] 0.186620879 0.001719437 0.017492679
+[2,] 0.001719437 0.043832301 0.004670809
+[3,] 0.017492679 0.004670809 0.209672413
+  Number of points (sum of weights):  96.45433 
 
  FPC  4 
   Times found (group members):  2 
   Mean:
-[1] 0.01031798 3.84049017 0.57963428
+[1] 0.01257084 3.87993400 0.61460588
   Covariance matrix:
-           [,1]       [,2]       [,3]
-[1,] 0.17635831 0.01533119 0.02026135
-[2,] 0.01533119 4.36327556 0.11767498
-[3,] 0.02026135 0.11767498 0.22623388
-  Number of points (sum of weights):  183.4207 
+            [,1]        [,2]       [,3]
+[1,] 0.206404160 0.006716752 0.01727088
+[2,] 0.006716752 4.877598238 0.19338866
+[3,] 0.017270883 0.193388658 0.26228482
+  Number of points (sum of weights):  197.2417 
 
  FPC  5 
   Times found (group members):  1 
   Mean:
-[1] 0.4248803 6.8480685 0.5883182
+[1] 0.1125726 7.5827958 0.6327422
   Covariance matrix:
-          [,1]        [,2]       [,3]
-[1,] 0.8496890  4.53978778 0.01344090
-[2,] 4.5397878 33.51962628 0.07652022
-[3,] 0.0134409  0.07652022 0.23095281
-  Number of points (sum of weights):  245.1377 
+           [,1]        [,2]       [,3]
+[1,] 1.83048954  1.76925313 0.03724658
+[2,] 1.76925313 36.25050177 0.07411254
+[3,] 0.03724658  0.07411254 0.27020099
+  Number of points (sum of weights):  327.7332 
 
 Number of points (rounded weights) in intersection of representative FPCs
      [,1] [,2] [,3] [,4] [,5]
-[1,]   38    0    0    0    0
-[2,]    0   74    0    0   54
-[3,]    0    0   88   88   88
-[4,]    0    0   88  183  182
-[5,]    0   54   88  182  245
+[1,]   39    0    0    0   27
+[2,]    0   76    0    0   58
+[3,]    0    0   96   96   96
+[4,]    0    0   96  197  197
+[5,]   27   58   96  197  328
 
 fixmhl> cff0 <- fpclusters(ff0)
 
@@ -454,21 +455,21 @@ dscrpr> discrproj(face, grface, method = "nc")$units
 [3,] -0.06808816 0.03965075  1.00303099
 
 dscrpr> discrproj(face, grface, method = "wnc")$units
-            [,1]        [,2]         [,3]
-[1,] -0.07433352 1.420772600  0.039179197
-[2,] -0.43725296 0.002745807 -0.005281343
-[3,] -0.03831248 0.001676168 -1.005389819
+            [,1]         [,2]         [,3]
+[1,] -0.07433352 -1.420772600  0.039179197
+[2,] -0.43725296 -0.002745807 -0.005281343
+[3,] -0.03831248 -0.001676168 -1.005389819
 
 dscrpr> discrproj(face, grface == 1, method = "arc")$units
-           [,1]        [,2]        [,3]
-[1,]  1.2952782 -0.50007753 -0.33960121
-[2,] -0.6533164 -0.05164296 -0.08010673
-[3,]  0.0805180  0.66005066 -0.46509088
+           [,1]        [,2]       [,3]
+[1,] -1.2952782  0.50007753 0.33960121
+[2,]  0.6533164  0.05164296 0.08010673
+[3,] -0.0805180 -0.66005066 0.46509088
 > example(ncoord)
 
 ncoord> set.seed(4634)
 
-ncoord> face <- rFace(200, dMoNo = 2, dNoEy = 0, p = 3)
+ncoord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
 
 ncoord> grface <- as.integer(attr(face, "grouping"))
 

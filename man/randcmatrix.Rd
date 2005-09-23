@@ -21,8 +21,8 @@ randcmatrix(n,cln,p)
   An \code{n*cln}-matrix.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 \seealso{
   \code{\link{regmix}}
 }

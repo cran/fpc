@@ -49,13 +49,12 @@ cluster.stats <- function(d,clustering,alt.clustering=NULL,
   }
   g2 <- g3 <- corrected.rand <- cn2 <- NULL
   if (G2){
-    splus <- sminus <- 0
-    for (i in 1:nwithin)
-      for (j in 1:nbetween){
-        if (within.dist[i]<between.dist[j]) splus <- splus+1
-        if (within.dist[i]>between.dist[j]) sminus <- sminus+1
-      }
-    g2 <- (splus-sminus)/(splus+sminus)
+        splus <- sminus <- 0
+        for (i in 1:nwithin) {
+           splus  <- splus  + sum(within.dist[i]<between.dist)
+           sminus <- sminus + sum(within.dist[i]>between.dist) 
+        }
+        g2 <- (splus - sminus)/(splus + sminus)
   }
   if (G3){
     sdist <- sort(c(within.dist,between.dist))
@@ -84,7 +83,7 @@ cluster.stats <- function(d,clustering,alt.clustering=NULL,
   }
   hubertgamma <- cor(c(within.dist,between.dist),c(rep(0,nwithin),
                                                    rep(1,nbetween)))
-  dunn <- min(as.dist(separation))/max(diameter)
+  dunn <- min(separation)/max(diameter)
   out <- list(n=n,
               cluster.number=cn,
               cluster.size=cluster.size, # vector of cluster sizes

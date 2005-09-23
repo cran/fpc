@@ -58,8 +58,8 @@ ancoord(xd, clvecd, clnum=1, nn=50, method="mcd", countmode=1000, ...)
   \url{http://stat.ethz.ch/Research-Reports/108.html}.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 
 \seealso{

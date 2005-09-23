@@ -30,10 +30,11 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \item{silhouette}{logical. If \code{TRUE}, the silhouette statistics
     are computed, which requires package \code{cluster}.}
   \item{G2}{logical. If \code{TRUE}, Goodman and Kruskal's index G2
-    (cf. Gordon (1999), p. 61) is computed. This executes lots of
-    sorting algorithms and can be extremely slow.}
+    (cf. Gordon (1999), p. 62) is computed. This executes lots of
+    sorting algorithms and can be very slow (it has been improved
+    by R. Francois - thanks!)}
   \item{G3}{logical. If \code{TRUE}, the index G3
-    (cf. Gordon (1999), p. 61) is computed. This executes \code{sort}
+    (cf. Gordon (1999), p. 62) is computed. This executes \code{sort}
     on all distances and can be extremely slow.}    
 }
 
@@ -92,8 +93,8 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   for determining the number of clusters. \emph{Psychometrika}, 50, 159-179.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{
   \code{\link{silhouette}}, \code{\link{dist}} 

@@ -63,8 +63,8 @@ ncoord(xd, clvecd, nn=50, weighted=FALSE,
   \url{http://stat.ethz.ch/Research-Reports/108.html}.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 
 \seealso{
@@ -75,7 +75,7 @@ ncoord(xd, clvecd, nn=50, weighted=FALSE,
 
 \examples{
   set.seed(4634)
-  face <- rFace(200,dMoNo=2,dNoEy=0,p=3)
+  face <- rFace(600,dMoNo=2,dNoEy=0)
   grface <- as.integer(attr(face,"grouping"))
   ncf <- ncoord(face,grface)
   plot(ncf$proj,col=grface)

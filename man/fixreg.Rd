@@ -280,8 +280,8 @@ rfpi(indep, dep, p, gv, ca, maxit, plot)
     Multivariate Analysis} 86, 183-212.
 }
 \author{Christian Hennig
-  \email{hennig@math.uni-hamburg.de}
-  \url{http://www.math.uni-hamburg.de/home/hennig/}}
+  \email{chrish@stats.ucl.ac.uk}
+  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 \seealso{
 \code{\link{fixmahal}} for fixed point clusters in the usual setup
 (non-regression).
