@@ -1,9 +1,0 @@
-adcoord.Rd.new        concomp.Rd.new       mahalanofix.Rd.new  regmix.Rd.new
-ancoord.Rd.new        cov.wml.Rd.new       mahalconf.Rd.new    simmatrix.Rd.new
-awcoord.Rd.new        discrcoord.Rd.new    minsize.Rd.new      solvecov.Rd.new
-batcoord.Rd.new       discrproj.Rd.new     mvdcoord.Rd.new     sseg.Rd.new
-c.weight.Rd.new       fixmahal.Rd.new      ncoord.Rd.new       tdecomp.Rd.new
-can.Rd.new            fixreg.Rd.new        plotcluster.Rd.new  tonedata.Rd.new
-clusexpect.Rd.new     fpclusters.Rd.new    rFace.Rd.new        wfu.Rd.new
-cluster.stats.Rd.new  itnumber.Rd.new      randcmatrix.Rd.new
-cmahal.Rd.new         mahalanodisc.Rd.new  randconf.Rd.new

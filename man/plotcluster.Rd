@@ -9,6 +9,7 @@
   mean and covariance structure, asymmetric methods (separation of a
   homogeneous class from a heterogeneous one), local neighborhood-based
   methods and methods based on robust covariance matrices.
+  One-dimensional data is plotted against the cluster number.
 }
 \usage{
 plotcluster(x, clvecd, clnum=1,
@@ -52,7 +53,8 @@ plotcluster(x, clvecd, clnum=1,
     there are only two classes.}
   \item{clnum}{integer. Number of the class which is attempted to plot
     homogeneously by "asymmetric methods", which are the methods
-    assuming that there are only two classes, as indicated above.} 
+    assuming that there are only two classes, as indicated above.
+    \code{clnum} is ignored for methods "dc" and "nc".}
   \item{bw}{logical. If \code{TRUE}, the classes are distinguished by
     symbols, and the default color is black/white.
     If \code{FALSE}, the classes are distinguished by
@@ -71,9 +73,12 @@ plotcluster(x, clvecd, clnum=1,
 % }
 
 \references{
-  Hennig, C. (2003) Symmetric, asymmetric, and robust linear dimension
-  reduction for classification, submitted,
-  \url{http://stat.ethz.ch/Research-Reports/108.html}.
+  Hennig, C. (2004) Asymmetric linear dimension reduction for classification.
+  Journal of Computational and Graphical Statistics 13, 930-945 .
+  
+  Hennig, C. (2005)  A method for visual cluster validation.  In:
+  Weihs, C. and Gaul, W. (eds.): Classification - The Ubiquitous
+  Challenge. Springer, Heidelberg 2005, 153-160.
   
   Seber, G. A. F. (1984). \emph{Multivariate Observations}. New York: Wiley.
 

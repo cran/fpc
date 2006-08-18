@@ -97,7 +97,9 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{
-  \code{\link{silhouette}}, \code{\link{dist}} 
+  \code{\link{silhouette}}, \code{\link{dist}}
+  \code{\link{clusterboot}} computes clusterwise stability statistics by
+  resampling.
 }
 \examples{  
   set.seed(20000)

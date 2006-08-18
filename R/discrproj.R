@@ -30,10 +30,12 @@ discrcoord <- function(xd, clvecd, pool="n", ...) {
     for (j in 1:p){
       clx[,j] <- x[,j][clvec==cll[i]]
     }
+    cclx <- cov(clx)
+    if (cln[i]<2) cclx <- 0
     if (pool=="n")
-      W <- W + ((cln[i]-1)*cov(clx))
+      W <- W + ((cln[i]-1)*cclx)
     else
-      W <- W + (n-1)*cov(clx)/clnum
+      W <- W + (n-1)*cclx/clnum
   }
   Tm <- tdecomp(W)
   Tinv <- solve(Tm)
@@ -130,27 +132,43 @@ plotcluster <- function(x, clvecd, clnum=1,
                         method=ifelse(identical(range(as.integer(clvecd)),
                           as.integer(c(0,1))),"awc","dc"),bw=FALSE, xlab=NULL,
                         ylab=NULL, pch=NULL, col=NULL, ...){
-  asym <- any(method==c("bc","vbc","adc","awc","arc","anc"))
-  if (asym)
-    clvec <- as.integer(as.integer(clvecd)==as.integer(clnum))
-  else
+  if (dim(as.matrix(x))[2]==1){
     clvec <- as.integer(clvecd)
-  cx <- discrproj(x, clvecd, method, clnum, ...)$proj
-  if (is.null(xlab))
-    xlab <- paste(method,"1")
-  if (is.null(ylab))
-    ylab <- paste(method,"2")
-  if (is.null(pch))
-    pch <- if (bw){
-             1+clvec 
-           }
-           else 1
-  if (is.null(col))
-    col <- if (bw) 1
-           else{
-             1+clvec
-           }
-  plot(cx, xlab=xlab, ylab=ylab, pch=pch, col=col, ...)
+    if (is.null(pch))
+      pch <- if (bw){
+               1+clvec 
+             }
+             else as.integer(clvecd)
+    if (is.null(col))
+      col <- if (bw) 1
+             else{
+               1+clvec
+             }
+    plot(x,as.integer(clvecd),pch=pch,col=col)    
+  }
+  else{
+    asym <- any(method==c("bc","vbc","adc","awc","arc","anc"))
+    if (asym)
+      clvec <- as.integer(as.integer(clvecd)==as.integer(clnum))
+    else
+      clvec <- as.integer(clvecd)
+    cx <- discrproj(x, clvecd, method, clnum, ...)$proj
+    if (is.null(xlab))
+      xlab <- paste(method,"1")
+    if (is.null(ylab))
+      ylab <- paste(method,"2")
+    if (is.null(pch))
+      pch <- if (bw){
+               1+clvec 
+             }
+             else as.integer(clvecd)
+    if (is.null(col))
+      col <- if (bw) 1
+             else{
+               1+clvec
+             }
+    plot(cx, xlab=xlab, ylab=ylab, pch=pch, col=col, ...)
+  }
 }
 
 discrproj <- function(x, clvecd, method="awc", clnum=1, ...){

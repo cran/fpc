@@ -58,9 +58,12 @@ ncoord(xd, clvecd, nn=50, weighted=FALSE,
   neighbor classification. \emph{IEEE Transactions on Pattern Analysis
   and Machine Intelligence} 18, 607-616. 
 
-  Hennig, C. (2003) Symmetric, asymmetric, and robust linear dimension
-  reduction for classification, submitted,
-  \url{http://stat.ethz.ch/Research-Reports/108.html}.
+  Hennig, C. (2004) Asymmetric linear dimension reduction for classification.
+  Journal of Computational and Graphical Statistics 13, 930-945 .
+  
+  Hennig, C. (2005)  A method for visual cluster validation.  In:
+  Weihs, C. and Gaul, W. (eds.): Classification - The Ubiquitous
+  Challenge. Springer, Heidelberg 2005, 153-160.
 }
 \author{Christian Hennig
   \email{chrish@stats.ucl.ac.uk}

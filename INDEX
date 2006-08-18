@@ -6,14 +6,19 @@ batcoord                Bhattacharyya discriminant projection
 c.weight                Weight function for AWC
 can                     Generation of the tuning constant for
                         regression fixed point clusters
+clujaccard              Jaccard similarity between logical vectors
 clusexpect              Expected value of the number of times a fixed
                         point cluster is found
 cluster.stats           Cluster validation statistics
+clusterboot             Clusterwise cluster stability assessment by
+                        resampling
 cmahal                  Generation of tuning constant for Mahalanobis
                         fixed point clusters.
 con.comp                Connectivity components of an undirected graph
 cov.wml                 Weighted Covariance Matrices (Maximum
                         Likelihood)
+dbscan                  Clustering: DBSCAN density reachability and
+                        connectivity
 discrcoord              Discriminant coordinates/canonical variates
 discrproj               Linear dimension reduction for classification
 fixmahal                Mahalanobis Fixed Point Clusters
@@ -22,6 +27,9 @@ fpclusters              Extracting clusters from fixed point cluster
                         objects
 itnumber                Number of regression fixed point cluster
                         iterations
+kmeansCBI               Interface functions for clustering methods
+kmeansruns              k-means clustering with several random
+                        initializations
 mahalanodisc            Mahalanobis for AWC
 mahalanofix             Mahalanobis distances from center of indexed
                         points
@@ -31,6 +39,8 @@ minsize                 Minimum size of regression fixed point cluster
 mvdcoord                Mean/variance differences discriminant
                         coordinates
 ncoord                  Neighborhood based discriminant coordinates
+pamk                    Partitioning around medoids with estimation of
+                        number of clusters
 plotcluster             Discriminant projection plot.
 rFace                   "Face-shaped" clustered benchmark datasets
 randcmatrix             Random partition matrix

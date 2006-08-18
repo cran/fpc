@@ -1,9 +1,10 @@
 Package: fpc
 Title: Fixed point clusters, clusterwise regression and discriminant plots
-Version: 1.1-3
-Date: 2005-09-23
+Version: 1.2-1
+Date: 2006-08-18
 Author: Christian Hennig <chrish@stats.ucl.ac.uk>
-Depends: R (>= 1.5), MASS, cluster
+Depends: R (>= 1.9), MASS
+Suggests: mclust, trimcluster, prabclus, cluster, class
 Description: Fuzzy and crisp fixed point cluster analysis 
   based on Mahalanobis distance and linear regression fixed point
   clusters. Semi-explorative, semi-model-based clustering methods, 
@@ -11,11 +12,12 @@ Description: Fuzzy and crisp fixed point cluster analysis
   clusters, produce overlapping clusters. Symmetric and asymmetric
   discriminant projections separate
   groups optimally, used to visualize the separation of
-  groupings. Corresponding plot methods. Clusterwise linear 
+  groupings, visual cluster validation. Clusterwise linear 
   regression by normal mixture modeling. Cluster validation statistics
-  for distance based clustering. Note: If you use an R-version older
-  than 1.9.0, you will need packages lqs and mva installed.
+  for distance based clustering. Clusterwise cluster stability assessment. 
+  DBSCAN clustering. Interface functions for many clustering methods 
+  implemented in R.
 Maintainer: Christian Hennig <chrish@stats.ucl.ac.uk>
 License: GPL
 URL: http://www.www.homepages.ucl.ac.uk/~ucakche/
-Packaged: Fri Sep 23 21:03:30 2005; chrish
+Packaged: Fri Aug 18 18:40:30 2006; chrish
