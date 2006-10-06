@@ -97,12 +97,12 @@ mahalCBI(data,clustercut=0.5,...)
     is excluded.}
   \item{G}{vector of integers. Number of clusters or numbers of clusters
     used by
-    \code{\link[mclust]{EMclust}}/\code{\link[mclust]{EMclustN}}. If
+    \code{\link[mclust02]{EMclust}}/\code{\link[mclust02]{EMclustN}}. If
     \code{G} has more than one entry, the number of clusters is
     estimated by the BIC.}
   \item{emModelNames}{vector of string. Models for covariance matrices,
     see documentation of
-    \code{\link[mclust]{EMclust}}/\code{\link[mclust]{EMclustN}}.}
+    \code{\link[mclust02]{EMclust}}/\code{\link[mclust02]{EMclustN}}.}
   \item{nnk}{integer. Tuning constant for
     \code{\link[prabclus]{NNclean}}, which is used to estimate the
     initial noise for \code{noisemclustCBI} and
@@ -111,10 +111,10 @@ mahalCBI(data,clustercut=0.5,...)
     that no noise component is fitted.}
   \item{hcmodel}{string or \code{NULL}. Determines the initialization of
     the EM-algorithm for
-    \code{\link[mclust]{EMclust}}/\code{\link[mclust]{EMclustN}}.
-    Documented in \code{\link[mclust]{hc}}.}
+    \code{\link[mclust]{EMclust}}/\code{\link[mclust02]{EMclustN}}.
+    Documented in \code{\link[mclust02]{hc}}.}
   \item{Vinv}{numeric. See documentation of
-    \code{\link[mclust]{EMclustN}}.}
+    \code{\link[mclust02]{EMclustN}}.}
   \item{mdsmethod}{"classical", "kruskal" or "sammon". Determines the
     multidimensional scaling method to compute Euclidean data from a
     dissimilarity matrix. See \code{\link{cmdscale}},
@@ -169,21 +169,37 @@ mahalCBI(data,clustercut=0.5,...)
 	function produces a partition and assumes a dissimilarity
 	matrix as input.}
     \item{noisemclustCBI}{an interface to the functions
-	\code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}}, for normal mixture model based
-	clustering. Warning: \code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}} often have problems with multiple
+	\code{\link[mclust02]{EMclust}} and
+	\code{\link[mclust02]{EMclustN}}, for normal mixture model based
+	clustering. Warning: \code{\link[mclust02]{EMclust}} and
+	\code{\link[mclust02]{EMclustN}} often have problems with multiple
         points. In \code{\link{clusterboot}}, it is recommended to use
-	this only together with \code{multipleboot=FALSE}.}
+	this only together with \code{multipleboot=FALSE}.
+	
+        NOTE: the mclust package has recently been updated to 3.0.0.
+        \code{noisemclustCBI} at the moment
+	requires one of the previous versions of mclust. The newest one is now
+	available as mclust02 on CRAN. If you have an older version of
+	mclust installed, which is still named "mclust", you have to
+	change \code{require(mclust02)} in the function to
+	\code{require(mclust)}.} 
     \item{distnoisemclustCBI}{an interface to the functions
-	\code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}}, for normal mixture model based
+	\code{\link[mclust02]{EMclust}} and
+	\code{\link[mclust02]{EMclustN}}, for normal mixture model based
 	clustering. This assumes a dissimilarity matrix as input and
 	generates a data matrix by multidimensional scaling first.
-	Warning: \code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}} often have problems with multiple
+	Warning: \code{\link[mclust02]{EMclust}} and
+	\code{\link[mclust02]{EMclustN}} often have problems with multiple
         points. In \code{\link{clusterboot}}, it is recommended to use
-	this only together with \code{multipleboot=FALSE}.}
+	this only together with \code{multipleboot=FALSE}.
+	
+        NOTE: the mclust package has recently been updated to 3.0.0.
+        \code{distnoisemclustCBI} at the moment
+	requires one of the previous versions of mclust. The newest one is now
+	available as mclust02 on CRAN. If you have an older version of
+	mclust installed, which is still named "mclust", you have to
+	change \code{require(mclust02)} in the function to
+	\code{require(mclust)}.}
     \item{claraCBI}{an interface to the functions
 	\code{\link[cluster]{pam}} and \code{\link[cluster]{clara}}
 	for partitioning around medoids.}
@@ -245,7 +261,7 @@ mahalCBI(data,clustercut=0.5,...)
 \seealso{
   \code{\link{clusterboot}}, \code{\link{dist}},
   \code{\link{kmeans}}, \code{\link{kmeansruns}}, \code{\link{hclust}},
-  \code{\link[mclust]{EMclust}}, \code{\link[mclust]{EMclustN}},
+  \code{\link[mclust02]{EMclust}}, \code{\link[mclust02]{EMclustN}},
   \code{\link[cluster]{pam}},  \code{\link{pamk}},
   \code{\link[cluster]{clara}},
   \code{\link[trimcluster]{trimkmeans}}, \code{\link{dbscan}},

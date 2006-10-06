@@ -1,10 +1,10 @@
 Package: fpc
 Title: Fixed point clusters, clusterwise regression and discriminant plots
-Version: 1.2-1
-Date: 2006-08-18
+Version: 1.2-2
+Date: 2006-10-06
 Author: Christian Hennig <chrish@stats.ucl.ac.uk>
 Depends: R (>= 1.9), MASS
-Suggests: mclust, trimcluster, prabclus, cluster, class
+Suggests: mclust02, trimcluster, prabclus, cluster, class
 Description: Fuzzy and crisp fixed point cluster analysis 
   based on Mahalanobis distance and linear regression fixed point
   clusters. Semi-explorative, semi-model-based clustering methods, 
@@ -19,5 +19,5 @@ Description: Fuzzy and crisp fixed point cluster analysis
   implemented in R.
 Maintainer: Christian Hennig <chrish@stats.ucl.ac.uk>
 License: GPL
-URL: http://www.www.homepages.ucl.ac.uk/~ucakche/
-Packaged: Fri Aug 18 18:40:30 2006; chrish
+URL: http://www.homepages.ucl.ac.uk/~ucakche/
+Packaged: Mon Oct  9 12:57:47 2006; chrish

@@ -12,7 +12,7 @@ clujaccard <- function(c1,c2,zerobyzero=NA){
 noisemclustCBI <- function(data,G,emModelNames,nnk,
                         hcmodel=NULL,Vinv=NULL){
   require(prabclus)
-  require(mclust)
+  require(mclust02)
   if (nnk>0){
     noise <- 1-NNclean(data,nnk)$z
     if (!is.null(hcmodel))
@@ -21,11 +21,11 @@ noisemclustCBI <- function(data,G,emModelNames,nnk,
     
       if (is.null(Vinv) & is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise)
-      if (!is.null(VinV) & is.null(hcmodel))
+      if (!is.null(Vinv) & is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise,Vinv=Vinv)
       if (is.null(Vinv) & !is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs)
-      if (!is.null(VinV) & !is.null(hcmodel))
+      if (!is.null(Vinv) & !is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs,Vinv=Vinv)
   }
   else{
@@ -601,7 +601,7 @@ distnoisemclustCBI <- function(dmatrix,G,emModelNames,nnk,
   n <- ncol(dmatrix)
   require(MASS)
   require(prabclus)
-  require(mclust)
+  require(mclust02)
   if (mdsmethod != "classical") {
     mindm <- min(dmatrix[dmatrix > 0])/10
     for (i in 1:(n - 1))
@@ -619,11 +619,11 @@ distnoisemclustCBI <- function(dmatrix,G,emModelNames,nnk,
                   data = data)
       if (is.null(Vinv) & is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise)
-      if (!is.null(VinV) & is.null(hcmodel))
+      if (!is.null(Vinv) & is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise,Vinv=Vinv)
       if (is.null(Vinv) & !is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs)
-      if (!is.null(VinV) & !is.null(hcmodel))
+      if (!is.null(Vinv) & !is.null(hcmodel))
         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs,Vinv=Vinv)
   }
   else{

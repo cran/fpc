@@ -1,11 +1,11 @@
 .packageName <- "fpc"
 .First.lib <- function(lib,pkg){
   require(cluster)
-  if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9){
-    require(lqs)
-    require(mva)
-  }
-  else require(MASS)
+#   if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9){
+#    require(lqs)
+#    require(mva)
+#  }
+  require(MASS)
 }
   
 
@@ -194,9 +194,9 @@ mahalanofix <- function (x, n=nrow(as.matrix(x)), p=ncol(as.matrix(x)),
       covg <- cov(xg)
   }
   else{
-    if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
-      require(lqs)
-    else require(MASS)
+#    if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
+#      require(lqs)
+    require(MASS)
     grob <- cov.rob(xg, method=method)
     mg <- grob$center
     covg <- grob$cov
