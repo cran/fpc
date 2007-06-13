@@ -13,6 +13,7 @@ noisemclustCBI <- function(data,G,emModelNames,nnk,
                         hcmodel=NULL,Vinv=NULL){
   require(prabclus)
   require(mclust02)
+#  require(mclust)
   if (nnk>0){
     noise <- 1-NNclean(data,nnk)$z
     if (!is.null(hcmodel))

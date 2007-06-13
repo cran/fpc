@@ -3,7 +3,6 @@ ancoord                 Asymmetric neighborhood based discriminant
                         coordinates
 awcoord                 Asymmetric weighted discriminant coordinates
 batcoord                Bhattacharyya discriminant projection
-c.weight                Weight function for AWC
 can                     Generation of the tuning constant for
                         regression fixed point clusters
 clujaccard              Jaccard similarity between logical vectors
@@ -17,6 +16,7 @@ cmahal                  Generation of tuning constant for Mahalanobis
 con.comp                Connectivity components of an undirected graph
 cov.wml                 Weighted Covariance Matrices (Maximum
                         Likelihood)
+cweight                 Weight function for AWC
 dbscan                  Clustering: DBSCAN density reachability and
                         connectivity
 discrcoord              Discriminant coordinates/canonical variates

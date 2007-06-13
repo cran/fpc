@@ -185,7 +185,7 @@ mahalanodisc <- function (x2, mg, covg, modus="square") {
 # dist:n-n1 Mahalanobis distances, mg: mean(x1), covg: Covariance(x1)
 
 # weight function for robcoord
-c.weight <- function(x,ca){
+cweight <- function(x,ca){
   out <- 1
   if (x > ca)
     out <- ca/x
@@ -264,8 +264,8 @@ awcoord <- function(xd, clvecd, clnum=1, mahal="square", method="classical",
   mg <- cv$center
   mah <- mahalanodisc(clxa, mg, S1, modus=mahal)
   wg <- switch(mahal,
-     md=sapply(mah,c.weight,sqrt(qchisq(alpha,p))),
-     sapply(mah,c.weight,qchisq(alpha,p))) 
+     md=sapply(mah,cweight,sqrt(qchisq(alpha,p))),
+     sapply(mah,cweight,qchisq(alpha,p))) 
    if (clweight){
      wg0 <- wg[clvec==0]
      wg1 <- wg[clvec==1]

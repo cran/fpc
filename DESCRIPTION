@@ -1,7 +1,7 @@
 Package: fpc
 Title: Fixed point clusters, clusterwise regression and discriminant plots
-Version: 1.2-2
-Date: 2006-10-06
+Version: 1.2-3
+Date: 2007-06-13
 Author: Christian Hennig <chrish@stats.ucl.ac.uk>
 Depends: R (>= 1.9), MASS
 Suggests: mclust02, trimcluster, prabclus, cluster, class
@@ -20,4 +20,4 @@ Description: Fuzzy and crisp fixed point cluster analysis
 Maintainer: Christian Hennig <chrish@stats.ucl.ac.uk>
 License: GPL
 URL: http://www.homepages.ucl.ac.uk/~ucakche/
-Packaged: Mon Oct  9 12:57:47 2006; chrish
+Packaged: Wed Jun 13 17:59:19 2007; chrish

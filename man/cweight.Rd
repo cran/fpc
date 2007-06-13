@@ -1,12 +1,12 @@
-\name{c.weight}
-\alias{c.weight}
+\name{cweight}
+\alias{cweight}
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Weight function for AWC}
 \description{
   For use in \code{awcoord} only.
 }
 \usage{
-c.weight(x, ca) 
+cweight(x, ca) 
 
 }
 %- maybe also `usage' for other objects documented here.
@@ -30,7 +30,7 @@ c.weight(x, ca)
 }
 
 \examples{
-  c.weight(4,1)
+  cweight(4,1)
 }
 \keyword{arith}% at least one, from doc/KEYWORDS
 

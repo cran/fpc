@@ -5,7 +5,7 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Clusterwise cluster stability assessment by resampling}
 \description{
-  Assessment of the clusterwise stability of a clustering of data (which
+  Assessment of the clusterwise stability of a clustering of data, which
   can be cases*variables or dissimilarity data. The data is resampled
   using several schemes (bootstrap, subsetting, jittering, replacement
   of points by noise) and the Jaccard similarities of the original

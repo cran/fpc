@@ -13,8 +13,8 @@
     "dist"), seeds = TRUE, showplot = FALSE, countmode = NULL)
   \method{print}{dbscan}(x, ...)
   \method{plot}{dbscan}(x, data, ...)
-  \method{predict}{dbscan}(object, data, newdata = NULL, predict.max
-=1000, ...)
+  \method{predict}{dbscan}(object, data, newdata = NULL,
+predict.max=1000, ...)
 }
 \arguments{
   \item{data}{data matrix, data.frame, dissimilarity matrix or
@@ -27,7 +27,8 @@
     calculating a distance matrix (saves memory but may be slow),
     "hybrid" expects also raw data, but calculates partial distance
     matrices (very fast with moderate memory requirements )}
-  \item{seeds}{FALSE to not include the isseed vector in the dbscan object}
+  \item{seeds}{FALSE to not include the \code{isseed}-vector in the
+    \code{dbscan}-object}
   \item{showplot}{ 0 = no plot, 1 = plot per iteration, 2 = plot per
     subiteration }
   \item{countmode}{ NULL or vector of point numbers at which to report
@@ -68,12 +69,12 @@
   \item{eps}{parameter eps}
   \item{MinPts}{parameter MinPts}
 }
-\references{ Martin Ester, Hans-Peter Kriegel, Jörg Sander, Xiaowei Xu
+\references{ Martin Ester, Hans-Peter Kriegel, Joerg Sander, Xiaowei Xu
 (1996). A Density-Based Algorithm for Discovering Clusters in Large Spatial
 Databases with Noise. Institute for Computer Science, University of Munich.
 Proceedings of 2nd International Conference on Knowledge Discovery and Data
 Mining (KDD-96). }
-\author{Jens Oehlschlägel, based on a draft by Christian Hennig.}
+\author{Jens Oehlschlaegel, based on a draft by Christian Hennig.}
 \note{ this is a simplified version of the original algorithm (no K-D-trees
   used), thus we have \eqn{o(n^2)} instead of \eqn{o(n*log(n))} }
 \examples{
