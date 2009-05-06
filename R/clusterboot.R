@@ -9,63 +9,273 @@ clujaccard <- function(c1,c2,zerobyzero=NA){
   out
 }
 
-noisemclustCBI <- function(data,G,emModelNames,nnk,
-                        hcmodel=NULL,Vinv=NULL){
+
+noisemclustCBI <- function(data, G=NULL, emModelNames=NULL,
+                           nnk=0, hcmodel = NULL,
+                         Vinv = NULL, summary.out=FALSE, ...){
+  require(mclust)
   require(prabclus)
-  require(mclust02)
-#  require(mclust)
-  if (nnk>0){
-    noise <- 1-NNclean(data,nnk)$z
-    if (!is.null(hcmodel))
-      hcPairs <- hc(modelName = hcmodel, 
-                  data = data)
-    
-      if (is.null(Vinv) & is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise)
-      if (!is.null(Vinv) & is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise,Vinv=Vinv)
-      if (is.null(Vinv) & !is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs)
-      if (!is.null(Vinv) & !is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs,Vinv=Vinv)
+  data <- as.matrix(data)
+#  print(str(data))
+  if (nnk > 0) {
+    noise <- 1 - NNclean(data, nnk)$z
+# print(noise)
+    if (!is.null(hcmodel)) 
+      hcPairs <- hc(modelName = hcmodel, data = data)
+    if (is.null(Vinv) & is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise))
+    if (!is.null(Vinv) & is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),
+                      Vinv=Vinv)
+    if (is.null(Vinv) & !is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs, noise=noise))
+    if (!is.null(Vinv) & !is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs, noise=noise),
+                      Vinv=Vinv)
   }
-  else{
-    if (!is.null(hcmodel)){
-      hcPairs <- hc(modelName = hcmodel, 
-                  data = data)
-      c1 <- EMclust(data,G,emModelNames,hcPairs=hcPairs)
-    }
-    else
-      c1 <- EMclust(data,G,emModelNames)      
-    noise <- rep(0,nrow(data))
+  else {
+        if (!is.null(hcmodel)) {
+            hcPairs <- hc(modelName = hcmodel, data = data)
+            c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs),
+                      Vinv=Vinv)           
+        }
+        else
+            c1 <- mclustBIC(data, G, emModelNames,
+                      Vinv=Vinv)           
+        noise <- rep(0, nrow(data))
   }
-  if (!is.na(c1[1])){
-    if (nnk>0)
-      sc1 <- summary(c1,data)[[4]]
-    else
-      sc1 <- summary(c1,data)[[3]]
-  }
-  else
-    sc1 <- rep(1,nrow(data))
+# print(c1)
+  sc1 <- summary(c1,data)
+# print(str(sc1))  
+  sc1c <- sc1$classification
   cl <- list()
-  nc <- max(sc1)
-  if (!identical(sc1,rep(1,nrow(data))))
-    nccl <- ncol(summary(c1,data)$mu)
-  else
-    nccl <- 1
-#  print(nc)
-#  print(sc1)
+  if (sc1$G==0)
+    sc1c <- rep(0,nrow(data))
+  nc <- nccl <- max(sc1c)
+  if (sum(sc1c==0)>0){
+    nc <- nccl+1
+    sc1c[sc1c==0] <- nc
+  }
   for (i in 1:nc)
-    cl[[i]] <- sc1==i
-  out <- list(result=c1,nc=nc,nccl=nccl,
-              clusterlist=cl, partition=sc1, nnk=nnk,
-              initnoise=as.logical(noise),
-              clustermethod="EMclust/EMclustN")
+      cl[[i]] <- sc1c == i
+  if (summary.out)
+    out <- list(result = c1, nc = nc, nccl = nccl, clusterlist = cl, 
+        partition = sc1c, nnk = nnk, initnoise = as.logical(noise),
+                mclustsummary=sc1,
+        clustermethod = "mclustBIC")
+  else
+    out <- list(result = c1, nc = nc, nccl = nccl, clusterlist = cl, 
+        partition = sc1c, nnk = nnk, initnoise = as.logical(noise), 
+        clustermethod = "mclustBIC")
   out
 }
 
+distnoisemclustCBI <- function(dmatrix, G=NULL, emModelNames=NULL,
+                           nnk=0, hcmodel = NULL,
+                         Vinv = NULL, mdsmethod="classical",
+                            mdsdim=4, summary.out=FALSE,
+                               points.out=FALSE, ...){
+  dmatrix <- as.matrix(dmatrix)
+  n <- ncol(dmatrix)
+  require(MASS)
+  require(prabclus)
+  require(mclust)
+  if (mdsmethod != "classical") {
+    mindm <- min(dmatrix[dmatrix > 0])/10
+    for (i in 1:(n - 1))
+      for (j in (i + 1):n)
+        if (dmatrix[i, j] < mindm) 
+            dmatrix[i, j] <- dmatrix[j, i] <- mindm
+  }
+  data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
+        kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
+                sammon(dmatrix, k = mdsdim)$points)
+  data <- as.matrix(data) 
+  if (nnk > 0) {
+    noise <- 1 - NNclean(data, nnk)$z
+# print(noise)
+    if (!is.null(hcmodel)) 
+      hcPairs <- hc(modelName = hcmodel, data = data)
+    if (is.null(Vinv) & is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise))
+    if (!is.null(Vinv) & is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),
+                      Vinv=Vinv)
+    if (is.null(Vinv) & !is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs, noise=noise))
+    if (!is.null(Vinv) & !is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs, noise=noise),
+                      Vinv=Vinv)
+  }
+  else {
+        if (!is.null(hcmodel)) {
+            hcPairs <- hc(modelName = hcmodel, data = data)
+            c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs),
+                      Vinv=Vinv)           
+        }
+        else
+            c1 <- mclustBIC(data, G, emModelNames,
+                      Vinv=Vinv)           
+        noise <- rep(0, nrow(data))
+  }
+# print(c1)
+  sc1 <- summary(c1,data)
+# print(str(sc1))  
+  sc1c <- sc1$classification
+  cl <- list()
+  if (sc1$G==0)
+    sc1c <- rep(0,nrow(data))
+  nc <- nccl <- max(sc1c)
+  if (sum(sc1c==0)>0){
+    nc <- nccl+1
+    sc1c[sc1c==0] <- nc
+  }
+  for (i in 1:nc)
+      cl[[i]] <- sc1c == i
+  out <- list(result = c1, nc = nc, nccl = nccl, clusterlist = cl, 
+        partition = sc1c, nnk = nnk, initnoise = as.logical(noise), 
+        clustermethod = "mclustBIC")
+  if (summary.out)
+    out$mclustsummary <- sc1
+  if (points.out)
+    out$points <- data
+  out
+}
+
+
+# noisemclustCBI <- function(data,G,emModelNames,nnk,
+#                         hcmodel=NULL,Vinv=NULL){
+#   require(prabclus)
+#   require(mclust02)
+# #  require(mclust)
+#   if (nnk>0){
+#     noise <- 1-NNclean(data,nnk)$z
+#     if (!is.null(hcmodel))
+#       hcPairs <- hc(modelName = hcmodel, 
+#                   data = data)
+#     
+#       if (is.null(Vinv) & is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise)
+#       if (!is.null(Vinv) & is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise,Vinv=Vinv)
+#       if (is.null(Vinv) & !is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs)
+#       if (!is.null(Vinv) & !is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs,Vinv=Vinv)
+#   }
+#   else{
+#     if (!is.null(hcmodel)){
+#       hcPairs <- hc(modelName = hcmodel, 
+#                   data = data)
+#       c1 <- EMclust(data,G,emModelNames,hcPairs=hcPairs)
+#     }
+#     else
+#       c1 <- EMclust(data,G,emModelNames)      
+#     noise <- rep(0,nrow(data))
+#   }
+#   if (!is.na(c1[1])){
+#     if (nnk>0)
+#       sc1 <- summary(c1,data)[[4]]
+#     else
+#       sc1 <- summary(c1,data)[[3]]
+#   }
+#   else
+#     sc1 <- rep(1,nrow(data))
+#   cl <- list()
+#   nc <- max(sc1)
+#   if (!identical(sc1,rep(1,nrow(data))))
+#     nccl <- ncol(summary(c1,data)$mu)
+#   else
+#     nccl <- 1
+# #  print(nc)
+# #  print(sc1)
+#   for (i in 1:nc)
+#     cl[[i]] <- sc1==i
+#   out <- list(result=c1,nc=nc,nccl=nccl,
+#               clusterlist=cl, partition=sc1, nnk=nnk,
+#               initnoise=as.logical(noise),
+#               clustermethod="EMclust/EMclustN")
+#   out
+# }
+
+# distnoisemclustCBI <- function(dmatrix,G,emModelNames,nnk,
+#                         hcmodel=NULL,Vinv=NULL,mdsmethod="classical",
+#                             mdsdim=4){
+#   dmatrix <- as.matrix(dmatrix)
+#   n <- ncol(dmatrix)
+#   require(MASS)
+#   require(prabclus)
+#   require(mclust02)
+#   if (mdsmethod != "classical") {
+#     mindm <- min(dmatrix[dmatrix > 0])/10
+#     for (i in 1:(n - 1))
+#       for (j in (i + 1):n)
+#         if (dmatrix[i, j] < mindm) 
+#             dmatrix[i, j] <- dmatrix[j, i] <- mindm
+#   }
+#   data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
+#         kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
+#                 sammon(dmatrix, k = mdsdim)$points)
+#   if (nnk>0){
+#     noise <- 1-NNclean(data,nnk)$z
+#     if (!is.null(hcmodel))
+#       hcPairs <- hc(modelName = hcmodel, 
+#                   data = data)
+#       if (is.null(Vinv) & is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise)
+#       if (!is.null(Vinv) & is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise,Vinv=Vinv)
+#       if (is.null(Vinv) & !is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs)
+#       if (!is.null(Vinv) & !is.null(hcmodel))
+#         c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs,Vinv=Vinv)
+#   }
+#   else{
+#     if (!is.null(hcmodel)){
+#       hcPairs <- hc(modelName = hcmodel, 
+#                   data = data)
+#       c1 <- EMclust(data,G,emModelNames,hcPairs=hcPairs)
+#     }
+#     else
+#       c1 <- EMclust(data,G,emModelNames)      
+#     noise <- rep(0,nrow(data))
+#   }
+#   if (!is.na(c1[1])){
+#     if (nnk>0)
+#       sc1 <- summary(c1,data)[[4]]
+#     else
+#       sc1 <- summary(c1,data)[[3]]
+#   }
+#   else
+#     sc1 <- rep(1,nrow(data))
+#   cl <- list()
+#   nc <- max(sc1)
+#   if (!identical(sc1,rep(1,nrow(data))))
+#     nccl <- ncol(summary(c1,data)$mu)
+#   else
+#     nccl <- 1
+#   if (printinfo) print(nc)
+# #  print(sc1)
+#   for (i in 1:nc)
+#     cl[[i]] <- sc1==i
+#   out <- list(result=c1,nc=nc,nccl=nccl,
+#               clusterlist=cl, partition=sc1, nnk=nnk,
+#               initnoise=as.logical(noise),
+#               clustermethod="EMclust/EMclustN plus MDS")
+#   out
+# }
+# 
+
+
 hclustCBI <- function(data,k,cut="level",method,scaling=TRUE,noisecut=0,...){
-  sdata <- scale(data,scale=scaling) 
+  sdata <- scale(data,scale=scaling)
+  n <- nrow(data)
   noise <- FALSE
   c1 <- hclust(dist(sdata),method=method)
   if (cut=="number")
@@ -244,7 +454,7 @@ clusterboot <- function(data,B=100,
                         clustermethod,noisemethod=FALSE,
                         count=TRUE,
                         showplots=FALSE,dissolution=0.5,
-                        recover=0.75,...){
+                        recover=0.75,seed=NULL,...){
   sumlogic <- function(x,y,relation="eq")
     switch (relation,
           eq = sum(x==y, na.rm=TRUE),
@@ -252,7 +462,8 @@ clusterboot <- function(data,B=100,
           l = sum(x>y, na.rm=TRUE),
           se = sum(x<=y, na.rm=TRUE),
           le = sum(x>=y, na.rm=TRUE))
-          
+
+  if (!is.null(seed)) set.seed(seed)
   invisible(distances)
   data <- as.matrix(data)
   if (distances & showplots) dpoints <- cmdscale(data)
@@ -262,6 +473,11 @@ clusterboot <- function(data,B=100,
   md <- colMeans(data)
   lb <- length(bootmethod)
   c1 <- clustermethod(data,...)
+#  print(noisemethod)
+#  print(str(c1))
+  if (noisemethod)
+    if (c1$nccl==0)
+      stop("No clusters, only noise estimated!")
   bootresult <- jitterresult <- noiseresult <-
     bojitresult <- subsetresult <- matrix(0,nrow=c1$nc,ncol=B)
   if (("jitter" %in% bootmethod) | ("bojit" %in% bootmethod)){
@@ -328,8 +544,10 @@ clusterboot <- function(data,B=100,
         jnoise <- t(t(jnoise %*% t(ecd$vectors))+md) 
         mdata <- data
         mdata[noiseind,] <- jnoise
-      }        
+      }
+# print(mdata)
       bc1 <- clustermethod(mdata,...)
+# print("clustermethod done")
       if (showplots){
         if (distances)
           plot(dpoints[bs,],pch=sapply(bc1$partition,toString),
@@ -347,29 +565,39 @@ clusterboot <- function(data,B=100,
       }
       for (j in 1:effnc1){
         maxgamma <- 0
-        for (k in 1:effnb1){
-          if (multipleboot){
-            if (bscompare) ncases <- 1:n
-            else{
-              ncases <- 1
-              for (m in 2:n) if (!(bs[m] %in% bs[1:(m-1)])) ncases <- c(ncases,m)
+        if (effnb1>0){
+          for (k in 1:effnb1){
+            if (multipleboot){
+              if (bscompare) ncases <- 1:n
+              else{
+                ncases <- 1
+                for (m in 2:n)
+                  if (!(bs[m] %in% bs[1:(m-1)]))
+                    ncases <- c(ncases,m)
+              }
             }
-          }
-          else ncases <- 1:length(bs)
+            else ncases <- 1:length(bs)
 #          print(ncases)
+#            if (j==c1$nc){
 #          print(c1$clusterlist[[j]][bs][ncases])
 #          print(bc1$clusterlist[[k]][ncases])
-          cg <- switch(bootmethod[l],
-            boot=clujaccard(c1$clusterlist[[j]][bs][ncases],
-              bc1$clusterlist[[k]][ncases],zerobyzero=0),
-            bojit=clujaccard(c1$clusterlist[[j]][bs][ncases],
-              bc1$clusterlist[[k]][ncases],zerobyzero=0),
-            subset=clujaccard(c1$clusterlist[[j]][bs],
-              bc1$clusterlist[[k]],zerobyzero=0),
-            jitter=clujaccard(c1$clusterlist[[j]],bc1$clusterlist[[k]],zerobyzero=0),
-            noise=clujaccard(c1$clusterlist[[j]][!noiseind],
-               bc1$clusterlist[[k]][!noiseind],zerobyzero=0))
-          if (cg>maxgamma) maxgamma <- cg
+#        }
+#            print(bc1$nc)
+#            print(bc1$nccl)
+#            print(bc1$partition)
+#            print(str(bc1$clusterlist))
+            cg <- switch(bootmethod[l],
+              boot=clujaccard(c1$clusterlist[[j]][bs][ncases],
+                bc1$clusterlist[[k]][ncases],zerobyzero=0),
+              bojit=clujaccard(c1$clusterlist[[j]][bs][ncases],
+                bc1$clusterlist[[k]][ncases],zerobyzero=0),
+              subset=clujaccard(c1$clusterlist[[j]][bs],
+                bc1$clusterlist[[k]],zerobyzero=0),
+              jitter=clujaccard(c1$clusterlist[[j]],bc1$clusterlist[[k]],zerobyzero=0),
+              noise=clujaccard(c1$clusterlist[[j]][!noiseind],
+                 bc1$clusterlist[[k]][!noiseind],zerobyzero=0))
+            if (cg>maxgamma) maxgamma <- cg
+          }
         }
         if (bootmethod[l]=="boot") bootresult[j,i] <- maxgamma
         if (bootmethod[l]=="subset") subsetresult[j,i] <- maxgamma
@@ -595,72 +823,6 @@ plot.clboot <- function(x,xlim=c(0,1),breaks=seq(0,1,by=0.05),...){
 
   
 
-distnoisemclustCBI <- function(dmatrix,G,emModelNames,nnk,
-                        hcmodel=NULL,Vinv=NULL,mdsmethod="classical",
-                            mdsdim=4){
-  dmatrix <- as.matrix(dmatrix)
-  n <- ncol(dmatrix)
-  require(MASS)
-  require(prabclus)
-  require(mclust02)
-  if (mdsmethod != "classical") {
-    mindm <- min(dmatrix[dmatrix > 0])/10
-    for (i in 1:(n - 1))
-      for (j in (i + 1):n)
-        if (dmatrix[i, j] < mindm) 
-            dmatrix[i, j] <- dmatrix[j, i] <- mindm
-  }
-  data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
-        kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
-                sammon(dmatrix, k = mdsdim)$points)
-  if (nnk>0){
-    noise <- 1-NNclean(data,nnk)$z
-    if (!is.null(hcmodel))
-      hcPairs <- hc(modelName = hcmodel, 
-                  data = data)
-      if (is.null(Vinv) & is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise)
-      if (!is.null(Vinv) & is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise,Vinv=Vinv)
-      if (is.null(Vinv) & !is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs)
-      if (!is.null(Vinv) & !is.null(hcmodel))
-        c1 <- EMclustN(data,G,emModelNames,noise,hcPairs=hcPairs,Vinv=Vinv)
-  }
-  else{
-    if (!is.null(hcmodel)){
-      hcPairs <- hc(modelName = hcmodel, 
-                  data = data)
-      c1 <- EMclust(data,G,emModelNames,hcPairs=hcPairs)
-    }
-    else
-      c1 <- EMclust(data,G,emModelNames)      
-    noise <- rep(0,nrow(data))
-  }
-  if (!is.na(c1[1])){
-    if (nnk>0)
-      sc1 <- summary(c1,data)[[4]]
-    else
-      sc1 <- summary(c1,data)[[3]]
-  }
-  else
-    sc1 <- rep(1,nrow(data))
-  cl <- list()
-  nc <- max(sc1)
-  if (!identical(sc1,rep(1,nrow(data))))
-    nccl <- ncol(summary(c1,data)$mu)
-  else
-    nccl <- 1
-  if (printinfo) print(nc)
-#  print(sc1)
-  for (i in 1:nc)
-    cl[[i]] <- sc1==i
-  out <- list(result=c1,nc=nc,nccl=nccl,
-              clusterlist=cl, partition=sc1, nnk=nnk,
-              initnoise=as.logical(noise),
-              clustermethod="EMclust/EMclustN plus MDS")
-  out
-}
 
 disttrimkmeansCBI <- function(dmatrix,k,scaling=TRUE,trim=0.1,
                            mdsmethod="classical",

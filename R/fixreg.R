@@ -112,7 +112,7 @@ rfpi <- function (indep, dep, p, gv, ca, maxit, plot) {
     res <- resid(reg)
     rv <- sum(res[as.logical(gv)]^2)/(sum(gv)-p-1)
     if (cachange){
-      ca <- can(sum(gv),p,"lowresid")
+      ca <- can(sum(gv),p)
 #      cat("n= ",sum(gv)," p= ",p," ca= ",ca," change= ",change,"\n")
     }  
     gv <- res^2<=ca*rv
@@ -385,7 +385,7 @@ summary.rfpc <- function(object, ...){
 fpclusters.rfpc <- function(object, indep=NA, dep=NA, ca=object$ca, ...){
   glist <- list()
   if (identical(indep,NA) & !identical(dep,NA))
-    indep <- rep(1,n)
+    indep <- rep(1,object$n)
 # cat("stn= ",object$stn,"\n")
   if(object$stn>0)
     for(i in 1:object$stn){

@@ -12,10 +12,11 @@
   One-dimensional data is plotted against the cluster number.
 }
 \usage{
-plotcluster(x, clvecd, clnum=1,
-            method=ifelse(identical(range(as.integer(clvecd)),
-                          as.integer(c(0,1))),"awc","dc"),
-            bw=FALSE, xlab=NULL, ylab=NULL,
+plotcluster(x, clvecd, clnum=NULL,
+            method=ifelse(is.null(clnum),"dc","awc"),
+            bw=FALSE,
+            ignorepoints=FALSE, ignorenum=0, pointsbyclvecd=TRUE,
+            xlab=NULL, ylab=NULL,
             pch=NULL, col=NULL, ...)
 }
 %- maybe also `usage' for other objects documented here.
@@ -59,6 +60,23 @@ plotcluster(x, clvecd, clnum=1,
     symbols, and the default color is black/white.
     If \code{FALSE}, the classes are distinguished by
     colors, and the default symbol is \code{pch=1}.}
+  \item{ignorepoints}{logical. If \code{TRUE}, points with label
+    \code{ignorenum} in \code{clvecd} are ignored in the computation for
+    \code{method} and are only projected afterwards onto the resulting
+    units. If \code{pch=NULL}, the plot symbol for these points is "N".}
+  \item{ignorenum}{one of the potential values of the components of
+    \code{clvecd}. Only has effect if \code{ignorepoints=TRUE}, see above.}
+  \item{pointsbyclvecd}{logical. If \code{TRUE} and \code{pch=NULL}
+    and/or \code{col=NULL}, some hopefully suitable
+    plot symbols (numbers and letters) and colors are chosen to
+    distinguish the values of \code{clvecd}, starting with "1"/"black"
+    for the cluster with the smallest \code{clvecd}-code (note that
+    colors for clusters with numbers larger than minimum number
+    \code{+3} are drawn at random from all available colors).
+    \code{FALSE} produces
+    potentially less reasonable (but nonrandom) standard colors and symbols if
+    \code{method} is "dc" or "nc", and will only distinguish whether
+    \code{clvecd=clnum} or not for the other methods.} 
   \item{xlab}{label for x-axis. If \code{NULL}, a default text is used.}
   \item{ylab}{label for y-axis. If \code{NULL}, a default text is used.}
   \item{pch}{plotting symbol, see \code{\link{par}}.
@@ -71,6 +89,17 @@ plotcluster(x, clvecd, clnum=1,
 % \details{
 
 % }
+\note{
+  For some of the asymmetric methods, the area in the plot
+  occupied by the "homogeneous class" (see \code{clnum} above) may be
+  very small, and it may make sense to run \code{plotcluster} a second
+  time specifying plot parameters \code{xlim} and \code{ylim} in a
+  suitable way. It often makes sense to magnify the plot region
+  containing the homogeneous class in this way
+  so that its separation from the rest can be
+  seen more clearly.
+  }
+  
 
 \references{
   Hennig, C. (2004) Asymmetric linear dimension reduction for classification.

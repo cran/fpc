@@ -9,12 +9,14 @@
   average distances within and between clusters, cluster separation,
   average silhouette widths, the best distance based statistics to
   decide about the number of clusters in a study of Milligan and Cooper
-  (1985), Hubert's gamma coefficient, the Dunn index and the corrected
-  rand index to assess the similarity of two clusterings.
+  (1985), Hubert's gamma coefficient, the Dunn index and two indexes
+  to assess the similarity of two clusterings, namely the corrected Rand
+  index and Meila's VI.
 }
 \usage{
 cluster.stats(d,clustering,alt.clustering=NULL,
-                          silhouette=TRUE,G2=FALSE,G3=FALSE)
+                          silhouette=TRUE,G2=FALSE,G3=FALSE,
+                          compareonly=FALSE)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -25,8 +27,8 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     from 1 to the number of clusters.}
   \item{alt.clustering}{an integer vector such as for
     \code{clustering}, indicating an alternative clustering. If provided, the
-    corrected rand index for \code{clustering}
-    vs. \code{alt.clustering} is computed.}
+    corrected Rand index and Meila's VI for \code{clustering}
+    vs. \code{alt.clustering} are computed.}
   \item{silhouette}{logical. If \code{TRUE}, the silhouette statistics
     are computed, which requires package \code{cluster}.}
   \item{G2}{logical. If \code{TRUE}, Goodman and Kruskal's index G2
@@ -35,7 +37,11 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     by R. Francois - thanks!)}
   \item{G3}{logical. If \code{TRUE}, the index G3
     (cf. Gordon (1999), p. 62) is computed. This executes \code{sort}
-    on all distances and can be extremely slow.}    
+    on all distances and can be extremely slow.}
+  \item{compareonly}{logical. If \code{TRUE}, only the corrected Rand index
+    and Meila's VI are
+    computed and given out (this requires \code{alt.clustering} to be
+    specified).}
 }
 
 \value{
@@ -43,8 +49,10 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \code{n, cluster.number, cluster.size, diameter,
     average.distance, median.distance, separation, average.toother,
     separation.matrix, average.between, average.within,
-    n.between, n.within, clus.avg.silwidths, avg.silwidth,
-    g2, g3, hubertgamma, dunn, wb.ratio, corrected.rand}.
+    n.between, n.within, within.cluster.ss, clus.avg.silwidths, avg.silwidth,
+    g2, g3, hubertgamma, dunn, entropy, wb.ratio,
+    corrected.rand, vi} except if \code{compareonly=TRUE}, in which case
+    only the last two components are computed.
 
   \item{n}{number of cases.}
   \item{cluster.number}{number of clusters.}
@@ -65,6 +73,12 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \item{average.within}{average distance within clusters.}
   \item{n.between}{number of distances between clusters.}
   \item{n.within}{number of distances within clusters.}
+  \item{within.cluster.ss}{a generalisation of the within clusters sum
+    of squares (k-means objective function), which is obtained if
+    \code{d} is a Euclidean distance matrix.  For general distance
+    measures, this is half
+    the sum of the within cluster squared dissimilarities divided by the
+    cluster size.}
   \item{clus.avg.silwidths}{vector of cluster average silhouette
     widths. See
     \code{\link{silhouette}}.}
@@ -79,15 +93,22 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     See Haldiki et al. (2002).}
   \item{dunn}{minimum separation / maximum diameter. Dunn index, see
     Haldiki et al. (2002).}
+  \item{entropy}{entropy of the distribution of cluster memberships,
+    see Meila(2007).}
   \item{wb.ratio}{\code{average.within/average.between}.}
-  \item{corrected.rand}{corrected rand index (if \code{alt.clustering}
+  \item{corrected.rand}{corrected Rand index (if \code{alt.clustering}
     has been specified), see Gordon (1999, p. 198).}
+  \item{vi}{variation of information (VI) index (if \code{alt.clustering}
+    has been specified), see Meila (2007).}
 }
 \references{
   Gordon, A. D. (1999) \emph{Classification}, 2nd ed. Chapman and Hall.
 
   Haldiki, M., Batistakis, Y., Vazirgiannis, M. (2002) Cluster validity
   methods, \emph{SIGMOD}, Record 31, 40-45.
+
+  Meila, M. (2007) Comparing clusterings?an information based distance,
+  \emph{Journal of Multivariate Analysis}, 98, 873-895.
   
   Milligan, G. W. and Cooper, M. C. (1985) An examination of procedures
   for determining the number of clusters. \emph{Psychometrika}, 50, 159-179.

@@ -11,7 +11,8 @@
    methods and methods based on robust covariance matrices.
 }
 \usage{
- discrproj(x, clvecd, method="awc", clnum=1, ...)
+ discrproj(x, clvecd, method="dc", clnum=NULL, ignorepoints=FALSE,
+           ignorenum=0, ...)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -49,6 +50,12 @@
   \item{clnum}{integer. Number of the class which is attempted to plot
     homogeneously by "asymmetric methods", which are the methods
     assuming that there are only two classes, as indicated above.} 
+  \item{ignorepoints}{logical. If \code{TRUE}, points with label
+    \code{ignorenum} in \code{clvecd} are ignored in the computation for
+    \code{method} and are only projected afterwards onto the resulting
+    units. If \code{pch=NULL}, the plot symbol for these points is "N".}
+  \item{ignorenum}{one of the potential values of the components of
+    \code{clvecd}. Only has effect if \code{ignorepoints=TRUE}, see above.}
   \item{...}{additional parameters passed to the
     projection methods.}
 }
@@ -99,7 +106,7 @@ face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
 grface <- as.integer(attr(face,"grouping"))
 discrproj(face,grface, method="nc")$units
 discrproj(face,grface, method="wnc")$units
-discrproj(face,grface==1, method="arc")$units
+discrproj(face,grface, clnum=1, method="arc")$units
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{classif}% __ONLY ONE__ keyword per line

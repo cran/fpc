@@ -37,7 +37,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
                         subtuning=floor(nrow(data)/2),
                         clustermethod,noisemethod=FALSE,count=TRUE,
                         showplots=FALSE,dissolution=0.5,
-                        recover=0.75,...)
+                        recover=0.75,seed=NULL,...)
 
 \method{print}{clboot}(x,statistics=c("mean","dissolution","recovery"),...)
 
@@ -125,9 +125,14 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     regarded as "noise component", which means that for computing the Jaccard
     similarity, it is not treated as a cluster. The noise component of
     the original clustering is only compared with the noise component of
-    the clustering of the resampled data. (Some cluster methods such as
-    trimmed k-means and \code{\link[mclust]{EMclustN}} produce such noise
-    components).}
+    the clustering of the resampled data. This means that in the
+    \code{clusterboot}-output (and plot), if points were assigned to the
+    noise component, the last cluster number refers to it, and its
+    Jaccard similarity values refer to comparisons with estimated noise
+    components in resampled datasets only.
+    (Some cluster methods such as
+    trimmed k-means and \code{\link[mclust]{mclustBIC}} produce such noise
+    components.)}
   \item{count}{logical. If \code{TRUE}, the resampling runs are counted
     on the screen.}    
   \item{showplots}{logical. If \code{TRUE}, a plot of the first two
@@ -144,6 +149,9 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     similar cluster on the resampled data is larger than  this
     value, the cluster is considered as "successfully recovered". Numbers of
     recovered clusters are recorded.}
+  \item{seed}{integer. Seed for random generator (fed into
+    \code{set.seed}) to make results reproducible. If \code{NULL},
+    results depend on chance.}
   \item{...}{additional parameters for the clustermethods called by
     \code{clusterboot}. No effect in \code{print.clboot} and
     \code{plot.clboot}.}
@@ -161,7 +169,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   Here are some guidelines for interpretation.
   There is some theoretical justification to consider a Jaccard
   similarity value smaller or equal to 0.5 as an indication of a
-  "dissolved cluster", see Hennig (2004). Generally, a valid, stable
+  "dissolved cluster", see Hennig (2008). Generally, a valid, stable
   cluster should yield a mean Jaccard similarity value of 0.75 or more.
   Between 0.6 and 0.75, clusters may be considered as indicating
   patterns in the data, but which points exactly should belong to these
@@ -310,13 +318,13 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       bootmean, etc.}, but for the other resampling methods.} 
 }
 \references{
-  Hennig, C. (2004)  A general robustness and stability theory for
-  cluster analysis, Preprint 2004-07, Fachbereich Mathematik - SPST,
-  Hamburg. \url{http://www.homepages.ucl.ac.uk/~ucakche/papers/classbrd.ps}
-  
   Hennig, C. (2007) Cluster-wise assessment of cluster
   stability. \emph{Computational Statistics and Data Analysis},
-  tentatively accepted.  
+  52, 258-271.
+
+  Hennig, C. (2008)  Dissolution point and isolation robustness:
+  robustness criteria for general cluster analysis methods.
+  \emph{Journal of Multivariate Analysis} 99, 1154-1176.
 }
 \author{Christian Hennig
   \email{chrish@stats.ucl.ac.uk}
@@ -335,17 +343,17 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 \examples{  
   set.seed(20000)
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
-  cf1 <- clusterboot(face,B=5,bootmethod=
+  cf1 <- clusterboot(face,B=3,bootmethod=
           c("boot","noise","jitter"),clustermethod=kmeansCBI,
-          k=5)
+          k=5,seed=15555)
 % For a serious application, choose a larger B!
   print(cf1)
   plot(cf1)
 % cf1$result$result is the k-means clustering output for the original
 % data; cf1$result is the output of bootkmeans on these data.
-  cf2 <- clusterboot(dist(face),B=5,bootmethod=
+  cf2 <- clusterboot(dist(face),B=3,bootmethod=
           "subset",clustermethod=disthclustCBI,
-          k=5, cut="number", method="average", showplots=TRUE)
+          k=5, cut="number", method="average", showplots=TRUE, seed=15555)
   print(cf2)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
