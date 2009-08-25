@@ -8,9 +8,9 @@ can                     Generation of the tuning constant for
 clujaccard              Jaccard similarity between logical vectors
 clusexpect              Expected value of the number of times a fixed
                         point cluster is found
-cluster.stats           Cluster validation statistics
 clusterboot             Clusterwise cluster stability assessment by
                         resampling
+cluster.stats           Cluster validation statistics
 cmahal                  Generation of tuning constant for Mahalanobis
                         fixed point clusters.
 con.comp                Connectivity components of an undirected graph
@@ -42,11 +42,11 @@ ncoord                  Neighborhood based discriminant coordinates
 pamk                    Partitioning around medoids with estimation of
                         number of clusters
 plotcluster             Discriminant projection plot.
-rFace                   "Face-shaped" clustered benchmark datasets
 randcmatrix             Random partition matrix
 randconf                Generate a sample indicator vector
 regmix                  Mixture Model ML for Clusterwise Linear
                         Regression
+rFace                   "Face-shaped" clustered benchmark datasets
 simmatrix               Extracting intersections between clusters from
                         fpc-object
 solvecov                Inversion of (possibly singular) symmetric

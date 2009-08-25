@@ -18,7 +18,7 @@ noisemclustCBI <- function(data, G=NULL, emModelNames=NULL,
   data <- as.matrix(data)
 #  print(str(data))
   if (nnk > 0) {
-    noise <- 1 - NNclean(data, nnk)$z
+    noise <- as.logical(1 - NNclean(data, nnk)$z)
 # print(noise)
     if (!is.null(hcmodel)) 
       hcPairs <- hc(modelName = hcmodel, data = data)
@@ -95,7 +95,7 @@ distnoisemclustCBI <- function(dmatrix, G=NULL, emModelNames=NULL,
                 sammon(dmatrix, k = mdsdim)$points)
   data <- as.matrix(data) 
   if (nnk > 0) {
-    noise <- 1 - NNclean(data, nnk)$z
+    noise <- as.logical(1 - NNclean(data, nnk)$z)
 # print(noise)
     if (!is.null(hcmodel)) 
       hcPairs <- hc(modelName = hcmodel, data = data)

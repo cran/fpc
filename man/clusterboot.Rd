@@ -215,21 +215,19 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 	optional noise component. This
 	function produces a partition and assumes a dissimilarity
 	matrix as input.}
-      \item{noisemclustCBI}{an interface to the functions
-	\code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}}, for normal mixture model based
+      \item{noisemclustCBI}{an interface to the function
+	\code{\link[mclust]{mclustBIC}} for normal mixture model based
 	clustering. This assumes a cases*variables matrix as
-	input. Warning: \code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}} often have problems with multiple
+	input. Warning: \code{\link[mclust]{mclustBIC}} sometimes has
+	problems with multiple
         points. It is recommended to use this only together with
 	\code{multipleboot=FALSE}.}
-      \item{distnoisemclustCBI}{an interface to the functions
-	\code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}}, for normal mixture model based
+      \item{distnoisemclustCBI}{an interface to the function
+	\code{\link[mclust]{mclustBIC}} for normal mixture model based
 	clustering. This assumes a dissimilarity matrix as input and
 	generates a data matrix by multidimensional scaling first.
-	Warning: \code{\link[mclust]{EMclust}} and
-	\code{\link[mclust]{EMclustN}} often have problems with multiple
+	Warning: \code{\link[mclust]{mclustBIC}} sometimes has
+	problems with multiple
         points. It is recommended to use this only together with
 	\code{multipleboot=FALSE}.}
       \item{claraCBI}{an interface to the functions

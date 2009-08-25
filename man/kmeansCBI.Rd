@@ -177,7 +177,7 @@ mahalCBI(data,clustercut=0.5,...)
 	function produces a partition and assumes a dissimilarity
 	matrix as input.}
     \item{noisemclustCBI}{an interface to the function
-	\code{\link[mclust]{mclust.BIC}}, for normal mixture model based
+	\code{\link[mclust]{mclustBIC}}, for normal mixture model based
 	clustering. Warning: \code{\link[mclust]{mclustBIC}} often
 	has problems with multiple
         points. In \code{\link{clusterboot}}, it is recommended to use
