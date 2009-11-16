@@ -62,7 +62,10 @@ cluster.stats <- function(d,clustering,alt.clustering=NULL,
       di <- as.dist(dmat[clustering==i,clustering==i])
       within.cluster.ss <- within.cluster.ss+sum(di^2)/cluster.size[i]
       within.dist <- c(within.dist,di)
-      diameter[i] <- max(di)
+      if (sum(clustering==i)>1)
+        diameter[i] <- max(di)
+      else
+        diameter[i] <- 0        
       average.distance[i] <- mean(di)
       median.distance[i] <- median(di)
       bv <- numeric(0)

@@ -1,6 +1,6 @@
 
-R : Copyright 2006, The R Foundation for Statistical Computing
-Version 2.3.1 (2006-06-01)
+R version 2.10.0 (2009-10-26)
+Copyright (C) 2009 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -22,60 +22,60 @@ Loading required package: cluster
 
 batcrd> set.seed(4634)
 
-batcrd> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+batcrd> face <- rFace(600,dMoNo=2,dNoEy=0)
 
-batcrd> grface <- as.integer(attr(face, "grouping"))
+batcrd> grface <- as.integer(attr(face,"grouping"))
 
-batcrd> bcf2 <- batcoord(face, grface == 2)
+batcrd> bcf2 <- batcoord(face,grface==2)
 
-batcrd> plot(bcf2$proj, col = 1 + (grface == 2))
+batcrd> plot(bcf2$proj,col=1+(grface==2))
 
-batcrd> bcfv2 <- batcoord(face, grface == 2, dom = "variance")
+batcrd> bcfv2 <- batcoord(face,grface==2,dom="variance")
 
-batcrd> plot(bcfv2$proj, col = 1 + (grface == 2))
+batcrd> plot(bcfv2$proj,col=1+(grface==2))
 
-batcrd> bcfvv2 <- batvarcoord(face, grface == 2)
+batcrd> bcfvv2 <- batvarcoord(face,grface==2)
 
-batcrd> plot(bcfvv2$proj, col = 1 + (grface == 2))
+batcrd> plot(bcfvv2$proj,col=1+(grface==2))
 > example(can)
 
-can> can(429, 3)
+can>   can(429,3)
 [1] 8.806634
 > example(clusexpect)
 
-clsxpc> clusexpect(500, 4, 150, 2000)
+clsxpc>   clusexpect(500,4,150,2000)
 [1] 1.357889
 > example(cmahal)
 
-cmahal> plot(1:100, cmahal(100, 3, nmin = 5, cmin = qchisq(0.99, 
-    3), nc1 = 90), xlab = "FPC size", ylab = "cmahal")
+cmahal>   plot(1:100,cmahal(100,3,nmin=5,cmin=qchisq(0.99,3),nc1=90),
+cmahal+        xlab="FPC size", ylab="cmahal")
 > example(con.comp)
 
-cn.cmp> set.seed(1000)
+cn.cmp>   set.seed(1000)
 
-cn.cmp> x <- rnorm(20)
+cn.cmp>   x <- rnorm(20)
 
-cn.cmp> m <- matrix(0, nrow = 20, ncol = 20)
+cn.cmp>   m <- matrix(0,nrow=20,ncol=20)
 
-cn.cmp> for (i in 1:20) for (j in 1:20) m[i, j] <- abs(x[i] - 
-    x[j])
+cn.cmp>   for(i in 1:20)
+cn.cmp+     for(j in 1:20)
+cn.cmp+       m[i,j] <- abs(x[i]-x[j])
 
-cn.cmp> d <- m < 0.2
+cn.cmp>   d <- m<0.2
 
-cn.cmp> cc <- con.comp(d)
+cn.cmp>   cc <- con.comp(d)
 
-cn.cmp> max(cc)
+cn.cmp>   max(cc) # number of connectivity components
 [1] 6
 
-cn.cmp> plot(x, cc)
+cn.cmp>   plot(x,cc)
 > example(cov.wml)
 
-cv.wml> x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+cv.wml>   x <- c(1,2,3,4,5,6,7,8,9,10)
 
-cv.wml> y <- c(1, 2, 3, 8, 7, 6, 5, 8, 9, 10)
+cv.wml>   y <- c(1,2,3,8,7,6,5,8,9,10)
 
-cv.wml> cov.wml(cbind(x, y), wt = c(0, 0, 0, 1, 1, 1, 1, 1, 
-    0, 0))
+cv.wml>   cov.wml(cbind(x,y),wt=c(0,0,0,1,1,1,1,1,0,0))
 $cov
      x     y
 x  2.0 -0.40
@@ -92,8 +92,7 @@ $wt
  [1] 0.0 0.0 0.0 0.2 0.2 0.2 0.2 0.2 0.0 0.0
 
 
-cv.wml> cov.wt(cbind(x, y), wt = c(0, 0, 0, 1, 1, 1, 1, 1, 
-    0, 0))
+cv.wml>   cov.wt(cbind(x,y),wt=c(0,0,0,1,1,1,1,1,0,0))
 $cov
      x    y
 x  2.5 -0.5
@@ -111,30 +110,31 @@ $wt
 
 > example(discrcoord)
 
-dscrcr> set.seed(4634)
+dscrcr>   set.seed(4634)
 
-dscrcr> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+dscrcr>   face <- rFace(600,dMoNo=2,dNoEy=0)
 
-dscrcr> grface <- as.integer(attr(face, "grouping"))
+dscrcr>   grface <- as.integer(attr(face,"grouping"))
 
-dscrcr> dcf <- discrcoord(face, grface)
+dscrcr>   dcf <- discrcoord(face,grface)
 
-dscrcr> plot(dcf$proj, col = grface)
+dscrcr>   plot(dcf$proj,col=grface)
 > example(fixmahal)
 
-fixmhl> set.seed(20000)
+fixmhl>   set.seed(20000)
 
-fixmhl> face <- rFace(400, dMoNo = 2, dNoEy = 0, p = 3)
+fixmhl>   face <- rFace(400,dMoNo=2,dNoEy=0, p=3)
 
-fixmhl> initg <- list()
+fixmhl>   # The first example uses grouping information via init.group.
+fixmhl>   initg <- list()
 
-fixmhl> grface <- as.integer(attr(face, "grouping"))
+fixmhl>   grface <- as.integer(attr(face,"grouping"))
 
-fixmhl> for (i in 1:5) initg[[i]] <- (grface == i)
+fixmhl>   for (i in 1:5) initg[[i]] <- (grface==i)
 
-fixmhl> ff0 <- fixmahal(face, pointit = FALSE, init.group = initg)
+fixmhl>   ff0 <- fixmahal(face, pointit=FALSE, init.group=initg)
 
-fixmhl> summary(ff0)
+fixmhl>   summary(ff0)
   *  Mahalanobis Fixed Point Clusters  *
 
 Often a clear cluster in the data leads to several similar FPCs.
@@ -211,22 +211,24 @@ Number of points (rounded weights) in intersection of representative FPCs
 [4,]    0    0   96  197  197
 [5,]   27   58   96  197  328
 
-fixmhl> cff0 <- fpclusters(ff0)
+fixmhl>   cff0 <- fpclusters(ff0)
 
-fixmhl> plot(face, col = 1 + cff0[[1]])
+fixmhl>   plot(face, col=1+cff0[[1]])
 
-fixmhl> plot(face, col = 1 + cff0[[4]])
+fixmhl>   plot(face, col=1+cff0[[4]]) # Why does this come out as a cluster? 
 
-fixmhl> plot(ff0, face, 4)
+fixmhl>   plot(ff0, face, 4) # A bit clearer...
 > example(fixreg)
 
 fixreg> set.seed(190000)
 
 fixreg> data(tonedata)
 
+fixreg> # Note: If you do not use the installed package, replace this by
+fixreg> # tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 fixreg> attach(tonedata)
 
-fixreg> tonefix <- fixreg(stretchratio, tuned, mtf = 1, ir = 20)
+fixreg> tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)
 
 fixreg> summary(tonefix)
   *  Fixed Point Clusters  *
@@ -275,33 +277,28 @@ Number of points in intersection of  representative FPCs
 [3,]   61   47   66
 > example(itnumber)
 
-itnmbr> itnumber(500, 4, 150, 2)
+itnmbr>   itnumber(500,4,150,2)
 [1] 6985
 > example(mahalanofix)
 
-mhlnfx> x <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+mhlnfx>   x <- c(1,2,3,4,5,6,7,8,9,10)
 
-mhlnfx> y <- c(1, 2, 3, 8, 7, 6, 5, 8, 9, 10)
+mhlnfx>   y <- c(1,2,3,8,7,6,5,8,9,10)
 
-mhlnfx> mahalanofix(cbind(x, y), gv = c(0, 0, 0, 1, 1, 1, 
-    1, 1, 0, 0))
+mhlnfx>   mahalanofix(cbind(x,y),gv=c(0,0,0,1,1,1,1,1,0,0))
 
-mhlnfx> mahalanofix(cbind(x, y), gv = c(0, 0, 0, 1, 1, 1, 
-    1, 0, 0, 0))
+mhlnfx>   mahalanofix(cbind(x,y),gv=c(0,0,0,1,1,1,1,0,0,0))
 
-mhlnfx> mahalanofix(cbind(x, y), gv = c(0, 0, 0, 1, 1, 1, 
-    1, 1, 0, 0), method = "mcd")
+mhlnfx>   mahalanofix(cbind(x,y),gv=c(0,0,0,1,1,1,1,1,0,0),method="mcd")
 
-mhlnfx> mahalanofuz(cbind(x, y), gv = c(0, 0, 0.5, 0.5, 1, 
-    1, 1, 0.5, 0.5, 0))
+mhlnfx>   mahalanofuz(cbind(x,y),gv=c(0,0,0.5,0.5,1,1,1,0.5,0.5,0))
 > example(mahalconf)
 
-mhlcnf> set.seed(4634)
+mhlcnf>   set.seed(4634)
 
-mhlcnf> face <- rFace(600, dMoNo = 2, dNoEy = 0, p = 2)
+mhlcnf>   face <- rFace(600,dMoNo=2,dNoEy=0,p=2)
 
-mhlcnf> mahalconf(face, no = 200, startn = 20, covall = cov(face), 
-    plot = "start")
+mhlcnf>   mahalconf(face,no=200,startn=20,covall=cov(face),plot="start")
   [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
  [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
@@ -354,33 +351,33 @@ mhlcnf> mahalconf(face, no = 200, startn = 20, covall = cov(face),
 [589] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 > example(minsize)
 
-minsiz> minsize(500, 4, 7000, 2)
+minsiz>   minsize(500,4,7000,2)
 [1] 127
 > example(plotcluster)
 
 pltcls> set.seed(4634)
 
-pltcls> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+pltcls> face <- rFace(600,dMoNo=2,dNoEy=0)
 
-pltcls> grface <- as.integer(attr(face, "grouping"))
+pltcls> grface <- as.integer(attr(face,"grouping"))
 
-pltcls> plotcluster(face, grface)
+pltcls> plotcluster(face,grface)
 
-pltcls> plotcluster(face, grface == 1)
+pltcls> plotcluster(face,grface==1)
 > example(rFace)
 
-rFace> set.seed(4634)
+rFace>   set.seed(4634)
 
-rFace> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+rFace>   face <- rFace(600,dMoNo=2,dNoEy=0)
 
-rFace> grface <- as.integer(attr(face, "grouping"))
+rFace>   grface <- as.integer(attr(face,"grouping"))
 
-rFace> plot(face, col = grface)
+rFace>   plot(face, col = grface)
 
-rFace> pairs(face, col = grface, main = "rFace(600,dMoNo=2,dNoEy=0)")
+rFace>   pairs(face, col = grface, main ="rFace(600,dMoNo=2,dNoEy=0)")
 > example(randconf)
 
-rndcnf> randconf(10, 3)
+rndcnf>   randconf(10,3)
  [1] FALSE FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE
 > example(simmatrix)
 
@@ -388,6 +385,8 @@ smmtrx> set.seed(190000)
 
 smmtrx> data(tonedata)
 
+smmtrx> # Note: If you do not use the installed package, replace this by
+smmtrx> # tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 smmtrx> attach(tonedata)
 
 	The following object(s) are masked from tonedata ( position 3 ) :
@@ -395,20 +394,20 @@ smmtrx> attach(tonedata)
 	 stretchratio tuned 
 
 
-smmtrx> tonefix <- fixreg(stretchratio, tuned, mtf = 1, ir = 20)
+smmtrx> tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)
 
-smmtrx> simmatrix(tonefix)[sseg(2, 3)]
+smmtrx> simmatrix(tonefix)[sseg(2,3)]
 [1] 47
 > example(solvecov)
 
-solvcv> x <- c(1, 0, 0, 1, 0, 1, 0, 0, 1)
+solvcv>   x <- c(1,0,0,1,0,1,0,0,1)
 
-solvcv> dim(x) <- c(3, 3)
+solvcv>   dim(x) <- c(3,3)
 
-solvcv> solvecov(x)
+solvcv>   solvecov(x)
 > example(sseg)
 
-sseg> sseg(3, 4)
+sseg> sseg(3,4)
 [1] 9
 > example(tdecomp)
 
@@ -416,17 +415,17 @@ tdecmp> x <- rnorm(10)
 
 tdecmp> y <- rnorm(10)
 
-tdecmp> z <- cov(cbind(x, y))
+tdecmp> z <- cov(cbind(x,y))
 
 tdecmp> tdecomp(z)
-          [,1]       [,2]
-[1,] 1.2422312 -0.3487061
-[2,] 0.3295093  1.1738448
+           [,1]       [,2]
+[1,] -1.2422312  0.3487061
+[2,] -0.3295093 -1.1738448
 > example(wfu)
 
-wfu> md <- seq(0, 10, by = 0.1)
+wfu>   md <- seq(0,10,by=0.1)
 
-wfu> wfu(md, ca = 5, ca2 = 8)
+wfu>   wfu(md,ca=5,ca2=8)
   [1] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
   [7] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
  [13] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
@@ -448,69 +447,69 @@ wfu> wfu(md, ca = 5, ca2 = 8)
 
 dscrpr> set.seed(4634)
 
-dscrpr> face <- rFace(300, dMoNo = 2, dNoEy = 0, p = 3)
+dscrpr> face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
 
-dscrpr> grface <- as.integer(attr(face, "grouping"))
+dscrpr> grface <- as.integer(attr(face,"grouping"))
 
-dscrpr> discrproj(face, grface, method = "nc")$units
+dscrpr> discrproj(face,grface, method="nc")$units
             [,1]       [,2]        [,3]
 [1,]  0.84359426 1.14608710 -0.02209846
 [2,] -0.33649001 0.27903245 -0.01187219
 [3,] -0.06808816 0.03965075  1.00303099
 
-dscrpr> discrproj(face, grface, method = "wnc")$units
+dscrpr> discrproj(face,grface, method="wnc")$units
             [,1]        [,2]         [,3]
 [1,] -0.07433352 1.420772600  0.039179197
 [2,] -0.43725296 0.002745807 -0.005281343
 [3,] -0.03831248 0.001676168 -1.005389819
 
-dscrpr> discrproj(face, grface == 1, method = "arc")$units
-           [,1]        [,2]       [,3]
-[1,] -1.2952782  0.50007753 0.33960121
-[2,]  0.6533164  0.05164296 0.08010673
-[3,] -0.0805180 -0.66005066 0.46509088
+dscrpr> discrproj(face,grface, clnum=1, method="arc")$units
+           [,1]        [,2]        [,3]
+[1,] -1.2952782  0.50007753 -0.33960121
+[2,]  0.6533164  0.05164296 -0.08010673
+[3,] -0.0805180 -0.66005066 -0.46509088
 > example(ncoord)
 
-ncoord> set.seed(4634)
+ncoord>   set.seed(4634)
 
-ncoord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+ncoord>   face <- rFace(600,dMoNo=2,dNoEy=0)
 
-ncoord> grface <- as.integer(attr(face, "grouping"))
+ncoord>   grface <- as.integer(attr(face,"grouping"))
 
-ncoord> ncf <- ncoord(face, grface)
+ncoord>   ncf <- ncoord(face,grface)
 
-ncoord> plot(ncf$proj, col = grface)
+ncoord>   plot(ncf$proj,col=grface)
 
-ncoord> ncf2 <- ncoord(face, grface, weighted = TRUE)
+ncoord>   ncf2 <- ncoord(face,grface,weighted=TRUE)
 
-ncoord> plot(ncf2$proj, col = grface)
+ncoord>   plot(ncf2$proj,col=grface)
 > example(ancoord)
 
-ancord> set.seed(4634)
+ancord>   set.seed(4634)
 
-ancord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+ancord>   face <- rFace(600,dMoNo=2,dNoEy=0)
 
-ancord> grface <- as.integer(attr(face, "grouping"))
+ancord>   grface <- as.integer(attr(face,"grouping"))
 
-ancord> ancf2 <- ancoord(face, grface == 4)
+ancord>   ancf2 <- ancoord(face,grface==4)
 
-ancord> plot(ancf2$proj, col = 1 + (grface == 4))
+ancord>   plot(ancf2$proj,col=1+(grface==4))
 > example(mvdcoord)
 
-mvdcrd> set.seed(4634)
+mvdcrd>   set.seed(4634)
 
-mvdcrd> face <- rFace(300, dMoNo = 2, dNoEy = 0, p = 3)
+mvdcrd>   face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
 
-mvdcrd> grface <- as.integer(attr(face, "grouping"))
+mvdcrd>   grface <- as.integer(attr(face,"grouping"))
 
-mvdcrd> mcf <- mvdcoord(face, grface)
+mvdcrd>   mcf <- mvdcoord(face,grface)
 
-mvdcrd> plot(mcf$proj, col = grface)
+mvdcrd>   plot(mcf$proj,col=grface)
 > example(mahalanodisc)
 
-mhlnds> x <- cbind(rnorm(50), rnorm(50))
+mhlnds>   x <- cbind(rnorm(50),rnorm(50))
 
-mhlnds> mahalanodisc(x, c(0, 0), cov(x))
+mhlnds>   mahalanodisc(x,c(0,0),cov(x))
  [1] 1.752739996 3.355701694 1.615350036 3.876778080 2.260527932 0.974627068
  [7] 1.439599768 4.403967757 4.404140724 0.967717841 5.114622004 0.594395978
 [13] 1.500249405 4.535283437 3.041514903 1.372799825 1.814936043 0.272382965
@@ -521,7 +520,7 @@ mhlnds> mahalanodisc(x, c(0, 0), cov(x))
 [43] 0.002262337 0.137664908 2.190792974 0.496892564 6.507558987 0.593724772
 [49] 2.844162023 0.610332239
 
-mhlnds> mahalanodisc(x, c(0, 0), matrix(0, ncol = 2, nrow = 2))
+mhlnds>   mahalanodisc(x,c(0,0),matrix(0,ncol=2,nrow=2))
  [1] 11599051772 33016977993 18749060179 44995427256 19101996725  6024546847
  [7]  8831487205 28202711347 45490048654  8861346204 46893554628  6505176833
 [13] 16621111452 27630710389 34349618061 15369344770 13585316188  1677134749
@@ -532,41 +531,43 @@ mhlnds> mahalanodisc(x, c(0, 0), matrix(0, ncol = 2, nrow = 2))
 [43]    13783526  1349873692 15245740244  3102497868 51283959377  3761037955
 [49] 26877643390  6995152921
 > example(c.weight)
-
-c.wght> c.weight(4, 1)
-[1] 0.25
+Warning message:
+In example(c.weight) : no help file found for 'c.weight'
 > example(adcoord)
 
-adcord> set.seed(4634)
+adcord>   set.seed(4634)
 
-adcord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+adcord>   face <- rFace(600,dMoNo=2,dNoEy=0)
 
-adcord> grface <- as.integer(attr(face, "grouping"))
+adcord>   grface <- as.integer(attr(face,"grouping"))
 
-adcord> adcf <- adcoord(face, grface == 2)
+adcord>   adcf <- adcoord(face,grface==2)
 
-adcord> adcf2 <- adcoord(face, grface == 4)
+adcord>   adcf2 <- adcoord(face,grface==4)
 
-adcord> plot(adcf$proj, col = 1 + (grface == 2))
+adcord>   plot(adcf$proj,col=1+(grface==2))
 
-adcord> plot(adcf2$proj, col = 1 + (grface == 4))
+adcord>   plot(adcf2$proj,col=1+(grface==4))
 > example(awcoord)
 
-awcord> set.seed(4634)
+awcord>   set.seed(4634)
 
-awcord> face <- rFace(600, dMoNo = 2, dNoEy = 0)
+awcord>   face <- rFace(600,dMoNo=2,dNoEy=0)
 
-awcord> grface <- as.integer(attr(face, "grouping"))
+awcord>   grface <- as.integer(attr(face,"grouping"))
 
-awcord> awcf <- awcoord(face, grface == 1)
+awcord>   awcf <- awcoord(face,grface==1)
 
-awcord> plot(awcf$proj, col = 1 + (grface == 1))
+awcord>   # awcf2 <- ancoord(face,grface==1, method="mcd")
+awcord>   plot(awcf$proj,col=1+(grface==1))
 > example(regmix)
 
 regmix> set.seed(12234)
 
 regmix> data(tonedata)
 
+regmix> # Note: If you do not use the installed package, replace this by
+regmix> # tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 regmix> attach(tonedata)
 
 	The following object(s) are masked from tonedata ( position 3 ) :
@@ -579,48 +580,53 @@ regmix> attach(tonedata)
 	 stretchratio tuned 
 
 
-regmix> rmt1 <- regmix(stretchratio, tuned, nclust = 1:2)
+regmix> rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
 Iteration  1  for  1  clusters.
 Iteration  1  for  2  clusters.
 
+regmix> # nclust=1:2 makes the example fast;
+regmix> # a more serious application would rather use the default.
 regmix> rmt1$g
-  [1] 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
- [38] 2 1 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 1 1 1 2 2 1 2 2 2 2 2 1 2 2 1 2 2 2 2 2
- [75] 2 2 2 1 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2
-[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2
+  [1] 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
+ [38] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 1 1 1 2 2 1 2 2 2 2 2 2 2 2 1 2 2 2 2 2
+ [75] 2 2 2 1 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2
 [149] 2 1
 
 regmix> rmt1$bic
-[1]   3.732369 247.322353
+[1]   3.732369 225.444230
 
+regmix> # start with initial parameter values
 regmix> cln <- 3
 
 regmix> n <- 150
 
-regmix> initcoef <- cbind(c(2, 0), c(0, 1), c(0, 2.5))
+regmix> initcoef <- cbind(c(2,0),c(0,1),c(0,2.5))
 
-regmix> initvar <- c(0.001, 1e-04, 0.5)
+regmix> initvar <- c(0.001,0.0001,0.5)
 
-regmix> initeps <- c(0.4, 0.3, 0.3)
+regmix> initeps <- c(0.4,0.3,0.3)
 
-regmix> m <- matrix(nrow = n, ncol = cln)
+regmix> # computation of m from initial parameters
+regmix> m <- matrix(nrow=n, ncol=cln)
 
 regmix> stm <- numeric(0)
 
-regmix> for (i in 1:cln) for (j in 1:n) {
-    m[j, i] <- initeps[i] * dnorm(tuned[j], mean = initcoef[1, 
-        i] + initcoef[2, i] * stretchratio[j], sd = sqrt(initvar[i]))
-}
+regmix> for (i in 1:cln)
+regmix+   for (j in 1:n){
+regmix+     m[j,i] <- initeps[i]*dnorm(tuned[j],mean=initcoef[1,i]+
+regmix+               initcoef[2,i]*stretchratio[j], sd=sqrt(initvar[i]))
+regmix+   }
 
-regmix> for (j in 1:n) {
-    stm[j] <- sum(m[j, ])
-    for (i in 1:cln) m[j, i] <- m[j, i]/stm[j]
-}
+regmix>   for (j in 1:n){
+regmix+     stm[j] <- sum(m[j,])
+regmix+     for (i in 1:cln)
+regmix+       m[j,i] <- m[j,i]/stm[j]
+regmix+   } 
 
 regmix> rmt2 <- regem(stretchratio, tuned, m, cln)
 
-regmix> rmt2bic <- 2 * rmt2$loglik - log(150) * (4 * cln - 
-    1)
+regmix> rmt2bic <- 2*rmt2$loglik - log(150)*(4*cln-1)
 
 regmix> rmt2bic
 [1] 422.4744
@@ -628,7 +634,7 @@ regmix> rmt2bic
 
 rndcmt> set.seed(111)
 
-rndcmt> randcmatrix(10, 2, 1)
+rndcmt> randcmatrix(10,2,1)
       [,1] [,2]
  [1,]    0    1
  [2,]    0    1
@@ -642,16 +648,16 @@ rndcmt> randcmatrix(10, 2, 1)
 [10,]    1    0
 > example(cluster.stats)
 
-clstr.> set.seed(20000)
+clstr.>   set.seed(20000)
 
-clstr.> face <- rFace(200, dMoNo = 2, dNoEy = 0, p = 2)
+clstr.>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
 
-clstr.> dface <- dist(face)
+clstr.>   dface <- dist(face)
 
-clstr.> complete3 <- cutree(hclust(dface), 3)
+clstr.>   complete3 <- cutree(hclust(dface),3)
 
-clstr.> cluster.stats(dface, complete3, alt.clustering = as.integer(attr(face, 
-    "grouping")))
+clstr.>   cluster.stats(dface,complete3,
+clstr.+                 alt.clustering=as.integer(attr(face,"grouping")))
 $n
 [1] 200
 
@@ -694,6 +700,9 @@ $n.between
 $n.within
 [1] 10956
 
+$within.cluster.ss
+[1] 1198.401
+
 $clus.avg.silwidths
         1         2         3 
 0.7522817 0.8179603 0.3548236 
@@ -713,104 +722,102 @@ $hubertgamma
 $dunn
 [1] 0.5441534
 
+$entropy
+[1] 0.7016828
+
 $wb.ratio
 [1] 0.2113267
 
 $corrected.rand
 [1] 0.345064
 
+$vi
+[1] 0.9697847
+
 > example(clusterboot)
 
-clstrb> set.seed(20000)
+clstrb>   set.seed(20000)
 
-clstrb> face <- rFace(50, dMoNo = 2, dNoEy = 0, p = 2)
+clstrb>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
 
-clstrb> cf1 <- clusterboot(face, B = 5, bootmethod = c("boot", 
-    "noise", "jitter"), clustermethod = kmeansCBI, k = 5)
+clstrb>   cf1 <- clusterboot(face,B=3,bootmethod=
+clstrb+           c("boot","noise","jitter"),clustermethod=kmeansCBI,
+clstrb+           k=5,seed=15555)
 boot 1 
 boot 2 
 boot 3 
-boot 4 
-boot 5 
 noise 1 
 noise 2 
 noise 3 
-noise 4 
-noise 5 
 jitter 1 
 jitter 2 
 jitter 3 
-jitter 4 
-jitter 5 
 
-clstrb> print(cf1)
+clstrb>   print(cf1)
 * Cluster stability assessment *
 Cluster method:  kmeans 
 Full clustering results are given as parameter result
 of the clusterboot object, which also provides further statistics
 of the resampling results.
-Number of resampling runs:  5 
+Number of resampling runs:  3 
 
 Number of clusters found in data:  5 
 
  Clusterwise Jaccard bootstrap mean:
-[1] 0.6774847 0.7647619 0.5166667 0.8142857 0.3974747
+[1] 0.3450980 0.5882353 0.2904483 1.0000000 0.7750000
 dissolved:
-[1] 1 0 4 1 4
+[1] 2 1 3 0 0
 recovered:
-[1] 2 2 1 3 1
+[1] 1 0 0 3 2
  Clusterwise Jaccard replacement by noise mean:
-[1] 0.8419130 0.8820979 0.6582857 0.9428571 0.5825175
+[1] 0.6370370 0.6157562 0.3396656 0.8888889 0.9090909
 dissolved:
-[1] 0 0 1 0 2
+[1] 1 0 3 0 0
 recovered:
-[1] 4 4 2 4 1
+[1] 2 0 0 2 3
  Clusterwise Jaccard jittering mean:
-[1] 0.9111111 0.9666667 0.8214286 0.9333333 0.8333333
+[1] 0.1838624 0.6001899 0.2943350 0.5555556 0.7600733
 dissolved:
-[1] 0 0 1 0 1
+[1] 3 0 3 2 0
 recovered:
-[1] 4 5 4 4 4
+[1] 0 0 0 0 1
 
-clstrb> plot(cf1)
+clstrb>   plot(cf1)
 
-clstrb> cf2 <- clusterboot(dist(face), B = 5, bootmethod = "subset", 
-    clustermethod = disthclustCBI, k = 5, cut = "number", method = "average", 
-    showplots = TRUE)
+clstrb>   cf2 <- clusterboot(dist(face),B=3,bootmethod=
+clstrb+           "subset",clustermethod=disthclustCBI,
+clstrb+           k=5, cut="number", method="average", showplots=TRUE, seed=15555)
 subset 1 
 subset 2 
 subset 3 
-subset 4 
-subset 5 
 
-clstrb> print(cf2)
+clstrb>   print(cf2)
 * Cluster stability assessment *
 Cluster method:  hclust 
 Full clustering results are given as parameter result
 of the clusterboot object, which also provides further statistics
 of the resampling results.
-Number of resampling runs:  5 
+Number of resampling runs:  3 
 
 Number of clusters found in data:  5 
 
  Clusterwise Jaccard subsetting mean:
-[1] 0.785866 1.000000 0.400000 0.600000 0.600000
+[1] 0.7156863 0.8571429 0.3333333 0.3333333 1.0000000
 dissolved:
-[1] 0 0 3 2 2
+[1] 1 0 2 2 0
 recovered:
-[1] 3 5 2 3 3
+[1] 1 2 1 1 3
 > example(kmeansCBI)
 
-kmnCBI> set.seed(20000)
+kmnCBI>   set.seed(20000)
 
-kmnCBI> face <- rFace(50, dMoNo = 2, dNoEy = 0, p = 2)
+kmnCBI>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
 
-kmnCBI> dbs <- dbscanCBI(face, eps = 1.5, MinPts = 4)
+kmnCBI>   dbs <- dbscanCBI(face,eps=1.5,MinPts=4)
 
-kmnCBI> dhc <- disthclustCBI(dist(face), method = "average", 
-    k = 1.5, noisecut = 2)
+kmnCBI>   dhc <- disthclustCBI(dist(face),method="average",k=1.5,noisecut=2)
 
-kmnCBI> table(dbs$partition, dhc$partition)
+kmnCBI>   table(dbs$partition,dhc$partition)
    
      1  2  3  4  5  6
   1 15  0  0  0  0  1
@@ -820,78 +827,80 @@ kmnCBI> table(dbs$partition, dhc$partition)
   5  0  0  0  0  0 11
 > example(dbscan)
 
-dbscan> set.seed(665544)
+dbscan>   set.seed(665544)
 
-dbscan> n <- 600
+dbscan>   n <- 600
 
-dbscan> x <- cbind(runif(10, 0, 10) + rnorm(n, sd = 0.2), 
-    runif(10, 0, 10) + rnorm(n, sd = 0.2))
+dbscan>   x <- cbind(runif(10, 0, 10)+rnorm(n, sd=0.2), runif(10, 0, 10)+rnorm(n,
+dbscan+     sd=0.2))
 
-dbscan> par(bg = "grey40")
+dbscan>   par(bg="grey40")
 
-dbscan> ds <- dbscan(x, 0.2, showplot = TRUE)
+dbscan>   ds <- dbscan(x, 0.2, showplot=TRUE)
 
-dbscan> ds
+dbscan>   ds
 dbscan Pts=600 MinPts=5 eps=0.2
         0  1  2  3  4  5  6  7  8  9 10 11
 seed    0 50 53 51 52 51 54 54 54 53 51  1
 border 28  4  4  8  5  3  3  4  3  4  6  4
 total  28 54 57 59 57 54 57 58 57 57 57  5
 
-dbscan> plot(ds, x)
+dbscan>   plot(ds, x)
 
-dbscan> x2 <- matrix(0, nrow = 4, ncol = 2)
+dbscan>   x2 <- matrix(0,nrow=4,ncol=2)
 
-dbscan> x2[1, ] <- c(5, 2)
+dbscan>   x2[1,] <- c(5,2)
 
-dbscan> x2[2, ] <- c(8, 3)
+dbscan>   x2[2,] <- c(8,3)
 
-dbscan> x2[3, ] <- c(4, 4)
+dbscan>   x2[3,] <- c(4,4)
 
-dbscan> x2[4, ] <- c(9, 9)
+dbscan>   x2[4,] <- c(9,9)
 
-dbscan> predict(ds, x, x2)
+dbscan>   predict(ds, x, x2)
 Loading required package: class
 [1] 4 9 0 0
 
-dbscan> n <- 600
+dbscan>   n <- 600
 
-dbscan> x <- cbind((1:3) + rnorm(n, sd = 0.2), (1:3) + rnorm(n, 
-    sd = 0.2))
+dbscan>   x <- cbind((1:3)+rnorm(n, sd=0.2), (1:3)+rnorm(n, sd=0.2))
 
-dbscan> system.time(ds <- dbscan(x, 0.3, countmode = NULL, 
-    method = "raw"))[3]
-[1] 0.543
+dbscan>   system.time(ds <- dbscan(x, 0.3, countmode=NULL, method="raw"))[3] 
+elapsed 
+   0.67 
 
-dbscan> system.time(dsb <- dbscan(x, 0.3, countmode = NULL, 
-    method = "hybrid"))[3]
-[1] 0.331
+dbscan>   system.time(dsb <- dbscan(x, 0.3, countmode=NULL, method="hybrid"))[3]
+elapsed 
+  0.511 
 
-dbscan> system.time(dsc <- dbscan(dist(x), 0.3, countmode = NULL, 
-    method = "dist"))[3]
-[1] 0.582
+dbscan>   system.time(dsc <- dbscan(dist(x), 0.3, countmode=NULL,
+dbscan+     method="dist"))[3]
+elapsed 
+  0.684 
+Warning message:
+package 'class' was built under R version 2.9.1 and help may not work correctly 
 > example(pamk)
 
-pamk> set.seed(20000)
+pamk>   set.seed(20000)
 
-pamk> face <- rFace(50, dMoNo = 2, dNoEy = 0, p = 2)
+pamk>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
 
-pamk> pk <- pamk(face)
+pamk>   pk <- pamk(face)
 > example(kmeansruns)
 
-kmnsrn> set.seed(20000)
+kmnsrn>   set.seed(20000)
 
-kmnsrn> face <- rFace(50, dMoNo = 2, dNoEy = 0, p = 2)
+kmnsrn>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
 
-kmnsrn> kmr1 <- kmeansruns(face, k = 5, runs = 1)
+kmnsrn>   kmr1 <- kmeansruns(face,k=5,runs=1)
 
-kmnsrn> kmr5 <- kmeansruns(face, k = 5, runs = 5)
+kmnsrn>   kmr5 <- kmeansruns(face,k=5,runs=5)
 > example(clujaccard)
 
-cljccr> c1 <- rep(TRUE, 10)
+cljccr>   c1 <- rep(TRUE,10)
 
-cljccr> c2 <- c(FALSE, rep(TRUE, 9))
+cljccr>   c2 <- c(FALSE,rep(TRUE,9))
 
-cljccr> clujaccard(c1, c2)
+cljccr>   clujaccard(c1,c2)
 [1] 0.9
 > 
