@@ -1,30 +1,31 @@
 Package: fpc
-Title: Fixed point clusters, clusterwise regression and discriminant
-        plots
-Version: 1.2-7
-Date: 2009-11-16
+Title: Flexible procedures for clustering
+Version: 2.0-1
+Date: 2010-08-06
 Author: Christian Hennig <chrish@stats.ucl.ac.uk>
-Depends: R (>= 1.9), MASS, cluster
-Suggests: mclust, trimcluster, prabclus, class
-Description: Fuzzy and crisp fixed point cluster analysis based on
-        Mahalanobis distance and linear regression fixed point
-        clusters. Semi-explorative, semi-model-based clustering
-        methods, operating on n*p data, do not need prespecification of
-        number of clusters, produce overlapping clusters. Symmetric and
-        asymmetric discriminant projections separate groups optimally,
-        used to visualize the separation of groupings, visual cluster
-        validation. Clusterwise linear regression by normal mixture
-        modeling. Cluster validation statistics for distance based
-        clustering including corrected Rand index. Clusterwise cluster
-        stability assessment. DBSCAN clustering. Interface functions
-        for many clustering methods implemented in R. Note that the use
-        of the package mclust (called by function prabclust) is
-        protected by a special license, see
-        http://www.stat.washington.edu/mclust/license.txt, particularly
-        point 6.
+Depends: R (>= 1.9), MASS, cluster, mclust, flexmix
+Suggests: trimcluster, prabclus, class, diptest, mvtnorm
+Description: Various methods for clustering and cluster validation.
+        Fixed point clustering. Linear regression clustering.
+        Clustering by merging Gaussian mixture components. Symmetric
+        and asymmetric discriminant projections for visualisation of
+        the separation of groupings. Cluster validation statistics for
+        distance based clustering including corrected Rand index.
+        Clusterwise cluster stability assessment. Methods for
+        estimation of the number of clusters: Calinski-Harabasz,
+        Tibshirani and Walther's prediction strength.
+        Gaussian/multinomial mixture fitting for mixed
+        continuous/categorical variables. Veriablewise statistics for
+        cluster interpretation. DBSCAN clustering. Interface functions
+        for many clustering methods implemented in R, including
+        estimating the number of clusters with kmeans, pam and clara.
+        Modality diagnosis for Gaussian mixtures. Note that the use of
+        the package mclust (called by function prabclust) is protected
+        by a special license, see
+        http://www.stat.washington.edu/mclust/license.txt.
 Maintainer: Christian Hennig <chrish@stats.ucl.ac.uk>
 License: GPL
 URL: http://www.homepages.ucl.ac.uk/~ucakche/
-Packaged: 2009-11-16 16:36:57 UTC; chrish
+Packaged: 2010-08-09 20:16:39 UTC; chrish
 Repository: CRAN
-Date/Publication: 2009-11-16 19:25:06
+Date/Publication: 2010-08-10 14:16:39

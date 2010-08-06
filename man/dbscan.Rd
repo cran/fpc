@@ -3,7 +3,7 @@
 \alias{print.dbscan}
 \alias{plot.dbscan}
 \alias{predict.dbscan}
-\title{ Clustering: DBSCAN density reachability and connectivity }
+\title{DBSCAN density reachability and connectivity clustering}
 \description{
   Generates a density based clustering of arbitrary shape as introduced
   in Ester et al. (1996).
@@ -83,7 +83,8 @@ Mining (KDD-96). }
   x <- cbind(runif(10, 0, 10)+rnorm(n, sd=0.2), runif(10, 0, 10)+rnorm(n,
     sd=0.2))
   par(bg="grey40")
-  ds <- dbscan(x, 0.2, showplot=TRUE)
+  ds <- dbscan(x, 0.2)
+# run with showplot=1 to see how dbscan works.
   ds
   plot(ds, x)
 

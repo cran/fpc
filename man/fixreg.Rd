@@ -307,8 +307,6 @@ computed by \code{fixreg}.
 \examples{
 set.seed(190000)
 data(tonedata)
-# Note: If you do not use the installed package, replace this by
-# tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 attach(tonedata)
 tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)
 summary(tonefix)

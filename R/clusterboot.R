@@ -3,6 +3,8 @@
 # clujaccard <- function(c1,c2) 2*sum(c1 & c2)/(sum(c1)+sum(c2))
 # New: Jaccard
 clujaccard <- function(c1,c2,zerobyzero=NA){
+#  print(c1)
+#  print(c2)
   if (sum(c1)+sum(c2)-sum(c1 & c2)==0) out <- zerobyzero
   else
     out <- sum(c1 & c2)/(sum(c1)+sum(c2)-sum(c1 & c2))
@@ -147,6 +149,73 @@ distnoisemclustCBI <- function(dmatrix, G=NULL, emModelNames=NULL,
     out$points <- data
   out
 }
+
+mergenormCBI <- function(data, G=NULL, emModelNames=NULL, nnk=0,
+                         hcmodel = NULL,
+                         Vinv = NULL, mergemethod="bhat",
+                         cutoff=0.1,...){
+  require(mclust)
+  require(prabclus)
+  if (nnk > 0) {
+    noise <- as.logical(1 - NNclean(data, nnk)$z)
+# print(noise)    
+    if (!is.null(hcmodel)) 
+      hcPairs <- hc(modelName = hcmodel, data = data)
+    if (is.null(Vinv) & is.null(hcmodel)){ 
+      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise))
+#      print("mclust done")
+    }
+    if (!is.null(Vinv) & is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),
+                      Vinv=Vinv)
+    if (is.null(Vinv) & !is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs, noise=noise))
+    if (!is.null(Vinv) & !is.null(hcmodel)) 
+      c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs, noise=noise),
+                      Vinv=Vinv)
+  }
+  else {
+        if (!is.null(hcmodel)) {
+            hcPairs <- hc(modelName = hcmodel, data = data)
+            c1 <- mclustBIC(data, G, emModelNames,
+                      initialization=list(hcPairs=hcPairs),
+                      Vinv=Vinv)           
+        }
+        else
+            c1 <- mclustBIC(data, G, emModelNames,
+                      Vinv=Vinv)           
+        noise <- rep(0, nrow(data))
+  }
+  sc1 <- summary(c1,data)
+#  print("sum")
+#  print(max(sc1$classification))
+  jsc1 <- mergenormals(data,sc1,method=mergemethod,cutoff=cutoff,...)
+#  print(jsc1$clusternumbers)
+#  print("merge")
+  renumcl <- jsc1$clustering
+#  cln <- 1
+#  for (i in 1:max(jsc1$clustering)){
+#     if(sum(jsc1$clustering==i)>0){
+#       renumcl[jsc1$clustering==i] <- cln
+#       cln <- cln+1
+#     }
+#   }
+  cl <- list()
+  nc <- nccl <- max(jsc1$clustering)
+  if (sum(jsc1$clustering==0)>0)
+    nc <- nc+1
+  for (i in 1:nccl)
+    cl[[i]] <- renumcl == i
+  if (nc>nccl)
+    cl[[nc]] <- renumcl == 0
+  out <- list(result = jsc1, nc = nc, nccl = nccl, clusterlist = cl, 
+        partition = renumcl, nnk = nnk, initnoise = as.logical(noise), 
+        clustermethod = "mclust/mergenormals")
+  out
+}
+
 
 
 # noisemclustCBI <- function(data,G,emModelNames,nnk,
@@ -374,12 +443,12 @@ trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
   out
 }
 
-kmeansCBI <- function(data,k,scaling=TRUE,runs=1,...){
+kmeansCBI <- function(data,krange,scaling=TRUE,runs=1,criterion="ch",...){
   sdata <- scale(data,scale=scaling)
-  c1 <- kmeansruns(sdata,k,runs=runs)
+  c1 <- kmeansruns(sdata,krange,runs=runs,criterion=criterion,...)
   partition <- c1$cluster
   cl <- list()
-  nc <- k
+  nc <- krange
 #  print(nc)
 #  print(sc1)
   for (i in 1:nc)
@@ -389,20 +458,40 @@ kmeansCBI <- function(data,k,scaling=TRUE,runs=1,...){
   out
 }
 
-pamkCBI <- function(data,krange=2:10,scaling=TRUE,diss=FALSE,...){
-  require(cluster)
-  c1 <- pamk(data,krange=krange,scaling=scaling,diss=diss,...)
-  partition <- c1$pamobject$clustering
-  cl <- list()
-  nc <- c1$nc
-#  print(nc)
-#  print(sc1)
-  for (i in 1:nc)
-    cl[[i]] <- partition==i
-  out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
-              clustermethod="pam/average silhouette width")
-  out
+pamkCBI <- function (data, krange = 2:10,
+                     criterion="asw", usepam=TRUE,
+                     scaling = TRUE, diss = FALSE, ...) 
+{
+    require(cluster)
+    c1 <- pamk(data, krange = krange, criterion=criterion, usepam=usepam,
+               scaling = scaling, diss = diss, 
+        ...)
+    partition <- c1$pamobject$clustering
+    cl <- list()
+    nc <- c1$nc
+    print(nc)
+    for (i in 1:nc) cl[[i]] <- partition == i
+    out <- list(result = c1, nc = nc, clusterlist = cl, partition = partition, 
+        clustermethod = "pam/estimated k",criterion=criterion)
+    out
 }
+
+# 
+# 
+# pamkCBI <- function(data,krange=2:10,scaling=TRUE,diss=FALSE,...){
+#   require(cluster)
+#   c1 <- pamk(data,krange=krange,scaling=scaling,diss=diss,...)
+#   partition <- c1$pamobject$clustering
+#   cl <- list()
+#   nc <- c1$nc
+# #  print(nc)
+# #  print(sc1)
+#   for (i in 1:nc)
+#     cl[[i]] <- partition==i
+#   out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
+#               clustermethod="pam/average silhouette width")
+#   out
+# }
 
 # for dbscan, data called x
 dbscanCBI <- function(data,eps,MinPts,diss=FALSE,...){

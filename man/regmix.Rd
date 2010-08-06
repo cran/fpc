@@ -101,6 +101,10 @@ regem(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
   \email{chrish@stats.ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 \seealso{
+Regression mixtures can also (and probably better) be computed with the
+flexmix package, see \code{\link[flexmix]{flexmix}}. (When I first write
+the \code{regmix}-function, \code{flexmix} didn't exist.)
+
 \code{\link{fixreg}} for fixed point clusters for clusterwise linear regression.
 
 \code{\link[mclust]{EMclust}} for Normal mixture model fitting (non-regression).
@@ -108,8 +112,6 @@ regem(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
 \examples{
 set.seed(12234)
 data(tonedata)
-# Note: If you do not use the installed package, replace this by
-# tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
 attach(tonedata)
 rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
 # nclust=1:2 makes the example fast;

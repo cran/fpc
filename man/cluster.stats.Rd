@@ -7,7 +7,8 @@
   validation, comparison between clusterings and decision about
   the number of clusters: cluster sizes, cluster diameters,
   average distances within and between clusters, cluster separation,
-  average silhouette widths, the best distance based statistics to
+  average silhouette widths, the Calinski and Harabasz index,
+  the best distance based statistics to
   decide about the number of clusters in a study of Milligan and Cooper
   (1985), Hubert's gamma coefficient, the Dunn index and two indexes
   to assess the similarity of two clusterings, namely the corrected Rand
@@ -50,7 +51,7 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     average.distance, median.distance, separation, average.toother,
     separation.matrix, average.between, average.within,
     n.between, n.within, within.cluster.ss, clus.avg.silwidths, avg.silwidth,
-    g2, g3, hubertgamma, dunn, entropy, wb.ratio,
+    g2, g3, pearsongamma, dunn, entropy, wb.ratio, ch,
     corrected.rand, vi} except if \code{compareonly=TRUE}, in which case
     only the last two components are computed.
 
@@ -88,25 +89,39 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \item{g2}{Goodman and Kruskal's Gamma coefficient. See Milligan and
     Cooper (1985), Gordon (1999, p. 62).}
   \item{g3}{G3 coefficient. See Gordon (1999, p. 62).}
-  \item{hubertgamma}{correlation between distances and a
+  \item{pearsongamma}{correlation between distances and a
     0-1-vector where 0 means same cluster, 1 means different clusters.
-    See Haldiki et al. (2002).}
+    "Normalized gamma" in Halkidi et al. (2001).}
   \item{dunn}{minimum separation / maximum diameter. Dunn index, see
     Haldiki et al. (2002).}
   \item{entropy}{entropy of the distribution of cluster memberships,
     see Meila(2007).}
   \item{wb.ratio}{\code{average.within/average.between}.}
+  \item{ch}{Calinski and Harabasz index (Calinski and Harabasz 1974,
+    optimal in Milligan and Cooper 1985; generalised for dissimilarites
+    in Hennig and Liao 2010)}    
   \item{corrected.rand}{corrected Rand index (if \code{alt.clustering}
     has been specified), see Gordon (1999, p. 198).}
   \item{vi}{variation of information (VI) index (if \code{alt.clustering}
     has been specified), see Meila (2007).}
 }
 \references{
+    Calinski, R. B., and Harabasz, J. (1974) A Dendrite Method for Cluster 
+Analysis, \emph{Communications in Statistics}, 3, 1-27.
+
   Gordon, A. D. (1999) \emph{Classification}, 2nd ed. Chapman and Hall.
 
-  Haldiki, M., Batistakis, Y., Vazirgiannis, M. (2002) Cluster validity
-  methods, \emph{SIGMOD}, Record 31, 40-45.
+  Halkidi, M., Batistakis, Y., Vazirgiannis, M. (2001) On Clustering
+  Validation Techniques, \emph{Journal of Intelligent Information
+    Systems}, 17, 107-145.
 
+    Hennig, C. and Liao, T. (2010) Comparing latent class and
+  dissimilarity based clustering for mixed type variables with
+  application to social stratification. Research report no. 308,
+  Department of Statistical Science, UCL.
+  \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}
+
+  
   Meila, M. (2007) Comparing clusterings?an information based distance,
   \emph{Journal of Multivariate Analysis}, 98, 873-895.
   
@@ -118,7 +133,7 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{
-  \code{\link{silhouette}}, \code{\link{dist}}
+  \code{\link{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
   \code{\link{clusterboot}} computes clusterwise stability statistics by
   resampling.
 }

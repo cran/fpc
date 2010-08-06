@@ -230,6 +230,12 @@ mahalconf <- function(x, no, startn, covall, plot){
   p <- ncol(x)
   n <- nrow(x)
   gv <- rep(FALSE, n)
+#  print("mahalconf")
+#  print(p)
+#  print(n)
+#  print(no)
+#  print(startn)
+#  print(covall)
   om <- order(mahalanobis(x,center=x[no,],cov=solvecov(covall)$inv, inverted=TRUE))
   gv[om[1:(p+1)]] <- TRUE
 #  cat("conf ",gv," ",om,"\n")
@@ -333,6 +339,7 @@ fixmahal <- function (dat, n=nrow(as.matrix(dat)), p=ncol(as.matrix(dat)),
 # Initializations, WDC
 
 # print("fixmahal")
+  if (startn>n) startn <- n
   dat <- as.matrix(dat)
   if (method=="fuzzy"){
     if (is.na(ca)){

@@ -11,6 +11,7 @@
 \alias{disttrimkmeansCBI}
 \alias{dbscanCBI}
 \alias{mahalCBI}
+\alias{mergenormCBI}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Interface functions for clustering methods}
@@ -28,7 +29,7 @@
   hierarchical clustering).   
 }
 \usage{
-kmeansCBI(data,k,scaling=TRUE,runs=1,...)
+kmeansCBI(data,krange,scaling=TRUE,runs=1,criterion="ch",...)
 
 hclustCBI(data,k,cut="level",method,scaling=TRUE,noisecut=0,...)
 
@@ -45,7 +46,8 @@ distnoisemclustCBI(dmatrix,G,emModelNames,nnk,
 
 claraCBI(data,k,usepam=TRUE,diss=FALSE,...)
 
-pamkCBI(data,krange=2:10,scaling=TRUE,diss=FALSE,...)
+pamkCBI(data,krange=2:10,criterion="asw", usepam=TRUE,
+        scaling=TRUE,diss=FALSE,...)
 
 trimkmeansCBI(data,k,scaling=TRUE,trim=0.1,...)
 
@@ -56,6 +58,12 @@ disttrimkmeansCBI(dmatrix,k,scaling=TRUE,trim=0.1,
 dbscanCBI(data,eps,MinPts,diss=FALSE,...)
 
 mahalCBI(data,clustercut=0.5,...)
+
+mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
+                         hcmodel = NULL,
+                         Vinv = NULL, mergemethod="bhat",
+                         cutoff=0.1,...)
+
 }
 \arguments{
   \item{data}{a numeric matrix. The data
@@ -76,6 +84,9 @@ mahalCBI(data,clustercut=0.5,...)
     \code{scaling} is \code{FALSE}, no scaling is done before execution.}
   \item{runs}{integer. Number of random initializations from which the
     k-means algorithm is started.}
+  \item{criterion}{\code{"ch"} or \code{"asw"}. Decides whether number
+    of clusters is estimated by the Calinski-Harabasz criterion or by the
+    average silhouette width.}
   \item{cut}{either "level" or "number". This determines how
     \code{cutree} is used to obtain a partition from a hierarchy
     tree. \code{cut="level"} means that the tree is cut at a particular
@@ -148,19 +159,25 @@ mahalCBI(data,clustercut=0.5,...)
     is used for fuzzy clustering, a crisp partition is generated and
     points with cluster membership values above \code{clustercut} are
     considered as members of the corresponding cluster.}
+  \item{mergemethod}{method for merging Gaussians, passed on as
+    \code{method} to \code{\link{mergenormals}}.}
+  \item{cutoff}{numeric between 0 and 1, tuning constant for
+    \code{\link{mergenormals}}.} 
   \item{...}{further parameters to be transferred to the original
     clustering functions (not required).}
 }
 \details{
   All these functions call clustering methods implemented in R to
   cluster data and to provide output in the format required by
-  \code{\link{clusterboot}}. Here is a brief overview:
-  \itemize{
+  \code{\link{clusterboot}}. Here is a brief overview. For further
+  details see the help pages of the involved clustering methods.
+  \describe{
     \item{kmeansCBI}{an interface to the function
       \code{\link{kmeansruns}} calling \code{\link{kmeans}}
       for k-means clustering. (\code{\link{kmeansruns}} allows the
       specification of several random initializations of the
-      k-means algorithm.)}
+      k-means algorithm and estimation of k by the Calinski-Harabasz
+      index or the average silhouette width.)}
     \item{hclustCBI}{an interface to the function
 	\code{\link{hclust}} for agglomerative hierarchical clustering with
 	noise component (see parameter \code{noisecut} above). This
@@ -196,7 +213,8 @@ mahalCBI(data,clustercut=0.5,...)
     \item{pamkCBI}{an interface to the function
       \code{\link{pamk}} calling \code{\link[cluster]{pam}} for
       partitioning around medoids. The number
-      of clusters is estimated by the average silhouette width.}
+      of clusters is estimated by the Calinski-Harabasz index or by the
+      average silhouette width.}
     \item{trimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a cases*variables matrix as input.}
@@ -210,6 +228,10 @@ mahalCBI(data,clustercut=0.5,...)
     \item{mahalCBI}{an interface to the function
 	\code{\link{fixmahal}} for fixed point
 	clustering.}
+    \item{mergenormCBI}{an interface to the function
+      \code{\link{mergenormals}} for clustering by merging Gaussian
+      mixture components. Unlike \code{\link{mergenormals}}, \code{mergenormCBI}
+      includes the computation of the initial Gaussian mixture.}
   }
 }
 
@@ -265,6 +287,7 @@ mahalCBI(data,clustercut=0.5,...)
   dbs <- dbscanCBI(face,eps=1.5,MinPts=4)
   dhc <- disthclustCBI(dist(face),method="average",k=1.5,noisecut=2)
   table(dbs$partition,dhc$partition)
+  mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

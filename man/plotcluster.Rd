@@ -34,7 +34,7 @@ plotcluster(x, clvecd, clnum=NULL,
 	see \code{\link{batcoord}},}
       \item{"vbc"}{variance dominated Bhattacharyya coordinates,
 	see \code{\link{batcoord}},}
-      \item{"mvdc"}{added meana and variance differences optimizing
+      \item{"mvdc"}{added mean and variance differences optimizing
 	coordinates, see \code{\link{mvdcoord}},}
       \item{"adc"}{asymmetric discriminant coordinates, see
 	\code{\link{adcoord}},}
@@ -131,10 +131,11 @@ plotcluster(x, clvecd, clnum=NULL,
 
 \examples{
 set.seed(4634)
-face <- rFace(600,dMoNo=2,dNoEy=0)
+face <- rFace(300,dMoNo=2,dNoEy=0)
 grface <- as.integer(attr(face,"grouping"))
 plotcluster(face,grface)
 plotcluster(face,grface==1)
+plotcluster(face,grface, clnum=1, method="vbc")
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{classif}% __ONLY ONE__ keyword per line

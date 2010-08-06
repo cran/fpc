@@ -196,7 +196,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     functions require the specification of some control parameters, so
     if you use one of them, look up their common help page
     \code{\link{kmeansCBI}}) first:
-    \itemize{
+    \describe{
       \item{kmeansCBI}{an interface to the function
 	\code{\link{kmeans}} for k-means clustering. This assumes a
 	cases*variables matrix as input.}
@@ -253,6 +253,9 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       \item{mahalCBI}{an interface to the function
 	\code{\link{fixmahal}} for fixed point
 	clustering. This assumes a cases*variables matrix as input.}
+      \item{mergenormCBI}{an interface to the function
+      \code{\link{mergenormals}} for clustering by merging Gaussian
+      mixture components.}
     }
     You can write your own interface function. The first argument of an
     interface function should always be a data matrix (of class
@@ -260,7 +263,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     arguments can be tuning constants for the clustering method. The
     output of an interface function should be a list containing (at
     least) the following components:
-    \itemize{
+    \describe{
       \item{result}{clustering result, usually a list with the full
 	output of the clustering method (the precise format doesn't
 	matter); whatever you want to use later.}
@@ -343,7 +346,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
   cf1 <- clusterboot(face,B=3,bootmethod=
           c("boot","noise","jitter"),clustermethod=kmeansCBI,
-          k=5,seed=15555)
+          krange=5,seed=15555)
 % For a serious application, choose a larger B!
   print(cf1)
   plot(cf1)
