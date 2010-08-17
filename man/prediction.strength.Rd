@@ -4,7 +4,7 @@
 \title{Prediction strength for estimating number of clusters}
 \description{
   Computes the prediction strength of a clustering of a dataset into
-  different numbers of components. The predictive strength is
+  different numbers of components. The prediction strength is
   defined according to Tibshirani and Walther (2005), who recommend to
   choose as optimal number of cluster the largest number of clusters
   that leads to a prediction strength above 0.8 or 0.9. See details.

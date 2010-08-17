@@ -3,7 +3,7 @@
 \alias{clugrey}
 \alias{clusym}
 %- Also NEED an `\alias' for EACH other topic documented here.
-\title{Sets of colours and symbold for cluster plotting}
+\title{Sets of colours and symbols for cluster plotting}
 \description{
   \code{clucols} gives out a vector of different random colours.
   \code{clugrey} gives out a vector of equidistant grey scales.

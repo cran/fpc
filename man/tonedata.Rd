@@ -1,5 +1,6 @@
 \name{tonedata}
 \alias{tonedata}
+\docType{data}
 \title{Tone perception data}
 \description{
   The tone perception data stem
