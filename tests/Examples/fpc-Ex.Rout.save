@@ -1,0 +1,3030 @@
+
+R version 2.11.1 (2010-05-31)
+Copyright (C) 2010 The R Foundation for Statistical Computing
+ISBN 3-900051-07-0
+
+R is free software and comes with ABSOLUTELY NO WARRANTY.
+You are welcome to redistribute it under certain conditions.
+Type 'license()' or 'licence()' for distribution details.
+
+  Natural language support but running in an English locale
+
+R is a collaborative project with many contributors.
+Type 'contributors()' for more information and
+'citation()' on how to cite R or R packages in publications.
+
+Type 'demo()' for some demos, 'help()' for on-line help, or
+'help.start()' for an HTML browser interface to help.
+Type 'q()' to quit R.
+
+> pkgname <- "fpc"
+> source(file.path(R.home("share"), "R", "examples-header.R"))
+> options(warn = 1)
+> library('fpc')
+Loading required package: MASS
+Loading required package: cluster
+Loading required package: mclust
+
+by using mclust, invoked on its own or through another package,
+you accept the license agreement in the mclust LICENSE file
+and at http://www.stat.washington.edu/mclust/license.txt
+
+Loading required package: flexmix
+Loading required package: lattice
+Loading required package: modeltools
+Loading required package: stats4
+Loading required package: multcomp
+Loading required package: mvtnorm
+Loading required package: survival
+Loading required package: splines
+> 
+> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> cleanEx()
+> nameEx("adcoord")
+> ### * adcoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: adcoord
+> ### Title: Asymmetric discriminant coordinates
+> ### Aliases: adcoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0)
+>   grface <- as.integer(attr(face,"grouping"))
+>   adcf <- adcoord(face,grface==2)
+>   adcf2 <- adcoord(face,grface==4)
+>   plot(adcf$proj,col=1+(grface==2))
+>   plot(adcf2$proj,col=1+(grface==4))
+>   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ancoord")
+> ### * ancoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ancoord
+> ### Title: Asymmetric neighborhood based discriminant coordinates
+> ### Aliases: ancoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0)
+>   grface <- as.integer(attr(face,"grouping"))
+>   ancf2 <- ancoord(face,grface==4)
+>   plot(ancf2$proj,col=1+(grface==4))
+>   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("awcoord")
+> ### * awcoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: awcoord
+> ### Title: Asymmetric weighted discriminant coordinates
+> ### Aliases: awcoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0)
+>   grface <- as.integer(attr(face,"grouping"))
+>   awcf <- awcoord(face,grface==1)
+>   # awcf2 <- ancoord(face,grface==1, method="mcd")
+>   plot(awcf$proj,col=1+(grface==1))
+>   # plot(awcf2$proj,col=1+(grface==1))
+>   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("batcoord")
+> ### * batcoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: batcoord
+> ### Title: Bhattacharyya discriminant projection
+> ### Aliases: batcoord batvarcoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+> set.seed(4634)
+> face <- rFace(600,dMoNo=2,dNoEy=0)
+> grface <- as.integer(attr(face,"grouping"))
+> bcf2 <- batcoord(face,grface==2)
+> plot(bcf2$proj,col=1+(grface==2))
+> bcfv2 <- batcoord(face,grface==2,dom="variance")
+> plot(bcfv2$proj,col=1+(grface==2))
+> bcfvv2 <- batvarcoord(face,grface==2)
+> plot(bcfvv2$proj,col=1+(grface==2))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bhattacharyya.dist")
+> ### * bhattacharyya.dist
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bhattacharyya.dist
+> ### Title: Bhattacharyya distance between Gaussian distributions
+> ### Aliases: bhattacharyya.dist
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+>   bhattacharyya.dist(c(1,1),c(2,5),diag(2),diag(2))
+[1] 2.125
+> 
+> 
+> 
+> cleanEx()
+> nameEx("bhattacharyya.matrix")
+> ### * bhattacharyya.matrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: bhattacharyya.matrix
+> ### Title: Matrix of pairwise Bhattacharyya distances
+> ### Aliases: bhattacharyya.matrix
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   muarray <- cbind(c(0,0),c(0,0.1),c(10,10))
+>   sigmaarray <- array(c(diag(2),diag(2),diag(2)),dim=c(2,2,3))
+>   bhattacharyya.matrix(muarray,sigmaarray,ipairs=list(c(1,2),c(2,3)))
+          [,1]         [,2]         [,3]
+[1,] 1.0000000 9.987508e-01 1.000000e+00
+[2,] 0.9987508 1.000000e+00 1.781020e-11
+[3,] 1.0000000 1.781020e-11 1.000000e+00
+> 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("calinhara")
+> ### * calinhara
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: calinhara
+> ### Title: Calinski-Harabasz index
+> ### Aliases: calinhara
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   km <- kmeans(iriss,3)
+>   calinhara(iriss,km$cluster)
+[1] 63.34102
+> 
+> 
+> 
+> cleanEx()
+> nameEx("can")
+> ### * can
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: can
+> ### Title: Generation of the tuning constant for regression fixed point
+> ###   clusters
+> ### Aliases: can
+> ### Keywords: arith
+> 
+> ### ** Examples
+> 
+>   can(429,3)
+[1] 8.806634
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cat2bin")
+> ### * cat2bin
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cat2bin
+> ### Title: Recode nominal variables to binary variables
+> ### Aliases: cat2bin
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+>   set.seed(776655)
+>   v1 <- rnorm(20)
+>   v2 <- rnorm(20)
+>   d1 <- sample(1:5,20,replace=TRUE)
+>   d2 <- sample(1:4,20,replace=TRUE)
+>   ldata <- cbind(v1,v2,d1,d2)
+>   lc <- cat2bin(ldata,categorical=3:4)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("clucols")
+> ### * clucols
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clucols
+> ### Title: Sets of colours and symbols for cluster plotting
+> ### Aliases: clucols clugrey clusym
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(112233)
+>   data(Cars93)
+>   Cars934 <- Cars93[,c(3,5,8,10)]
+>   cc <-
++     discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
+>   fcc <- flexmix(cc$data~1,k=3,
++   model=lcmixed(continuous=2,discrete=2,ppdim=c(6,3),diagonal=TRUE))
+>   plot(Cars934[,c(2,3)],col=clucols(3)[fcc@cluster],pch=clusym[fcc@cluster])
+> 
+> 
+> 
+> cleanEx()
+> nameEx("clujaccard")
+> ### * clujaccard
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clujaccard
+> ### Title: Jaccard similarity between logical vectors
+> ### Aliases: clujaccard
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   c1 <- rep(TRUE,10)
+>   c2 <- c(FALSE,rep(TRUE,9))
+>   clujaccard(c1,c2)
+[1] 0.9
+> 
+> 
+> 
+> cleanEx()
+> nameEx("clusexpect")
+> ### * clusexpect
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clusexpect
+> ### Title: Expected value of the number of times a fixed point cluster is
+> ###   found
+> ### Aliases: clusexpect
+> ### Keywords: univar cluster
+> 
+> ### ** Examples
+> 
+>   clusexpect(500,4,150,2000)
+[1] 1.357889
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cluster.stats")
+> ### * cluster.stats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cluster.stats
+> ### Title: Cluster validation statistics
+> ### Aliases: cluster.stats
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   dface <- dist(face)
+>   complete3 <- cutree(hclust(dface),3)
+>   cluster.stats(dface,complete3,
++                 alt.clustering=as.integer(attr(face,"grouping")))
+$n
+[1] 200
+
+$cluster.number
+[1] 3
+
+$cluster.size
+[1] 136  60   4
+
+$diameter
+[1] 10.795191  5.756704  9.000000
+
+$average.distance
+[1] 3.032856 2.205095 7.047772
+
+$median.distance
+[1] 2.842125 1.478951 8.321658
+
+$separation
+[1] 5.874239 5.874239 7.222125
+
+$average.toother
+[1] 13.77209 13.02913 20.75148
+
+$separation.matrix
+          [,1]     [,2]      [,3]
+[1,]  0.000000 5.874239 14.975187
+[2,]  5.874239 0.000000  7.222125
+[3,] 14.975187 7.222125  0.000000
+
+$average.between
+[1] 13.72910
+
+$average.within
+[1] 2.901325
+
+$n.between
+[1] 8944
+
+$n.within
+[1] 10956
+
+$within.cluster.ss
+[1] 1198.401
+
+$clus.avg.silwidths
+        1         2         3 
+0.7522817 0.8179603 0.3548236 
+
+$avg.silwidth
+[1] 0.7640361
+
+$g2
+NULL
+
+$g3
+NULL
+
+$pearsongamma
+[1] 0.8834354
+
+$dunn
+[1] 0.5441534
+
+$entropy
+[1] 0.7016828
+
+$wb.ratio
+[1] 0.2113267
+
+$ch
+[1] 698.9588
+
+$corrected.rand
+[1] 0.345064
+
+$vi
+[1] 0.9697847
+
+>   
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cluster.varstats")
+> ### * cluster.varstats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cluster.varstats
+> ### Title: Variablewise statistics for clusters
+> ### Aliases: cluster.varstats print.varwisetables
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(112233)
+>   data(Cars93)
+>   Cars934 <- Cars93[,c(3,5,8,10)]
+>   cc <-
++     discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
+>   fcc <- flexmix(cc$data~1,k=2,
++   model=lcmixed(continuous=2,discrete=2,ppdim=c(6,3),diagonal=TRUE))
+>   cv <-
++     cluster.varstats(fcc@cluster,Cars934, contdata=Cars934[,c(2,3)],
++     tablevar=c(1,4),catvar=c(2,3),quantvar=c(2,3),projmethod="awc",
++     ask=FALSE)
+
+Cluster  1   29  out of  93  points.
+
+Cluster  1  variable  1 
+             Variable  1
+In cluster  1 Compact Large Midsize Small Sporty Van
+        FALSE      10    11      22     0     12   9
+        TRUE        6     0       0    21      2   0
+
+Cluster  1  variable  2 
+  Mean= 10.8  all obs.= 19.50968 
+  Standard deviation= 2.199838  all obs.= 9.65943 
+  0%  25%  50%  75% 100% 
+ 7.4  9.1 10.9 11.8 16.5 
+[1] "All obs.:"
+  0%  25%  50%  75% 100% 
+ 7.4 12.2 17.7 23.3 61.9 
+Cluster  1  variable  3 
+  Mean= 34.75862  all obs.= 29.08602 
+  Standard deviation= 5.117583  all obs.= 5.331726 
+  0%  25%  50%  75% 100% 
+  27   31   33   37   50 
+[1] "All obs.:"
+  0%  25%  50%  75% 100% 
+  20   26   28   31   50 
+Cluster  1  variable  4 
+             Variable  4
+In cluster  1 4WD Front Rear
+        FALSE   8    40   16
+        TRUE    2    27    0
+
+
+Cluster  2   64  out of  93  points.
+
+Cluster  2  variable  1 
+             Variable  1
+In cluster  2 Compact Large Midsize Small Sporty Van
+        FALSE       6     0       0    21      2   0
+        TRUE       10    11      22     0     12   9
+
+Cluster  2  variable  2 
+  Mean= 23.45625  all obs.= 19.50968 
+  Standard deviation= 9.130272  all obs.= 9.65943 
+    0%    25%    50%    75%   100% 
+13.300 17.275 19.950 28.175 61.900 
+[1] "All obs.:"
+  0%  25%  50%  75% 100% 
+ 7.4 12.2 17.7 23.3 61.9 
+Cluster  2  variable  3 
+  Mean= 26.51562  all obs.= 29.08602 
+  Standard deviation= 2.889456  all obs.= 5.331726 
+   0%   25%   50%   75%  100% 
+20.00 25.00 26.00 28.25 32.00 
+[1] "All obs.:"
+  0%  25%  50%  75% 100% 
+  20   26   28   31   50 
+Cluster  2  variable  4 
+             Variable  4
+In cluster  2 4WD Front Rear
+        FALSE   2    27    0
+        TRUE    8    40   16
+
+>   print(cv)
+       Variable  1
+Cluster Compact Large Midsize Small Sporty Van
+    1         6     0       0    21      2   0
+    2        10    11      22     0     12   9
+    Sum      16    11      22    21     14   9
+ 
+       Categorised variable  2
+Cluster  1  2  3  4  5  6  7  8  9 10
+    1   10  9  8  0  2  0  0  0  0  0
+    2    0  0  1  9  8  9  9  9  9 10
+    Sum 10  9  9  9 10  9  9  9  9 10
+ 
+       Categorised variable  3
+Cluster  1  2  3  4  5  6  7  8  9 10
+    1    0  0  0  1  0  4  3  7  6  8
+    2   10 12 11  5 10 11  4  1  0  0
+    Sum 10 12 11  6 10 15  7  8  6  8
+ 
+       Variable  4
+Cluster 4WD Front Rear
+    1     2    27    0
+    2     8    40   16
+    Sum  10    67   16
+ 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("clusterboot")
+> ### * clusterboot
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clusterboot
+> ### Title: Clusterwise cluster stability assessment by resampling
+> ### Aliases: clusterboot print.clboot plot.clboot
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
+>   cf1 <- clusterboot(face,B=3,bootmethod=
++           c("boot","noise","jitter"),clustermethod=kmeansCBI,
++           krange=5,seed=15555)
+boot 1 
+boot 2 
+boot 3 
+noise 1 
+noise 2 
+noise 3 
+jitter 1 
+jitter 2 
+jitter 3 
+>   print(cf1)
+* Cluster stability assessment *
+Cluster method:  kmeans 
+Full clustering results are given as parameter result
+of the clusterboot object, which also provides further statistics
+of the resampling results.
+Number of resampling runs:  3 
+
+Number of clusters found in data:  5 
+
+ Clusterwise Jaccard bootstrap mean:
+[1] 0.3450980 0.5882353 0.2904483 1.0000000 0.7750000
+dissolved:
+[1] 2 1 3 0 0
+recovered:
+[1] 1 0 0 3 2
+ Clusterwise Jaccard replacement by noise mean:
+[1] 0.6370370 0.6157562 0.3396656 0.8888889 0.9090909
+dissolved:
+[1] 1 0 3 0 0
+recovered:
+[1] 2 0 0 2 3
+ Clusterwise Jaccard jittering mean:
+[1] 0.1838624 0.6001899 0.2943350 0.5555556 0.7600733
+dissolved:
+[1] 3 0 3 2 0
+recovered:
+[1] 0 0 0 0 1
+>   plot(cf1)
+>   cf2 <- clusterboot(dist(face),B=3,bootmethod=
++           "subset",clustermethod=disthclustCBI,
++           k=5, cut="number", method="average", showplots=TRUE, seed=15555)
+subset 1 
+subset 2 
+subset 3 
+>   print(cf2)
+* Cluster stability assessment *
+Cluster method:  hclust 
+Full clustering results are given as parameter result
+of the clusterboot object, which also provides further statistics
+of the resampling results.
+Number of resampling runs:  3 
+
+Number of clusters found in data:  5 
+
+ Clusterwise Jaccard subsetting mean:
+[1] 0.7156863 0.8571429 0.3333333 0.3333333 1.0000000
+dissolved:
+[1] 1 0 2 2 0
+recovered:
+[1] 1 2 1 1 3
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cmahal")
+> ### * cmahal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cmahal
+> ### Title: Generation of tuning constant for Mahalanobis fixed point
+> ###   clusters.
+> ### Aliases: cmahal
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   plot(1:100,cmahal(100,3,nmin=5,cmin=qchisq(0.99,3),nc1=90),
++        xlab="FPC size", ylab="cmahal")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("concomp")
+> ### * concomp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: con.comp
+> ### Title: Connectivity components of an undirected graph
+> ### Aliases: con.comp
+> ### Keywords: array cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(1000)
+>   x <- rnorm(20)
+>   m <- matrix(0,nrow=20,ncol=20)
+>   for(i in 1:20)
++     for(j in 1:20)
++       m[i,j] <- abs(x[i]-x[j])
+>   d <- m<0.2
+>   cc <- con.comp(d)
+>   max(cc) # number of connectivity components
+[1] 6
+>   plot(x,cc)
+>   # The same should be produced by
+>   # cutree(hclust(as.dist(m),method="single"),h=0.2).
+> 
+> 
+> 
+> cleanEx()
+> nameEx("confusion")
+> ### * confusion
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: confusion
+> ### Title: Misclassification probabilities in mixtures
+> ### Aliases: confusion
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   set.seed(12345)
+>   m <- rpois(20,lambda=5)
+>   dim(m) <- c(5,4)
+>   pro <- apply(m,2,sum)
+>   pro <- pro/sum(pro)
+>   m <- m/apply(m,1,sum)
+>   confusion(m,pro,1,2)
+[1] 0.6976402
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cov.wml")
+> ### * cov.wml
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cov.wml
+> ### Title: Weighted Covariance Matrices (Maximum Likelihood)
+> ### Aliases: cov.wml
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+>   x <- c(1,2,3,4,5,6,7,8,9,10)
+>   y <- c(1,2,3,8,7,6,5,8,9,10)
+>   cov.wml(cbind(x,y),wt=c(0,0,0,1,1,1,1,1,0,0))
+$cov
+     x     y
+x  2.0 -0.40
+y -0.4  1.36
+
+$center
+  x   y 
+6.0 6.8 
+
+$n.obs
+[1] 10
+
+$wt
+ [1] 0.0 0.0 0.0 0.2 0.2 0.2 0.2 0.2 0.0 0.0
+
+>   cov.wt(cbind(x,y),wt=c(0,0,0,1,1,1,1,1,0,0))
+$cov
+     x    y
+x  2.5 -0.5
+y -0.5  1.7
+
+$center
+  x   y 
+6.0 6.8 
+
+$n.obs
+[1] 10
+
+$wt
+ [1] 0.0 0.0 0.0 0.2 0.2 0.2 0.2 0.2 0.0 0.0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cweight")
+> ### * cweight
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cweight
+> ### Title: Weight function for AWC
+> ### Aliases: cweight
+> ### Keywords: arith
+> 
+> ### ** Examples
+> 
+>   cweight(4,1)
+[1] 0.25
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dbscan")
+> ### * dbscan
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dbscan
+> ### Title: DBSCAN density reachability and connectivity clustering
+> ### Aliases: dbscan print.dbscan plot.dbscan predict.dbscan
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(665544)
+>   n <- 600
+>   x <- cbind(runif(10, 0, 10)+rnorm(n, sd=0.2), runif(10, 0, 10)+rnorm(n,
++     sd=0.2))
+>   par(bg="grey40")
+>   ds <- dbscan(x, 0.2)
+> # run with showplot=1 to see how dbscan works.
+>   ds
+dbscan Pts=600 MinPts=5 eps=0.2
+        0  1  2  3  4  5  6  7  8  9 10 11
+seed    0 50 53 51 52 51 54 54 54 53 51  1
+border 28  4  4  8  5  3  3  4  3  4  6  4
+total  28 54 57 59 57 54 57 58 57 57 57  5
+>   plot(ds, x)
+> 
+>   x2 <- matrix(0,nrow=4,ncol=2)
+>   x2[1,] <- c(5,2)
+>   x2[2,] <- c(8,3)
+>   x2[3,] <- c(4,4)
+>   x2[4,] <- c(9,9)
+>   predict(ds, x, x2)
+Loading required package: class
+[1] 4 9 0 0
+> 
+>   n <- 600
+>   x <- cbind((1:3)+rnorm(n, sd=0.2), (1:3)+rnorm(n, sd=0.2))
+> 
+> 
+>   system.time(ds <- dbscan(x, 0.3, countmode=NULL, method="raw"))[3] 
+elapsed 
+  0.686 
+>   system.time(dsb <- dbscan(x, 0.3, countmode=NULL, method="hybrid"))[3]
+elapsed 
+  0.412 
+>   system.time(dsc <- dbscan(dist(x), 0.3, countmode=NULL,
++     method="dist"))[3]
+elapsed 
+  0.736 
+> 
+> 
+> 
+> graphics::par(get("par.postscript", pos = 'CheckExEnv'))
+> cleanEx()
+
+detaching ‘package:class’
+
+> nameEx("dip.pvalue")
+> ### * dip.pvalue
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dip.pvalue
+> ### Title: Approximates p-value for dip test
+> ### Aliases: dip.pvalue
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   dip.pvalue(0.08,15)
+Loading required package: diptest
+      0.4 
+0.5819619 
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:diptest’
+
+> nameEx("dipp.tantrum")
+> ### * dipp.tantrum
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dipp.tantrum
+> ### Title: Simulates p-value for dip test
+> ### Aliases: dipp.tantrum
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+> # not run, requires package diptest
+> #  x <- runif(100)
+> #  d <- dip(x)
+> #  dt <- dipp.tantrum(x,d,M=10)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("diptest.multi")
+> ### * diptest.multi
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: diptest.multi
+> ### Title: Diptest for discriminant coordinate projection
+> ### Aliases: diptest.multi
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+> # not run, requires package diptest
+> #  x <- cbind(runif(100),runif(100))
+> #  partition <- 1+(x[,1]<0.5)
+> #  d1 <- diptest.multi(x,partition)
+> #  d2 <- diptest.multi(x,partition,pvalue="tantrum",M=10)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("discrcoord")
+> ### * discrcoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: discrcoord
+> ### Title: Discriminant coordinates/canonical variates
+> ### Aliases: discrcoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0)
+>   grface <- as.integer(attr(face,"grouping"))
+>   dcf <- discrcoord(face,grface)
+>   plot(dcf$proj,col=grface)
+>   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("discrete.recode")
+> ### * discrete.recode
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: discrete.recode
+> ### Title: Recodes mixed variables dataset
+> ### Aliases: discrete.recode
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+>   set.seed(776655)
+>   v1 <- rnorm(20)
+>   v2 <- rnorm(20)
+>   d1 <- sample(c(2,4,6,8),20,replace=TRUE)
+>   d2 <- sample(1:4,20,replace=TRUE)
+>   ldata <- cbind(v1,d1,v2,d2)
+>   lc <-
++   discrete.recode(ldata,xvarsorted=FALSE,continuous=c(1,3),discrete=c(2,4))
+>   data(Cars93)
+>   Cars934 <- Cars93[,c(3,5,8,10)]
+>   cc <- discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("discrproj")
+> ### * discrproj
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: discrproj
+> ### Title: Linear dimension reduction for classification
+> ### Aliases: discrproj
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+> set.seed(4634)
+> face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
+> grface <- as.integer(attr(face,"grouping"))
+> discrproj(face,grface, method="nc")$units
+            [,1]       [,2]        [,3]
+[1,]  0.84359426 1.14608710  0.02209846
+[2,] -0.33649001 0.27903245  0.01187219
+[3,] -0.06808816 0.03965075 -1.00303099
+> discrproj(face,grface, method="wnc")$units
+            [,1]        [,2]         [,3]
+[1,] -0.07433352 1.420772600  0.039179197
+[2,] -0.43725296 0.002745807 -0.005281343
+[3,] -0.03831248 0.001676168 -1.005389819
+> discrproj(face,grface, clnum=1, method="arc")$units
+           [,1]        [,2]        [,3]
+[1,] -1.2952782  0.50007753 -0.33960121
+[2,]  0.6533164  0.05164296 -0.08010673
+[3,] -0.0805180 -0.66005066 -0.46509088
+> 
+> 
+> 
+> cleanEx()
+> nameEx("distancefactor")
+> ### * distancefactor
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: distancefactor
+> ### Title: Factor for dissimilarity of mixed type data
+> ### Aliases: distancefactor
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(776655)
+>   d1 <- sample(1:5,20,replace=TRUE)
+>   d2 <- sample(1:4,20,replace=TRUE)
+>   ldata <- cbind(d1,d2)
+>   lc <- cat2bin(ldata,categorical=1)$data
+>   lc[,1:5] <- lc[,1:5]*distancefactor(5,20,type="categorical")
+>   lc[,6] <- lc[,6]*distancefactor(4,20,type="ordinal")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dridgeline")
+> ### * dridgeline
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dridgeline
+> ### Title: Density along the ridgeline
+> ### Aliases: dridgeline
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   q <- dridgeline(seq(0,1,0.1),0.5,c(1,1),c(2,5),diag(2),diag(2))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("dudahart2")
+> ### * dudahart2
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: dudahart2
+> ### Title: Duda-Hart test for splitting
+> ### Aliases: dudahart2
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   km <- kmeans(iriss,2)
+>   dudahart2(iriss,km$cluster)
+$p.value
+[1] 2.378712e-06
+
+$dh
+[1] 0.1948821
+
+$compare
+[1] 0.4045425
+
+$cluster1
+[1] FALSE
+
+$alpha
+[1] 0.001
+
+$z
+[1] 3.090232
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("extract.mixturepars")
+> ### * extract.mixturepars
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: extract.mixturepars
+> ### Title: Extract parameters for certain components from mclust
+> ### Aliases: extract.mixturepars
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   irisBIC <- mclustBIC(iriss)
+>   siris <- summary(irisBIC,iriss)
+>   extract.mixturepars(siris,2)
+$pro
+[1] 1
+
+$mean
+Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
+   4.5674421    2.7344481    1.3667151    0.2667151 
+
+$variance
+$variance$modelName
+[1] "EEV"
+
+$variance$d
+[1] 4
+
+$variance$G
+[1] 1
+
+$variance$sigma
+            [,1]         [,2]          [,3]          [,4]
+[1,] 0.022876318  0.024957163  0.0030165765  0.0033654681
+[2,] 0.024957163  0.100965312  0.0150209187 -0.0051615675
+[3,] 0.003016576  0.015020919  0.0027001173 -0.0008385347
+[4,] 0.003365468 -0.005161567 -0.0008385347  0.0016840750
+
+$variance$scale
+[1] 0.002901318
+
+$variance$shape
+[1] 38.11296417  5.89254020  0.16286854  0.02733931
+
+$variance$orientation
+, , 1
+
+             Sepal.Length Sepal.Width Petal.Length   Petal.Width
+Sepal.Length    0.4364358   0.2255444   0.86784904  7.410527e-02
+Sepal.Width     0.6546537   0.5833044  -0.48081650  1.089355e-05
+Petal.Length   -0.4364358   0.5910818   0.12283086 -6.671272e-01
+Petal.Width    -0.4364358   0.5094192   0.02379343  7.412488e-01
+
+, , 2
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length   0.27392439  0.92323902  -0.05438071  -0.2638899
+Sepal.Width    0.95071198 -0.24324659  -0.10912467   0.1583339
+Petal.Length   0.14032996 -0.07708003   0.93492653  -0.3166679
+Petal.Width   -0.03767848  0.28726204   0.33323704   0.8972257
+
+, , 3
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length    0.3685213   0.9175803  -0.01610540   0.1482532
+Sepal.Width    -0.4237402   0.3056933   0.26725530  -0.8096731
+Petal.Length   -0.7834017   0.2490473  -0.44298628   0.3577993
+Petal.Width    -0.2663044   0.0507288   0.85561579   0.4409424
+
+, , 4
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length   0.78842369  -0.1589992   -0.5613449  -0.1949340
+Sepal.Width    0.60787954   0.3492963    0.6736139   0.2339208
+Petal.Length   0.04212018  -0.4129676    0.4505895  -0.7903498
+Petal.Width    0.08424036  -0.8259353    0.1676467   0.5316287
+
+, , 5
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length            1           0            0           0
+Sepal.Width             0           1            0           0
+Petal.Length            0           0            1           0
+Petal.Width             0           0            0           1
+
+, , 6
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length   0.07550285   0.6328310   -0.7566467   0.1459795
+Sepal.Width   -0.17216644   0.4934753    0.2375780  -0.8187781
+Petal.Length  -0.74300787  -0.4180672   -0.4684942  -0.2316729
+Petal.Width   -0.64233740   0.4257075    0.3893015   0.5045989
+
+, , 7
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length  -0.62925321  -0.6561604   -0.4056062  0.09474997
+Sepal.Width   -0.13483997   0.5920244   -0.6378765  0.47374983
+Petal.Length  -0.76409318   0.4242841    0.4732073 -0.11054163
+Petal.Width   -0.04494666   0.1973415   -0.4524070 -0.86854136
+
+, , 8
+
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length    0.7730041 -0.09914374    0.6101968 -0.14246043
+Sepal.Width     0.4418583  0.79204432   -0.4167145  0.06145005
+Petal.Length   -0.4416270  0.59416223    0.6696965  0.05868099
+Petal.Width    -0.1104150  0.09903318   -0.0742664 -0.98614677
+
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fixmahal")
+> ### * fixmahal
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fixmahal
+> ### Title: Mahalanobis Fixed Point Clusters
+> ### Aliases: fixmahal summary.mfpc plot.mfpc fpclusters.mfpc
+> ###   print.summary.mfpc print.mfpc fpmi
+> ### Keywords: cluster multivariate robust
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   face <- rFace(400,dMoNo=2,dNoEy=0, p=3)
+>   # The first example uses grouping information via init.group.
+>   initg <- list()
+>   grface <- as.integer(attr(face,"grouping"))
+>   for (i in 1:5) initg[[i]] <- (grface==i)
+>   ff0 <- fixmahal(face, pointit=FALSE, init.group=initg)
+>   summary(ff0)
+  *  Mahalanobis Fixed Point Clusters  *
+
+Often a clear cluster in the data leads to several similar FPCs.
+The summary shows the representative FPCs of groups of similar FPCs.
+
+Method  fuzzy  was used.
+Number of representative FPCs:  5 
+
+FPCs with less than  10  points were skipped.
+0  iteration runs led to  0  skipped clusters.
+  Weight 1 for r^2<=  7.814728  weight 0 for r^2>  12.83816  
+  Constant ca=  7.814728  corresponding to alpha=  0.95 
+
+ FPC  1 
+  Times found (group members):  1 
+  Mean:
+[1] -2.063972 17.122154  1.171474
+  Covariance matrix:
+             [,1]         [,2]        [,3]
+[1,]  0.141980453 -0.005291416 -0.04129874
+[2,] -0.005291416  0.151822444  0.06315440
+[3,] -0.041298744  0.063154403  1.05661283
+  Number of points (sum of weights):  39 
+
+ FPC  2 
+  Times found (group members):  1 
+  Mean:
+[1]  1.993244 17.004407  1.198732
+  Covariance matrix:
+            [,1]        [,2]       [,3]
+[1,] 0.154367583 0.003790366 0.04265682
+[2,] 0.003790366 0.115949936 0.05666278
+[3,] 0.042656815 0.056662784 1.29583273
+  Number of points (sum of weights):  76.46754 
+
+ FPC  3 
+  Times found (group members):  1 
+  Mean:
+[1] -0.00431782  3.09119802  0.55818871
+  Covariance matrix:
+            [,1]        [,2]        [,3]
+[1,] 0.186620879 0.001719437 0.017492679
+[2,] 0.001719437 0.043832301 0.004670809
+[3,] 0.017492679 0.004670809 0.209672413
+  Number of points (sum of weights):  96.45433 
+
+ FPC  4 
+  Times found (group members):  2 
+  Mean:
+[1] 0.01257084 3.87993400 0.61460588
+  Covariance matrix:
+            [,1]        [,2]       [,3]
+[1,] 0.206404160 0.006716752 0.01727088
+[2,] 0.006716752 4.877598238 0.19338866
+[3,] 0.017270883 0.193388658 0.26228482
+  Number of points (sum of weights):  197.2417 
+
+ FPC  5 
+  Times found (group members):  1 
+  Mean:
+[1] 0.1125726 7.5827958 0.6327422
+  Covariance matrix:
+           [,1]        [,2]       [,3]
+[1,] 1.83048954  1.76925313 0.03724658
+[2,] 1.76925313 36.25050177 0.07411254
+[3,] 0.03724658  0.07411254 0.27020099
+  Number of points (sum of weights):  327.7332 
+
+Number of points (rounded weights) in intersection of representative FPCs
+     [,1] [,2] [,3] [,4] [,5]
+[1,]   39    0    0    0   27
+[2,]    0   76    0    0   58
+[3,]    0    0   96   96   96
+[4,]    0    0   96  197  197
+[5,]   27   58   96  197  328
+>   cff0 <- fpclusters(ff0)
+>   plot(face, col=1+cff0[[1]])
+>   plot(face, col=1+cff0[[4]]) # Why does this come out as a cluster? 
+>   plot(ff0, face, 4) # A bit clearer...
+>   # Without grouping information, examples need more time:
+>   # ff1 <- fixmahal(face)
+>   # summary(ff1)
+>   # cff1 <- fpclusters(ff1)
+>   # plot(face, col=1+cff1[[1]])
+>   # plot(face, col=1+cff1[[6]]) # Why does this come out as a cluster? 
+>   # plot(ff1, face, 6) # A bit clearer...
+>   # ff2 <- fixmahal(face,method="ml")
+>   # summary(ff2)
+>   # ff3 <- fixmahal(face,method="ml",calpha=0.95,subset=50)
+>   # summary(ff3)
+>   ## ...fast, but lots of clusters. mer=0.3 may be useful here.
+>   # set.seed(3000)
+>   # face2 <- rFace(400,dMoNo=2,dNoEy=0)
+>   # ff5 <- fixmahal(face2)
+>   # summary(ff5)
+>   ## misses right eye of face data; with p=6,
+>   ## initial configurations are too large for 40 point clusters 
+>   # ff6 <- fixmahal(face2, startn=30)
+>   # summary(ff6)
+>   # cff6 <- fpclusters(ff6)
+>   # plot(face2, col=1+cff6[[3]])
+>   # plot(ff6, face2, 3)
+>   # x <- c(1,2,3,6,6,7,8,120)
+>   # ff8 <- fixmahal(x)
+>   # summary(ff8)
+>   # ...dataset a bit too small for the defaults...
+>   # ff9 <- fixmahal(x, mnc=3, startn=3)
+>   # summary(ff9)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("fixreg")
+> ### * fixreg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: fixreg
+> ### Title: Linear Regression Fixed Point Clusters
+> ### Aliases: fixreg summary.rfpc plot.rfpc fpclusters.rfpc
+> ###   print.summary.rfpc print.rfpc rfpi
+> ### Keywords: cluster robust regression
+> 
+> ### ** Examples
+> 
+> set.seed(190000)
+> data(tonedata)
+> attach(tonedata)
+> tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)
+> summary(tonefix)
+  *  Fixed Point Clusters  *
+
+Often a clear cluster in the data leads to several similar FPCs.
+The summary shows the representative FPCs of groups of similar FPCs,
+which were found at least  1  times.
+
+Constant ca=  10.07010 
+Number of representative FPCs:  3 
+
+FPCs with less than  50  points were skipped.
+0  iterations led to skipped FPCs.
+
+ FPC  1 
+  Times found (group members):  17 
+  Ratio to estimated expectation:  1.587200 
+  Regression parameters:
+ Intercept          X 
+1.90507095 0.04772128 
+  Error variance:  0.002815126 
+  Number of points:  122 
+
+ FPC  2 
+  Times found (group members):  3 
+  Ratio to estimated expectation:  2.082420 
+  Regression parameters:
+  Intercept           X 
+0.003507292 0.998653704 
+  Error variance:  3.688176e-05 
+  Number of points:  63 
+
+ FPC  3 
+  Times found (group members):  1 
+  Ratio to estimated expectation:  0.602382 
+  Regression parameters:
+Intercept         X 
+0.7941830 0.6018805 
+  Error variance:  0.001118718 
+  Number of points:  66 
+
+Number of points in intersection of  representative FPCs
+     [,1] [,2] [,3]
+[1,]  122   46   61
+[2,]   46   63   47
+[3,]   61   47   66
+> # This is designed to have a fast example; default setting would be better.
+> # If you want to see more (and you have a bit more time),
+> # try out the following:
+> # set.seed(1000)
+> # tonefix <- fixreg(stretchratio,tuned)
+> ## Default - good for these data
+> # summary(tonefix)
+> # plot(tonefix,stretchratio,tuned,1)
+> # plot(tonefix,stretchratio,tuned,2)
+> # plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
+> # toneclus <- fpclusters(tonefix,stretchratio,tuned)
+> # plot(stretchratio,tuned,col=1+toneclus[[2]])
+> # tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
+> ## Every found fixed point cluster is reported,
+> ## no matter how instable it may be.
+> # summary(tonefix2)
+> # tonefix3 <- fixreg(stretchratio,tuned,ca=7)
+> ## ca defaults to 10.07 for these data.
+> # summary(tonefix3)
+> # subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
+> # tonefix4 <- fixreg(stretchratio,tuned,
+> #                    mtf=1,ir=0,init.group=list(subset))
+> # summary(tonefix4)
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘tonedata’
+
+> nameEx("flexmixedruns")
+> ### * flexmixedruns
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: flexmixedruns
+> ### Title: Fitting mixed Gaussian/multinomial mixtures with flexmix
+> ### Aliases: flexmixedruns
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(776655)
+>   v1 <- rnorm(100)
+>   v2 <- rnorm(100)
+>   d1 <- sample(1:5,100,replace=TRUE)
+>   d2 <- sample(1:4,100,replace=TRUE)
+>   ldata <- cbind(v1,v2,d1,d2)
+>   fr <- flexmixedruns(ldata,
++     continuous=2,discrete=2,simruns=2,n.cluster=2:3,allout=FALSE)
+k=  2  new best fit found in run  1 
+k=  2  new best fit found in run  2 
+k=  2  BIC=  1258.363 
+k=  3  new best fit found in run  1 
+k=  3  new best fit found in run  2 
+k=  3  BIC=  1300.073 
+>   print(fr$optimalk)
+[1] 2
+>   print(fr$optsummary)
+
+Call:
+flexmix(formula = x ~ 1, k = k, cluster = initial.cluster, model = lcmixed(continuous = continuous, 
+    discrete = discrete, ppdim = ppdim, diagonal = diagonal), 
+    control = control)
+
+       prior size post>0 ratio
+Comp.1 0.527   51    100  0.51
+Comp.2 0.473   49    100  0.49
+
+'log Lik.' -576.2222 (df=23)
+AIC: 1198.444   BIC: 1258.363 
+
+>   print(fr$flexout@cluster)
+  [1] 2 1 1 1 2 2 1 2 2 1 1 2 2 1 2 2 1 2 1 1 1 1 2 1 2 1 1 2 2 1 1 2 2 1 2 1 1
+ [38] 2 2 1 2 1 1 2 2 1 1 2 1 2 1 2 1 1 2 2 1 2 2 2 1 2 1 1 2 1 1 2 2 1 1 2 2 1
+ [75] 1 1 1 2 2 1 2 1 1 1 1 2 1 1 2 1 1 2 1 2 2 2 2 2 2 2
+>   print(fr$flexout@components)
+$Comp.1
+$Comp.1[[1]]
+$center
+[1] -0.06364726 -0.51088660
+
+$cov
+         [,1]     [,2]
+[1,] 1.122126 0.000000
+[2,] 0.000000 1.096735
+
+$pp
+$pp[[1]]
+[1] 0.27279622 0.22617675 0.15713052 0.29791908 0.04597742
+
+$pp[[2]]
+[1] 0.1490151 0.1719611 0.5061025 0.1729213
+
+
+
+
+$Comp.2
+$Comp.2[[1]]
+$center
+[1] 0.2462103 0.4234742
+
+$cov
+          [,1]      [,2]
+[1,] 0.6738187 0.0000000
+[2,] 0.0000000 0.8547246
+
+$pp
+$pp[[1]]
+[1] 0.09744369 0.17073751 0.26910177 0.04818053 0.41453650
+
+$pp[[2]]
+[1] 0.2781738 0.4219535 0.0484232 0.2514495
+
+
+
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("itnumber")
+> ### * itnumber
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: itnumber
+> ### Title: Number of regression fixed point cluster iterations
+> ### Aliases: itnumber
+> ### Keywords: univar cluster
+> 
+> ### ** Examples
+> 
+>   itnumber(500,4,150,2)
+[1] 6985
+> 
+> 
+> 
+> cleanEx()
+> nameEx("jittervar")
+> ### * jittervar
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: jittervar
+> ### Title: Jitter variables in a data matrix
+> ### Aliases: jittervar
+> ### Keywords: manip
+> 
+> ### ** Examples
+> 
+>   set.seed(776655)
+>   v1 <- rnorm(20)
+>   v2 <- rnorm(20)
+>   d1 <- sample(1:5,20,replace=TRUE)
+>   d2 <- sample(1:4,20,replace=TRUE)
+>   ldata <- cbind(v1,v2,d1,d2)
+>   jv <- jittervar(ldata,jitterv=3:4)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("kmeansCBI")
+> ### * kmeansCBI
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: kmeansCBI
+> ### Title: Interface functions for clustering methods
+> ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI noisemclustCBI
+> ###   distnoisemclustCBI claraCBI pamkCBI trimkmeansCBI disttrimkmeansCBI
+> ###   dbscanCBI mahalCBI mergenormCBI
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
+>   dbs <- dbscanCBI(face,eps=1.5,MinPts=4)
+>   dhc <- disthclustCBI(dist(face),method="average",k=1.5,noisecut=2)
+>   table(dbs$partition,dhc$partition)
+   
+     1  2  3  4  5  6
+  1 15  0  0  0  0  1
+  2  0  5  4  0  0  0
+  3  0  0  0  9  0  0
+  4  0  0  0  0  5  0
+  5  0  0  0  0  0 11
+>   mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
+Loading required package: prabclus
+Warning in map(out$z) : no assignment to 2,4,7,8
+[1] 11
+$result
+$clustering
+ [1] 0 0 0 0 0 0 0 0 0 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[39] 1 1 1 1 1 1 1 1 0 0 0 0
+
+$clusternumbers
+[1] 1
+
+$defunct.components
+col col col col col col col col col 
+  7   8   5   6   3   9  10   4   2 
+
+$valuemerged
+[1] 1.0000000 0.9999995 0.9859675 0.4428520 0.4998754 0.3096583 0.1504323
+[8] 0.1354701 0.1181833
+
+$mergedtonumbers
+ [1] 1 1 1 1 1 1 1 1 1 1
+
+$parameters
+$parameters[[1]]
+$parameters[[1]]$pro
+ [1] 0.02003311 0.03200397 0.02308059 0.08730464 0.02870620 0.03162403
+ [7] 0.02255980 0.24159743 0.13499826 0.37809197
+
+$parameters[[1]]$mean
+           [,1]      [,2]       [,3]       [,4]      [,5]       [,6]       [,7]
+[1,] -0.4301944 0.1259479 -0.1113803 -0.1112671 0.1031530 -0.1294180 -0.1113858
+[2,]  3.2115590 6.8582670  5.3351123  5.3353299 6.9529995  7.4027761  5.3351018
+           [,8]      [,9]     [,10]
+[1,] -0.1115167  2.056731 -1.531638
+[2,]  5.3348502 17.205746 17.205554
+
+$parameters[[1]]$variance
+$parameters[[1]]$variance$modelName
+[1] "EEE"
+
+$parameters[[1]]$variance$d
+[1] 2
+
+$parameters[[1]]$variance$G
+[1] 10
+
+$parameters[[1]]$variance$sigma
+, , 1
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 2
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 3
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 4
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 5
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 6
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 7
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 8
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 9
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 10
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+
+$parameters[[1]]$variance$Sigma
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+$parameters[[1]]$variance$cholSigma
+           [,1]       [,2]
+[1,] -0.4171659 0.05802492
+[2,]  0.0000000 0.27598273
+
+
+
+
+$predvalues
+NULL
+
+$orig.decisionmatrix
+               [,1]         [,2]          [,3]          [,4]         [,5]
+ [1,]  1.000000e+00 1.044217e-10  4.155040e-04  4.147930e-04 3.423729e-11
+ [2,]  1.044217e-10 1.000000e+00  1.804783e-02  1.807005e-02 9.859675e-01
+ [3,]  4.155040e-04 1.804783e-02  1.000000e+00  9.999999e-01 1.123448e-02
+ [4,]  4.147930e-04 1.807005e-02  9.999999e-01  1.000000e+00 1.124906e-02
+ [5,]  3.423729e-11 9.859675e-01  1.123448e-02  1.124906e-02 1.000000e+00
+ [6,]  1.586342e-13 6.237465e-01  9.123538e-04  9.137955e-04 7.226624e-01
+ [7,]  4.155383e-04 1.804676e-02  1.000000e+00  9.999999e-01 1.123377e-02
+ [8,]  4.163618e-04 1.802110e-02  9.999999e-01  9.999995e-01 1.121694e-02
+ [9,] 3.192315e-149 3.245083e-82 8.559100e-108 8.642325e-108 7.298443e-81
+[10,] 1.213190e-137 1.568077e-74  1.800924e-98  1.816680e-98 3.413767e-73
+              [,6]          [,7]          [,8]          [,9]         [,10]
+ [1,] 1.586342e-13  4.155383e-04  4.163618e-04 3.192315e-149 1.213190e-137
+ [2,] 6.237465e-01  1.804676e-02  1.802110e-02  3.245083e-82  1.568077e-74
+ [3,] 9.123538e-04  1.000000e+00  9.999999e-01 8.559100e-108  1.800924e-98
+ [4,] 9.137955e-04  9.999999e-01  9.999995e-01 8.642325e-108  1.816680e-98
+ [5,] 7.226624e-01  1.123377e-02  1.121694e-02  7.298443e-81  3.413767e-73
+ [6,] 1.000000e+00  9.122843e-04  9.106202e-04  5.024851e-75  3.932661e-67
+ [7,] 9.122843e-04  1.000000e+00  9.999999e-01 8.555102e-108  1.800167e-98
+ [8,] 9.106202e-04  9.999999e-01  1.000000e+00 8.459919e-108  1.782128e-98
+ [9,] 5.024851e-75 8.555102e-108 8.459919e-108  1.000000e+00  6.391368e-05
+[10,] 3.932661e-67  1.800167e-98  1.782128e-98  6.391368e-05  1.000000e+00
+
+$new.decisionmatrix
+           [,1]      [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
+ [1,] 0.0000000 0.1181833    0    0    0    0    0    0    0     0
+ [2,] 0.1181833 0.0000000    0    0    0    0    0    0    0     0
+ [3,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+ [4,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+ [5,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+ [6,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+ [7,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+ [8,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+ [9,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+[10,] 0.0000000 0.0000000    0    0    0    0    0    0    0     0
+
+$probs
+ [1] 0.72327299 0.70878358 0.03301046 0.60899029 0.02076242 0.02287281
+ [7] 0.01631689 0.17474090 0.09764060 0.27346371 0.27672701
+
+$muarray
+           [,1]       [,2]       [,3]       [,4]      [,5]       [,6]
+[1,]  0.3593477  0.3641063 -0.1113878  0.4429484 0.1031530 -0.1294180
+[2,] 12.4801629 12.5943626  5.3350959 13.7169107 6.9529995  7.4027761
+           [,7]       [,8]      [,9]     [,10]
+[1,] -0.1113858 -0.1115167  2.056731 -1.531638
+[2,]  5.3351018  5.3348502 17.205746 17.205554
+
+$Sigmaarray
+, , 1
+
+         [,1]      [,2]
+[1,] 3.520894  1.189190
+[2,] 1.189190 67.082397
+
+, , 2
+
+         [,1]      [,2]
+[1,] 3.590539  1.186394
+[2,] 1.186394 67.790377
+
+, , 3
+
+           [,1]       [,2]
+[1,] 0.01929945 0.01443173
+[2,] 0.01443173 0.03573186
+
+, , 4
+
+          [,1]       [,2]
+[1,] 4.1337398  0.7553361
+[2,] 0.7553361 69.9008513
+
+, , 5
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 6
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 7
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 8
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 9
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+, , 10
+
+            [,1]        [,2]
+[1,]  0.17402742 -0.02420602
+[2,] -0.02420602  0.07953336
+
+
+$z
+             [,1]        [,2]         [,3]        [,4]          [,5]
+ [1,] 1.000000000 1.000000000 3.498973e-06 0.999991622  4.395684e-16
+ [2,] 0.999569090 0.999569090 1.378174e-24 0.999569090  8.237747e-70
+ [3,] 1.000000000 1.000000000 5.618843e-34 1.000000000  3.450582e-12
+ [4,] 0.518891175 0.518891175 5.768063e-21 0.518891175  5.737388e-63
+ [5,] 1.000000000 1.000000000 5.409296e-29 1.000000000  2.296087e-10
+ [6,] 1.000000000 1.000000000 1.389308e-79 1.000000000 1.607675e-154
+ [7,] 1.000000000 1.000000000 2.764768e-86 1.000000000 8.761719e-164
+ [8,] 1.000000000 0.999999999 1.763610e-17 0.999999929  6.996926e-08
+ [9,] 1.000000000 1.000000000 2.322682e-05 0.999944396  1.087510e-18
+[10,] 0.003832670 0.003832670 2.315351e-18 0.003832670  3.449363e-59
+[11,] 0.002773215 0.002773215 1.396658e-16 0.002773215  7.203225e-56
+[12,] 0.032981364 0.032981364 8.786213e-10 0.032981362  5.289213e-42
+[13,] 0.008185406 0.008185406 3.972084e-12 0.008185406  1.064290e-46
+[14,] 0.553731318 0.553731318 9.040249e-08 0.553731102  1.987709e-37
+[15,] 0.005205312 0.005205312 9.857455e-13 0.005205312  1.238912e-48
+[16,] 0.019688199 0.019688199 4.400532e-14 0.019688199  1.359642e-51
+[17,] 0.004558298 0.004558298 1.353421e-14 0.004558298  2.754460e-52
+[18,] 0.004429218 0.004429218 2.932949e-17 0.004429218  8.493967e-57
+[19,] 0.003331776 0.003331776 2.008533e-17 0.003331776  1.476975e-57
+[20,] 0.004221403 0.004221403 1.374014e-18 0.004221403  1.401174e-59
+[21,] 0.008942155 0.008942155 1.099189e-16 0.008942155  1.697431e-56
+[22,] 0.002598179 0.002598179 4.413133e-14 0.002598179  6.712367e-51
+[23,] 0.003275542 0.003275542 1.041126e-15 0.003275542  2.479738e-54
+[24,] 1.000000000 0.748915000 2.367732e-05 0.741793300  7.065006e-03
+[25,] 1.000000000 0.999999968 4.139124e-01 0.009044524  4.597784e-13
+[26,] 1.000000000 0.999993125 4.114522e-01 0.014893491  3.463030e-10
+[27,] 1.000000000 0.887820839 1.302355e-10 0.673362561  2.144583e-01
+[28,] 1.000000000 0.974886210 1.480930e-14 0.264908538  7.099777e-01
+[29,] 1.000000000 0.848175629 4.320104e-10 0.771589797  7.658583e-02
+[30,] 1.000000000 0.999999987 4.138504e-01 0.009193596  7.920293e-14
+[31,] 1.000000000 1.000000000 4.112702e-01 0.015407949  8.224408e-17
+[32,] 1.000000000 0.819356816 5.110162e-08 0.769827788  4.952891e-02
+[33,] 1.000000000 1.000000000 0.000000e+00 1.000000000 2.242214e-283
+[34,] 1.000000000 1.000000000 0.000000e+00 1.000000000 6.883447e-297
+[35,] 1.000000000 1.000000000 0.000000e+00 1.000000000 9.522003e-261
+[36,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+[37,] 1.000000000 1.000000000 0.000000e+00 1.000000000 1.774567e-292
+[38,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+[39,] 1.000000000 1.000000000 0.000000e+00 1.000000000 2.852095e-307
+[40,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+[41,] 1.000000000 1.000000000 0.000000e+00 1.000000000 2.212526e-287
+[42,] 1.000000000 1.000000000 0.000000e+00 1.000000000 1.743382e-288
+[43,] 1.000000000 1.000000000 0.000000e+00 1.000000000 1.393466e-260
+[44,] 1.000000000 1.000000000 0.000000e+00 1.000000000 3.991801e-270
+[45,] 1.000000000 1.000000000 0.000000e+00 1.000000000 6.156962e-268
+[46,] 1.000000000 1.000000000 0.000000e+00 1.000000000 2.733505e-248
+[47,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+[48,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+[49,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+[50,] 1.000000000 1.000000000 0.000000e+00 1.000000000  0.000000e+00
+              [,6]         [,7]          [,8]          [,9]       [,10]
+ [1,] 2.424639e-06 1.725264e-06  0.000000e+00  0.000000e+00 0.999991622
+ [2,] 9.546050e-25 6.868833e-25  0.000000e+00  0.000000e+00 0.999569090
+ [3,] 3.894743e-34 2.743833e-34 1.427680e-243 3.938174e-241 1.000000000
+ [4,] 3.995020e-21 2.879155e-21  0.000000e+00  0.000000e+00 0.518891175
+ [5,] 3.749398e-29 2.644155e-29 8.655926e-258 1.116026e-253 0.999999999
+ [6,] 9.618380e-80 6.992555e-80  0.000000e+00  0.000000e+00 1.000000000
+ [7,] 1.914029e-86 1.392307e-86  0.000000e+00  0.000000e+00 1.000000000
+ [8,] 1.222187e-17 8.678824e-18  0.000000e+00 3.242146e-275 0.999999924
+ [9,] 1.609258e-05 1.150315e-05  0.000000e+00  0.000000e+00 0.999944396
+[10,] 1.603730e-18 1.154272e-18  0.000000e+00  0.000000e+00 0.003832670
+[11,] 9.674222e-17 6.958681e-17  0.000000e+00  0.000000e+00 0.002773215
+[12,] 6.086349e-10 4.371029e-10  0.000000e+00  0.000000e+00 0.032981362
+[13,] 2.751455e-12 1.977206e-12  0.000000e+00  0.000000e+00 0.008185406
+[14,] 6.262443e-08 4.495424e-08  0.000000e+00  0.000000e+00 0.553731102
+[15,] 6.828332e-13 4.905315e-13  0.000000e+00  0.000000e+00 0.005205312
+[16,] 3.048260e-14 2.190171e-14  0.000000e+00  0.000000e+00 0.019688199
+[17,] 9.375040e-15 6.738335e-15  0.000000e+00  0.000000e+00 0.004558298
+[18,] 2.031524e-17 1.461938e-17  0.000000e+00  0.000000e+00 0.004429218
+[19,] 1.391237e-17 1.000931e-17  0.000000e+00  0.000000e+00 0.003331776
+[20,] 9.517077e-19 6.850512e-19  0.000000e+00  0.000000e+00 0.004221403
+[21,] 7.613825e-17 5.475267e-17  0.000000e+00  0.000000e+00 0.008942155
+[22,] 3.056929e-14 2.197405e-14  0.000000e+00  0.000000e+00 0.002598179
+[23,] 7.211674e-16 5.185506e-16  0.000000e+00  0.000000e+00 0.003275542
+[24,] 1.640851e-05 1.165075e-05  0.000000e+00  0.000000e+00 0.021115666
+[25,] 2.867985e-01 2.045898e-01  0.000000e+00  0.000000e+00 0.009044501
+[26,] 2.851045e-01 2.031658e-01  0.000000e+00  0.000000e+00 0.014887299
+[27,] 9.025890e-11 6.397118e-11  0.000000e+00 3.370247e-279 0.010096733
+[28,] 1.026387e-14 7.265397e-15 3.565887e-289 1.519683e-257 0.027380124
+[29,] 2.994033e-10 2.121763e-10  0.000000e+00 6.174511e-286 0.012326680
+[30,] 2.867554e-01 2.045625e-01  0.000000e+00  0.000000e+00 0.009193588
+[31,] 2.849559e-01 2.035078e-01  0.000000e+00  0.000000e+00 0.015407949
+[32,] 3.541469e-08 2.512318e-08  0.000000e+00 4.122113e-295 0.009082866
+[33,] 0.000000e+00 0.000000e+00  9.933527e-01  7.078155e-18 0.006647322
+[34,] 0.000000e+00 0.000000e+00  9.930500e-01  9.365704e-14 0.006949973
+[35,] 0.000000e+00 0.000000e+00  9.111648e-01  6.741444e-18 0.088835206
+[36,] 0.000000e+00 0.000000e+00  9.944431e-01  7.743890e-17 0.005556933
+[37,] 0.000000e+00 0.000000e+00  9.957879e-01  3.181180e-17 0.004212113
+[38,] 0.000000e+00 0.000000e+00  8.845242e-01  1.075000e-20 0.115475777
+[39,] 0.000000e+00 0.000000e+00  9.787624e-01  8.069162e-25 0.021237563
+[40,] 0.000000e+00 0.000000e+00  9.945415e-01  1.318957e-18 0.005458476
+[41,] 0.000000e+00 0.000000e+00  9.900884e-01  1.251513e-12 0.009911622
+[42,] 0.000000e+00 0.000000e+00  9.732311e-12  9.576943e-01 0.042305656
+[43,] 0.000000e+00 0.000000e+00  5.258026e-23  9.780394e-01 0.021960562
+[44,] 0.000000e+00 0.000000e+00  2.457389e-17  9.928988e-01 0.007101186
+[45,] 0.000000e+00 0.000000e+00  5.725032e-12  9.819680e-01 0.018031954
+[46,] 0.000000e+00 0.000000e+00  3.370323e-22  9.713755e-01 0.028624489
+[47,] 0.000000e+00 0.000000e+00 5.347798e-187 6.593442e-165 1.000000000
+[48,] 0.000000e+00 0.000000e+00 2.137411e-194 1.828793e-256 1.000000000
+[49,] 0.000000e+00 0.000000e+00  0.000000e+00  0.000000e+00 1.000000000
+[50,] 0.000000e+00 0.000000e+00  0.000000e+00  0.000000e+00 1.000000000
+             [,11]
+ [1,] 2.304618e-23
+ [2,] 4.309099e-04
+ [3,] 6.665198e-85
+ [4,] 4.811088e-01
+ [5,] 1.621847e-76
+ [6,] 2.138286e-26
+ [7,] 1.289402e-30
+ [8,] 6.446123e-51
+ [9,] 4.717370e-15
+[10,] 9.961673e-01
+[11,] 9.972268e-01
+[12,] 9.670186e-01
+[13,] 9.918146e-01
+[14,] 4.462687e-01
+[15,] 9.947947e-01
+[16,] 9.803118e-01
+[17,] 9.954417e-01
+[18,] 9.955708e-01
+[19,] 9.966682e-01
+[20,] 9.957786e-01
+[21,] 9.910578e-01
+[22,] 9.974018e-01
+[23,] 9.967245e-01
+[24,] 9.094567e-34
+[25,] 4.959272e-14
+[26,] 2.861769e-17
+[27,] 7.105293e-46
+[28,] 2.065619e-54
+[29,] 8.525972e-45
+[30,] 1.832370e-13
+[31,] 4.382025e-10
+[32,] 5.922368e-40
+[33,] 0.000000e+00
+[34,] 0.000000e+00
+[35,] 0.000000e+00
+[36,] 0.000000e+00
+[37,] 0.000000e+00
+[38,] 0.000000e+00
+[39,] 0.000000e+00
+[40,] 0.000000e+00
+[41,] 0.000000e+00
+[42,] 0.000000e+00
+[43,] 0.000000e+00
+[44,] 0.000000e+00
+[45,] 0.000000e+00
+[46,] 0.000000e+00
+[47,] 0.000000e+00
+[48,] 0.000000e+00
+[49,] 0.000000e+00
+[50,] 0.000000e+00
+
+$noise
+[1] TRUE
+
+$method
+[1] "bhat"
+
+$cutoff
+[1] 0.1
+
+attr(,"class")
+[1] "mergenorm"
+
+$nc
+[1] 2
+
+$nccl
+[1] 1
+
+$clusterlist
+$clusterlist[[1]]
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE
+[13]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
+[37]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
+[49] FALSE FALSE
+
+$clusterlist[[2]]
+ [1]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+[13] FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+[49]  TRUE  TRUE
+
+
+$partition
+ [1] 0 0 0 0 0 0 0 0 0 1 1 1 1 0 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[39] 1 1 1 1 1 1 1 1 0 0 0 0
+
+$nnk
+[1] 2
+
+$initnoise
+ [1]  TRUE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE
+[49]  TRUE  TRUE
+
+$clustermethod
+[1] "mclust/mergenormals"
+
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:prabclus’
+
+> nameEx("kmeansruns")
+> ### * kmeansruns
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: kmeansruns
+> ### Title: k-means with estimating k and initialisations
+> ### Aliases: kmeansruns
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
+>   pka <- kmeansruns(face,krange=1:5,critout=TRUE,runs=2,criterion="asw")
+2  clusters  0.7420077 
+3  clusters  0.7463926 
+4  clusters  0.5901694 
+5  clusters  0.5975125 
+>   pkc <- kmeansruns(face,krange=1:5,critout=TRUE,runs=2,criterion="ch")
+2  clusters  181.0214 
+3  clusters  108.0751 
+4  clusters  231.1777 
+5  clusters  186.5939 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("lcmixed")
+> ### * lcmixed
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: lcmixed
+> ### Title: flexmix method for mixed Gaussian/multinomial mixtures
+> ### Aliases: lcmixed
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(112233)
+>   data(Cars93)
+>   Cars934 <- Cars93[,c(3,5,8,10)]
+>   cc <-
++   discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
+>   fcc <- flexmix(cc$data~1,k=2,
++   model=lcmixed(continuous=2,discrete=2,ppdim=c(6,3),diagonal=TRUE))
+>   summary(fcc)
+
+Call:
+flexmix(formula = cc$data ~ 1, k = 2, model = lcmixed(continuous = 2, 
+    discrete = 2, ppdim = c(6, 3), diagonal = TRUE))
+
+       prior size post>0 ratio
+Comp.1 0.327   29     40 0.725
+Comp.2 0.673   64     72 0.889
+
+'log Lik.' -782.1331 (df=23)
+AIC: 1610.266   BIC: 1668.516 
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mahalanodisc")
+> ### * mahalanodisc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mahalanodisc
+> ### Title: Mahalanobis for AWC
+> ### Aliases: mahalanodisc
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+>   x <- cbind(rnorm(50),rnorm(50))
+>   mahalanodisc(x,c(0,0),cov(x))
+ [1] 0.71349606 0.43761908 1.10821206 4.87324972 2.39439438 5.00225901
+ [7] 0.47073953 1.87819557 0.85857646 0.15860222 9.81873721 0.22036263
+[13] 1.02517555 7.10170674 2.34179377 0.04013201 3.47942431 3.71699879
+[19] 1.01446502 5.67306063 1.50739543 1.37019793 0.41046506 6.84584566
+[25] 2.15804831 0.09360798 0.25155881 3.13406307 0.33370927 0.59996983
+[31] 2.94471138 0.03615695 1.74305241 2.48897888 3.04452624 0.35439149
+[37] 1.39043569 0.10557988 1.93895136 0.93985318 0.36194844 1.61998071
+[43] 2.21921981 1.01003313 3.26790679 1.01966858 1.88625521 1.16363811
+[49] 1.63183882 1.32346790
+>   mahalanodisc(x,c(0,0),matrix(0,ncol=2,nrow=2))
+ [1]  5509326690  4083011766  8146378218 38203818405 21621323013 45951521273
+ [7]  3724386939 16353404881  6561046188  1115018130 80532501689  1535175268
+[13]  8616802470 49056797112 18179246336   376615616 32581377766 30386778449
+[19]  6978908370 50729602495 10706287216 11157611277  3785466156 48300585553
+[25] 19557806599   880913436  2207799248 21631137965  2341541077  5222100937
+[31] 21693942514   288385749 15381782499 23241507778 22490650969  2830764373
+[37] 12856458316   960459384 13469697387  6537789871  3213959978 15231367777
+[43] 18322921772  8001730717 29924248192  8124564847 17626076738  9192760912
+[49] 15122977280 10004589882
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mahalanofix")
+> ### * mahalanofix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mahalanofix
+> ### Title: Mahalanobis distances from center of indexed points
+> ### Aliases: mahalanofix mahalanofuz
+> ### Keywords: multivariate
+> 
+> ### ** Examples
+> 
+>   x <- c(1,2,3,4,5,6,7,8,9,10)
+>   y <- c(1,2,3,8,7,6,5,8,9,10)
+>   mahalanofix(cbind(x,y),gv=c(0,0,0,1,1,1,1,1,0,0))
+>   mahalanofix(cbind(x,y),gv=c(0,0,0,1,1,1,1,0,0,0))
+>   mahalanofix(cbind(x,y),gv=c(0,0,0,1,1,1,1,1,0,0),method="mcd")
+>   mahalanofuz(cbind(x,y),gv=c(0,0,0.5,0.5,1,1,1,0.5,0.5,0))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mahalconf")
+> ### * mahalconf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mahalconf
+> ### Title: Mahalanobis fixed point clusters initial configuration
+> ### Aliases: mahalconf
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0,p=2)
+>   mahalconf(face,no=200,startn=20,covall=cov(face),plot="start")
+  [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [49] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [61] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [73] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [85] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [97] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[109] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[121] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[133] FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE
+[145] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[157] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[169]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[181] FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+[193]  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE
+[205] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[217] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[229] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[241]  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[253] FALSE FALSE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE
+[265] FALSE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[277]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[289]  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE
+[301] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[313] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[325] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[337] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[349] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[361] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[373] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[385] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[397] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[409] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[421] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[433] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[445] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[457] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[469] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[481] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[493] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[505] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[517] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[529] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[541] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[553] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[565] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[577] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[589] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mergenormals")
+> ### * mergenormals
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mergenormals
+> ### Title: Clustering by merging Gaussian mixture components
+> ### Aliases: mergenormals summary.mergenorm print.summary.mergenorm
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   data(crabs)
+>   dc <- crabs[,4:8]
+>   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
+>   scm <- summary(cm,crabs[,4:8])
+>   cmnbhat <- mergenormals(crabs[,4:8],scm,method="bhat")
+>   summary(cmnbhat)
+* Merging Gaussian mixture components *
+
+ Method:  bhat , cutoff value:  0.1 
+ Original number of components:  9 
+ Number of clusters after merging:  4 
+ Values at which clusters were merged: 
+     [,1]       [,2]
+[1,]    8 0.47722185
+[2,]    7 0.43690737
+[3,]    6 0.23381193
+[4,]    5 0.21319597
+[5,]    4 0.10580479
+[6,]    3 0.04731623
+ Components assigned to clusters: 
+      [,1]
+ [1,]    1
+ [2,]    2
+ [3,]    1
+ [4,]    3
+ [5,]    1
+ [6,]    3
+ [7,]    4
+ [8,]    3
+ [9,]    2
+>   cmndemp <- mergenormals(crabs[,4:8],scm,method="demp")
+>   summary(cmndemp)
+* Merging Gaussian mixture components *
+
+ Method:  demp , cutoff value:  0.025 
+ Original number of components:  9 
+ Number of clusters after merging:  4 
+ Values at which clusters were merged: 
+     [,1]       [,2]
+[1,]    8 0.10264773
+[2,]    7 0.08359648
+[3,]    6 0.04341438
+[4,]    5 0.04185657
+[5,]    4 0.02514540
+[6,]    3 0.01667565
+ Components assigned to clusters: 
+      [,1]
+ [1,]    1
+ [2,]    2
+ [3,]    1
+ [4,]    3
+ [5,]    1
+ [6,]    3
+ [7,]    4
+ [8,]    3
+ [9,]    2
+> # Other methods take a bit longer, but try them!
+> # The values of by and M below are still chosen for reasonably fast execution.
+> # cmnrr <- mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05)
+> # cmd <- mergenormals(crabs[,4:8],scm,method="dip.tantrum",by=0.05)
+> # cmp <- mergenormals(crabs[,4:8],scm,method="predictive",M=3)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mergeparameters")
+> ### * mergeparameters
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mergeparameters
+> ### Title: New parameters from merging two Gaussian mixture components
+> ### Aliases: mergeparameters
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   irisBIC <- mclustBIC(iriss)
+>   siris <- summary(irisBIC,iriss)
+>   probs <- siris$parameters$pro
+>   muarray <- siris$parameters$mean
+>   Sigmaarray <- siris$parameters$variance$sigma
+>   z <- siris$z
+>   mergeparameters(iriss,1,2,probs,muarray,Sigmaarray,z)
+$probs
+[1] 0.2502184 0.1502184 0.2497816 0.1500000 0.0500000 0.1499925 0.0500000
+[8] 0.1000075
+
+$muarray
+                  [,1]      [,2]     [,3]     [,4] [,5]    [,6] [,7]     [,8]
+Sepal.Length 5.0600282 4.5674421 5.200087 5.733333  6.3 6.20001  7.7 6.649951
+Sepal.Width  2.8804370 2.7344481 3.560052 2.533333  3.4 2.33334  2.8 2.999940
+Petal.Length 2.6990836 1.3667151 1.500087 3.966667  5.6 4.79999  6.7 4.900007
+Petal.Width  0.8795912 0.2667151 0.259965 1.233333  2.4 1.56667  2.0 1.450004
+
+$Sigmaarray
+, , 1
+
+          [,1]      [,2]      [,3]      [,4]
+[1,] 0.3981203 0.1451151 0.9712782 0.4408727
+[2,] 0.1451151 0.1257822 0.2772363 0.1072709
+[3,] 0.9712782 0.2772363 2.6832985 1.2416556
+[4,] 0.4408727 0.1072709 1.2416556 0.5814270
+
+, , 2
+
+            [,1]         [,2]          [,3]          [,4]
+[1,] 0.022876318  0.024957163  0.0030165765  0.0033654681
+[2,] 0.024957163  0.100965312  0.0150209187 -0.0051615675
+[3,] 0.003016576  0.015020919  0.0027001173 -0.0008385347
+[4,] 0.003365468 -0.005161567 -0.0008385347  0.0016840750
+
+, , 3
+
+            [,1]        [,2]        [,3]        [,4]
+[1,]  0.02941337 -0.01248366 -0.02800945 -0.01005752
+[2,] -0.01248366  0.02153824  0.03792992  0.01282288
+[3,] -0.02800945  0.03792992  0.06902690  0.02311852
+[4,] -0.01005752  0.01282288  0.02311852  0.00824731
+
+, , 4
+
+            [,1]         [,2]         [,3]        [,4]
+[1,] 0.069320616 0.0518644883 0.0046873868 0.009536685
+[2,] 0.051864488 0.0431650668 0.0004939104 0.000793527
+[3,] 0.004687387 0.0004939104 0.0032572771 0.006225948
+[4,] 0.009536685 0.0007935271 0.0062259484 0.012482862
+
+, , 5
+
+          [,1]       [,2]         [,3]         [,4]
+[1,] 0.1105778 0.00000000 0.0000000000 0.000000e+00
+[2,] 0.0000000 0.01709613 0.0000000000 0.000000e+00
+[3,] 0.0000000 0.00000000 0.0004725335 0.000000e+00
+[4,] 0.0000000 0.00000000 0.0000000000 7.932003e-05
+
+, , 6
+
+             [,1]        [,2]        [,3]         [,4]
+[1,]  0.007749167 0.003807059 -0.01056156 -0.000890472
+[2,]  0.003807059 0.007520730  0.01058065  0.015831108
+[3,] -0.010561560 0.010580649  0.06414171  0.049636441
+[4,] -0.000890472 0.015831108  0.04963644  0.048814211
+
+, , 7
+
+             [,1]        [,2]        [,3]         [,4]
+[1,] 0.0512234856 0.002866965 0.048315652 0.0009938976
+[2,] 0.0028669648 0.008212649 0.015540400 0.0027712521
+[3,] 0.0483156525 0.015540400 0.067743961 0.0051355168
+[4,] 0.0009938976 0.002771252 0.005135517 0.0010457260
+
+, , 8
+
+             [,1]         [,2]         [,3]         [,4]
+[1,]  0.066419771  0.036305431 -0.038563657 -0.009616086
+[2,]  0.036305431  0.032396421 -0.013663871 -0.004044032
+[3,] -0.038563657 -0.013663871  0.027814107  0.006369898
+[4,] -0.009616086 -0.004044032  0.006369898  0.001595522
+
+
+$z
+             [,1]          [,2]     [,3]         [,4] [,5]          [,6]
+122  1.000000e+00  0.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+42   1.000000e+00  1.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+45   7.431477e-78  7.431477e-78 1.000000  0.00000e+00    0  0.000000e+00
+86   1.000000e+00  0.000000e+00 0.000000 7.61652e-267    0  0.000000e+00
+70   1.074570e-19  0.000000e+00 0.000000  1.00000e+00    0  0.000000e+00
+137 4.300906e-134  0.000000e+00 0.000000  0.00000e+00    1  0.000000e+00
+37  9.430013e-103 9.430013e-103 1.000000  0.00000e+00    0  0.000000e+00
+46   1.000000e+00  1.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+134  0.000000e+00  0.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+88   0.000000e+00  0.000000e+00 0.000000  0.00000e+00    0  1.000000e+00
+72   2.877478e-90  0.000000e+00 0.000000  1.00000e+00    0  0.000000e+00
+123  0.000000e+00  0.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+1    8.836887e-28  8.836887e-28 1.000000  0.00000e+00    0  0.000000e+00
+147 1.424320e-288  0.000000e+00 0.000000  0.00000e+00    0  1.000000e+00
+51   0.000000e+00  0.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+120  0.000000e+00  0.000000e+00 0.000000  0.00000e+00    0  9.998512e-01
+9    1.000000e+00  1.000000e+00 0.000000  0.00000e+00    0  0.000000e+00
+18   3.526927e-03  3.526927e-03 0.996473  0.00000e+00    0  0.000000e+00
+28   8.360527e-61  8.360527e-61 1.000000  0.00000e+00    0  0.000000e+00
+54   2.602855e-34  0.000000e+00 0.000000  1.00000e+00    0 1.825211e-292
+             [,7]         [,8]
+122  1.090419e-19 0.000000e+00
+42   0.000000e+00 0.000000e+00
+45   0.000000e+00 0.000000e+00
+86   0.000000e+00 0.000000e+00
+70   0.000000e+00 0.000000e+00
+137 1.768963e-153 0.000000e+00
+37   0.000000e+00 0.000000e+00
+46   0.000000e+00 0.000000e+00
+134  0.000000e+00 1.000000e+00
+88   0.000000e+00 4.085183e-80
+72   0.000000e+00 0.000000e+00
+123  1.000000e+00 0.000000e+00
+1    0.000000e+00 0.000000e+00
+147  4.161631e-10 0.000000e+00
+51   0.000000e+00 1.000000e+00
+120 7.722020e-210 1.488082e-04
+9    0.000000e+00 0.000000e+00
+18   0.000000e+00 0.000000e+00
+28   0.000000e+00 0.000000e+00
+54   0.000000e+00 0.000000e+00
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("minsize")
+> ### * minsize
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: minsize
+> ### Title: Minimum size of regression fixed point cluster
+> ### Aliases: minsize
+> ### Keywords: univar cluster
+> 
+> ### ** Examples
+> 
+>   minsize(500,4,7000,2)
+[1] 127
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mixdens")
+> ### * mixdens
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mixdens
+> ### Title: Density of multivariate Gaussian mixture, mclust
+> ###   parameterisation
+> ### Aliases: mixdens
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   irisBIC <- mclustBIC(iriss)
+>   siris <- summary(irisBIC,iriss)
+>   mixdens(siris$modelName,iriss,siris$parameters)
+        122          42          45          86          70         137 
+116.4292286 169.1958289 167.7704500 116.4292286 219.3332257 150.4594811 
+         37          46         134          88          72         123 
+ 93.1465719 138.3375499 119.1334177 117.5885785 168.8774326 150.4594812 
+          1         147          51         120           9          18 
+  1.5518619  68.8006686 119.0673687  28.7773567 107.5611318   1.2203180 
+         28          54 
+  0.2771799 195.9428809 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mixpredictive")
+> ### * mixpredictive
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mixpredictive
+> ### Title: Prediction strength of merged Gaussian mixture
+> ### Aliases: mixpredictive
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   mp <- mixpredictive(iriss,2,2,M=2)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("mvdcoord")
+> ### * mvdcoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: mvdcoord
+> ### Title: Mean/variance differences discriminant coordinates
+> ### Aliases: mvdcoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
+>   grface <- as.integer(attr(face,"grouping"))
+>   mcf <- mvdcoord(face,grface)
+>   plot(mcf$proj,col=grface)
+>   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ncoord")
+> ### * ncoord
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ncoord
+> ### Title: Neighborhood based discriminant coordinates
+> ### Aliases: ncoord
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0)
+>   grface <- as.integer(attr(face,"grouping"))
+>   ncf <- ncoord(face,grface)
+>   plot(ncf$proj,col=grface)
+>   ncf2 <- ncoord(face,grface,weighted=TRUE)
+>   plot(ncf2$proj,col=grface)
+>   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("pamk")
+> ### * pamk
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: pamk
+> ### Title: Partitioning around medoids with estimation of number of
+> ###   clusters
+> ### Aliases: pamk
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
+>   pk <- pamk(face,krange=1:5,criterion="asw",critout=TRUE)
+1  clusters  0 
+2  clusters  0.7420077 
+3  clusters  0.7482453 
+4  clusters  0.5809832 
+5  clusters  0.5443949 
+>   pk <- pamk(face,krange=1:5,criterion="ch",critout=TRUE)
+1  clusters  0 
+2  clusters  181.0214 
+3  clusters  209.507 
+4  clusters  204.1119 
+5  clusters  181.3673 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("piridge")
+> ### * piridge
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: piridge
+> ### Title: Ridgeline Pi-function
+> ### Aliases: piridge
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   q <- piridge(seq(0,1,0.1),c(1,1),c(2,5),diag(2),diag(2))
+> 
+> 
+> 
+> cleanEx()
+> nameEx("piridge.zeroes")
+> ### * piridge.zeroes
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: piridge.zeroes
+> ### Title: Extrema of two-component Gaussian mixture
+> ### Aliases: piridge.zeroes
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   q <- piridge.zeroes(0.2,c(1,1),c(2,5),diag(2),diag(2),by=0.1)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("plotcluster")
+> ### * plotcluster
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plotcluster
+> ### Title: Discriminant projection plot.
+> ### Aliases: plotcluster
+> ### Keywords: multivariate classif
+> 
+> ### ** Examples
+> 
+> set.seed(4634)
+> face <- rFace(300,dMoNo=2,dNoEy=0)
+> grface <- as.integer(attr(face,"grouping"))
+> plotcluster(face,grface)
+> plotcluster(face,grface==1)
+> plotcluster(face,grface, clnum=1, method="vbc")
+[1] "Cluster indicator has more than 2 values"
+> 
+> 
+> 
+> cleanEx()
+> nameEx("prediction.strength")
+> ### * prediction.strength
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: prediction.strength
+> ### Title: Prediction strength for estimating number of clusters
+> ### Aliases: prediction.strength
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   set.seed(98765)
+>   iriss <- iris[sample(150,20),-5]
+>   prediction.strength(iriss,2,3,M=3)
+Loading required package: class
+$predcorr
+$predcorr[[1]]
+NULL
+
+$predcorr[[2]]
+[1] 1 1 1
+
+$predcorr[[3]]
+[1] 0.5 0.5 0.5
+
+
+$mean.pred
+[1] 1.0 1.0 0.5
+
+$optimalk
+[1] 2
+
+$cutoff
+[1] 0.8
+
+>   prediction.strength(iriss,2,3,M=3,method="pam")
+$predcorr
+$predcorr[[1]]
+NULL
+
+$predcorr[[2]]
+[1] 1 1 1
+
+$predcorr[[3]]
+[1] 0.1666667 0.0000000 0.0000000
+
+
+$mean.pred
+[1] 1.00000000 1.00000000 0.05555556
+
+$optimalk
+[1] 2
+
+$cutoff
+[1] 0.8
+
+> # The examples are fast, but of course M should really be larger.
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:class’
+
+> nameEx("rFace")
+> ### * rFace
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: rFace
+> ### Title: "Face-shaped" clustered benchmark datasets
+> ### Aliases: rFace
+> ### Keywords: data
+> 
+> ### ** Examples
+> 
+>   set.seed(4634)
+>   face <- rFace(600,dMoNo=2,dNoEy=0)
+>   grface <- as.integer(attr(face,"grouping"))
+>   plot(face, col = grface)
+> #  pairs(face, col = grface, main ="rFace(600,dMoNo=2,dNoEy=0)")
+> 
+> 
+> 
+> cleanEx()
+> nameEx("randcmatrix")
+> ### * randcmatrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: randcmatrix
+> ### Title: Random partition matrix
+> ### Aliases: randcmatrix
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+> set.seed(111)
+> randcmatrix(10,2,1)
+      [,1] [,2]
+ [1,]    0    1
+ [2,]    0    1
+ [3,]    1    0
+ [4,]    0    1
+ [5,]    1    0
+ [6,]    1    0
+ [7,]    1    0
+ [8,]    0    1
+ [9,]    1    0
+[10,]    1    0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("randconf")
+> ### * randconf
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: randconf
+> ### Title: Generate a sample indicator vector
+> ### Aliases: randconf
+> ### Keywords: distribution
+> 
+> ### ** Examples
+> 
+>   randconf(10,3)
+ [1] FALSE FALSE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE FALSE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("regmix")
+> ### * regmix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: regmix
+> ### Title: Mixture Model ML for Clusterwise Linear Regression
+> ### Aliases: regmix regem
+> ### Keywords: cluster regression
+> 
+> ### ** Examples
+> 
+> set.seed(12234)
+> data(tonedata)
+> attach(tonedata)
+> rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
+Iteration  1  for  1  clusters.
+Iteration  1  for  2  clusters.
+> # nclust=1:2 makes the example fast;
+> # a more serious application would rather use the default.
+> rmt1$g
+  [1] 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
+ [38] 2 1 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 1 1 1 2 2 1 2 2 2 2 2 1 2 2 1 2 2 2 2 2
+ [75] 2 2 2 1 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2
+[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2
+[149] 2 1
+> rmt1$bic
+[1]   3.732369 247.322353
+> # start with initial parameter values
+> cln <- 3
+> n <- 150
+> initcoef <- cbind(c(2,0),c(0,1),c(0,2.5))
+> initvar <- c(0.001,0.0001,0.5)
+> initeps <- c(0.4,0.3,0.3)
+> # computation of m from initial parameters
+> m <- matrix(nrow=n, ncol=cln)
+> stm <- numeric(0)
+> for (i in 1:cln)
++   for (j in 1:n){
++     m[j,i] <- initeps[i]*dnorm(tuned[j],mean=initcoef[1,i]+
++               initcoef[2,i]*stretchratio[j], sd=sqrt(initvar[i]))
++   }
+>   for (j in 1:n){
++     stm[j] <- sum(m[j,])
++     for (i in 1:cln)
++       m[j,i] <- m[j,i]/stm[j]
++   } 
+> rmt2 <- regem(stretchratio, tuned, m, cln)
+> rmt2bic <- 2*rmt2$loglik - log(150)*(4*cln-1)
+> rmt2bic
+[1] 422.4744
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘tonedata’
+
+> nameEx("ridgeline")
+> ### * ridgeline
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ridgeline
+> ### Title: Ridgeline computation
+> ### Aliases: ridgeline
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   ridgeline(0.5,c(1,1),c(2,5),diag(2),diag(2))
+     [,1]
+[1,]  1.5
+[2,]  3.0
+> 
+> 
+> 
+> cleanEx()
+> nameEx("ridgeline.diagnosis")
+> ### * ridgeline.diagnosis
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: ridgeline.diagnosis
+> ### Title: Ridgeline plots, ratios and unimodality
+> ### Aliases: ridgeline.diagnosis
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   muarray <- cbind(c(0,0),c(0,0.1),c(10,10))
+>   sigmaarray <- array(c(diag(2),diag(2),diag(2)),dim=c(2,2,3))
+>   rd <-
++   ridgeline.diagnosis(c(0.5,0.3,0.2),muarray,sigmaarray,ridgelineplot="matrix",by=0.1)
+Loading required package: prabclus
+>   # Much slower but more precise with default by=0.001.
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘package:prabclus’
+
+> nameEx("simmatrix")
+> ### * simmatrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: simmatrix
+> ### Title: Extracting intersections between clusters from fpc-object
+> ### Aliases: simmatrix
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> set.seed(190000)
+> data(tonedata)
+> # Note: If you do not use the installed package, replace this by
+> # tonedata <- read.table("(path/)tonedata.txt", header=TRUE)
+> attach(tonedata)
+> tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)
+> simmatrix(tonefix)[sseg(2,3)]
+[1] 47
+> 
+> 
+> 
+> cleanEx()
+
+detaching ‘tonedata’
+
+> nameEx("solvecov")
+> ### * solvecov
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: solvecov
+> ### Title: Inversion of (possibly singular) symmetric matrices
+> ### Aliases: solvecov
+> ### Keywords: array
+> 
+> ### ** Examples
+> 
+>   x <- c(1,0,0,1,0,1,0,0,1)
+>   dim(x) <- c(3,3)
+>   solvecov(x)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("sseg")
+> ### * sseg
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: sseg
+> ### Title: Position in a similarity vector
+> ### Aliases: sseg
+> ### Keywords: utilities
+> 
+> ### ** Examples
+> 
+> sseg(3,4)
+[1] 9
+> 
+> 
+> 
+> cleanEx()
+> nameEx("tdecomp")
+> ### * tdecomp
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: tdecomp
+> ### Title: Root of singularity-corrected eigenvalue decomposition
+> ### Aliases: tdecomp
+> ### Keywords: array
+> 
+> ### ** Examples
+> 
+> x <- rnorm(10)
+> y <- rnorm(10)
+> z <- cov(cbind(x,y))
+> tdecomp(z)
+           [,1]       [,2]
+[1,] -0.4766383  1.0305950
+[2,] -0.6181669 -0.2858951
+> 
+> 
+> 
+> cleanEx()
+> nameEx("unimodal.ind")
+> ### * unimodal.ind
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: unimodal.ind
+> ### Title: Is a fitted denisity unimodal or not?
+> ### Aliases: unimodal.ind
+> ### Keywords: univar
+> 
+> ### ** Examples
+> 
+> unimodal.ind(c(1,3,3,4,2,1,0,0))
+[1] TRUE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("weightplots")
+> ### * weightplots
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: weightplots
+> ### Title: Ordered posterior plots
+> ### Aliases: weightplots
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   data(crabs)
+>   dc <- crabs[,4:8]
+>   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
+>   scm <- summary(cm,crabs[,4:8])
+>   weightplots(scm,clusternumbers=1:3,ask=FALSE)
+>   weightplots(scm,clusternumbers=1:3,allcol=1:9, ask=FALSE,
++               legendposition=c(5,0.7))
+> # Remove ask=FALSE to have time to watch the plots.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("wfu")
+> ### * wfu
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: wfu
+> ### Title: Weight function (for Mahalabobis distances)
+> ### Aliases: wfu
+> ### Keywords: arith
+> 
+> ### ** Examples
+> 
+>   md <- seq(0,10,by=0.1)
+>   wfu(md,ca=5,ca2=8)
+  [1] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+  [7] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [13] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [19] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [25] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [31] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [37] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [43] 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000 1.00000000
+ [49] 1.00000000 1.00000000 1.00000000 0.96666667 0.93333333 0.90000000
+ [55] 0.86666667 0.83333333 0.80000000 0.76666667 0.73333333 0.70000000
+ [61] 0.66666667 0.63333333 0.60000000 0.56666667 0.53333333 0.50000000
+ [67] 0.46666667 0.43333333 0.40000000 0.36666667 0.33333333 0.30000000
+ [73] 0.26666667 0.23333333 0.20000000 0.16666667 0.13333333 0.10000000
+ [79] 0.06666667 0.03333333 0.00000000 0.00000000 0.00000000 0.00000000
+ [85] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+ [91] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+ [97] 0.00000000 0.00000000 0.00000000 0.00000000 0.00000000
+> 
+> 
+> 
+> cleanEx()
+> nameEx("zmisclassification.matrix")
+> ### * zmisclassification.matrix
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: zmisclassification.matrix
+> ### Title: Matrix of misclassification probabilities between mixture
+> ###   components
+> ### Aliases: zmisclassification.matrix
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+> 
+>   set.seed(12345)
+>   m <- rpois(20,lambda=5)
+>   dim(m) <- c(5,4)
+>   m <- m/apply(m,1,sum)
+>   zmisclassification.matrix(m,symmetric=FALSE) 
+           [,1]      [,2]      [,3]      [,4]
+[1,] 0.00000000 0.7253112 1.0000000 0.7458588
+[2,] 0.09853518 0.0000000 0.5592235 0.7270335
+[3,] 0.16328687 0.1724237 0.0000000 0.1559808
+[4,] 0.09853518 0.2972948 0.5592235 0.0000000
+> 
+> 
+> 
+> ### * <FOOTER>
+> ###
+> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  27.525 0.228 28.006 0 0 
+> grDevices::dev.off()
+null device 
+          1 
+> ###
+> ### Local variables: ***
+> ### mode: outline-minor ***
+> ### outline-regexp: "\\(> \\)?### [*]+" ***
+> ### End: ***
+> quit('no')

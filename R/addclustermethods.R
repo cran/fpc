@@ -171,7 +171,7 @@ pamk <- function (data, krange = 2:10,
     }
     if (cluster1)
        cluster1 <- dudahart2(sdata,pams[[2]]$clustering,alpha=alpha)$cluster1
-    k.best <- krange[which.max(asw)]
+    k.best <- (1:max(krange))[which.max(asw)]
     if (cluster1)
       k.best <- 1
     out <- list(pamobject = pams[[k.best]], nc = k.best)
