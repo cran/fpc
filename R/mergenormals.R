@@ -243,42 +243,6 @@ zmisclassification.matrix <- function(z,pro=NULL,clustering=NULL,
   outmatrix
 }
 
-dip.pvalue <- function(d,n){
-  require(diptest)
-  data(qDiptab)
-  if (n<4)
-    out <- 1
-  else{
-    dnqd <- dimnames(qDiptab)
-    nn <- as.integer(dnqd$n)
-    p <- as.numeric(dnqd$Pr)
-    lnn <- length(nn)
-    lp <- length(p)
-    nnumber <- max((1:lnn)[n>=nn])
-    if (n==nn[nnumber] | n>max(nn))
-      diprow <- qDiptab[nnumber,]
-    else{
-      perc <- (n-nn[nnumber])/(nn[nnumber+1]-nn[nnumber])
-      diprow <- qDiptab[nnumber,]-perc*(qDiptab[nnumber,]-qDiptab[nnumber+1,])
-    }
-    if(d<min(diprow))
-      out <- 1-min(p)/2
-    else{
-      dnumber <- max((1:lp)[d>=diprow])
-      if (d==diprow[dnumber])
-        out <- p[dnumber]
-      else{
-        if (d>max(diprow))
-          out <- (1-max(p))/2
-        else{
-          perc <- (d-diprow[dnumber])/(diprow[dnumber+1]-diprow[dnumber])
-          out <- 1-(p[dnumber]+perc*(p[dnumber+1]-p[dnumber]))
-        }
-      } # else (d!=diprow[dnumber])
-    } # else (n>=4)
-    out
-  }
-}      
 
 unimodal.ind <- function(y){
   ly <- length(y)
@@ -335,12 +299,14 @@ diptest.multi <-  function(xdata,class,pvalue="uniform",M=100){
   }
   xd <- dip(xuni)
   if (pvalue=="uniform"){
-    out <- dip.pvalue(xd,nrow(as.matrix(xdata)))
+    out <- dip.test(xd,simulate.p.value = FALSE)$p.value
+#    out <- dip.pvalue(xd,nrow(as.matrix(xdata)))
 #    print("diptest pvalue")
 #    print(out)
   }
   if (pvalue=="tantrum")
-    out <- dipp.tantrum(xuni,xd,M=M)$p.value
+   xd <- dip(xuni)
+   out <- dipp.tantrum(xuni,xd,M=M)$p.value
   out
 }
 
@@ -664,8 +630,10 @@ mixpredictive <- function(xdata, Gcomp, Gmix, M=50, ...){
   out
 }
 
-prediction.strength <- function(xdata, Gmin=2, Gmax=10, method="kmeans", M=50,
-                                cutoff=0.8,...){
+prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
+                                clustermethod=kmeansCBI,
+                                classification="centroid",
+                                cutoff=0.8,nnk=1,...){
   require(cluster)
   require(class)
   xdata <- as.matrix(xdata)
@@ -686,37 +654,33 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10, method="kmeans", M=50,
       indvec[[l]][[1]] <- nperm[1:nf[1]]
       indvec[[l]][[2]] <- nperm[(nf[1]+1):n]
       for (i in 1:2){
-        clusterings[[i]] <-
-          switch(method,
-                 kmeans=kmeans(xdata[indvec[[l]][[i]],],k,...),
-                 pam=pam(xdata[indvec[[l]][[i]],],k,...),
-                 clara=pam(xdata[indvec[[l]][[i]],],k,...))
-        jclusterings[[i]] <-
-          switch(method,
-                 kmeans=clusterings[[i]]$cluster,
-                 pam=pam(xdata[indvec[[l]][[i]],],k,...)$clustering,
-                 clara=pam(xdata[indvec[[l]][[i]],],k,...)$clustering)
-        clcenters[[i]] <-
-           switch(method,
-                 kmeans=clusterings[[i]]$centers,
-                 pam=pam(xdata[indvec[[l]][[i]],],k,...)$medoids,
-                 clara=pam(xdata[indvec[[l]][[i]],],k,...)$medoids)
+        clusterings[[i]] <- clustermethod(xdata[indvec[[l]][[i]],],k,...)
+        jclusterings[[i]] <- rep(-1,n)
+        jclusterings[[i]][indvec[[l]][[i]]] <- clusterings[[i]]$partition
+        centroids <- NULL
+        if(classification=="centroid"){
+          if(identical(clustermethod,kmeansCBI))
+            centroids <- clusterings[[i]]$result$centers
+          if(identical(clustermethod,claraCBI))
+            centroids <- clusterings[[i]]$result$medoids
+        }
         j <- 3-i
-        classifications[[j]] <- as.integer(knn1(clcenters[[i]],
-                                              xdata[indvec[[l]][[j]],],1:k))
+        classifications[[j]] <- classifnp(xdata,jclusterings[[i]],
+                                          method=classification,
+                           centroids=centroids,nnk=nnk)[indvec[[l]][[j]]]
 #        print(classifications[[j]])
       } # for i
       ps <- matrix(0,nrow=2,ncol=k)
       for (i in 1:2){
         for (kk in 1:k){
-          nik <- sum(jclusterings[[i]]==kk)
+          nik <- sum(clusterings[[i]]$partition==kk)
           if (nik>1){
 #            print(kk)
-            for (j1 in (1:(nf[i]-1))[jclusterings[[i]][1:(nf[i]-1)]==kk]){
+            for (j1 in (1:(nf[i]-1))[clusterings[[i]]$partition[1:(nf[i]-1)]==kk]){
 #        print(j1)
 #        print(nf[i])
               for (j2 in (j1+1):nf[i])
-                if (jclusterings[[i]][j2]==kk)
+                if (clusterings[[i]]$partition[j2]==kk)
                   ps[i,kk] <- ps[i,kk]+(classifications[[i]][j1]==
                               classifications[[i]][j2])
             } # for j1
@@ -732,6 +696,7 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10, method="kmeans", M=50,
 
       } # for i
       prederr[[k]][l] <- mean(c(min(ps[1,]),min(ps[2,])))
+#      browser()
 #    title(sub=prederr[l])
 #    print(prederr[l])    
     } # for l
@@ -745,9 +710,21 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10, method="kmeans", M=50,
     mean.pred <- c(mean.pred,mean(prederr[[k]]))
   optimalk <- max(which(mean.pred>cutoff))
   out <- list(predcorr=prederr,mean.pred=mean.pred,optimalk=optimalk,
-                cutoff=cutoff)
+                cutoff=cutoff,method=clusterings[[1]]$clustermethod,
+              Gmax=Gmax,M=M)
 #  print(ps)
+  class(out) <- "predstr"
   out
+}
+
+print.predstr <- function(x, ...){
+  cat("Prediction strength \n")
+  cat("Clustering method: ",x$method,"\n")
+  cat("Maximum number of clusters: ",x$Gmax,"\n")
+  cat("Resampled data sets: ",x$M,"\n")
+  cat("Mean pred.str. for numbers of clusters: ",x$mean.pred,"\n")
+  cat("Cutoff value: ", x$cutoff,"\n")
+  cat("Largest number of clusters better than cutoff: ",x$optimalk,"\n")
 }
 
 # join.predictive <- function(xdata,mclustsummary,cutoff=0.8,M=50,...){

@@ -47,7 +47,7 @@ zmisclassification.matrix(z,pro=NULL,clustering=NULL,
   \emph{Advances in Data Analysis and Classification}, 4, 3-34.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{

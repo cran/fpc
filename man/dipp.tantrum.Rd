@@ -7,8 +7,8 @@
   in the way suggested by Tantrum, Murua and Stuetzle (2003) from the
   clostest unimodal distribution determined by kernel density estimation
   with bandwith chosen so that the density just becomes unimodal. This is
-  less conservative (and in fact sometimes anti-conservative) as the
-  values from \code{\link{dip.pvalue}}.
+  less conservative (and in fact sometimes anti-conservative) than the
+  values from \code{\link[diptest]{dip.test}}.
 }
 \usage{
   dipp.tantrum(xdata,d,M=100)
@@ -39,7 +39,7 @@ ninth ACM SIGKDD international conference on Knowledge discovery and
 data mining}, Washington, D.C., 197-205.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{

@@ -26,7 +26,7 @@ wfu(md, ca, ca2, a1 = 1/(ca - ca2), a0 = -a1 * ca2)
 }
 
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{\code{\link{fixmahal}}}

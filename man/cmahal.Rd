@@ -47,7 +47,7 @@ cmahal(n, p, nmin, cmin, nc1, c1 = cmin, q = 1)
   \emph{Computational Statistics and Data Analysis} 40, 723-739.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{\code{\link{fixmahal}}}

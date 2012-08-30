@@ -38,7 +38,7 @@ discrcoord(xd, clvecd, pool = "n", ...)
   Seber, G. A. F. (1984). \emph{Multivariate Observations}. New York: Wiley.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 

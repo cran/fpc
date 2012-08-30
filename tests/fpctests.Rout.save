@@ -1,7 +1,8 @@
 
-R version 2.11.1 (2010-05-31)
-Copyright (C) 2010 The R Foundation for Statistical Computing
+R version 2.14.1 (2011-12-22)
+Copyright (C) 2011 The R Foundation for Statistical Computing
 ISBN 3-900051-07-0
+Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -21,11 +22,7 @@ Type 'q()' to quit R.
 Loading required package: MASS
 Loading required package: cluster
 Loading required package: mclust
-
-by using mclust, invoked on its own or through another package,
-you accept the license agreement in the mclust LICENSE file
-and at http://www.stat.washington.edu/mclust/license.txt
-
+Package 'mclust' version 4.0
 Loading required package: flexmix
 Loading required package: lattice
 Loading required package: modeltools
@@ -45,22 +42,22 @@ Loading required package: splines
 [2,] -0.19811181 0.006004317 -0.001318905
 [3,]  0.04822913 0.497591674 -0.662878052
 > discrproj(face,grface, clnum=1, method="anc")$units
-            [,1]       [,2]        [,3]
-[1,] -1.39122951 -0.3093355  0.10928950
-[2,]  0.62109134 -0.2233422  0.01643619
-[3,] -0.03130796  0.0748551 -0.80738843
+            [,1]        [,2]        [,3]
+[1,] -1.39122951 -0.30933547  0.10928950
+[2,]  0.62109134 -0.22334223  0.01643619
+[3,] -0.03130796  0.07485511 -0.80738843
 > discrproj(face,grface, clnum=1, method="awc")$units
-           [,1]        [,2]        [,3]
-[1,]  0.2153917 -0.33885087 -0.51885622
-[2,] -0.3702908  0.01439633 -0.00893001
-[3,]  0.1108281  0.79140767 -0.23574234
+           [,1]        [,2]         [,3]
+[1,]  0.2153917 -0.33885087 -0.518856215
+[2,] -0.3702908  0.01439633 -0.008930009
+[3,]  0.1108281  0.79140767 -0.235742343
 > 
 > 
 > pamk(face,krange=1:5,criterion="ch",usepam=FALSE,critout=TRUE)
 1  clusters  0 
 2  clusters  1321.039 
 3  clusters  963.0644 
-4  clusters  833.169 
+4  clusters  833.1691 
 5  clusters  934.0973 
 $pamobject
 Call:	 clara(x = sdata, k = k) 
@@ -82,6 +79,9 @@ Available components:
 
 $nc
 [1] 2
+
+$crit
+[1]    0.0000 1321.0387  963.0644  833.1691  934.0973
 
 > 
 > set.seed(20000)
@@ -114,10 +114,10 @@ Medoids:
 12  3.564972  1.863918  1.520492  3.272231 13.524703 13.76066 13.145936
 34 10.332347 12.094516 12.347114 10.522640  0.660382  0.00000  1.038597
 50 24.993773 26.715599 26.929495 25.118703 15.240072 14.81052 15.676932
-           36        37        38        39         40         41        42
-12 13.9716414 13.677807 14.503586 13.946552 14.0084574 13.6015727 13.784232
-34  0.3227397  0.459568  0.841392  1.218620  0.4964457  0.1656088  2.670075
-50 14.6877989 15.036740 14.241074 15.092859 14.7181912 14.9490175 14.477326
+           36        37        38       39         40         41        42
+12 13.9716414 13.677807 14.503586 13.94655 14.0084574 13.6015727 13.784232
+34  0.3227397  0.459568  0.841392  1.21862  0.4964457  0.1656088  2.670075
+50 14.6877989 15.036740 14.241074 15.09286 14.7181912 14.9490175 14.477326
           43        44        45       46        47        48       49       50
 12 13.398520 13.497063 13.402909 13.15101 21.501084 21.938896 28.24333 28.24333
 34  3.733278  3.165012  2.566418  3.59216  9.845766  8.247250 14.81052 14.81052
@@ -137,6 +137,9 @@ Available components:
 
 $nc
 [1] 3
+
+$crit
+[1] 0.0000000 0.7577795 0.8020635 0.6657102 0.6824472
 
 > 
 > x <- c(1,2,3,6,6,7,8,120)
@@ -616,7 +619,13 @@ $clustermethod
 > 
 > noisemclustCBI(face50,G=1:5,emModelNames="VVV",nnk=2)
 Loading required package: prabclus
-[1] 5
+
+Attaching package: 'prabclus'
+
+The following object(s) are masked from 'package:fpc':
+
+    con.comp
+
 $result
 
  BIC:
@@ -692,7 +701,6 @@ $clustermethod
 > distnoisemclustCBI(dface,G=5,emModelNames="EEE",nnk=2,
 +                         mdsmethod="classical",
 +                         mdsdim=2)
-[1] 6
 $result
 
  BIC:
@@ -827,14 +835,14 @@ $result
 * trimmed k-means *
 trim= 0.1 , k= 4 
 Classification (trimmed points are indicated by  5 ):
- [1] 1 1 1 4 1 4 4 3 5 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 2 2 2 2 2 2
-[39] 2 2 2 3 3 3 3 3 5 5 5 5
+ [1] 4 4 4 3 4 3 3 1 5 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2
+[39] 2 2 2 1 1 1 1 1 5 5 5 5
 Means:
          [,1]       [,2]
-2  -0.4994704 -1.4250867
-41  0.8974744 -1.0022315
-11  0.6842995  1.2614578
-15 -0.7193505  0.1440717
+4   0.6842995  1.2614578
+29  0.8974744 -1.0022315
+24 -0.7193505  0.1440717
+1  -0.4994704 -1.4250867
 Trimmed mean squares:  0.1508184 
 
 $nc
@@ -845,10 +853,10 @@ $nccl
 
 $clusterlist
 $clusterlist[[1]]
- [1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+ [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
 [13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
 [49] FALSE FALSE
 
 $clusterlist[[2]]
@@ -859,16 +867,16 @@ $clusterlist[[2]]
 [49] FALSE FALSE
 
 $clusterlist[[3]]
- [1] FALSE FALSE FALSE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE
-[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
-[37] FALSE FALSE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE
-[49] FALSE FALSE
-
-$clusterlist[[4]]
  [1] FALSE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE FALSE  TRUE  TRUE  TRUE
 [13]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
 [25]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE
+[37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[49] FALSE FALSE
+
+$clusterlist[[4]]
+ [1]  TRUE  TRUE  TRUE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[13] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
+[25] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [37] FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE FALSE
 [49] FALSE FALSE
 
@@ -881,12 +889,80 @@ $clusterlist[[5]]
 
 
 $partition
- [1] 1 1 1 4 1 4 4 3 5 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 4 2 2 2 2 2 2
-[39] 2 2 2 3 3 3 3 3 5 5 5 5
+ [1] 4 4 4 3 4 3 3 1 5 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2
+[39] 2 2 2 1 1 1 1 1 5 5 5 5
 
 $clustermethod
 [1] "trimkmeans plus MDS"
 
+> 
+> set.seed(20000)
+> face100 <- rFace(100,dMoNo=2,dNoEy=0,p=2)
+> print(clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000))
+Loading required package: kernlab
+
+Attaching package: 'kernlab'
+
+The following object(s) are masked from 'package:modeltools':
+
+    prior
+
+boot 1 
+boot 2 
+noise 1 
+noise 2 
+* Cluster stability assessment *
+Cluster method:  spectral 
+Full clustering results are given as parameter result
+of the clusterboot object, which also provides further statistics
+of the resampling results.
+Number of resampling runs:  2 
+
+Number of clusters found in data:  6 
+
+ Clusterwise Jaccard bootstrap mean:
+[1] 0.4671717 0.9166667 0.9545455 0.6147059 0.6438127 0.2340153
+dissolved:
+[1] 1 0 0 0 1 2
+recovered:
+[1] 0 2 2 0 1 0
+ Clusterwise Jaccard replacement by noise mean:
+[1] 0.5178571 0.6851852 0.7884990 0.4423077 0.9833333 0.9285714
+dissolved:
+[1] 1 1 0 2 0 0
+recovered:
+[1] 0 1 1 0 2 2
+> suppressWarnings(print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
+Loading required package: tclust
+Loading required package: sn
+Loading required package: mnormt
+boot 1 
+boot 2 
+noise 1 
+noise 2 
+* Cluster stability assessment *
+Cluster method:  tclust 
+Full clustering results are given as parameter result
+of the clusterboot object, which also provides further statistics
+of the resampling results.
+Number of resampling runs:  2 
+
+Number of clusters found in data:  6 
+
+The last cluster corresponds to noise/outliers
+
+ Clusterwise Jaccard bootstrap mean:
+[1] 0.6712963 0.5800654 1.0000000 0.8333333 0.1497354 0.4428571
+dissolved:
+[1] 0 1 0 0 2 1
+recovered:
+[1] 1 1 2 1 0 0
+ Clusterwise Jaccard replacement by noise mean:
+[1] 0.6982582 0.6945962 1.0000000 1.0000000 0.4241803 0.7000000
+dissolved:
+[1] 1 1 0 0 1 0
+recovered:
+[1] 1 1 2 2 0 1
 > 
 > 
 > complete3 <- cutree(hclust(dface),3)
@@ -900,6 +976,12 @@ $cluster.number
 
 $cluster.size
 [1] 32 14  4
+
+$min.cluster.size
+[1] 4
+
+$noisen
+[1] 0
 
 $diameter
 [1] 8.528207 4.944842 9.000000
@@ -922,8 +1004,14 @@ $separation.matrix
 [2,]  8.669762 0.000000  7.459036
 [3,] 17.243693 7.459036  0.000000
 
+$ave.between.matrix
+         [,1]     [,2]     [,3]
+[1,]  0.00000 13.01743 24.37105
+[2,] 13.01743  0.00000 12.03677
+[3,] 24.37105 12.03677  0.00000
+
 $average.between
-[1] 15.23000
+[1] 15.23
 
 $average.within
 [1] 2.866482
@@ -933,6 +1021,12 @@ $n.between
 
 $n.within
 [1] 593
+
+$max.diameter
+[1] 9
+
+$min.separation
+[1] 7.459036
 
 $within.cluster.ss
 [1] 319.1102
@@ -956,6 +1050,9 @@ $pearsongamma
 $dunn
 [1] 0.8287818
 
+$dunn2
+[1] 1.707883
+
 $entropy
 [1] 0.8441124
 
@@ -965,6 +1062,15 @@ $wb.ratio
 $ch
 [1] 228.6904
 
+$cwidegap
+[1] 2.895339 2.489343 8.321658
+
+$widestgap
+[1] 8.321658
+
+$sindex
+[1] 7.775018
+
 $corrected.rand
 NULL
 
@@ -972,6 +1078,7 @@ $vi
 NULL
 
 > 
+> set.seed(55667788)
 > library(diptest)
 > 
 > data(crabs)
@@ -983,7 +1090,6 @@ NULL
 > 
 > 
 > scm <- summary(cm,crabs[,4:8])
-[1] 10
 > scmo <- summary(cmo,crabs[,4:8])
 > 
 > summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
@@ -1046,7 +1152,7 @@ NULL
  Values at which clusters were merged: 
      [,1]       [,2]
 [1,]    8 0.17821782
-[2,]    7 0.68316832
+[2,]    7 0.65346535
 [3,]    6 0.10891089
 [4,]    5 0.00990099
  Components assigned to clusters: 
@@ -1068,10 +1174,10 @@ NULL
  Original number of components:  9 
  Number of clusters after merging:  7 
  Values at which clusters were merged: 
-     [,1]        [,2]
-[1,]    8 0.360392365
-[2,]    7 0.549794620
-[3,]    6 0.009652075
+     [,1]       [,2]
+[1,]    8 0.15841584
+[2,]    7 0.35643564
+[3,]    6 0.00990099
  Components assigned to clusters: 
       [,1]
  [1,]    1
@@ -1089,29 +1195,47 @@ NULL
  Method:  predictive , cutoff value:  0.75 
  Original number of components:  9 
    (not including noise which is denoted by clustering=0)
- Number of clusters after merging:  2 
+ Number of clusters after merging:  1 
  Predictive strength values: 
            [,1]
  [1,] 1.0000000
- [2,] 0.8791144
- [3,] 0.3925705
- [4,] 0.4888802
- [5,] 0.2510887
- [6,] 0.3247209
- [7,] 0.3354400
- [8,] 0.2509536
- [9,] 0.2432540
+ [2,] 0.6014780
+ [3,] 0.3732864
+ [4,] 0.3614011
+ [5,] 0.1533880
+ [6,] 0.3055556
+ [7,] 0.3007245
+ [8,] 0.2966200
+ [9,] 0.1703297
  Components assigned to clusters: 
       [,1]
  [1,]    0
  [2,]    1
  [3,]    1
  [4,]    1
- [5,]    2
+ [5,]    1
  [6,]    1
  [7,]    1
  [8,]    1
  [9,]    1
 [10,]    1
 > 
+> set.seed(20000)
+> x1 <- rnorm(50)
+> y <- rnorm(100)
+> x2 <- rnorm(40,mean=20)
+> x3 <- rnorm(10,mean=25,sd=100)
+> x0 <- cbind(c(x1,x2,x3),y)
+> 
+> prediction.strength(x0,M=10,Gmax=4,
++                            clustermethod=noisemclustCBI,
++                            classification="qda")
+Loading required package: class
+Prediction strength 
+Clustering method:  mclustBIC 
+Maximum number of clusters:  4 
+Resampled data sets:  10 
+Mean pred.str. for numbers of clusters:  1 0.6161499 0.8778674 0.04166667 
+Cutoff value:  0.8 
+Largest number of clusters better than cutoff:  3 
 > 

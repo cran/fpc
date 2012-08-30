@@ -62,7 +62,7 @@ ancoord(xd, clvecd, clnum=1, nn=50, method="mcd", countmode=1000, ...)
 
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 

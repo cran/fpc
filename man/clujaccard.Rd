@@ -20,7 +20,7 @@ clujaccard(c1,c2,zerobyzero=NA)
   Numeric between 0 and 1.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{

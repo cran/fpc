@@ -140,11 +140,10 @@ kmeansruns <- function(data,krange=2:10,criterion="ch",
   out 
 }
 
-# criteria are asw, ch, clarach
-pamk <- function (data, krange = 2:10,
-                     criterion="asw", usepam=TRUE,
-                  scaling = FALSE, alpha=0.001, diss = inherits(data, 
-    "dist"), critout=FALSE, ...) 
+
+pamk <- function (data, krange = 2:10, criterion = "asw", usepam = TRUE, 
+    scaling = FALSE, alpha = 0.001, diss = inherits(data, "dist"), 
+    critout = FALSE, ns=10, seed=NULL, ...) 
 {
     data <- as.matrix(data)
     require(cluster)
@@ -152,54 +151,60 @@ pamk <- function (data, krange = 2:10,
         sdata <- scale(data, scale = scaling)
     else sdata <- data
     cluster1 <- 1 %in% krange
-    asw <- numeric(max(krange))
+    critval <- numeric(max(krange))
     pams <- list()
     for (k in krange) {
-      if (usepam)
-        pams[[k]] <- pam(sdata, k, ...)
-      else
-        pams[[k]] <- clara(sdata, k, ...)
-      if (k!=1)
-        asw[k] <- switch(criterion,
-             asw=pams[[k]]$silinfo$avg.width,
-             ch=ifelse(diss,
-               cluster.stats(sdata,pams[[k]]$clustering)$ch,
-               calinhara(sdata,pams[[k]]$clustering)))
-#             clarach=clarach(sdata,pams[[k]]))
-      if (critout)
-        cat(k," clusters ",asw[k],"\n")
+        if (usepam) 
+            pams[[k]] <- pam(sdata, k, diss=diss, ...)
+        else pams[[k]] <- clara(sdata, k, ...)
+        if (k != 1) 
+            critval[k] <- switch(criterion, asw = pams[[k]]$silinfo$avg.width,
+                             multiasw=distcritmulti(sdata,pams[[k]]$clustering,seed=seed,ns=ns)$crit.overall,
+                ch = ifelse(diss, cluster.stats(sdata, pams[[k]]$clustering)$ch, 
+                  calinhara(sdata, pams[[k]]$clustering)))
+        if (critout) 
+            cat(k, " clusters ", critval[k], "\n")
     }
-    if (cluster1)
-       cluster1 <- dudahart2(sdata,pams[[2]]$clustering,alpha=alpha)$cluster1
-    k.best <- (1:max(krange))[which.max(asw)]
-    if (cluster1)
-      k.best <- 1
-    out <- list(pamobject = pams[[k.best]], nc = k.best)
+    k.best <- (1:max(krange))[which.max(critval)]
+    if (cluster1){
+      cxx <- dudahart2(sdata, pams[[2]]$clustering, alpha = alpha)
+      critval[1] <- cxx$p.value
+      cluster1 <- cxx$cluster1
+    }
+    if (cluster1) 
+        k.best <- 1
+    out <- list(pamobject = pams[[k.best]], nc = k.best, crit=critval)
     out
 }
 
 
-# includes generalised calinski harabasz index and doesn't require
-# dissimilarity matrices if compareonly
-# Removes error if a number is missing in clustering or alt.clustering
-cluster.stats <- function (d=NULL,
-                           clustering, alt.clustering = NULL,
-                           silhouette = TRUE, 
-    G2 = FALSE, G3 = FALSE, compareonly = FALSE) 
+
+cluster.stats <- function (d = NULL, clustering, alt.clustering = NULL,
+                           noisecluster=FALSE,
+                              silhouette = TRUE, G2 = FALSE, G3 = FALSE,
+                              wgap=TRUE, sepindex=TRUE, sepprob=0.1,
+                              sepwithnoise=TRUE,
+                              compareonly = FALSE,
+                              aggregateonly = FALSE)
 {
-    if (!is.null(d))
-      d <- as.dist(d)
+    if (!is.null(d)) 
+        d <- as.dist(d)
     cn <- max(clustering)
-    clusteringf <- as.factor(clustering) 
+    clusteringf <- as.factor(clustering)
     clusteringl <- levels(clusteringf)
-    cnn <-length(clusteringl) 
-    if (cn!=cnn){
-      warning("clustering renumbered because maximum != number of clusters")
-      for (i in 1:cnn)
-        clustering[clusteringf==clusteringl[i]] <- i
-      cn <- cnn
-    }    
+    cnn <- length(clusteringl)
+    if (cn != cnn) {
+        warning("clustering renumbered because maximum != number of clusters")
+        for (i in 1:cnn) clustering[clusteringf == clusteringl[i]] <- i
+        cn <- cnn
+    }
     n <- length(clustering)
+    noisen <- 0
+    cwn <- cn
+    if (noisecluster){
+      noisen <- sum(clustering==cn)
+      cwn <- cn-1
+    }
     diameter <- average.distance <- median.distance <- separation <- average.toother <- cluster.size <- within.dist <- between.dist <- numeric(0)
     for (i in 1:cn) cluster.size[i] <- sum(clustering == i)
     pk1 <- cluster.size/n
@@ -214,15 +219,14 @@ cluster.stats <- function (d=NULL,
             out
         }
         cn2 <- max(alt.clustering)
-        clusteringf <- as.factor(alt.clustering) 
+        clusteringf <- as.factor(alt.clustering)
         clusteringl <- levels(clusteringf)
-        cnn2 <-length(clusteringl) 
-        if (cn2!=cnn2){
-          warning("alt.clustering renumbered because maximum != number of clusters")
-          for (i in 1:cnn2)
-            alt.clustering[clusteringf==clusteringl[i]] <- i
-          cn2 <- cnn2
-        }    
+        cnn2 <- length(clusteringl)
+        if (cn2 != cnn2) {
+            warning("alt.clustering renumbered because maximum != number of clusters")
+            for (i in 1:cnn2) alt.clustering[clusteringf == clusteringl[i]] <- i
+            cn2 <- cnn2
+        }
         nij <- table(clustering, alt.clustering)
         dsum <- sum(choose2(nij))
         cs2 <- numeric(0)
@@ -249,19 +253,25 @@ cluster.stats <- function (d=NULL,
             require(cluster)
         dmat <- as.matrix(d)
         within.cluster.ss <- 0
-        overall.ss <- sum(d^2)/n
-        separation.matrix <- matrix(0, ncol = cn, nrow = cn)
+        overall.ss <- nonnoise.ss <- sum(d^2)/n
+        if (noisecluster)
+          nonnoise.ss <- sum(as.dist(dmat[clustering<=cwn,
+                                          clustering<=cwn])^2)/
+                                            sum(clustering<=cwn)
+        ave.between.matrix <-
+          separation.matrix <- matrix(0, ncol = cn, nrow = cn)
         di <- list()
         for (i in 1:cn) {
             cluster.size[i] <- sum(clustering == i)
             di <- as.dist(dmat[clustering == i, clustering == 
                 i])
-            within.cluster.ss <- within.cluster.ss + sum(di^2)/cluster.size[i]
-            within.dist <- c(within.dist, di)
-            if (length(di)>0)
-              diameter[i] <- max(di)
-            else
-              diameter[i] <- NA
+            if (i<=cwn){
+              within.cluster.ss <- within.cluster.ss + sum(di^2)/cluster.size[i]
+              within.dist <- c(within.dist, di)
+            }
+            if (length(di) > 0) 
+                diameter[i] <- max(di)
+            else diameter[i] <- NA
             average.distance[i] <- mean(di)
             median.distance[i] <- median(di)
             bv <- numeric(0)
@@ -273,7 +283,10 @@ cluster.stats <- function (d=NULL,
                   if (i < j) {
                     separation.matrix[i, j] <- separation.matrix[j, 
                       i] <- min(sij)
-                    between.dist <- c(between.dist, sij)
+                    ave.between.matrix[i, j] <- ave.between.matrix[j, i] <-
+                        mean(sij)
+                    if (i<=cwn & j<=cwn)
+                      between.dist <- c(between.dist, sij)
                   }
                 }
             }
@@ -284,15 +297,20 @@ cluster.stats <- function (d=NULL,
         average.within <- mean(within.dist)
         nwithin <- length(within.dist)
         nbetween <- length(between.dist)
-        between.cluster.ss <- overall.ss-within.cluster.ss
-        ch <- between.cluster.ss*(n-cn)/(within.cluster.ss*(cn-1))
+        between.cluster.ss <- nonnoise.ss - within.cluster.ss
+        ch <- between.cluster.ss * (n - noisen - cwn)/(within.cluster.ss * 
+            (cwn - 1))
         clus.avg.widths <- avg.width <- NULL
         if (silhouette) {
-            sc <- summary(silhouette(clustering, dmatrix = dmat))
+            sii <- silhouette(clustering, dmatrix = dmat)
+            sc <- summary(sii)
             clus.avg.widths <- sc$clus.avg.widths
-            avg.width <- sc$avg.width
+            if (noisecluster)
+              avg.width <- mean(sii[clustering<=cwn,3])
+            else
+              avg.width <- sc$avg.width
         }
-        g2 <- g3 <- cn2 <- NULL
+        g2 <- g3 <- cn2 <- cwidegap <- widestgap <- sindex <- NULL
         if (G2) {
             splus <- sminus <- 0
             for (i in 1:nwithin) {
@@ -310,19 +328,111 @@ cluster.stats <- function (d=NULL,
         }
         pearsongamma <- cor(c(within.dist, between.dist), c(rep(0, 
             nwithin), rep(1, nbetween)))
-        dunn <- min(separation)/max(diameter)
-        out <- list(n = n, cluster.number = cn, cluster.size = cluster.size, 
+        dunn <- min(separation[1:cwn])/max(diameter[1:cwn],na.rm=TRUE)
+        acwn <- ave.between.matrix[1:cwn,1:cwn]
+        dunn2 <- min(acwn[upper.tri(acwn)])/
+          max(average.distance[1:cwn])
+        if (wgap){
+          cwidegap <- rep(0,cwn)
+          for (i in 1:cwn)
+            if (sum(clustering==i)>1)
+              cwidegap[i] <- max(hclust(as.dist(dmat[clustering==i,
+                                                   clustering==i]),
+                                      method="single")$height)
+          widestgap <- max(cwidegap)
+        }
+        if (sepindex){
+          psep <- rep(NA,n)
+          if (sepwithnoise | !noisecluster){
+            for (i in 1:n)
+              psep[i] <- min(dmat[i,clustering!=clustering[i]])
+            minsep <- floor(n*sepprob)
+          }
+          else{
+            dmatnn <- dmat[clustering<=cwn,clustering<=cwn]
+            clusteringnn <- clustering[clustering<=cwn]
+            for (i in 1:(n-noisen))
+              psep[i] <- min(dmatnn[i,clusteringnn!=clusteringnn[i]])
+            minsep <- floor((n-noisen)*sepprob)
+          }
+          sindex <- mean(sort(psep)[1:minsep])
+        }
+        if (!aggregateonly)
+          out <- list(n = n, cluster.number = cn, cluster.size = cluster.size,
+                      min.cluster.size = min(cluster.size[1:cwn]),
+                      noisen=noisen,
             diameter = diameter, average.distance = average.distance, 
             median.distance = median.distance, separation = separation, 
-            average.toother = average.toother, separation.matrix = separation.matrix, 
+            average.toother = average.toother, separation.matrix = separation.matrix,
+                      ave.between.matrix=ave.between.matrix,
             average.between = average.between, average.within = average.within, 
-            n.between = nbetween, n.within = nwithin, within.cluster.ss = within.cluster.ss, 
+            n.between = nbetween, n.within = nwithin,
+                      max.diameter = max(diameter[1:cwn],na.rm=TRUE),
+                      min.separation = sepwithnoise*min(separation)+
+                      (!sepwithnoise)*min(separation[1:cwn]),
+                      within.cluster.ss = within.cluster.ss, 
             clus.avg.silwidths = clus.avg.widths, avg.silwidth = avg.width, 
-            g2 = g2, g3 = g3, pearsongamma = pearsongamma, dunn = dunn, 
-            entropy = h1, wb.ratio = average.within/average.between, ch=ch, 
-            corrected.rand = corrected.rand, vi = vi)
+            g2 = g2, g3 = g3, pearsongamma = pearsongamma, dunn = dunn,
+                      dunn2=dunn2,
+            entropy = h1, wb.ratio = average.within/average.between, 
+            ch = ch, cwidegap=cwidegap, widestgap=widestgap,
+                    sindex=sindex,
+                    corrected.rand = corrected.rand, vi = vi)
+        else
+          out <- list(n = n, cluster.number = cn,
+                      min.cluster.size = min(cluster.size[1:cwn]),
+                      noisen=noisen,
+            average.between = average.between, average.within = average.within, 
+                      max.diameter = max(diameter[1:cwn],na.rm=TRUE),
+                      min.separation = sepwithnoise*min(separation)+
+                      (!sepwithnoise)*min(separation[1:cwn]), 
+            ave.within.cluster.ss = within.cluster.ss/(n-noisen), 
+            avg.silwidth = avg.width, 
+            g2 = g2, g3 = g3, pearsongamma = pearsongamma, dunn = dunn,
+                      dunn2=dunn2,
+            entropy = h1, wb.ratio = average.within/average.between, 
+            ch = ch, widestgap=widestgap,
+                    sindex=sindex,
+                    corrected.rand = corrected.rand, vi = vi)
     }
     out
 }
 
    
+distcritmulti <- function(x,clustering,part=NULL,ns=10,criterion="asw",
+                    fun="dist",metric="euclidean",
+                     count=FALSE,seed=NULL,...){
+  if (!is.null(seed)) set.seed(seed)
+  n <- length(clustering)
+  if (is.null(part)){
+    pn1 <- n %/% ns
+    pn2 <- n %% ns
+    part <- rep(pn1,ns)
+    part[ns] <- part[ns]+pn2
+  }
+  np <- sum(part)
+  ns <- length(part)
+  n <- length(clustering)
+  npsam <- sample(n,np)
+  cp <- cumsum(part)
+  ss <- list()
+  ss[[1]] <- npsam[1:cp[1]]
+  asw <- numeric(0)
+  for (i in 2:ns)
+    ss[[i]] <- npsam[(cp[i-1]+1):cp[i]]
+  for (i in 1:ns){
+    if (count) cat("Subset ",i,"\n")
+    if (fun=="dist")
+      dx <- dist(x[ss[[i]],],method=metric,...)
+    else
+      dx <- daisy(x[ss[[i]],],metric=metric,...)
+    if (criterion=="asw")
+      asw[i] <- summary(silhouette(clustering[ss[[i]]],dx))$avg.width
+    if (criterion=="pearsongamma")
+      asw[i] <- cluster.stats(dx,clustering[ss[[i]]],silhouette=FALSE)$pearsongamma
+  }
+  aswav <- sum(part*asw)/np
+  crit.sd <- sd(asw)
+  out <- list(crit.overall=aswav,crit.sub=asw,crit.sd=crit.sd,subsets=ss)
+  out
+}

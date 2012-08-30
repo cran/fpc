@@ -54,11 +54,17 @@ disttrimkmeansCBI(dface,k=4,scaling=TRUE,trim=0.1,
                          mdsmethod="classical",
                          mdsdim=2)
 
+set.seed(20000)
+face100 <- rFace(100,dMoNo=2,dNoEy=0,p=2)
+print(clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000))
+suppressWarnings(print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
+
 
 complete3 <- cutree(hclust(dface),3)
 
 cluster.stats(dface,complete3,G2=TRUE)
 
+set.seed(55667788)
 library(diptest)
 
 data(crabs)
@@ -78,3 +84,13 @@ summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
 summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
 summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))
 
+set.seed(20000)
+x1 <- rnorm(50)
+y <- rnorm(100)
+x2 <- rnorm(40,mean=20)
+x3 <- rnorm(10,mean=25,sd=100)
+x0 <- cbind(c(x1,x2,x3),y)
+
+prediction.strength(x0,M=10,Gmax=4,
+                           clustermethod=noisemclustCBI,
+                           classification="qda")

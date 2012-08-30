@@ -25,12 +25,12 @@
 }
 
 \references{
-  Calinski, R. B., and Harabasz, J. (1974) A Dendrite Method for Cluster 
+  Calinski, T., and Harabasz, J. (1974) A Dendrite Method for Cluster 
 Analysis, \emph{Communications in Statistics}, 3, 1-27.
 }
 
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche}}
 
 \seealso{\code{\link{cluster.stats}}}

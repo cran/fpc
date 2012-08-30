@@ -10,7 +10,9 @@
   independent of the values of the independent variable, and all may
   differ for different clusters. Computation is by the EM-algorithm. The
   number of clusters is estimated via the Bayesian Information Criterion
-  (BIC).
+  (BIC). Note that package \code{flexmix} has more sophisticated tools to do the
+  same thing and is recommended. The functions are kept in here only for
+  compatibility reasons.
 }
 \usage{
 regmix(indep, dep, ir=1, nclust=1:7, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
@@ -98,7 +100,7 @@ regem(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
     Classification} 12, 21-56.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 \seealso{
 Regression mixtures can also (and probably better) be computed with the
@@ -138,8 +140,6 @@ for (i in 1:cln)
       m[j,i] <- m[j,i]/stm[j]
   } 
 rmt2 <- regem(stretchratio, tuned, m, cln)
-rmt2bic <- 2*rmt2$loglik - log(150)*(4*cln-1)
-rmt2bic
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{regression}

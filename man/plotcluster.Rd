@@ -115,7 +115,7 @@ plotcluster(x, clvecd, clnum=NULL,
   Recognition} (2nd ed.). Boston: Academic Press.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{

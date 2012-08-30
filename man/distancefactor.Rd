@@ -53,10 +53,14 @@ distancefactor(cat,n=NULL, catsizes=NULL,type="categorical",
   application to social stratification. Research report no. 308,
   Department of Statistical Science, UCL.
   \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}
+    Revised version accepted for publication
+  by Journal of the Royal Statistical Society
+  Series C.
+
   }
 
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche}}
 
 \seealso{\code{\link{lcmixed}}, \code{\link[cluster]{pam}}}

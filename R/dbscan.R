@@ -108,7 +108,7 @@ print.dbscan <- function(x, ...){
   if (is.null(x$isseed))
     tab <- table(x$cluster)
   else{
-    tab <- table(c("seed", "border")[2-x$isseed], cluster=x$cluster)[c("seed", "border"), ]
+    tab <- table(c("seed", "border")[2-x$isseed], cluster=x$cluster)
     if (is.null(dim(tab))){
       tab <- cbind(tab)
       colnames(tab) <- unique(x$cluster)

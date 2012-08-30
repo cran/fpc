@@ -35,7 +35,7 @@ minsize(n, p, ir, mtf, prob = 0.5)
 }
 
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{\code{\link{fixreg}}, \code{\link{clusexpect}},

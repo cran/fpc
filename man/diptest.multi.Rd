@@ -17,7 +17,7 @@
   \item{class}{vector of integers giving class numbers for observations.}
   \item{pvalue}{\code{"uniform"} or \code{"tantrum"}. Defines whether
     the p-value is computed from a uniform null model as suggested in
-    Hartigan and Hartigan (1985, using \code{dip.pvalue}) or as
+    Hartigan and Hartigan (1985, using \code{\link[diptest]{dip.test}}) or as
     suggested in Tantrum et al. (2003, using \code{dipp.tantrum}).}
   \item{M}{integer. Number of artificial datasets generated in order to
     estimate the p-value if \code{pvalue="tantrum"}.}
@@ -37,7 +37,7 @@ ninth ACM SIGKDD international conference on Knowledge discovery and
 data mining}, Washington, D.C., 197-205.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{

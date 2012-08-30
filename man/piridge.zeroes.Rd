@@ -35,7 +35,7 @@ piridge.zeroes(prop, mu1, mu2, Sigma1, Sigma2, alphamin=0,
 Normal Mixtures, \emph{Annals of Statistics}, 33, 2042-2065.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{

@@ -3,21 +3,25 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Cluster validation statistics}
 \description{
-  Computes a number of distance based statistics which can be used for cluster
+  Computes a number of distance based statistics, which can be used for cluster
   validation, comparison between clusterings and decision about
   the number of clusters: cluster sizes, cluster diameters,
   average distances within and between clusters, cluster separation,
+  biggest within cluster gap, 
   average silhouette widths, the Calinski and Harabasz index,
-  the best distance based statistics to
-  decide about the number of clusters in a study of Milligan and Cooper
-  (1985), Hubert's gamma coefficient, the Dunn index and two indexes
+  a Pearson version of
+  Hubert's gamma coefficient, the Dunn index and two indexes
   to assess the similarity of two clusterings, namely the corrected Rand
   index and Meila's VI.
 }
 \usage{
-cluster.stats(d,clustering,alt.clustering=NULL,
-                          silhouette=TRUE,G2=FALSE,G3=FALSE,
-                          compareonly=FALSE)
+cluster.stats(d = NULL, clustering, alt.clustering = NULL,
+                           noisecluster=FALSE,
+                              silhouette = TRUE, G2 = FALSE, G3 = FALSE,
+                              wgap=TRUE, sepindex=TRUE, sepprob=0.1,
+                              sepwithnoise=TRUE,
+                              compareonly = FALSE,
+                              aggregateonly = FALSE)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -30,6 +34,12 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     \code{clustering}, indicating an alternative clustering. If provided, the
     corrected Rand index and Meila's VI for \code{clustering}
     vs. \code{alt.clustering} are computed.}
+  \item{noisecluster}{logical. If \code{TRUE}, it is assumed that the
+    largest cluster number in \code{clustering} denotes a 'noise
+    class', i.e. points that do not belong to any cluster. These points
+    are not taken into account for the computation of all functions of
+    within and between cluster distances including the validation
+    indexes.} 
   \item{silhouette}{logical. If \code{TRUE}, the silhouette statistics
     are computed, which requires package \code{cluster}.}
   \item{G2}{logical. If \code{TRUE}, Goodman and Kruskal's index G2
@@ -39,15 +49,43 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \item{G3}{logical. If \code{TRUE}, the index G3
     (cf. Gordon (1999), p. 62) is computed. This executes \code{sort}
     on all distances and can be extremely slow.}
+  \item{wgap}{logical. If \code{TRUE}, the widest within-cluster gaps
+    (largest link in within-cluster minimum spanning tree) are
+    computed.}
+  \item{sepindex}{logical. If \code{TRUE}, a separation index is
+    computed, defined based on the distances for every point to the
+    closest point not in the same cluster. The separation index is then
+    the mean of the smallest proportion \code{sepprob} of these. This
+    allows to formalise separation less sensitive to a single or a few
+    ambiguous points. The output component corresponding to this is
+    \code{sindex}, not \code{separation}!
+  }
+  \item{sepprob}{numerical between 0 and 1, see \code{sepindex}.}
+  \item{sepwithnoise}{logical. If \code{TRUE} and \code{sepindex} and
+    \code{noisecluster} are both \code{TRUE}, the noise points are
+    incorporated as cluster in the separation index computation. Also
+    they are taken into account for the computation for the minimum
+    cluster separation regardless of \code{sepindex}.} 
   \item{compareonly}{logical. If \code{TRUE}, only the corrected Rand index
     and Meila's VI are
     computed and given out (this requires \code{alt.clustering} to be
     specified).}
+  \item{aggregateonly}{logical. If \code{TRUE} (and not
+    \code{compareonly}), no clusterwise but only aggregated information
+    is given out (this cuts the size of the output down a bit).}
+
+}
+
+\note{
+  Because \code{cluster.stats} processes a full dissimilarity matrix, it
+  isn't suitable for large data sets. You may consider
+  \code{\link{distcritmulti}} in that case.
 }
 
 \value{
   \code{cluster.stats} returns a list containing the components
-  \code{n, cluster.number, cluster.size, diameter,
+  \code{n, cluster.number, cluster.size,  min.cluster.size, noisen,
+    diameter,
     average.distance, median.distance, separation, average.toother,
     separation.matrix, average.between, average.within,
     n.between, n.within, within.cluster.ss, clus.avg.silwidths, avg.silwidth,
@@ -58,6 +96,9 @@ cluster.stats(d,clustering,alt.clustering=NULL,
   \item{n}{number of cases.}
   \item{cluster.number}{number of clusters.}
   \item{cluster.size}{vector of cluster sizes (number of points).}
+  \item{min.cluster.size}{size of smallest cluster.}
+  \item{noisen}{number of noise points, see argument \code{noisecluster}
+    (\code{noisen=0} if \code{noisecluster=FALSE}).}
   \item{diameter}{vector of cluster diameters (maximum within cluster
     distances).}
   \item{average.distance}{vector of clusterwise
@@ -70,10 +111,14 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     in the cluster to the points of other clusters.}
   \item{separation.matrix}{matrix of separation values between all pairs
     of clusters.}
+  \item{ave.between.matrix}{matrix of mean dissimilarities between
+  points of every pair of clusters.}
   \item{average.between}{average distance between clusters.}
   \item{average.within}{average distance within clusters.}
   \item{n.between}{number of distances between clusters.}
   \item{n.within}{number of distances within clusters.}
+  \item{max.diameter}{maximum cluster diameter.}
+  \item{min.separation}{minimum cluster separation.}
   \item{within.cluster.ss}{a generalisation of the within clusters sum
     of squares (k-means objective function), which is obtained if
     \code{d} is a Euclidean distance matrix.  For general distance
@@ -93,20 +138,26 @@ cluster.stats(d,clustering,alt.clustering=NULL,
     0-1-vector where 0 means same cluster, 1 means different clusters.
     "Normalized gamma" in Halkidi et al. (2001).}
   \item{dunn}{minimum separation / maximum diameter. Dunn index, see
-    Haldiki et al. (2002).}
+    Halkidi et al. (2002).}
+  \item{dunn2}{minimum average dissimilarity between two cluster /
+    maximum average within cluster dissimilarity, another version of
+    the family of Dunn indexes.} 
   \item{entropy}{entropy of the distribution of cluster memberships,
     see Meila(2007).}
   \item{wb.ratio}{\code{average.within/average.between}.}
   \item{ch}{Calinski and Harabasz index (Calinski and Harabasz 1974,
     optimal in Milligan and Cooper 1985; generalised for dissimilarites
-    in Hennig and Liao 2010)}    
+    in Hennig and Liao 2010)}\
+  \item{cwidegap}{vector of widest within-cluster gaps.}
+  \item{widestgap}{widest within-cluster gap.}
+  \item{sindex}{separation index, see argument \code{sepindex}.}
   \item{corrected.rand}{corrected Rand index (if \code{alt.clustering}
     has been specified), see Gordon (1999, p. 198).}
   \item{vi}{variation of information (VI) index (if \code{alt.clustering}
     has been specified), see Meila (2007).}
 }
 \references{
-    Calinski, R. B., and Harabasz, J. (1974) A Dendrite Method for Cluster 
+    Calinski, T., and Harabasz, J. (1974) A Dendrite Method for Cluster 
 Analysis, \emph{Communications in Statistics}, 3, 1-27.
 
   Gordon, A. D. (1999) \emph{Classification}, 2nd ed. Chapman and Hall.
@@ -115,12 +166,17 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   Validation Techniques, \emph{Journal of Intelligent Information
     Systems}, 17, 107-145.
 
-    Hennig, C. and Liao, T. (2010) Comparing latent class and
+  Hennig, C. and Liao, T. (2010) Comparing latent class and
   dissimilarity based clustering for mixed type variables with
   application to social stratification. Research report no. 308,
   Department of Statistical Science, UCL.
-  \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}
+  \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}.
+  Revised version accepted for publication
+  by Journal of the Royal Statistical Society
+  Series C.
 
+    Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
+  An Introduction to Cluster Analysis". Wiley, New York.
   
   Meila, M. (2007) Comparing clusterings?an information based distance,
   \emph{Journal of Multivariate Analysis}, 98, 873-895.
@@ -129,11 +185,12 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   for determining the number of clusters. \emph{Psychometrika}, 50, 159-179.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{
   \code{\link{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
+  \code{\link{distcritmulti}}.
   \code{\link{clusterboot}} computes clusterwise stability statistics by
   resampling.
 }

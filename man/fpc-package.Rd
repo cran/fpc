@@ -27,16 +27,23 @@
     \item{cluster.stats}{This computes several cluster validity
       statistics from a clustering and a dissimilarity matrix including
       the Calinski-Harabasz index, the adjusted Rand index and other
-      statistics explained in Gordon (1999) as well as some elementary
+      statistics explained in Gordon (1999) as well as several
+      characterising
       measures such as average between cluster and within cluster
       dissimilarity and separation. See also \code{\link{calinhara}},
       \code{\link{dudahart2}} for specific indexes.}
     \item{prediction.strength}{Estimates the number of clusters by
       computing the prediction strength of a
       clustering of a dataset into different numbers of components for
-      \code{\link{kmeans}}, \code{\link[cluster]{pam}} and
-      \code{\link[cluster]{clara}}-clustering, see
-      Tibshirani and Walther (2005).}
+      various clustering methods, see
+      Tibshirani and Walther (2005). In fact, this is more flexible than
+      what is in the original paper, because it can use
+      point classification schemes that work better with clustering
+      methods other than k-means.}
+    \item{nselectboot}{Estimates the number of clusters by bootstrap
+      stability selection, see Fang and Wang (2012). This is quite
+      flexible regarding clustering methods and point classification
+      schemes and also allows for dissimilarity data.} 
     }}
 \section{Cluster visualisation and validation}{
   \describe{
@@ -58,11 +65,15 @@
       modality of Gaussian mixtures, see Ray and Lindsay (2005).}
     \item{weightplots}{Plots to diagnose component separation in
       Gaussian mixtures, see Hennig (2010).}
+    \item{localshape}{Local shape matrix, can be used for finding
+      clusters in connection with function \code{ics} in package
+  \code{ICS}, see Hennig's
+  discussion and rejoinder of Tyler et al. (2009).}
     }}
 \section{Useful wrapper functions for clustering methods}{
   \describe{
     \item{kmeansCBI}{This and other "CBI"-functions (see the
-      \code{\link{kmeansCBI}}-help page) are unified wrappers for many
+      \code{\link{kmeansCBI}}-help page) are unified wrappers for
       various clustering methods in R that may be useful because they do
       in one step for what you normally may need to do a bit more in R
       (for example fitting a Gaussian mixture with noise component in
@@ -88,6 +99,11 @@ Databases with Noise.
 \emph{Proceedings of 2nd International Conference on
   Knowledge Discovery and Data
 Mining (KDD-96).}
+
+  Fang, Y. and Wang, J. (2012) Selection of the number of clusters via
+  the bootstrap method. \emph{Computational Statistics and Data
+    Analysis}, 56, 468-477.
+
 
 Gordon, A. D. (1999) \emph{Classification}, 2nd ed. Chapman and Hall.
 
@@ -126,7 +142,7 @@ Prediction Strength, \emph{Journal of Computational and Graphical
   Statistics}, 14, 511-528.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 

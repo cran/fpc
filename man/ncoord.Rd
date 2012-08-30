@@ -66,7 +66,7 @@ ncoord(xd, clvecd, nn=50, weighted=FALSE,
   Challenge. Springer, Heidelberg 2005, 153-160.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 

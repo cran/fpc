@@ -22,7 +22,7 @@ simmatrix(fpcobj)
 }
 
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \note{The intersection between representative FPCs no. \code{i} and

@@ -16,7 +16,7 @@
 \usage{
 pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
      scaling=FALSE, alpha=0.001, diss=inherits(data, "dist"),
-     critout=FALSE, ...)
+     critout=FALSE, ns=10, seed=NULL, ...)
 }
 \arguments{
   \item{data}{a data matrix or data frame or something that can be
@@ -27,8 +27,12 @@ pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
     silhouette width and Calinski-Harabasz can't estimate number of
     clusters \code{nc=1}. If 1 is included, a Duda-Hart test is applied
     and 1 is estimated if this is not significant.}
-  \item{criterion}{one of \code{"asw"} or \code{"ch"}. Determines
-    whether average silhouette width or Calinski-Harabasz is applied.}
+  \item{criterion}{one of \code{"asw"}, \code{"multiasw"} or
+    \code{"ch"}. Determines whether average silhouette width (as given
+    out by  \code{\link[cluster]{pam}}/\code{\link[cluster]{clara}}, or
+    as computed by \code{\link{distcritmulti}} if \code{"multiasw"} is
+    specified; recommended for large data sets with \code{usepam=FALSE})
+    or Calinski-Harabasz is applied.}
   \item{usepam}{logical. If \code{TRUE}, \code{\link[cluster]{pam}} is
     used, otherwise \code{\link[cluster]{clara}} (recommended for large
     datasets with 2,000 or more observations; dissimilarity matrices can
@@ -48,18 +52,32 @@ pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
     be considered as a matrix of observations by variables.}
   \item{critout}{logical. If \code{TRUE}, the criterion value is printed
     out for every number of clusters.}
+  \item{ns}{passed on to \code{\link{distcritmulti}} if
+    \code{criterion="multiasw"}.}
+  \item{seed}{passed on to \code{\link{distcritmulti}} if
+    \code{criterion="multiasw"}.}
   \item{...}{further arguments to be transferred to
     \code{\link[cluster]{pam}} or \code{\link[cluster]{clara}}.}
 }
 
+\note{
+  \code{\link[cluster]{clara}} and \code{\link[cluster]{pam}}
+  can handle \code{NA}-entries (see their documentation) but
+  \code{\link{dudahart2}} cannot. Therefore \code{NA} should not occur
+  if 1 is in \code{krange}.
+}
+  
 \value{
   A list with components
   \item{pamobject}{The output of the optimal run of the
     \code{\link[cluster]{pam}}-function.}
   \item{nc}{the optimal number of clusters.}
+  \item{crit}{vector of criterion values for numbers of
+    clusters. \code{crit[1]} is the p-value of the Duda-Hart test
+    if 1 is in \code{krange}.}
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \references{
@@ -69,17 +87,20 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   Duda, R. O. and Hart, P. E. (1973) \emph{Pattern Classification and
   Scene Analysis}. Wiley, New York.
 
-     Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
+  Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
      An Introduction to Cluster Analysis". Wiley, New York.
 }
 \seealso{
   \code{\link[cluster]{pam}}, \code{\link[cluster]{clara}}
+  \code{\link{distcritmulti}}
 }
 \examples{  
   set.seed(20000)
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
-  pk <- pamk(face,krange=1:5,criterion="asw",critout=TRUE)
-  pk <- pamk(face,krange=1:5,criterion="ch",critout=TRUE)
+  pk1 <- pamk(face,krange=1:5,criterion="asw",critout=TRUE)
+  pk2 <- pamk(face,krange=1:5,criterion="multiasw",ns=2,critout=TRUE)
+# "multiasw" is better for larger data sets, use larger ns then.
+  pk3 <- pamk(face,krange=1:5,criterion="ch",critout=TRUE)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

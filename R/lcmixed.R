@@ -320,6 +320,12 @@ cluster.varstats <- function(clustering,vardata,contdata=vardata,
                              ask=TRUE,
                             rangefactor=1){
   p <- ncol(vardata)
+  vnames <- names(vardata)
+  if (!(length(vnames)==p)){
+    vnames <- c()
+    for (i in 1:p)
+      vnames[i] <- paste("Variable",i)
+  }
   n <- length(clustering)
   if (clusterwise){
     require(fpc)
@@ -329,10 +335,10 @@ cluster.varstats <- function(clustering,vardata,contdata=vardata,
       clusteri <- (clustering==i)
       cat("\nCluster ",i," ",sum(clusteri)," out of ",n," points.\n\n")
       for (j in 1:p){
-        cat("Cluster ",i," variable ",j,"\n")
+        cat("Cluster ",i," ",vnames[j],"\n")
         if (j %in% tablevar){
           tt <- table(clusteri,vardata[,j],
-                dnn=c(paste("In cluster ",i),paste("Variable ",j)))
+                dnn=c(paste("In cluster ",i),vnames[j]))
           if (proportions)
             print(prop.table(tt,1))
           else
@@ -341,11 +347,11 @@ cluster.varstats <- function(clustering,vardata,contdata=vardata,
         } # if tablevar
         else{
           par(mfrow=c(2,1))
-          h1 <- hist(vardata[,j],main=paste("All obs. variable ",j),
-                     xlab=paste("Variable ",j))
-          h2 <- hist(vardata[clusteri,j],main=paste("Cluster ",i," variable ",j),
+          h1 <- hist(vardata[,j],main=paste("All obs.", vnames[j]),
+                     xlab=vnames[j])
+          h2 <- hist(vardata[clusteri,j],main=paste("Cluster ",i,vnames[j]),
                      breaks=h1$breaks,
-                     xlab=paste("Variable ",j))
+                     xlab=vnames[j])
         } # else (!tablevar)
         if (j %in% quantvar){
           cat("  Mean=", mean(vardata[clusteri,j])," all obs.=",
@@ -389,7 +395,7 @@ cluster.varstats <- function(clustering,vardata,contdata=vardata,
         vx[vardata[,i]>qx[j-1]] <- j
       varwisetables[[i]] <- table(clustering,vx,
                                   dnn=c("Cluster",
-                                    paste("Categorised variable ",i)))
+                                    paste("Categorised ",vnames[i])))
       varwisetables[[i]] <- addmargins(varwisetables[[i]],1)
       if (proportions)
         varwisetables[[i]] <- prop.table(varwisetables[[i]],1)
@@ -397,7 +403,7 @@ cluster.varstats <- function(clustering,vardata,contdata=vardata,
     else{
 #      print("tables !cat")
       varwisetables[[i]] <- table(clustering,vardata[,i],dnn=c("Cluster",
-                                    paste("Variable ",i)))
+                                    vnames[i]))
       varwisetables[[i]] <- addmargins(varwisetables[[i]],1)
       if (proportions)
         varwisetables[[i]] <- prop.table(varwisetables[[i]],1)

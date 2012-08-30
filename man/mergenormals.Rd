@@ -153,7 +153,7 @@
     \item{"dipuni"}{this uses \code{method="ridge.ratio"} to decide
       which clusters to merge but stops merging according to the p-value of
       the dip test computed as in Hartigan and Hartigan (1985), see
-      \code{\link{dip.pvalue}}.}
+      \code{\link[diptest]{dip.test}}.}
     \item{"diptantrum"}{as \code{"dipuni"}, but p-value of dip test
       computed as in Tantrum, Murua and Stuetzle (2003), see
       \code{\link{dipp.tantrum}}.}
@@ -186,7 +186,7 @@ Prediction Strength, \emph{Journal of Computational and Graphical
 
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 

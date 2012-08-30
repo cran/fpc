@@ -12,6 +12,9 @@
 \alias{dbscanCBI}
 \alias{mahalCBI}
 \alias{mergenormCBI}
+\alias{speccCBI}
+\alias{tclustCBI}
+
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Interface functions for clustering methods}
@@ -29,40 +32,44 @@
   hierarchical clustering).   
 }
 \usage{
-kmeansCBI(data,krange,scaling=TRUE,runs=1,criterion="ch",...)
+kmeansCBI(data,krange,k,scaling=FALSE,runs=1,criterion="ch",...)
 
-hclustCBI(data,k,cut="level",method,scaling=TRUE,noisecut=0,...)
+hclustCBI(data,k,cut="number",method,scaling=TRUE,noisecut=0,...)
 
 hclusttreeCBI(data,minlevel=2,method,scaling=TRUE,...)
 
-disthclustCBI(dmatrix,k,cut="level",method,noisecut=0,...)
+disthclustCBI(dmatrix,k,cut="number",method,noisecut=0,...)
 
-noisemclustCBI(data,G,emModelNames,nnk,hcmodel=NULL,Vinv=NULL,
+noisemclustCBI(data,G,k,emModelNames,nnk,hcmodel=NULL,Vinv=NULL,
                         summary.out=FALSE,...)
 
-distnoisemclustCBI(dmatrix,G,emModelNames,nnk,
+distnoisemclustCBI(dmatrix,G,k,emModelNames,nnk,
                         hcmodel=NULL,Vinv=NULL,mdsmethod="classical",
                         mdsdim=4, summary.out=FALSE, points.out=FALSE,...)
 
-claraCBI(data,k,usepam=TRUE,diss=FALSE,...)
+claraCBI(data,k,usepam=TRUE,diss=inherits(data,"dist"),...)
 
-pamkCBI(data,krange=2:10,criterion="asw", usepam=TRUE,
-        scaling=TRUE,diss=FALSE,...)
+pamkCBI(data,krange=2:10,k=NULL,criterion="asw", usepam=TRUE,
+        scaling=TRUE,diss=inherits(data,"dist"),...)
 
 trimkmeansCBI(data,k,scaling=TRUE,trim=0.1,...)
+
+tclustCBI(data,k,trim=0.05,...)
 
 disttrimkmeansCBI(dmatrix,k,scaling=TRUE,trim=0.1,
                          mdsmethod="classical",
                          mdsdim=4,...)
 
-dbscanCBI(data,eps,MinPts,diss=FALSE,...)
+dbscanCBI(data,eps,MinPts,diss=inherits(data,"dist"),...)
 
 mahalCBI(data,clustercut=0.5,...)
 
-mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
+mergenormCBI(data, G=NULL, k=NULL, emModelNames=NULL, nnk=0,
                          hcmodel = NULL,
                          Vinv = NULL, mergemethod="bhat",
                          cutoff=0.1,...)
+
+speccCBI(data,k,...)
 
 }
 \arguments{
@@ -74,7 +81,12 @@ mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
     \code{dist}-object.}
   \item{k}{numeric, usually integer. In most cases, this is the number
     of clusters for methods where this is fixed. For \code{hclustCBI}
-    and \code{disthclustCBI} see parameter \code{cut} below.}
+    and \code{disthclustCBI} see parameter \code{cut} below. Some
+    methods have a \code{k} parameter on top of a \code{G} or
+    \code{krange} parameter for compatibility; \code{k} in these cases
+    does not have to be specified but if it is, it is always a single
+    number of clusters and overwrites \code{G} and
+    \code{krange}.}
   \item{scaling}{either a logical value or a numeric vector of length
     equal to the number of variables. If \code{scaling} is a numeric
     vector with length equal to the number of variables, then each
@@ -148,7 +160,7 @@ mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
     \code{usepam=TRUE}.}
   \item{krange}{vector of integers. Numbers of clusters to be compared.}
   \item{trim}{numeric between 0 and 1. Proportion of data points
-    trimmed, i.e., assigned to noise. See
+    trimmed, i.e., assigned to noise. See \code{\link[tclust]{tclust}},
     \code{\link[trimcluster]{trimkmeans}}.}
   \item{eps}{numeric. The radius of the neighborhoods to be considered
     by \code{\link{dbscan}}.}
@@ -217,6 +229,12 @@ mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
       average silhouette width.}
     \item{trimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
+	clustering. This assumes a cases*variables matrix as input. Note
+	that for
+	most applications, \code{tclustCBI} with parameter
+	\code{restr.fact=1} will do about the same but faster.}	
+    \item{tclustCBI}{an interface to the function
+	\code{\link[tclust]{tclust}} for trimmed Gaussian 
 	clustering. This assumes a cases*variables matrix as input.}
     \item{disttrimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
@@ -227,11 +245,17 @@ mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
 	clustering.}
     \item{mahalCBI}{an interface to the function
 	\code{\link{fixmahal}} for fixed point
-	clustering.}
+	clustering. This assumes a cases*variables matrix as input.}
     \item{mergenormCBI}{an interface to the function
       \code{\link{mergenormals}} for clustering by merging Gaussian
       mixture components. Unlike \code{\link{mergenormals}}, \code{mergenormCBI}
-      includes the computation of the initial Gaussian mixture.}
+      includes the computation of the initial Gaussian mixture.
+      This assumes a cases*variables matrix as input.
+    }
+    \item{speccCBI}{an interface to the function
+      \code{\link[kernlab]{specc}} for spectral clustering. See
+      the \code{\link[kernlab]{specc}} help page for additional tuning
+      parameters. This assumes a cases*variables matrix as input.}
   }
 }
 
@@ -269,7 +293,7 @@ mergenormCBI(data, G=NULL, emModelNames=NULL, nnk=0,
     noise/outliers by \code{disthclustCBI}.}
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{

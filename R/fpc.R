@@ -1,13 +1,13 @@
-.packageName <- "fpc"
-.First.lib <- function(lib,pkg){
-  require(cluster)
-#   if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9){
-#    require(lqs)
-#    require(mva)
-#  }
-  require(MASS)
-}
-  
+# .packageName <- "fpc"
+# .First.lib <- function(lib,pkg){
+#   require(cluster)
+# #   if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9){
+# #    require(lqs)
+# #    require(mva)
+# #  }
+#   require(MASS)
+# }
+#   
 
 #
 # generic functions

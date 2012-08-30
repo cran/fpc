@@ -54,12 +54,12 @@ kmeansruns(data,krange=2:10,criterion="ch",
   \item{size}{The number of points in each cluster.}
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 
 \references{
-    Calinski, R. B., and Harabasz, J. (1974) A Dendrite Method for Cluster 
+    Calinski, T., and Harabasz, J. (1974) A Dendrite Method for Cluster 
 Analysis, \emph{Communications in Statistics}, 3, 1-27.
 
   Duda, R. O. and Hart, P. E. (1973) \emph{Pattern Classification and

@@ -242,6 +242,9 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       \item{trimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a cases*variables matrix as input.}
+      \item{tclustCBI}{an interface to the function
+	\code{\link[tclust]{tclust}} for trimmed Gaussian 
+	clustering. This assumes a cases*variables matrix as input.}
       \item{disttrimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a dissimilarity matrix as input and
@@ -256,6 +259,8 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       \item{mergenormCBI}{an interface to the function
       \code{\link{mergenormals}} for clustering by merging Gaussian
       mixture components.}
+      \item{speccCBI}{an interface to the function
+      \code{\link[kernlab]{specc}} for spectral clustering.}
     }
     You can write your own interface function. The first argument of an
     interface function should always be a data matrix (of class
@@ -293,7 +298,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 \value{
   \code{clusterboot} returns an object of class \code{"clboot"}, which
   is a list with components
-  \code{result, partition, nc, clustermethod, B, bootmethod,
+  \code{result, partition, nc, clustermethod, B, noisemethod, bootmethod,
     multipleboot, dissolution, recover, bootresult, bootmean, bootbrd,
     bootrecover, jitterresult, jittermean, jitterbrd, jitterrecover,
     subsetresult, subsetmean, subsetbrd, subsetrecover, bojitresult,
@@ -306,7 +311,9 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     (note that this is only meaningful for partitioning clustering methods).}
   \item{nc}{number of clusters in original data (including noise
     component if \code{noisemethod=TRUE}).}
-  \item{clustermethod, B, bootmethod, multipleboot, dissolution,
+  \item{nccl}{number of clusters in original data (not including noise
+    component if \code{noisemethod=TRUE}).}
+  \item{clustermethod, B, noisemethod, bootmethod, multipleboot, dissolution,
     recover}{input parameters, see above.}
   \item{bootresult}{matrix of Jaccard similarities for
     \code{bootmethod="boot"}. Rows correspond to clusters in the
@@ -328,7 +335,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   \emph{Journal of Multivariate Analysis} 99, 1154-1176.
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \seealso{

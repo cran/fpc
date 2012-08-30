@@ -98,11 +98,11 @@ Mining (KDD-96). }
   n <- 600
   x <- cbind((1:3)+rnorm(n, sd=0.2), (1:3)+rnorm(n, sd=0.2))
 
-
-  system.time(ds <- dbscan(x, 0.3, countmode=NULL, method="raw"))[3] 
-  system.time(dsb <- dbscan(x, 0.3, countmode=NULL, method="hybrid"))[3]
-  system.time(dsc <- dbscan(dist(x), 0.3, countmode=NULL,
-    method="dist"))[3]
+# Not run, but results from my machine are 0.105 - 0.068 - 0.255:
+#  system.time(ds <- dbscan(x, 0.3, countmode=NULL, method="raw"))[3] 
+#  system.time(dsb <- dbscan(x, 0.3, countmode=NULL, method="hybrid"))[3]
+#  system.time(dsc <- dbscan(dist(x), 0.3, countmode=NULL,
+#    method="dist"))[3]
 }
 \keyword{multivariate}
 \keyword{cluster}

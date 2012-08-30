@@ -24,7 +24,7 @@ solvecov(m, cmax = 1e+10)
   \item{coll}{\code{TRUE} if \code{solve} failed because of singularity.}
 }
 \author{Christian Hennig
-  \email{chrish@stats.ucl.ac.uk}
+  \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
 
 \seealso{\code{\link{solve}}, \code{\link{eigen}}}
