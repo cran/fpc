@@ -51,14 +51,16 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
     on all distances and can be extremely slow.}
   \item{wgap}{logical. If \code{TRUE}, the widest within-cluster gaps
     (largest link in within-cluster minimum spanning tree) are
-    computed.}
+    computed. This is used for finding a good number of clusters in
+    Hennig (2013).}
   \item{sepindex}{logical. If \code{TRUE}, a separation index is
     computed, defined based on the distances for every point to the
     closest point not in the same cluster. The separation index is then
     the mean of the smallest proportion \code{sepprob} of these. This
     allows to formalise separation less sensitive to a single or a few
     ambiguous points. The output component corresponding to this is
-    \code{sindex}, not \code{separation}!
+    \code{sindex}, not \code{separation}! This is used for finding a
+    good number of clusters in Hennig (2013).
   }
   \item{sepprob}{numerical between 0 and 1, see \code{sepindex}.}
   \item{sepwithnoise}{logical. If \code{TRUE} and \code{sepindex} and
@@ -147,7 +149,7 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
   \item{wb.ratio}{\code{average.within/average.between}.}
   \item{ch}{Calinski and Harabasz index (Calinski and Harabasz 1974,
     optimal in Milligan and Cooper 1985; generalised for dissimilarites
-    in Hennig and Liao 2010)}\
+    in Hennig and Liao 2010)}
   \item{cwidegap}{vector of widest within-cluster gaps.}
   \item{widestgap}{widest within-cluster gap.}
   \item{sindex}{separation index, see argument \code{sepindex}.}
@@ -175,6 +177,10 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   by Journal of the Royal Statistical Society
   Series C.
 
+  Hennig, C. (2013) How many bee species? A case study in
+determining the number of clusters. To appear in Proceedings of
+GfKl-2012, Hildesheim.
+  
     Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
   An Introduction to Cluster Analysis". Wiley, New York.
   

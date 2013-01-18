@@ -678,9 +678,9 @@ fpclusters.mfpc <- function(object, dat=NA, ca=object$ca, p=object$p, ...){
         else{
           cm <- object$covs[[ object$sfpc[object$sto[i]] ]]
           if (object$cgen=="fixed")
-            glist[[i]] <- as.vector((dat-mc)^2)<=as.real(ca*cm)
+            glist[[i]] <- as.vector((dat-mc)^2)<=as.double(ca*cm)
           else
-            glist[[i]] <- as.vector((dat-mc)^2)<=as.real(ca[object$sfpc[object$sto[i]]]*cm)
+            glist[[i]] <- as.vector((dat-mc)^2)<=as.double(ca[object$sfpc[object$sto[i]]]*cm)
         }
       }   # if g==F
       else

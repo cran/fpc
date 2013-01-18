@@ -1,7 +1,7 @@
 Package: fpc
 Title: Flexible procedures for clustering
-Version: 2.1-4
-Date: 2012-08-30
+Version: 2.1-5
+Date: 2013-01-18
 Author: Christian Hennig <chrish@stats.ucl.ac.uk>
 Depends: R (>= 2.0), MASS, cluster, mclust, flexmix
 Suggests: trimcluster, prabclus, class, diptest, mvtnorm, robustbase,
@@ -25,6 +25,6 @@ Description: Various methods for clustering and cluster validation.
 Maintainer: Christian Hennig <c.hennig@ucl.ac.uk>
 License: GPL
 URL: http://www.homepages.ucl.ac.uk/~ucakche/
-Packaged: 2012-08-30 12:46:31 UTC; chrish
+Packaged: 2013-01-18 19:17:45 UTC; chrish
 Repository: CRAN
-Date/Publication: 2012-08-30 15:09:26
+Date/Publication: 2013-01-21 20:15:52

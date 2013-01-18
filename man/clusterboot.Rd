@@ -29,10 +29,9 @@
 }
 \usage{
 clusterboot(data,B=100, distances=(class(data)=="dist"),
-                        bootmethod=if(distances) "boot"
-                        else c("boot","noise"),
-                        bscompare=FALSE, 
-                        multipleboot=TRUE,
+                        bootmethod="boot",
+                        bscompare=TRUE, 
+                        multipleboot=FALSE,
                         jittertuning=0.05, noisetuning=c(0.05,4),
                         subtuning=floor(nrow(data)/2),
                         clustermethod,noisemethod=FALSE,count=TRUE,
@@ -66,7 +65,8 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       determined by \code{subtuning}.
       
       \code{"noise"}: replacing a certain percentage of the points by
-      random noise, see \code{noisetuning}.
+      random noise, see \code{noisetuning} (note that this will not
+      work if within-cluster .
       
       \code{"jitter"} add random noise to all points, see
       \code{jittertuning}. (This didn't perform well in Hennig (2007),
@@ -93,7 +93,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     points of the original cluster which also occur in the bootstrap
     sample). If a point was drawn more than once, it is in the "bootstrap
     version" of the original cluster more than once, too, if
-    \code{bscompare=TRUE}. Otherwise (default) multiple points are
+    \code{bscompare=TRUE}. Otherwise multiple points are
     ignored for the computation of the Jaccard similarities. If
     \code{multipleboot=FALSE}, it doesn't make a difference.} 
   \item{multipleboot}{logical. If \code{FALSE}, all points drawn more

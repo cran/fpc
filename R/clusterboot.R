@@ -430,9 +430,8 @@ mahalCBI <- function(data,clustercut=0.5,...){
 
 clusterboot <- function(data,B=100,
                         distances=(class(data)=="dist"),
-                        bootmethod=if(distances) "boot"
-                        else c("boot","noise"),
-                        bscompare=FALSE, multipleboot=TRUE,
+                        bootmethod="boot",
+                        bscompare=TRUE, multipleboot=FALSE,
                         jittertuning=0.05, noisetuning=c(0.05,4),
                         subtuning=floor(nrow(data)/2),
                         clustermethod,noisemethod=FALSE,
@@ -471,6 +470,7 @@ clusterboot <- function(data,B=100,
     jsd <- numeric(0)
     ecd <- eigen(cod, symmetric=TRUE)
     ecd$values[ecd$values<0] <- 0
+    ecd$values[is.na(ecd$values)] <- 0
     rotdata <- data %*% solve(t(ecd$vectors))
     for (i in 1:p){
       sx <- sort(rotdata[,i])

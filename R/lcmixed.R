@@ -328,7 +328,6 @@ cluster.varstats <- function(clustering,vardata,contdata=vardata,
   }
   n <- length(clustering)
   if (clusterwise){
-    require(fpc)
     if (ask)
       par(ask=TRUE)
     for (i in 1:max(clustering)){

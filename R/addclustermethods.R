@@ -136,6 +136,8 @@ kmeansruns <- function(data,krange=2:10,criterion="ch",
 #  print(crit)
 #  print(k.best)
 #  print(km[[k.best]])
+  km[[k.best]]$crit <- crit
+  km[[k.best]]$bestk <- k.best
   out <- km[[k.best]]
   out 
 }

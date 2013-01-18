@@ -30,7 +30,7 @@ lcmixed( formula = .~. , continuous, discrete, ppdim,
 \arguments{
   \item{formula}{a formula to specify response and explanatory
     variables. For \code{lcmixed} this always has the form \code{x~1},
-    where \code{x} is a matricx or data frome of all variables to be
+    where \code{x} is a matrix or data frome of all variables to be
     involved, because regression and explanatory variables are not
     implemented.}
   \item{continuous}{number of continuous variables. Note that the

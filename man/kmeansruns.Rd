@@ -45,13 +45,17 @@ kmeansruns(data,krange=2:10,criterion="ch",
 }
 
 \value{
-  The output of the optimal run of the \code{\link{kmeans}}-function.
+  The output of the optimal run of the \code{\link{kmeans}}-function
+  with added components \code{bestk} and \code{crit}.
   A list with components
   \item{cluster}{A vector of integers indicating the cluster to which each
           point is allocated.} 
   \item{centers}{A matrix of cluster centers.}
   \item{withinss}{The within-cluster sum of squares for each cluster.}
   \item{size}{The number of points in each cluster.}
+  \item{bestk}{The optimal number of clusters.}
+  \item{crit}{Vector with values of the \code{criterion} for all used numbers of
+  clusters (0 if number not tried).}
 }
 \author{Christian Hennig
   \email{c.hennig@ucl.ac.uk}

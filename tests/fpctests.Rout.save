@@ -909,8 +909,6 @@ The following object(s) are masked from 'package:modeltools':
 
 boot 1 
 boot 2 
-noise 1 
-noise 2 
 * Cluster stability assessment *
 Cluster method:  spectral 
 Full clustering results are given as parameter result
@@ -920,26 +918,18 @@ Number of resampling runs:  2
 
 Number of clusters found in data:  6 
 
- Clusterwise Jaccard bootstrap mean:
-[1] 0.4671717 0.9166667 0.9545455 0.6147059 0.6438127 0.2340153
+ Clusterwise Jaccard bootstrap (omitting multiple points) mean:
+[1] 0.4027778 0.7500000 1.0000000 0.4166667 0.8250000 1.0000000
 dissolved:
-[1] 1 0 0 0 1 2
+[1] 2 1 0 2 0 0
 recovered:
-[1] 0 2 2 0 1 0
- Clusterwise Jaccard replacement by noise mean:
-[1] 0.5178571 0.6851852 0.7884990 0.4423077 0.9833333 0.9285714
-dissolved:
-[1] 1 1 0 2 0 0
-recovered:
-[1] 0 1 1 0 2 2
+[1] 0 1 2 0 1 2
 > suppressWarnings(print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
 Loading required package: tclust
 Loading required package: sn
 Loading required package: mnormt
 boot 1 
 boot 2 
-noise 1 
-noise 2 
 * Cluster stability assessment *
 Cluster method:  tclust 
 Full clustering results are given as parameter result
@@ -951,18 +941,12 @@ Number of clusters found in data:  6
 
 The last cluster corresponds to noise/outliers
 
- Clusterwise Jaccard bootstrap mean:
-[1] 0.6712963 0.5800654 1.0000000 0.8333333 0.1497354 0.4428571
+ Clusterwise Jaccard bootstrap (omitting multiple points) mean:
+[1] 0.9772727 0.9428105 1.0000000 1.0000000 0.7500000 0.6500000
 dissolved:
-[1] 0 1 0 0 2 1
+[1] 0 0 0 0 0 1
 recovered:
-[1] 1 1 2 1 0 0
- Clusterwise Jaccard replacement by noise mean:
-[1] 0.6982582 0.6945962 1.0000000 1.0000000 0.4241803 0.7000000
-dissolved:
-[1] 1 1 0 0 1 0
-recovered:
-[1] 1 1 2 2 0 1
+[1] 2 2 2 2 1 1
 > 
 > 
 > complete3 <- cutree(hclust(dface),3)
