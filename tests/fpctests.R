@@ -41,6 +41,8 @@ dface <- dist(face50)
 
 hclusttreeCBI(face50,minlevel=2,method="complete",scaling=TRUE)
 
+disthclusttreeCBI(dface,minlevel=2,method="complete")
+
 noisemclustCBI(face50,G=1:5,emModelNames="VVV",nnk=2)
 
 distnoisemclustCBI(dface,G=5,emModelNames="EEE",nnk=2,
@@ -70,7 +72,7 @@ library(diptest)
 data(crabs)
 dc <- crabs[,4:8]
 cmo <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
-set.seed(12345)
+# set.seed(12345)
 cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE",
                 initialization=list(noise=(1:200)[sample(200,50)]))
 
@@ -80,7 +82,7 @@ scmo <- summary(cmo,crabs[,4:8])
 
 summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
 summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
-summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
+# summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
 summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
 summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))
 
@@ -94,3 +96,7 @@ x0 <- cbind(c(x1,x2,x3),y)
 prediction.strength(x0,M=10,Gmax=4,
                            clustermethod=noisemclustCBI,
                            classification="qda")
+
+prediction.strength(dist(x0),M=10,Gmax=4,
+                           clustermethod=claraCBI,
+                           classification="centroids")

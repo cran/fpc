@@ -3,6 +3,7 @@
 \alias{hclustCBI}
 \alias{hclusttreeCBI}
 \alias{disthclustCBI}
+\alias{disthclusttreeCBI}
 \alias{noisemclustCBI}
 \alias{distnoisemclustCBI}
 \alias{claraCBI}
@@ -39,6 +40,8 @@ hclustCBI(data,k,cut="number",method,scaling=TRUE,noisecut=0,...)
 hclusttreeCBI(data,minlevel=2,method,scaling=TRUE,...)
 
 disthclustCBI(dmatrix,k,cut="number",method,noisecut=0,...)
+
+% disthclusttreeCBI(dmatrix,minlevel=2,method,...)
 
 noisemclustCBI(data,G,k,emModelNames,nnk,hcmodel=NULL,Vinv=NULL,
                         summary.out=FALSE,...)
@@ -112,7 +115,8 @@ speccCBI(data,k,...)
     \code{disthclustCBI}/\code{hclustCBI}-partition are joined and declared as
     noise/outliers.}
   \item{minlevel}{integer. \code{minlevel=1} means that all clusters in
-    the tree are given out by \code{hclusttreeCBI}, including one-point
+    the tree are given out by \code{hclusttreeCBI} or
+    \code{disthclusttreeCBI}, including one-point
     clusters (but excluding the cluster with all
     points). \code{minlevel=2} excludes the one-point clusters.
     \code{minlevel=3} excludes the two-point cluster which has been
@@ -156,7 +160,7 @@ speccCBI(data,k,...)
     \code{\link[cluster]{clara}}. \code{\link{pam}} is better,
     \code{\link[cluster]{clara}} is faster.}
   \item{diss}{logical. If \code{TRUE}, \code{data} will be considered as
-    a dissimilarity matrix. in \code{claraCBI}, this requires
+    a dissimilarity matrix. In \code{claraCBI}, this requires
     \code{usepam=TRUE}.}
   \item{krange}{vector of integers. Numbers of clusters to be compared.}
   \item{trim}{numeric between 0 and 1. Proportion of data points
@@ -205,6 +209,11 @@ speccCBI(data,k,...)
 	noise component (see parameter \code{noisecut} above). This
 	function produces a partition and assumes a dissimilarity
 	matrix as input.}
+%     \item{disthclusttreeCBI}{an interface to the function
+% 	\code{hclust} for agglomerative hierarchical clustering. This
+% 	function gives out all clusters belonging to the hierarchy
+% 	(upward from a certain level, see parameter \code{minlevel}
+% 	above), and assumes a dissimilarity matrix as input.}
     \item{noisemclustCBI}{an interface to the function
 	\code{\link[mclust]{mclustBIC}}, for normal mixture model based
 	clustering. Warning: \code{\link[mclust]{mclustBIC}} often
@@ -315,6 +324,3 @@ speccCBI(data,k,...)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}
-
-
-

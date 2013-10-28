@@ -196,7 +196,7 @@ mahalanofix <- function (x, n=nrow(as.matrix(x)), p=ncol(as.matrix(x)),
   else{
 #    if (as.numeric(R.version$major)<=1 & as.numeric(R.version$minor)<9)
 #      require(lqs)
-    require(MASS)
+#    require(MASS)
     grob <- cov.rob(xg, method=method)
     mg <- grob$center
     covg <- grob$cov

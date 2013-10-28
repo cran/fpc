@@ -18,25 +18,27 @@ predict.max=1000, ...)
 }
 \arguments{
   \item{data}{data matrix, data.frame, dissimilarity matrix or
-    \code{dist}-object }
-  \item{eps}{ Reachability Distance }
-  \item{MinPts}{ Reachability minimum no. of points }
-  \item{scale}{ scale the data }
+    \code{dist}-object. Specify \code{method="dist"} if the data should
+    be interpreted as dissimilarity matrix or object. Otherwise
+    Euclidean distances will be used.}
+  \item{eps}{ Reachability distance, see Ester et al. (1996). }
+  \item{MinPts}{ Reachability minimum no. of points, see Ester et al. (1996). }
+  \item{scale}{ scale the data if \code{TRUE}. }
   \item{method}{ "dist" treats data as distance matrix (relatively fast
     but memory expensive), "raw" treats data as raw data and avoids
     calculating a distance matrix (saves memory but may be slow),
     "hybrid" expects also raw data, but calculates partial distance
-    matrices (very fast with moderate memory requirements )}
+    matrices (very fast with moderate memory requirements).}
   \item{seeds}{FALSE to not include the \code{isseed}-vector in the
-    \code{dbscan}-object}
+    \code{dbscan}-object.}
   \item{showplot}{ 0 = no plot, 1 = plot per iteration, 2 = plot per
-    subiteration }
+    subiteration. }
   \item{countmode}{ NULL or vector of point numbers at which to report
-    progress }
+    progress. }
   \item{x}{object of class \code{dbscan}.}
   \item{object}{object of class \code{dbscan}.}
-  \item{newdata}{ matrix or data.frame with raw data to predict }
-  \item{predict.max}{ max. batch size for predictions } 
+  \item{newdata}{ matrix or data.frame with raw data to predict. }
+  \item{predict.max}{ max. batch size for predictions. } 
   \item{...}{Further arguments transferred to plot methods.}
 }
 \details{

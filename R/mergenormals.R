@@ -156,7 +156,7 @@ bhattacharyya.matrix <- function(muarray,Sigmaarray,ipairs="all",
   k <- ncol(muarray)
 #  print(muarray)
 #  print(k)
-  outmatrix <- matrix(0,ncol=k,nrow=k)
+  outmatrix <- matrix(NA,ncol=k,nrow=k)
   pairlist <- ipairs
   if (identical(ipairs,"all")){
     pairlist <- list()
@@ -266,6 +266,7 @@ unimodal.ind <- function(y){
 }
     
 dipp.tantrum <- function(xdata,d,M=100){
+  require(diptest)
   xfit <- density(xdata)
   n <- length(xdata)
   bw <- bwnew <- xfit$bw
@@ -289,7 +290,6 @@ dipp.tantrum <- function(xdata,d,M=100){
 }
 
 diptest.multi <-  function(xdata,class,pvalue="uniform",M=100){
-  require(fpc)
   require(diptest)
   if (ncol(as.matrix(xdata))==1)
     xuni <- xdata
@@ -598,20 +598,26 @@ mixpredictive <- function(xdata, Gcomp, Gmix, M=50, ...){
     } # for i
     ps <- matrix(0,nrow=2,ncol=Gmix)
     for (i in 1:2){
+      ctable <- table(jclusterings[[i]]$clustering,classifications[[i]])
       for (k in 1:Gmix){
+        ps[i,k] <- sum(ctable[k,]^2-ctable[k,]) 
         nik <- sum(jclusterings[[i]]$clustering==k)
-        if (nik>1){
-          for (j1 in (1:(nf[i]-1))[jclusterings[[i]]$clustering[1:(nf[i]-1)]==
-                 k]){
-#        print(j1)
-#        print(nf[i])
-            for (j2 in (j1+1):nf[i])
-              if (jclusterings[[i]]$clustering[j2]==k)
-                ps[i,k] <- ps[i,k]+(classifications[[i]][j1]==
-                              classifications[[i]][j2])
-          } # for j1
-          ps[i,k] <- 2*ps[i,k]/(nik*(nik-1))
-        } # if nik>0
+        if (nik>1)
+          ps[i,k] <- ps[i,k]/(nik*(nik-1))
+        else
+          ps[i,k] <- 1
+#        if (nik>1){
+#          for (j1 in (1:(nf[i]-1))[jclusterings[[i]]$clustering[1:(nf[i]-1)]==
+#                 k]){
+##        print(j1)
+##        print(nf[i])
+#            for (j2 in (j1+1):nf[i])
+#              if (jclusterings[[i]]$clustering[j2]==k)
+#                ps[i,k] <- ps[i,k]+(classifications[[i]][j1]==
+#                              classifications[[i]][j2])
+#          } # for j1
+#          ps[i,k] <- 2*ps[i,k]/(nik*(nik-1))
+#        } # if nik>0
       } # for k
 #      qq <- which.min(ps[i,])
 #      pairs(xdata[indvec[[l]][[i]],],
@@ -633,28 +639,36 @@ mixpredictive <- function(xdata, Gcomp, Gmix, M=50, ...){
 prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
                                 clustermethod=kmeansCBI,
                                 classification="centroid",
-                                cutoff=0.8,nnk=1,...){
-  require(cluster)
+                                cutoff=0.8,nnk=1,
+                                distances=inherits(xdata,"dist"),
+                                count=FALSE,...){
+#  require(cluster)
   require(class)
   xdata <- as.matrix(xdata)
   n <- nrow(xdata)
 #  print(str(xdata))
 #  print(n)
-  p <- ncol(xdata)
   nf <- c(floor(n/2),n-floor(n/2))
   indvec <- clcenters <- clusterings <- jclusterings <-
     classifications <- list()
-  prederr <- list()
+  corrpred <- list()
   for (k in Gmin:Gmax){
-    prederr[[k]] <- numeric(0)
+    if (count)
+      cat(k," clusters\n")
+    corrpred[[k]] <- numeric(0)
     for (l in 1:M){
       nperm <- sample(n,n)
-#    cat("Mixpredrun ",l,"\n")
+      if (count)
+        cat(" Run ",l,"\n")
       indvec[[l]] <- list()
       indvec[[l]][[1]] <- nperm[1:nf[1]]
       indvec[[l]][[2]] <- nperm[(nf[1]+1):n]
       for (i in 1:2){
-        clusterings[[i]] <- clustermethod(xdata[indvec[[l]][[i]],],k,...)
+        if (distances)  
+          clusterings[[i]] <- clustermethod(as.dist(xdata[indvec[[l]][[i]],
+                                                    indvec[[l]][[i]]]),k,...)
+        else
+          clusterings[[i]] <- clustermethod(xdata[indvec[[l]][[i]],],k,...)
         jclusterings[[i]] <- rep(-1,n)
         jclusterings[[i]][indvec[[l]][[i]]] <- clusterings[[i]]$partition
         centroids <- NULL
@@ -665,28 +679,56 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
             centroids <- clusterings[[i]]$result$medoids
         }
         j <- 3-i
-        classifications[[j]] <- classifnp(xdata,jclusterings[[i]],
+        if (distances)
+          classifications[[j]] <- classifdist(as.dist(xdata),jclusterings[[i]],
+                                          method=classification,
+                           centroids=centroids,nnk=nnk)[indvec[[l]][[j]]]
+        else
+          classifications[[j]] <- classifnp(xdata,jclusterings[[i]],
                                           method=classification,
                            centroids=centroids,nnk=nnk)[indvec[[l]][[j]]]
 #        print(classifications[[j]])
       } # for i
+#      browser()
       ps <- matrix(0,nrow=2,ncol=k)
       for (i in 1:2){
+        ctable <- table(clusterings[[i]]$partition,classifications[[i]])
         for (kk in 1:k){
-          nik <- sum(clusterings[[i]]$partition==kk)
-          if (nik>1){
-#            print(kk)
-            for (j1 in (1:(nf[i]-1))[clusterings[[i]]$partition[1:(nf[i]-1)]==kk]){
-#        print(j1)
-#        print(nf[i])
-              for (j2 in (j1+1):nf[i])
-                if (clusterings[[i]]$partition[j2]==kk)
-                  ps[i,kk] <- ps[i,kk]+(classifications[[i]][j1]==
-                              classifications[[i]][j2])
-            } # for j1
-            ps[i,kk] <- 2*ps[i,kk]/(nik*(nik-1))
-          } # if nik>0
-        } # for kk
+#          for (kkk in 1:k) 
+          ps[i,kk] <- sum(ctable[kk,]^2-ctable[kk,]) 
+          cpik <- clusterings[[i]]$partition==kk
+          nik <- sum(cpik)
+          if (nik>1)
+            ps[i,kk] <- ps[i,kk]/(nik*(nik-1))
+          else
+            ps[i,kk] <- 1
+ 
+#           cpiki <- (1:nf[i])[cpik]
+#           nik <- sum(cpik)
+#           if (nik>1){
+# #            print(kk)
+#             j11 <- 1
+#             if (j11<=nik-1){
+#               j1 <- cpiki[j11]
+# #            for (j1 in (1:(nf[i]-1))[clusterings[[i]]$partition[1:(nf[i]-1)]==kk]){
+#               print(j1)
+# #        print(nf[i])
+# #              for (j2 in (j1+1):nf[i])
+#               j21 <- j11+1
+#               if(j21<=nik){
+#                   j2 <- cpiki[j21]
+#                   if (clusterings[[i]]$partition[j2]==kk)
+#                     ps[i,kk] <- ps[i,kk]+(classifications[[i]][j1]==
+#                               classifications[[i]][j2])
+#                   j21 <- j21+1
+#               } # for j2
+#               j11 <- j11+1
+#             } # for j1
+#             ps[i,kk] <- 2*ps[i,kk]/(nik*(nik-1))
+#           } # if nik>0
+
+          
+         } # for kk
 #      qq <- which.min(ps[i,])
 #      pairs(xdata[indvec[[l]][[i]],],
 #            col=(jclusterings[[i]]$clustering==qq)+
@@ -695,10 +737,10 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
 #      title(sub=min(ps[i,]))
 
       } # for i
-      prederr[[k]][l] <- mean(c(min(ps[1,]),min(ps[2,])))
+      corrpred[[k]][l] <- mean(c(min(ps[1,]),min(ps[2,])))
 #      browser()
-#    title(sub=prederr[l])
-#    print(prederr[l])    
+#    title(sub=corrpred[l])
+#    print(corrpred[l])
     } # for l
   } # for k
   mean.pred <- numeric(0)
@@ -707,15 +749,103 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
   if (Gmin>2)
     mean.pred <- c(mean.pred,rep(NA,Gmin-2))
   for (k in Gmin:Gmax)
-    mean.pred <- c(mean.pred,mean(prederr[[k]]))
+    mean.pred <- c(mean.pred,mean(corrpred[[k]]))
   optimalk <- max(which(mean.pred>cutoff))
-  out <- list(predcorr=prederr,mean.pred=mean.pred,optimalk=optimalk,
+  out <- list(predcorr=corrpred,mean.pred=mean.pred,optimalk=optimalk,
                 cutoff=cutoff,method=clusterings[[1]]$clustermethod,
               Gmax=Gmax,M=M)
 #  print(ps)
   class(out) <- "predstr"
   out
 }
+
+
+# prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
+#                                 clustermethod=kmeansCBI,
+#                                 classification="centroid",
+#                                 cutoff=0.8,nnk=1,...){
+#   require(cluster)
+#   require(class)
+#   xdata <- as.matrix(xdata)
+#   n <- nrow(xdata)
+# #  print(str(xdata))
+# #  print(n)
+#   p <- ncol(xdata)
+#   nf <- c(floor(n/2),n-floor(n/2))
+#   indvec <- clcenters <- clusterings <- jclusterings <-
+#     classifications <- list()
+#   prederr <- list()
+#   for (k in Gmin:Gmax){
+#     prederr[[k]] <- numeric(0)
+#     for (l in 1:M){
+#       nperm <- sample(n,n)
+# #    cat("Mixpredrun ",l,"\n")
+#       indvec[[l]] <- list()
+#       indvec[[l]][[1]] <- nperm[1:nf[1]]
+#       indvec[[l]][[2]] <- nperm[(nf[1]+1):n]
+#       for (i in 1:2){
+#         clusterings[[i]] <- clustermethod(xdata[indvec[[l]][[i]],],k,...)
+#         jclusterings[[i]] <- rep(-1,n)
+#         jclusterings[[i]][indvec[[l]][[i]]] <- clusterings[[i]]$partition
+#         centroids <- NULL
+#         if(classification=="centroid"){
+#           if(identical(clustermethod,kmeansCBI))
+#             centroids <- clusterings[[i]]$result$centers
+#           if(identical(clustermethod,claraCBI))
+#             centroids <- clusterings[[i]]$result$medoids
+#         }
+#         j <- 3-i
+#         classifications[[j]] <- classifnp(xdata,jclusterings[[i]],
+#                                           method=classification,
+#                            centroids=centroids,nnk=nnk)[indvec[[l]][[j]]]
+# #        print(classifications[[j]])
+#       } # for i
+#       ps <- matrix(0,nrow=2,ncol=k)
+#       for (i in 1:2){
+#         for (kk in 1:k){
+#           nik <- sum(clusterings[[i]]$partition==kk)
+#           if (nik>1){
+# #            print(kk)
+#             for (j1 in (1:(nf[i]-1))[clusterings[[i]]$partition[1:(nf[i]-1)]==kk]){
+# #        print(j1)
+# #        print(nf[i])
+#               for (j2 in (j1+1):nf[i])
+#                 if (clusterings[[i]]$partition[j2]==kk)
+#                   ps[i,kk] <- ps[i,kk]+(classifications[[i]][j1]==
+#                               classifications[[i]][j2])
+#             } # for j1
+#             ps[i,kk] <- 2*ps[i,kk]/(nik*(nik-1))
+#           } # if nik>0
+#         } # for kk
+# #      qq <- which.min(ps[i,])
+# #      pairs(xdata[indvec[[l]][[i]],],
+# #            col=(jclusterings[[i]]$clustering==qq)+
+# #            (jclusterings[[i]]$clustering!=qq)*
+# #            (jclusterings[[i]]$clustering+1),main=Gmix)
+# #      title(sub=min(ps[i,]))
+# 
+#       } # for i
+#       prederr[[k]][l] <- mean(c(min(ps[1,]),min(ps[2,])))
+# #      browser()
+# #    title(sub=prederr[l])
+# #    print(prederr[l])    
+#     } # for l
+#   } # for k
+#   mean.pred <- numeric(0)
+#   if (Gmin>1)
+#     mean.pred <- c(1)
+#   if (Gmin>2)
+#     mean.pred <- c(mean.pred,rep(NA,Gmin-2))
+#   for (k in Gmin:Gmax)
+#     mean.pred <- c(mean.pred,mean(prederr[[k]]))
+#   optimalk <- max(which(mean.pred>cutoff))
+#   out <- list(predcorr=prederr,mean.pred=mean.pred,optimalk=optimalk,
+#                 cutoff=cutoff,method=clusterings[[1]]$clustermethod,
+#               Gmax=Gmax,M=M)
+# #  print(ps)
+#   class(out) <- "predstr"
+#   out
+# }
 
 print.predstr <- function(x, ...){
   cat("Prediction strength \n")

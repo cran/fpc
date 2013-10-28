@@ -149,7 +149,7 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
   \item{wb.ratio}{\code{average.within/average.between}.}
   \item{ch}{Calinski and Harabasz index (Calinski and Harabasz 1974,
     optimal in Milligan and Cooper 1985; generalised for dissimilarites
-    in Hennig and Liao 2010)}
+    in Hennig and Liao 2010).}
   \item{cwidegap}{vector of widest within-cluster gaps.}
   \item{widestgap}{widest within-cluster gap.}
   \item{sindex}{separation index, see argument \code{sepindex}.}

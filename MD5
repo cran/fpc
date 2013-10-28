@@ -1,15 +1,15 @@
-29a55f7cbe7c0d7fe9aadf9d7148b322 *DESCRIPTION
+934d2bee854358b4ae0f7eedd9f39fe5 *DESCRIPTION
 fc5d442fd28a9c3b6a02762c3b994be1 *NAMESPACE
-ce7a5bdb6b28defcbc101adf38134d91 *R/addclustermethods.R
-bddca98bd6b341baf6a859189afe55e7 *R/clusterboot.R
+53acde464cc31c04df8b0484473b6468 *R/addclustermethods.R
+992c37a0c86266fa2bb8b57c7d8343f1 *R/clusterboot.R
 a6e8dc7b0fb52fdd09bc7ca4492db3fd *R/dbscan.R
 b7c01634910fd6957ef94642398dc4d7 *R/discrproj.R
-248809d05065640165c82a1d38cb29d0 *R/discrproj2.R
+d85447226e4ac2c17ce73fc907193176 *R/discrproj2.R
 dcec4b33cef48ead86771938d227a53d *R/fixreg.R
-f73182b19602a3b0631c6b957f45b699 *R/fpc.R
-77a0075644740e992bf26a320b7fee5c *R/lcmixed.R
+0ab94f68945472325cad0b9691e961be *R/fpc.R
+29ad32065ba58621b20feed9d084743e *R/lcmixed.R
 f43990d541b8df4ca7cac6195b9354a6 *R/localshape.R
-60076246ad500ea032de724384b0d3db *R/mergenormals.R
+3cff7dc1266f1940431014f7b2287801 *R/mergenormals.R
 b2788e1bba14be4b1e1a1dc22b00b776 *R/rFace.R
 382e8aa6e94a4dceaded3365064039d8 *R/regmix.R
 3505e046680bd1f5bb7a8b2d20ef38c4 *data/tonedata.txt.gz
@@ -18,7 +18,7 @@ b2788e1bba14be4b1e1a1dc22b00b776 *R/rFace.R
 c915f247f9f7cf56190fb569cfcc61de *man/awcoord.Rd
 ea685863336f20e267695eaa2ad70c7e *man/batcoord.Rd
 b4c31a6748f29c6e83cbe08bab5f8fd9 *man/bhattacharyya.dist.Rd
-a012b42f6c0e41e7ab425a6300321602 *man/bhattacharyya.matrix.Rd
+c4781e47199e144db7e8f422d96bdc2f *man/bhattacharyya.matrix.Rd
 6a19cbcd2cae57e73b7408d0dc0aa478 *man/calinhara.Rd
 558906b0fb38e9a0024d4b89364b8150 *man/can.Rd
 faa8d8049165af4f71fbbbb6b743dcf1 *man/cat2bin.Rd
@@ -26,7 +26,7 @@ aa155066d63ca4c19ebbe8d109c0fffa *man/classifdist.Rd
 975376b5d72c64b128632af71e1ca57e *man/clucols.Rd
 8c7ac0d97b36211bddf6e640368b52d7 *man/clujaccard.Rd
 1ba8e0b5e2c1a67d321590233aa83fc3 *man/clusexpect.Rd
-90b0e3b6d09e93a9692f10ff44790289 *man/cluster.stats.Rd
+895887cbc77fbdbb9a602208a9d7da17 *man/cluster.stats.Rd
 b47ad0359bb730d804bd88c331577508 *man/cluster.varstats.Rd
 392b254daf4b74819946db900d63ba4f *man/clusterboot.Rd
 8f010721f7afc206bb53840a55698bc5 *man/cmahal.Rd
@@ -34,7 +34,7 @@ ee2134477bf4fc08f74569a519506cbe *man/concomp.Rd
 3a8e3ea03e09a8a12af2d3d6001bb773 *man/confusion.Rd
 c34d7eff0d0059a6a49f597465bcb15e *man/cov.wml.Rd
 2bc9e2f477a341ac8b23b8aa93bedfb6 *man/cweight.Rd
-9a238ade9314220ff4a40f7d3904b7eb *man/dbscan.Rd
+1de81baa2b792e07f951dbb68fe53571 *man/dbscan.Rd
 00119d1a7cf4b0c6074dcbcd149a1b9d *man/dipp.tantrum.Rd
 9995d7eb0b3cdae7ea45948e5cdcf9e0 *man/diptest.multi.Rd
 50876d507e15aa3f07a499beac3adef9 *man/discrcoord.Rd
@@ -52,7 +52,7 @@ bc8e364aafde93f98ec49bb08258668f *man/flexmixedruns.Rd
 def94780a7fc4f3554b2f66b3c4d90b8 *man/fpclusters.Rd
 26793ddd852fcfb5f67f0754f9c6d8bb *man/itnumber.Rd
 32e2efded9c99fe253233deb05205a21 *man/jittervar.Rd
-4ff11c36c9708f1420ae043b975c99ce *man/kmeansCBI.Rd
+1cd49de8dac4b68e8bc14ffd8b725b0e *man/kmeansCBI.Rd
 8512b703ff607296cb43e3902a01b442 *man/kmeansruns.Rd
 d7e1a53ad4717db057f25725e2c014e9 *man/lcmixed.Rd
 ed80924884f6a3a16e823c6e93a66f51 *man/localshape.Rd
@@ -71,7 +71,7 @@ e1dd534f5f6024c9df173fecf21fa7e3 *man/mergeparameters.Rd
 6b2f0863655c7b8a46c4cea6e8076eed *man/piridge.Rd
 7de41af74aff0008bacd04f664205ba7 *man/piridge.zeroes.Rd
 9ec1cafbee8c4c6017af04c65fe32caa *man/plotcluster.Rd
-a177e9260260459f7869b626ac1bcec3 *man/prediction.strength.Rd
+6fb9e95aa48e600a0d6a58244942df8a *man/prediction.strength.Rd
 f84a8e2af06157baa7ca9e160771f388 *man/rFace.Rd
 859e3e6437dc260af48be35f208841d7 *man/randcmatrix.Rd
 be6c71767ff6572d7f56f644c2931b4b *man/randconf.Rd
@@ -87,6 +87,6 @@ cb3dfde046b5ef0896019cc3f9969e04 *man/unimodal.ind.Rd
 e7025f2286eae52b45e3bfef4a3e708e *man/weightplots.Rd
 f59d622288941125fba9f60a02897186 *man/wfu.Rd
 234ce6927a50957173ba1ac861f449fb *man/zmisclassification.matrix.Rd
-2d0124576a809cf5f7c439a99e5bee1d *tests/Examples/fpc-Ex.Rout.save
-c5bd1e2a34797c3ca26efd473a47d673 *tests/fpctests.R
-c3620d9a0c82c522ffef3e3afbc67a61 *tests/fpctests.Rout.save
+ec0cc2058c2f8e4ec565fab18ba99e4e *tests/Examples/fpc-Ex.Rout.save
+38aab56723314ec816c4926633706ec6 *tests/fpctests.R
+7772bb9fd2bc3c958b719b83132eabe9 *tests/fpctests.Rout.save

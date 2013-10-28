@@ -29,7 +29,8 @@ bhattacharyya.matrix(muarray,Sigmaarray,ipairs="all",
   A matrix with Bhattacharyya distances (or derived misclassification
   bounds, see above) between pairs of Gaussian distributions with the
   provided parameters. If \code{ipairs!="all"}, the Bhattacharyya
-  distance is taken as 0 and the misclassification bound as 1.
+  distance and the misclassification bound are given as \code{NA} for
+  pairs not included in \code{ipairs}.
 }
 
 \references{

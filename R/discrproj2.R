@@ -9,7 +9,7 @@ ncoord <- function(xd, clvecd, nn=50, weighted=FALSE,
     sphere <- "matrix"
   }
   if (sphere!="none"){
-  require(MASS)
+#  require(MASS)
     if (sphere=="matrix")
       Sig <- cv
     else
@@ -70,7 +70,7 @@ ncoord <- function(xd, clvecd, nn=50, weighted=FALSE,
 # nearest neighbor pooled linear dimension reduction 
 ancoord <- function(xd, clvecd, clnum=1, nn=50, method="mcd",
                     countmode=1000, ...){
-  require(MASS)
+#  require(MASS)
   x <- as.matrix(xd)
   p <- ncol(x)
   n <- nrow(x)
@@ -136,7 +136,7 @@ mvdcoord <- function(xd, clvecd, clnum=1, sphere="mcd", ...){
     cv <- sphere
     sphere="matrix"
   }
-  require(MASS)
+#  require(MASS)
   if (sphere!="none"){
     if (sphere=="matrix")
       Sig <- cv
@@ -236,7 +236,7 @@ awcoord <- function(xd, clvecd, clnum=1, mahal="square", method="classical",
                      clweight=switch(method,classical=FALSE,TRUE), alpha=0.99,
                      subsample=0, countmode=1000, ...) {
   x <- as.matrix(xd)
-  require(MASS)
+#  require(MASS)
   n <- nrow(x)
   p <- ncol(x)
   dcl <- as.integer(clnum)

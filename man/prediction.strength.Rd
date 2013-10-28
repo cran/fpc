@@ -16,7 +16,8 @@
   prediction.strength(xdata, Gmin=2, Gmax=10, M=50,
                       clustermethod=kmeansCBI,
                                 classification="centroid",
-                                cutoff=0.8,nnk=1,...)
+                                cutoff=0.8,nnk=1,
+                      distances=inherits(xdata,"dist"),count=FALSE,...)
   \method{print}{predstr}(x, ...)
 }
 %- maybe also `usage' for other objects documented here.
@@ -52,6 +53,12 @@
     is the maximum one with prediction strength above \code{cutoff}.}
   \item{nnk}{number of nearest neighbours if
     \code{classification="knn"}, see \code{\link{classifnp}}.}
+  \item{distances}{logical. If \code{TRUE}, data will be interpreted as
+    dissimilarity matrix, passed on to clustering methods as
+    \code{"dist"}-object, and \code{\link{classifdist}} will be used for
+    classification.}   
+  \item{count}{logical. \code{TRUE} will print current number of
+    clusters and simulation run number on the screen.}
   \item{x}{object of class \code{predstr}.}
   \item{...}{arguments to be passed on to the clustering method.}
 }

@@ -148,8 +148,8 @@ pamk <- function (data, krange = 2:10, criterion = "asw", usepam = TRUE,
     critout = FALSE, ns=10, seed=NULL, ...) 
 {
     data <- as.matrix(data)
-    require(cluster)
-    if (scaling) 
+#    require(cluster)
+    if (!identical(scaling,FALSE))
         sdata <- scale(data, scale = scaling)
     else sdata <- data
     cluster1 <- 1 %in% krange
@@ -251,8 +251,8 @@ cluster.stats <- function (d = NULL, clustering, alt.clustering = NULL,
         out <- list(corrected.rand = corrected.rand, vi = vi)
     }
     else {
-        if (silhouette) 
-            require(cluster)
+#        if (silhouette) 
+#            require(cluster)
         dmat <- as.matrix(d)
         within.cluster.ss <- 0
         overall.ss <- nonnoise.ss <- sum(d^2)/n
@@ -333,7 +333,7 @@ cluster.stats <- function (d = NULL, clustering, alt.clustering = NULL,
         dunn <- min(separation[1:cwn])/max(diameter[1:cwn],na.rm=TRUE)
         acwn <- ave.between.matrix[1:cwn,1:cwn]
         dunn2 <- min(acwn[upper.tri(acwn)])/
-          max(average.distance[1:cwn])
+          max(average.distance[1:cwn],na.rm=TRUE)
         if (wgap){
           cwidegap <- rep(0,cwn)
           for (i in 1:cwn)

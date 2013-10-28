@@ -2,7 +2,7 @@ lcmixed <- function ( formula = .~. , continuous, discrete, ppdim,
                      diagonal = TRUE, pred.ordinal=FALSE, printlik=FALSE )
 {
   require ("mvtnorm")
-  require(flexmix)
+#  require(flexmix)
   retval <- new ("FLXMC", weighted = TRUE ,
                  formula = formula , dist = "mixnormmulti",
                  name = "latent class for normal/multinomial mixed data")
@@ -130,7 +130,7 @@ flexmixedruns <- function(x,diagonal=TRUE,xvarsorted=TRUE,
                           simruns=20,n.cluster=1:20,verbose=TRUE,recode=TRUE,
                           allout=TRUE,control=list(minprior=0.001),silent=TRUE){
   x <- as.matrix(x)
-  require(flexmix)
+#  require(flexmix)
   if (recode){
     drx <- discrete.recode(x,xvarsorted=xvarsorted,
                            continuous=continuous,discrete=discrete)

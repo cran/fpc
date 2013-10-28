@@ -1,7 +1,6 @@
 
-R version 2.14.1 (2011-12-22)
-Copyright (C) 2011 The R Foundation for Statistical Computing
-ISBN 3-900051-07-0
+R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
+Copyright (C) 2013 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -25,17 +24,11 @@ Type 'q()' to quit R.
 Loading required package: MASS
 Loading required package: cluster
 Loading required package: mclust
-Package 'mclust' version 4.0
+Package 'mclust' version 4.2
 Loading required package: flexmix
 Loading required package: lattice
-Loading required package: modeltools
-Loading required package: stats4
-Loading required package: multcomp
-Loading required package: mvtnorm
-Loading required package: survival
-Loading required package: splines
 > 
-> assign(".oldSearch", search(), pos = 'CheckExEnv')
+> base::assign(".oldSearch", base::search(), pos = 'CheckExEnv')
 > cleanEx()
 > nameEx("adcoord")
 > ### * adcoord
@@ -166,9 +159,9 @@ Loading required package: splines
 >   sigmaarray <- array(c(diag(2),diag(2),diag(2)),dim=c(2,2,3))
 >   bhattacharyya.matrix(muarray,sigmaarray,ipairs=list(c(1,2),c(2,3)))
           [,1]         [,2]        [,3]
-[1,] 1.0000000 9.987508e-01 1.00000e+00
-[2,] 0.9987508 1.000000e+00 1.78102e-11
-[3,] 1.0000000 1.781020e-11 1.00000e+00
+[1,]        NA 9.987508e-01          NA
+[2,] 0.9987508           NA 1.78102e-11
+[3,]        NA 1.781020e-11          NA
 > 
 > 
 > 
@@ -300,11 +293,15 @@ Loading required package: splines
 +     discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
 >   fcc <- flexmix(cc$data~1,k=3,
 +   model=lcmixed(continuous=2,discrete=2,ppdim=c(6,3),diagonal=TRUE))
+Loading required package: mvtnorm
 >   plot(Cars934[,c(2,3)],col=clucols(3)[fcc@cluster],pch=clusym[fcc@cluster])
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("clujaccard")
 > ### * clujaccard
 > 
@@ -495,6 +492,7 @@ $vi
 +     discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
 >   fcc <- flexmix(cc$data~1,k=2,
 +   model=lcmixed(continuous=2,discrete=2,ppdim=c(6,3),diagonal=TRUE))
+Loading required package: mvtnorm
 >   cv <-
 +     cluster.varstats(fcc@cluster,Cars934, contdata=Cars934[,c(2,3)],
 +     tablevar=c(1,4),catvar=c(2,3),quantvar=c(2,3),projmethod="awc",
@@ -590,6 +588,9 @@ Cluster 4WD Front Rear
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("clusterboot")
 > ### * clusterboot
 > 
@@ -1063,10 +1064,14 @@ $subsets[[3]]
 > ### ** Examples
 > 
 >   q <- dridgeline(seq(0,1,0.1),0.5,c(1,1),c(2,5),diag(2),diag(2))
+Loading required package: mvtnorm
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("dudahart2")
 > ### * dudahart2
 > 
@@ -1468,6 +1473,7 @@ detaching ‘tonedata’
 >   ldata <- cbind(v1,v2,d1,d2)
 >   fr <- flexmixedruns(ldata,
 +     continuous=2,discrete=2,simruns=2,n.cluster=2:3,allout=FALSE)
+Loading required package: mvtnorm
 k=  2  new best fit found in run  1 
 Nonoptimal or repeated fit found in run  2 
 k=  2  BIC=  1258.363 
@@ -1539,6 +1545,9 @@ $pp[[2]]
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("itnumber")
 > ### * itnumber
 > 
@@ -1587,9 +1596,10 @@ $pp[[2]]
 > 
 > ### Name: kmeansCBI
 > ### Title: Interface functions for clustering methods
-> ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI noisemclustCBI
-> ###   distnoisemclustCBI claraCBI pamkCBI trimkmeansCBI disttrimkmeansCBI
-> ###   dbscanCBI mahalCBI mergenormCBI speccCBI tclustCBI
+> ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI
+> ###   disthclusttreeCBI noisemclustCBI distnoisemclustCBI claraCBI pamkCBI
+> ###   trimkmeansCBI disttrimkmeansCBI dbscanCBI mahalCBI mergenormCBI
+> ###   speccCBI tclustCBI
 > ### Keywords: cluster multivariate
 > 
 > ### ** Examples
@@ -1611,7 +1621,7 @@ Loading required package: prabclus
 
 Attaching package: ‘prabclus’
 
-The following object(s) are masked from ‘package:fpc’:
+The following object is masked from ‘package:fpc’:
 
     con.comp
 
@@ -1739,11 +1749,11 @@ NULL
 
 $orig.decisionmatrix
                [,1]         [,2]          [,3]          [,4]         [,5]
- [1,]  1.000000e+00 1.044217e-10  4.155040e-04  4.147930e-04 3.423729e-11
- [2,]  1.044217e-10 1.000000e+00  1.804783e-02  1.807005e-02 9.859675e-01
- [3,]  4.155040e-04 1.804783e-02  1.000000e+00  9.999999e-01 1.123448e-02
- [4,]  4.147930e-04 1.807005e-02  9.999999e-01  1.000000e+00 1.124906e-02
- [5,]  3.423729e-11 9.859675e-01  1.123448e-02  1.124906e-02 1.000000e+00
+ [1,]            NA 1.044217e-10  4.155040e-04  4.147930e-04 3.423729e-11
+ [2,]  1.044217e-10           NA  1.804783e-02  1.807005e-02 9.859675e-01
+ [3,]  4.155040e-04 1.804783e-02            NA  9.999999e-01 1.123448e-02
+ [4,]  4.147930e-04 1.807005e-02  9.999999e-01            NA 1.124906e-02
+ [5,]  3.423729e-11 9.859675e-01  1.123448e-02  1.124906e-02           NA
  [6,]  1.586342e-13 6.237465e-01  9.123538e-04  9.137955e-04 7.226624e-01
  [7,]  4.155383e-04 1.804676e-02  1.000000e+00  9.999999e-01 1.123377e-02
  [8,]  4.163618e-04 1.802110e-02  9.999999e-01  9.999995e-01 1.121694e-02
@@ -1755,11 +1765,11 @@ $orig.decisionmatrix
  [3,] 9.123538e-04  1.000000e+00  9.999999e-01 8.559100e-108  1.800924e-98
  [4,] 9.137955e-04  9.999999e-01  9.999995e-01 8.642325e-108  1.816680e-98
  [5,] 7.226624e-01  1.123377e-02  1.121694e-02  7.298443e-81  3.413767e-73
- [6,] 1.000000e+00  9.122843e-04  9.106202e-04  5.024851e-75  3.932661e-67
- [7,] 9.122843e-04  1.000000e+00  9.999999e-01 8.555102e-108  1.800167e-98
- [8,] 9.106202e-04  9.999999e-01  1.000000e+00 8.459919e-108  1.782128e-98
- [9,] 5.024851e-75 8.555102e-108 8.459919e-108  1.000000e+00  6.391368e-05
-[10,] 3.932661e-67  1.800167e-98  1.782128e-98  6.391368e-05  1.000000e+00
+ [6,]           NA  9.122843e-04  9.106202e-04  5.024851e-75  3.932661e-67
+ [7,] 9.122843e-04            NA  9.999999e-01 8.555102e-108  1.800167e-98
+ [8,] 9.106202e-04  9.999999e-01            NA 8.459919e-108  1.782128e-98
+ [9,] 5.024851e-75 8.555102e-108 8.459919e-108            NA  6.391368e-05
+[10,] 3.932661e-67  1.800167e-98  1.782128e-98  6.391368e-05            NA
 
 $new.decisionmatrix
            [,1]      [,2] [,3] [,4] [,5] [,6] [,7] [,8] [,9] [,10]
@@ -2108,6 +2118,7 @@ detaching ‘package:prabclus’
 +   discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))
 >   fcc <- flexmix(cc$data~1,k=2,
 +   model=lcmixed(continuous=2,discrete=2,ppdim=c(6,3),diagonal=TRUE))
+Loading required package: mvtnorm
 >   summary(fcc)
 
 Call:
@@ -2125,6 +2136,9 @@ AIC: 1610.266   BIC: 1668.516
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("localshape")
 > ### * localshape
 > 
@@ -2535,6 +2549,7 @@ $z
 >   irisBIC <- mclustBIC(iriss)
 >   siris <- summary(irisBIC,iriss)
 >   mixdens(siris$modelName,iriss,siris$parameters)
+Loading required package: mvtnorm
         122          42          45          86          70         137 
 116.4292286 169.1958289 167.7704500 116.4292286 219.3332257 150.4594811 
          37          46         134          88          72         123 
@@ -2547,6 +2562,9 @@ $z
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("mixpredictive")
 > ### * mixpredictive
 > 
@@ -2562,10 +2580,14 @@ $z
 >   set.seed(98765)
 >   iriss <- iris[sample(150,20),-5]
 >   mp <- mixpredictive(iriss,2,2,M=2)
+Loading required package: mvtnorm
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("mvdcoord")
 > ### * mvdcoord
 > 
@@ -2692,10 +2714,14 @@ detaching ‘package:class’
 > ### ** Examples
 > 
 >   q <- piridge(seq(0,1,0.1),c(1,1),c(2,5),diag(2),diag(2))
+Loading required package: mvtnorm
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("piridge.zeroes")
 > ### * piridge.zeroes
 > 
@@ -2709,10 +2735,14 @@ detaching ‘package:class’
 > ### ** Examples
 > 
 >   q <- piridge.zeroes(0.2,c(1,1),c(2,5),diag(2),diag(2),by=0.1)
+Loading required package: mvtnorm
 > 
 > 
 > 
 > cleanEx()
+
+detaching ‘package:mvtnorm’
+
 > nameEx("plotcluster")
 > ### * plotcluster
 > 
@@ -2756,7 +2786,7 @@ Prediction strength
 Clustering method:  kmeans 
 Maximum number of clusters:  3 
 Resampled data sets:  3 
-Mean pred.str. for numbers of clusters:  1 1 0.5 
+Mean pred.str. for numbers of clusters:  1 1 0.7333333 
 Cutoff value:  0.8 
 Largest number of clusters better than cutoff:  2 
 >   prediction.strength(iriss,2,3,M=3,clustermethod=claraCBI)
@@ -2764,7 +2794,7 @@ Prediction strength
 Clustering method:  clara/pam 
 Maximum number of clusters:  3 
 Resampled data sets:  3 
-Mean pred.str. for numbers of clusters:  1 1 0.05555556 
+Mean pred.str. for numbers of clusters:  1 1 0.45 
 Cutoff value:  0.8 
 Largest number of clusters better than cutoff:  2 
 > # The examples are fast, but of course M should really be larger.
@@ -2938,17 +2968,18 @@ Loading required package: prabclus
 
 Attaching package: ‘prabclus’
 
-The following object(s) are masked from ‘package:fpc’:
+The following object is masked from ‘package:fpc’:
 
     con.comp
 
+Loading required package: mvtnorm
 >   # Much slower but more precise with default by=0.001.
 > 
 > 
 > 
 > cleanEx()
 
-detaching ‘package:prabclus’
+detaching ‘package:mvtnorm’, ‘package:prabclus’
 
 > nameEx("simmatrix")
 > ### * simmatrix
@@ -3142,8 +3173,9 @@ detaching ‘tonedata’
 > 
 > ### * <FOOTER>
 > ###
-> cat("Time elapsed: ", proc.time() - get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.976 0.032 5.023 0 0 
+> options(digits = 7L)
+> base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
+Time elapsed:  4.784 0.036 4.838 0 0 
 > grDevices::dev.off()
 null device 
           1 
