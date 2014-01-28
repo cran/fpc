@@ -1599,7 +1599,7 @@ detaching ‘package:mvtnorm’
 > ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI
 > ###   disthclusttreeCBI noisemclustCBI distnoisemclustCBI claraCBI pamkCBI
 > ###   trimkmeansCBI disttrimkmeansCBI dbscanCBI mahalCBI mergenormCBI
-> ###   speccCBI tclustCBI
+> ###   speccCBI
 > ### Keywords: cluster multivariate
 > 
 > ### ** Examples
@@ -2064,6 +2064,30 @@ $initnoise
 $clustermethod
 [1] "mclust/mergenormals"
 
+> 
+> # Not run:
+> # Here is the tclustCBI-code:
+> # tclustCBI <- function(data,k,trim=0.05,...){
+> #   if(require(tclust)){
+> #     data <- as.matrix(data)
+> #     c1 <- tclust(data,k=k,alpha=trim,...)
+> #     sc1c <- c1$cluster
+> #     cl <- list()
+> #     nc <- nccl <- max(sc1c)
+> #     if (sum(sc1c==0)>0){
+> #       nc <- nccl+1
+> #       sc1c[sc1c==0] <- nc
+> #     }
+> #     for (i in 1:nc)
+> #       cl[[i]] <- sc1c == i
+> #     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
+> #               clustermethod="tclust")
+> #     out
+> #   }
+> #   else
+> #     warning("tclust could not be loaded")    
+> # }
+> 
 > 
 > 
 > 
@@ -3102,8 +3126,8 @@ detaching ‘tonedata’
 >   dc <- crabs[,4:8]
 >   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
 >   scm <- summary(cm,crabs[,4:8])
->   weightplots(scm,clusternumbers=1:3,ask=FALSE)
->   weightplots(scm,clusternumbers=1:3,allcol=1:9, ask=FALSE,
+>   weightplots(scm$z,clusternumbers=1:3,ask=FALSE)
+>   weightplots(scm$z,clusternumbers=1:3,allcol=1:9, ask=FALSE,
 +               legendposition=c(5,0.7))
 > # Remove ask=FALSE to have time to watch the plots.
 > 
@@ -3175,7 +3199,7 @@ detaching ‘tonedata’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.784 0.036 4.838 0 0 
+Time elapsed:  4.7 0.028 4.761 0 0 
 > grDevices::dev.off()
 null device 
           1 

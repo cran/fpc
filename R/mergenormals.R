@@ -1351,19 +1351,18 @@ print.summary.mergenorm <- function(x, ...){
 # legendposition="auto" or c(x,y)
 # xdistances can be "mahalanobis", "euclidean" or "none"
 # clustercol can be NULL, then allcol is used
-weightplots <- function(mclustsummary, clusternumbers="all", clustercol=2,
-                        allcol=grey(0.2+((1:ncol(mclustsummary$z))-1)*
-                          0.6/(ncol(mclustsummary$z)-1)),
-                        lty=rep(1,ncol(mclustsummary$z)),clusterlwd=3,
+weightplots <- function(z, clusternumbers="all", clustercol=2,
+                        allcol=grey(0.2+((1:ncol(z))-1)*
+                          0.6/(ncol(z)-1)),
+                        lty=rep(1,ncol(z)),clusterlwd=3,
                         legendposition="none",
 #                        xdistances="none",xdata=NULL,
                         weightcutoff=0.01,ask=TRUE, ...){
-  z <- mclustsummary$z
-  k <- ncol(mclustsummary$z)
+  k <- ncol(z)
   allnumbers <- 1:k
 #  greylevels <- min(greyrange)+((1:k)-1)*(max(greyrange)-min(greyrange))/(k-1)
 #  print(greylevels)
-  n <- nrow(mclustsummary$z)
+  n <- nrow(z)
 #  if (xdistances=="mahalanobis"){
 #    dcov <- cov(xdata)
 #    dmatrix <- matrix(0,ncol=n,nrow=n)
@@ -1412,7 +1411,7 @@ weightplots <- function(mclustsummary, clusternumbers="all", clustercol=2,
     points(xvals[szi],szw[,i],
            col=iclustercol,lty=lty[i],lwd=clusterlwd,type="l")
     if (!identical(legendposition,"none")){
-      leg.lwd=rep(1,ncol(mclustsummary$z))
+      leg.lwd=rep(1,ncol(z))
       leg.lwd[1] <- clusterlwd
       leg.txt <- c()
       leg.txt[1] <- paste("Cluster",i)

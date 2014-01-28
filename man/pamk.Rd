@@ -11,7 +11,8 @@
   \code{\link[cluster]{pam.object}}) or Calinski-Harabasz
   index (\code{\link{calinhara}}). The Duda-Hart test
   (\code{\link{dudahart2}}) is applied to decide whether there should be
-  more than one cluster (unless 1 is excluded as number of clusters).  
+  more than one cluster (unless 1 is excluded as number of clusters or
+  data are dissimilarities).  
 }
 \usage{
 pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
@@ -48,7 +49,8 @@ pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
     \code{\link{dudahart2}} (only used for 1-cluster test).} 
   \item{diss}{logical flag: if \code{TRUE} (default for \code{dist} or
     \code{dissimilarity}-objects), then \code{data} will be considered
-    as a dissimilarity matrix.  If \code{FALSE}, then \code{data} will
+    as a dissimilarity matrix (and the potential number of clusters 1
+    will be ignored).  If \code{FALSE}, then \code{data} will
     be considered as a matrix of observations by variables.}
   \item{critout}{logical. If \code{TRUE}, the criterion value is printed
     out for every number of clusters.}
@@ -74,7 +76,7 @@ pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
   \item{nc}{the optimal number of clusters.}
   \item{crit}{vector of criterion values for numbers of
     clusters. \code{crit[1]} is the p-value of the Duda-Hart test
-    if 1 is in \code{krange}.}
+    if 1 is in \code{krange} and \code{diss=FALSE}.}
 }
 \author{Christian Hennig
   \email{c.hennig@ucl.ac.uk}

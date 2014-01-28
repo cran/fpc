@@ -14,7 +14,7 @@
 \alias{mahalCBI}
 \alias{mergenormCBI}
 \alias{speccCBI}
-\alias{tclustCBI}
+% \alias{tclustCBI}
 
 
 %- Also NEED an `\alias' for EACH other topic documented here.
@@ -57,7 +57,7 @@ pamkCBI(data,krange=2:10,k=NULL,criterion="asw", usepam=TRUE,
 
 trimkmeansCBI(data,k,scaling=TRUE,trim=0.1,...)
 
-tclustCBI(data,k,trim=0.05,...)
+% tclustCBI(data,k,trim=0.05,...)
 
 disttrimkmeansCBI(dmatrix,k,scaling=TRUE,trim=0.1,
                          mdsmethod="classical",
@@ -164,7 +164,7 @@ speccCBI(data,k,...)
     \code{usepam=TRUE}.}
   \item{krange}{vector of integers. Numbers of clusters to be compared.}
   \item{trim}{numeric between 0 and 1. Proportion of data points
-    trimmed, i.e., assigned to noise. See \code{\link[tclust]{tclust}},
+    trimmed, i.e., assigned to noise. See \code{tclust} in the tclust package,
     \code{\link[trimcluster]{trimkmeans}}.}
   \item{eps}{numeric. The radius of the neighborhoods to be considered
     by \code{\link{dbscan}}.}
@@ -243,8 +243,14 @@ speccCBI(data,k,...)
 	most applications, \code{tclustCBI} with parameter
 	\code{restr.fact=1} will do about the same but faster.}	
     \item{tclustCBI}{an interface to the function
-	\code{\link[tclust]{tclust}} for trimmed Gaussian 
-	clustering. This assumes a cases*variables matrix as input.}
+	\code{tclust} in the tclust package for trimmed Gaussian 
+	clustering. This assumes a cases*variables matrix as input.
+	
+        NOTE: This package is currently only available in CRAN as
+	archived version. Therefore I cannot currently offer the
+	\code{tclustCBI}-function in \code{fpc}. The code for the
+	function is below in the Examples-Section, so if you need it,
+	run that code first.}
     \item{disttrimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a dissimilarity matrix as input and
@@ -321,6 +327,30 @@ speccCBI(data,k,...)
   dhc <- disthclustCBI(dist(face),method="average",k=1.5,noisecut=2)
   table(dbs$partition,dhc$partition)
   mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
+
+# Not run:
+# Here is the tclustCBI-code:
+# tclustCBI <- function(data,k,trim=0.05,...){
+#   if(require(tclust)){
+#     data <- as.matrix(data)
+#     c1 <- tclust(data,k=k,alpha=trim,...)
+#     sc1c <- c1$cluster
+#     cl <- list()
+#     nc <- nccl <- max(sc1c)
+#     if (sum(sc1c==0)>0){
+#       nc <- nccl+1
+#       sc1c[sc1c==0] <- nc
+#     }
+#     for (i in 1:nc)
+#       cl[[i]] <- sc1c == i
+#     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
+#               clustermethod="tclust")
+#     out
+#   }
+#   else
+#     warning("tclust could not be loaded")    
+# }
+
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

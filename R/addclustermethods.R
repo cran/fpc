@@ -169,9 +169,13 @@ pamk <- function (data, krange = 2:10, criterion = "asw", usepam = TRUE,
     }
     k.best <- (1:max(krange))[which.max(critval)]
     if (cluster1){
-      cxx <- dudahart2(sdata, pams[[2]]$clustering, alpha = alpha)
-      critval[1] <- cxx$p.value
-      cluster1 <- cxx$cluster1
+      if(diss)
+        cluster1 <- FALSE
+      else{
+        cxx <- dudahart2(sdata, pams[[2]]$clustering, alpha = alpha)
+        critval[1] <- cxx$p.value
+        cluster1 <- cxx$cluster1
+      }
     }
     if (cluster1) 
         k.best <- 1

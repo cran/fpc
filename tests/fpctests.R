@@ -51,15 +51,11 @@ distnoisemclustCBI(dface,G=5,emModelNames="EEE",nnk=2,
 
 mahalCBI(face50,clustercut=0.5)
 
-library(trimcluster)
-disttrimkmeansCBI(dface,k=4,scaling=TRUE,trim=0.1,
-                         mdsmethod="classical",
-                         mdsdim=2)
-
 set.seed(20000)
 face100 <- rFace(100,dMoNo=2,dNoEy=0,p=2)
 print(clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000))
-suppressWarnings(print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
+# suppressWarnings(if(require(tclust))
+# print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
 
 
 complete3 <- cutree(hclust(dface),3)

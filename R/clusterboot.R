@@ -322,37 +322,44 @@ speccCBI <- function(data,k,...){
   out
 }
 
-tclustCBI <- function(data,k,trim=0.05,...){
-  require(tclust)
-  data <- as.matrix(data)
-  c1 <- tclust(data,k=k,alpha=trim,...)
-  sc1c <- c1$cluster
-  cl <- list()
-  nc <- nccl <- max(sc1c)
-  if (sum(sc1c==0)>0){
-    nc <- nccl+1
-    sc1c[sc1c==0] <- nc
-  }
-  for (i in 1:nc)
-      cl[[i]] <- sc1c == i
-  out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
-              clustermethod="tclust")
-  out
-}
+# tclustCBI <- function(data,k,trim=0.05,...){
+#   if(require(tclust)){
+#     data <- as.matrix(data)
+#     c1 <- tclust(data,k=k,alpha=trim,...)
+#     sc1c <- c1$cluster
+#     cl <- list()
+#     nc <- nccl <- max(sc1c)
+#     if (sum(sc1c==0)>0){
+#       nc <- nccl+1
+#       sc1c[sc1c==0] <- nc
+#     }
+#     for (i in 1:nc)
+#       cl[[i]] <- sc1c == i
+#     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
+#               clustermethod="tclust")
+#     out
+#   }
+#   else
+#     warning("tclust could not be loaded")    
+# }
 
 trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
-  c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
-  partition <- c1$classification
-  cl <- list()
-  nc <- k+1
-  nccl <- k
+  if(require(trimcluster)){
+    c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
+    partition <- c1$classification
+    cl <- list()
+    nc <- k+1
+    nccl <- k
 #  print(nc)
 #  print(sc1)
-  for (i in 1:nc)
-    cl[[i]] <- partition==i
-  out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
+    for (i in 1:nc)
+      cl[[i]] <- partition==i
+    out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
               nccl=nccl,clustermethod="trimkmeans")
-  out
+    out
+  }
+  else
+    warning("trimcluster could not be loaded")      
 }
 
 kmeansCBI <- function(data,krange,k=NULL,scaling=FALSE,runs=1,criterion="ch",...){
@@ -834,28 +841,32 @@ plot.clboot <- function(x,xlim=c(0,1),breaks=seq(0,1,by=0.05),...){
 disttrimkmeansCBI <- function(dmatrix,k,scaling=TRUE,trim=0.1,
                            mdsmethod="classical",
                             mdsdim=4,...){
-  dmatrix <- as.matrix(dmatrix)
-  n <- ncol(dmatrix)
-#  require(MASS)
-  if (mdsmethod != "classical") {
-    mindm <- min(dmatrix[dmatrix > 0])/10
-    dmatrix[dmatrix<mindm] <- mindm 
+  if(require(trimcluster)){
+    dmatrix <- as.matrix(dmatrix)
+    n <- ncol(dmatrix)
+  #  require(MASS)
+    if (mdsmethod != "classical") {
+      mindm <- min(dmatrix[dmatrix > 0])/10
+      dmatrix[dmatrix<mindm] <- mindm 
+    }
+    data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
+          kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
+                  sammon(dmatrix, k = mdsdim)$points)
+    c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
+    partition <- c1$classification
+    cl <- list()
+    nccl <- k
+    nc <- k+1
+  #  print(nc)
+  #  print(sc1)
+    for (i in 1:nc)
+      cl[[i]] <- partition==i
+    out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=partition,
+                clustermethod="trimkmeans plus MDS")
+    out
   }
-  data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
-        kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
-                sammon(dmatrix, k = mdsdim)$points)
-  c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
-  partition <- c1$classification
-  cl <- list()
-  nccl <- k
-  nc <- k+1
-#  print(nc)
-#  print(sc1)
-  for (i in 1:nc)
-    cl[[i]] <- partition==i
-  out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=partition,
-              clustermethod="trimkmeans plus MDS")
-  out
+  else
+    warning("trimcluster could not be loaded")      
 }
 
 

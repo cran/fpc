@@ -243,8 +243,11 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a cases*variables matrix as input.}
       \item{tclustCBI}{an interface to the function
-	\code{\link[tclust]{tclust}} for trimmed Gaussian 
-	clustering. This assumes a cases*variables matrix as input.}
+	\code{tclust} in the tclust library for trimmed Gaussian 
+	clustering. This assumes a cases*variables matrix as input. Note
+        that this function is not currently provided because the tclust
+        package is only available in the CRAN archives, but the code is
+        in the Examples-section of the \code{\link{kmeansCBI}}-help page.}
       \item{disttrimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a dissimilarity matrix as input and

@@ -1,7 +1,7 @@
-934d2bee854358b4ae0f7eedd9f39fe5 *DESCRIPTION
+679cf730240720e55de9e66d0e94fc51 *DESCRIPTION
 fc5d442fd28a9c3b6a02762c3b994be1 *NAMESPACE
-53acde464cc31c04df8b0484473b6468 *R/addclustermethods.R
-992c37a0c86266fa2bb8b57c7d8343f1 *R/clusterboot.R
+f999aec86296d6dddadd1353602fe678 *R/addclustermethods.R
+3ad2b71549261ce480aece211c0d725d *R/clusterboot.R
 a6e8dc7b0fb52fdd09bc7ca4492db3fd *R/dbscan.R
 b7c01634910fd6957ef94642398dc4d7 *R/discrproj.R
 d85447226e4ac2c17ce73fc907193176 *R/discrproj2.R
@@ -9,7 +9,7 @@ dcec4b33cef48ead86771938d227a53d *R/fixreg.R
 0ab94f68945472325cad0b9691e961be *R/fpc.R
 29ad32065ba58621b20feed9d084743e *R/lcmixed.R
 f43990d541b8df4ca7cac6195b9354a6 *R/localshape.R
-3cff7dc1266f1940431014f7b2287801 *R/mergenormals.R
+cb7e53571845796298f7664394003ea0 *R/mergenormals.R
 b2788e1bba14be4b1e1a1dc22b00b776 *R/rFace.R
 382e8aa6e94a4dceaded3365064039d8 *R/regmix.R
 3505e046680bd1f5bb7a8b2d20ef38c4 *data/tonedata.txt.gz
@@ -28,7 +28,7 @@ aa155066d63ca4c19ebbe8d109c0fffa *man/classifdist.Rd
 1ba8e0b5e2c1a67d321590233aa83fc3 *man/clusexpect.Rd
 895887cbc77fbdbb9a602208a9d7da17 *man/cluster.stats.Rd
 b47ad0359bb730d804bd88c331577508 *man/cluster.varstats.Rd
-392b254daf4b74819946db900d63ba4f *man/clusterboot.Rd
+54e40f4cf8f344d5bbcc53c92cff1e08 *man/clusterboot.Rd
 8f010721f7afc206bb53840a55698bc5 *man/cmahal.Rd
 ee2134477bf4fc08f74569a519506cbe *man/concomp.Rd
 3a8e3ea03e09a8a12af2d3d6001bb773 *man/confusion.Rd
@@ -52,7 +52,7 @@ bc8e364aafde93f98ec49bb08258668f *man/flexmixedruns.Rd
 def94780a7fc4f3554b2f66b3c4d90b8 *man/fpclusters.Rd
 26793ddd852fcfb5f67f0754f9c6d8bb *man/itnumber.Rd
 32e2efded9c99fe253233deb05205a21 *man/jittervar.Rd
-1cd49de8dac4b68e8bc14ffd8b725b0e *man/kmeansCBI.Rd
+4ee7f3ed594e5d0e7e40d85641df42a8 *man/kmeansCBI.Rd
 8512b703ff607296cb43e3902a01b442 *man/kmeansruns.Rd
 d7e1a53ad4717db057f25725e2c014e9 *man/lcmixed.Rd
 ed80924884f6a3a16e823c6e93a66f51 *man/localshape.Rd
@@ -67,7 +67,7 @@ e1dd534f5f6024c9df173fecf21fa7e3 *man/mergeparameters.Rd
 15c8c92f9c61402431bb120be980d8e3 *man/mvdcoord.Rd
 8d52c5d99f51f6fb3a7e4d6d8c0321b5 *man/ncoord.Rd
 32a1e2eb587a14933b97ea759a474ebb *man/nselectboot.Rd
-3bda5626a6a58e946abb849de1b7eba6 *man/pamk.Rd
+114979ec1d54abf8187d6281cf0653a7 *man/pamk.Rd
 6b2f0863655c7b8a46c4cea6e8076eed *man/piridge.Rd
 7de41af74aff0008bacd04f664205ba7 *man/piridge.zeroes.Rd
 9ec1cafbee8c4c6017af04c65fe32caa *man/plotcluster.Rd
@@ -84,9 +84,9 @@ d2e4874032081b14a0bda19a9c8a6aa9 *man/sseg.Rd
 1e850004ee7892d3e602094481594f0b *man/tdecomp.Rd
 e156cb0ced917fe86298bf3fbb316a25 *man/tonedata.Rd
 cb3dfde046b5ef0896019cc3f9969e04 *man/unimodal.ind.Rd
-e7025f2286eae52b45e3bfef4a3e708e *man/weightplots.Rd
+15d9c5178def2360f789316c15a2660e *man/weightplots.Rd
 f59d622288941125fba9f60a02897186 *man/wfu.Rd
 234ce6927a50957173ba1ac861f449fb *man/zmisclassification.matrix.Rd
-ec0cc2058c2f8e4ec565fab18ba99e4e *tests/Examples/fpc-Ex.Rout.save
-38aab56723314ec816c4926633706ec6 *tests/fpctests.R
-7772bb9fd2bc3c958b719b83132eabe9 *tests/fpctests.Rout.save
+2dd07017d8a814658c4558066c23b2e8 *tests/Examples/fpc-Ex.Rout.save
+2f1820ce71e0bad34d8fba9439eca8ad *tests/fpctests.R
+7234e99a90755be1138eef7b6bca0217 *tests/fpctests.Rout.save
