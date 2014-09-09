@@ -41,6 +41,7 @@
 \seealso{\code{\link{cluster.stats}}}
 
 \examples{
+  options(digits=2)
   set.seed(98765)
   iriss <- iris[sample(150,20),-5]
   km <- kmeans(iriss,2)

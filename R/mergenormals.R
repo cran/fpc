@@ -9,7 +9,7 @@ ridgeline <- function(alpha, mu1, mu2, Sigma1, Sigma2){
 
 dridgeline <- function(alpha=seq(0,1,0.001), prop,
                           mu1, mu2, Sigma1, Sigma2, showplot=FALSE, ...){
-  require(mvtnorm)
+#  require(mvtnorm)
   out <- numeric(0)
   for (alpha1 in alpha){
     ralpha <- ridgeline(alpha1, mu1, mu2, Sigma1, Sigma2)
@@ -26,7 +26,7 @@ dridgeline <- function(alpha=seq(0,1,0.001), prop,
 }
 
 piridge <- function(alpha, mu1, mu2, Sigma1, Sigma2, showplot=FALSE){
-  require(mvtnorm)
+#  require(mvtnorm)
   out <- numeric(0)
   for (alpha1 in alpha){
     ralpha <- ridgeline(alpha1, mu1, mu2, Sigma1, Sigma2)
@@ -72,7 +72,7 @@ ridgeline.diagnosis <- function(propvector,muarray,Sigmaarray,
                                 k=length(propvector),
                                 ipairs="all", compute.ratio=TRUE,by=0.001,
                                 ratiocutoff=NULL,ridgelineplot="matrix"){
-  require(prabclus)
+#  require(prabclus)
   comat <- diag(k)
   if (compute.ratio)
     ratiomatrix <- diag(k)
@@ -266,7 +266,7 @@ unimodal.ind <- function(y){
 }
     
 dipp.tantrum <- function(xdata,d,M=100){
-  require(diptest)
+#  require(diptest)
   xfit <- density(xdata)
   n <- length(xdata)
   bw <- bwnew <- xfit$bw
@@ -290,7 +290,7 @@ dipp.tantrum <- function(xdata,d,M=100){
 }
 
 diptest.multi <-  function(xdata,class,pvalue="uniform",M=100){
-  require(diptest)
+#  require(diptest)
   if (ncol(as.matrix(xdata))==1)
     xuni <- xdata
   else{
@@ -479,7 +479,7 @@ diptest.multi <-  function(xdata,class,pvalue="uniform",M=100){
 # }
 
 mixdens <- function(modelName,data,parameters){
-  require(mvtnorm)
+#  require(mvtnorm)
 #  print("begin mixdens")
   G <- parameters$variance$G
   if (modelName %in% c("E","V")){
@@ -643,7 +643,7 @@ prediction.strength <- function(xdata, Gmin=2, Gmax=10,M=50,
                                 distances=inherits(xdata,"dist"),
                                 count=FALSE,...){
 #  require(cluster)
-  require(class)
+#  require(class)
   xdata <- as.matrix(xdata)
   n <- nrow(xdata)
 #  print(str(xdata))

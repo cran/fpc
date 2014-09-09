@@ -351,7 +351,8 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   \code{\link{trimkmeansCBI}}, \code{\link{disttrimkmeansCBI}},
   \code{\link{dbscanCBI}}, \code{\link{mahalCBI}}
 }
-\examples{  
+\examples{
+  options(digits=3)
   set.seed(20000)
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
   cf1 <- clusterboot(face,B=3,bootmethod=

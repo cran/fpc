@@ -41,11 +41,11 @@ data mining}, Washington, D.C., 197-205.
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{
-# not run, requires package diptest
-#  x <- cbind(runif(100),runif(100))
-#  partition <- 1+(x[,1]<0.5)
-#  d1 <- diptest.multi(x,partition)
-#  d2 <- diptest.multi(x,partition,pvalue="tantrum",M=10)
+  require(diptest)
+  x <- cbind(runif(100),runif(100))
+  partition <- 1+(x[,1]<0.5)
+  d1 <- diptest.multi(x,partition)
+  d2 <- diptest.multi(x,partition,pvalue="tantrum",M=10)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

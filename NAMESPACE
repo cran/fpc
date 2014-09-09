@@ -9,5 +9,13 @@ import(
   MASS,
   cluster,
   mclust,
-  flexmix
+  flexmix,
+  prabclus,
+  class,
+  diptest,
+  mvtnorm,
+  robustbase,
+  trimcluster
 )
+
+importFrom("kernlab",specc)

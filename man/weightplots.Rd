@@ -60,6 +60,8 @@ Hennig, C. (2010) Methods for merging Gaussian mixture components,
 }
 
 \examples{
+  require(mclust)
+  require(MASS)
   data(crabs)
   dc <- crabs[,4:8]
   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")

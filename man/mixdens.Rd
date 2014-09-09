@@ -30,10 +30,11 @@
 }
 \examples{
   set.seed(98765)
+  require(mclust)
   iriss <- iris[sample(150,20),-5]
   irisBIC <- mclustBIC(iriss)
   siris <- summary(irisBIC,iriss)
-  mixdens(siris$modelName,iriss,siris$parameters)
+  round(mixdens(siris$modelName,iriss,siris$parameters),digits=2)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

@@ -1,6 +1,10 @@
 # This tests a few things that are not run in the examples.
 
 library(fpc)
+library(MASS)
+library(diptest)
+library(mclust)
+options(digits=3)
 
 set.seed(4634)
 face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
@@ -63,7 +67,6 @@ complete3 <- cutree(hclust(dface),3)
 cluster.stats(dface,complete3,G2=TRUE)
 
 set.seed(55667788)
-library(diptest)
 
 data(crabs)
 dc <- crabs[,4:8]
@@ -76,10 +79,11 @@ cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE",
 scm <- summary(cm,crabs[,4:8])
 scmo <- summary(cmo,crabs[,4:8])
 
+set.seed(334455)
 summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
 summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
 # summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
-summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
+# summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
 summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))
 
 set.seed(20000)

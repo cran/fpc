@@ -43,6 +43,7 @@
   \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche}}
 \examples{
+  options(digits=3)
   data(iris)
   localshape(iris[,-5],mscatter="cov")
 }

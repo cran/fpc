@@ -119,7 +119,7 @@ rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
 # nclust=1:2 makes the example fast;
 # a more serious application would rather use the default.
 rmt1$g
-rmt1$bic
+round(rmt1$bic,digits=2)
 # start with initial parameter values
 cln <- 3
 n <- 150

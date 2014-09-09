@@ -8,7 +8,7 @@
   set to 1e-6.
 }
 \usage{
-tdecomp(m)
+  tdecomp(m)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -31,7 +31,7 @@ tdecomp(m)
 x <- rnorm(10)
 y <- rnorm(10)
 z <- cov(cbind(x,y))
-tdecomp(z)
+round(tdecomp(z),digits=2)
 }
 \keyword{array}% at least one, from doc/KEYWORDS
 

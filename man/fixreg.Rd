@@ -306,6 +306,7 @@ computed by \code{fixreg}.
 }
 \examples{
 set.seed(190000)
+options(digits=3)
 data(tonedata)
 attach(tonedata)
 tonefix <- fixreg(stretchratio,tuned,mtf=1,ir=20)

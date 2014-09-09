@@ -34,7 +34,7 @@ Press, New York.
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{
-  bhattacharyya.dist(c(1,1),c(2,5),diag(2),diag(2))
+  round(bhattacharyya.dist(c(1,1),c(2,5),diag(2),diag(2)),digits=2)
 }
 \keyword{multivariate}
 

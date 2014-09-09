@@ -91,6 +91,9 @@ cluster.varstats(clustering,vardata,contdata=vardata,
 
 \examples{
   set.seed(112233)
+  options(digits=3)
+  require(MASS)
+  require(flexmix)
   data(Cars93)
   Cars934 <- Cars93[,c(3,5,8,10)]
   cc <-

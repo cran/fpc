@@ -150,6 +150,7 @@ flexmixedruns(x,diagonal=TRUE,xvarsorted=TRUE,
 
 
 \examples{
+  options(digits=3)
   set.seed(776655)
   v1 <- rnorm(100)
   v2 <- rnorm(100)

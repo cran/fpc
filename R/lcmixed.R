@@ -1,7 +1,7 @@
 lcmixed <- function ( formula = .~. , continuous, discrete, ppdim,
                      diagonal = TRUE, pred.ordinal=FALSE, printlik=FALSE )
 {
-  require ("mvtnorm")
+#  require ("mvtnorm")
 #  require(flexmix)
   retval <- new ("FLXMC", weighted = TRUE ,
                  formula = formula , dist = "mixnormmulti",

@@ -320,13 +320,14 @@ speccCBI(data,k,...)
   \code{\link[trimcluster]{trimkmeans}}, \code{\link{dbscan}},
   \code{\link{fixmahal}}
 }
-\examples{  
+\examples{
+  options(digits=3)
   set.seed(20000)
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
   dbs <- dbscanCBI(face,eps=1.5,MinPts=4)
   dhc <- disthclustCBI(dist(face),method="average",k=1.5,noisecut=2)
   table(dbs$partition,dhc$partition)
-  mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
+  dm <- mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
 
 # Not run:
 # Here is the tclustCBI-code:

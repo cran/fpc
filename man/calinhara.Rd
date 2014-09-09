@@ -39,7 +39,7 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   set.seed(98765)
   iriss <- iris[sample(150,20),-5]
   km <- kmeans(iriss,3)
-  calinhara(iriss,km$cluster)
+  round(calinhara(iriss,km$cluster),digits=2)
 }
 
 

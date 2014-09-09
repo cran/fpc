@@ -49,7 +49,9 @@
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{
+  options(digits=3)
   set.seed(98765)
+  require(mclust)
   iriss <- iris[sample(150,20),-5]
   irisBIC <- mclustBIC(iriss)
   siris <- summary(irisBIC,iriss)
@@ -57,7 +59,9 @@
   muarray <- siris$parameters$mean
   Sigmaarray <- siris$parameters$variance$sigma
   z <- siris$z
-  mergeparameters(iriss,1,2,probs,muarray,Sigmaarray,z)
+  mpi <- mergeparameters(iriss,1,2,probs,muarray,Sigmaarray,z)
+  mpi$probs
+  mpi$muarray
 }
 \keyword{multivariate}
 \keyword{cluster}

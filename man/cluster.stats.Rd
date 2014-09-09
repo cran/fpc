@@ -65,9 +65,10 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
   \item{sepprob}{numerical between 0 and 1, see \code{sepindex}.}
   \item{sepwithnoise}{logical. If \code{TRUE} and \code{sepindex} and
     \code{noisecluster} are both \code{TRUE}, the noise points are
-    incorporated as cluster in the separation index computation. Also
+    incorporated as cluster in the separation index (\code{sepindex})
+    computation. Also
     they are taken into account for the computation for the minimum
-    cluster separation regardless of \code{sepindex}.} 
+    cluster separation.} 
   \item{compareonly}{logical. If \code{TRUE}, only the corrected Rand index
     and Meila's VI are
     computed and given out (this requires \code{alt.clustering} to be
@@ -202,6 +203,7 @@ GfKl-2012, Hildesheim.
 }
 \examples{  
   set.seed(20000)
+  options(digits=3)
   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
   dface <- dist(face)
   complete3 <- cutree(hclust(dface),3)

@@ -151,7 +151,7 @@ predict.dbscan <- function(
       sqrt(rowSums((x-data)^2))
     }
 
-    require(class)
+#    require(class)
     batchpredict <- function(newdata){
       w <- as.integer(knn1(data, newdata, 1:n.orig))
       newout <- out[w]

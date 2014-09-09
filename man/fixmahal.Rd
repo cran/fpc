@@ -378,6 +378,7 @@ covariance matrices, plotting.
 \code{\link{rFace}} for generation of example data, see below.
 }
 \examples{
+  options(digits=2)
   set.seed(20000)
   face <- rFace(400,dMoNo=2,dNoEy=0, p=3)
   # The first example uses grouping information via init.group.

@@ -39,6 +39,7 @@ mahalanodisc(x2, mg, covg, modus="square")
 }
 
 \examples{
+  options(digits=3)
   x <- cbind(rnorm(50),rnorm(50))
   mahalanodisc(x,c(0,0),cov(x))
   mahalanodisc(x,c(0,0),matrix(0,ncol=2,nrow=2))

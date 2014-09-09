@@ -10,7 +10,7 @@
   iterations of \code{\link{fixreg}}.
 }
 \usage{
-clusexpect(n, p, cn, ir)
+  clusexpect(n, p, cn, ir)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -43,7 +43,7 @@ clusexpect(n, p, cn, ir)
 \seealso{\code{\link{fixreg}}}
 
 \examples{
-  clusexpect(500,4,150,2000)
+  round(clusexpect(500,4,150,2000),digits=2)
 }
 \keyword{univar}% at least one, from doc/KEYWORDS
 \keyword{cluster}

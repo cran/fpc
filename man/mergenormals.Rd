@@ -191,6 +191,9 @@ Prediction Strength, \emph{Journal of Computational and Graphical
 }
 
 \examples{
+  require(mclust)
+  require(MASS)
+  options(digits=3)
   data(crabs)
   dc <- crabs[,4:8]
   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")

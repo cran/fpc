@@ -79,7 +79,8 @@ algorithm. \emph{Applied Statistics}, 28, 100-108.
   \code{\link{kmeans}}, \code{\link{pamk}},
   \code{\link{calinhara}}, \code{\link{dudahart2}})  
 }
-\examples{  
+\examples{
+  options(digits=3)
   set.seed(20000)
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
   pka <- kmeansruns(face,krange=1:5,critout=TRUE,runs=2,criterion="asw")

@@ -13,7 +13,7 @@ noisemclustCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL,
                            nnk=0, hcmodel = NULL,
                          Vinv = NULL, summary.out=FALSE, ...){
 #  require(mclust)
-  require(prabclus)
+#  require(prabclus)
   if (!is.null(k)) G <- k
   data <- as.matrix(data)
 #  print(str(data))
@@ -82,7 +82,7 @@ distnoisemclustCBI <- function(dmatrix, G=NULL, k=NULL, emModelNames=NULL,
   if (!is.null(k)) G <- k
   n <- ncol(dmatrix)
 #  require(MASS)
-  require(prabclus)
+#  require(prabclus)
 #  require(mclust)
   if (mdsmethod != "classical") {
     mindm <- min(dmatrix[dmatrix > 0])/10
@@ -151,7 +151,7 @@ mergenormCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL, nnk=0,
                          Vinv = NULL, mergemethod="bhat",
                          cutoff=0.1,...){
 #  require(mclust)
-  require(prabclus)
+#  require(prabclus)
   if (!is.null(k)) G <- k  
   if (nnk > 0) {
     noise <- as.logical(1 - NNclean(data, nnk)$z)
@@ -307,10 +307,17 @@ claraCBI <- function(data,k,usepam=TRUE,diss=inherits(data,"dist"),...){
 }
 
 speccCBI <- function(data,k,...){
-  require(kernlab)
+#  require(kernlab)
   data <- as.matrix(data)
-  c1 <- specc(data,centers=k,...)
-  partition <- c1@.Data
+  options(show.error.messages = FALSE)
+  c1 <- try(specc(data,centers=k,...))
+  options(show.error.messages = TRUE)
+  if (class(c1)=="try-error"){
+    partition <- rep(1,nrow(data))
+    cat("Function specc returned an error, probably a one-point cluster.\n All observations were classified to cluster 1.\n")
+  }
+  else
+    partition <- c1@.Data
   cl <- list()
   nc <- k
 #  print(nc)
@@ -344,7 +351,6 @@ speccCBI <- function(data,k,...){
 # }
 
 trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
-  if(require(trimcluster)){
     c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
     partition <- c1$classification
     cl <- list()
@@ -356,10 +362,7 @@ trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
       cl[[i]] <- partition==i
     out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
               nccl=nccl,clustermethod="trimkmeans")
-    out
-  }
-  else
-    warning("trimcluster could not be loaded")      
+    out      
 }
 
 kmeansCBI <- function(data,krange,k=NULL,scaling=FALSE,runs=1,criterion="ch",...){
@@ -841,7 +844,6 @@ plot.clboot <- function(x,xlim=c(0,1),breaks=seq(0,1,by=0.05),...){
 disttrimkmeansCBI <- function(dmatrix,k,scaling=TRUE,trim=0.1,
                            mdsmethod="classical",
                             mdsdim=4,...){
-  if(require(trimcluster)){
     dmatrix <- as.matrix(dmatrix)
     n <- ncol(dmatrix)
   #  require(MASS)
@@ -864,9 +866,6 @@ disttrimkmeansCBI <- function(dmatrix,k,scaling=TRUE,trim=0.1,
     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=partition,
                 clustermethod="trimkmeans plus MDS")
     out
-  }
-  else
-    warning("trimcluster could not be loaded")      
 }
 
 
@@ -959,7 +958,7 @@ classifnp <- function(data,clustering,
     clustering[topredict] <- clpred
   }
   if(method=="centroid"){
-    require(class)
+#    require(class)
     if(is.null(centroids)){
       centroids <- matrix(0,ncol=p,nrow=k)
       for (j in 1:k)

@@ -96,7 +96,8 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   \code{\link[cluster]{pam}}, \code{\link[cluster]{clara}}
   \code{\link{distcritmulti}}
 }
-\examples{  
+\examples{
+  options(digits=3)
   set.seed(20000)
   face <- rFace(50,dMoNo=2,dNoEy=0,p=2)
   pk1 <- pamk(face,krange=1:5,criterion="asw",critout=TRUE)

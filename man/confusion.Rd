@@ -43,7 +43,7 @@ confusion(z,pro,i,j,adjustprobs=FALSE)
   pro <- apply(m,2,sum)
   pro <- pro/sum(pro)
   m <- m/apply(m,1,sum)
-  confusion(m,pro,1,2)
+  round(confusion(m,pro,1,2),digits=2)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

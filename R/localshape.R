@@ -1,6 +1,6 @@
 localshape <- function(xdata,proportion=0.1,mscatter="mcd",mcdalpha=0.8,
                        covstandard="det"){
-  if (mscatter=="mcd") require(robustbase)
+#  if (mscatter=="mcd") require(robustbase)
   xdata <- as.matrix(xdata)
   scatter <- switch(mscatter,
                     mcd=covMcd(xdata,alpha=mcdalpha)$cov,

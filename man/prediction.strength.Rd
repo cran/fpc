@@ -112,6 +112,7 @@ Prediction Strength, \emph{Journal of Computational and Graphical
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}
 }
 \examples{
+  options(digits=3)
   set.seed(98765)
   iriss <- iris[sample(150,20),-5]
   prediction.strength(iriss,2,3,M=3)

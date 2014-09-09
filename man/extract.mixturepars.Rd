@@ -30,6 +30,8 @@
 }
 \examples{
   set.seed(98765)
+  options(digits=2)
+  require(mclust)
   iriss <- iris[sample(150,20),-5]
   irisBIC <- mclustBIC(iriss)
   siris <- summary(irisBIC,iriss)

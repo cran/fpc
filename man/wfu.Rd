@@ -33,7 +33,7 @@ wfu(md, ca, ca2, a1 = 1/(ca - ca2), a0 = -a1 * ca2)
 
 \examples{
   md <- seq(0,10,by=0.1)
-  wfu(md,ca=5,ca2=8)
+  round(wfu(md,ca=5,ca2=8),digits=2)
 }
 \keyword{arith}% at least one, from doc/KEYWORDS
 

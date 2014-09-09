@@ -58,6 +58,7 @@
   ldata <- cbind(v1,d1,v2,d2)
   lc <-
   discrete.recode(ldata,xvarsorted=FALSE,continuous=c(1,3),discrete=c(2,4))
+  require(MASS)
   data(Cars93)
   Cars934 <- Cars93[,c(3,5,8,10)]
   cc <- discrete.recode(Cars934,xvarsorted=FALSE,continuous=c(2,3),discrete=c(1,4))

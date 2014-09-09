@@ -58,7 +58,7 @@ zmisclassification.matrix(z,pro=NULL,clustering=NULL,
   m <- rpois(20,lambda=5)
   dim(m) <- c(5,4)
   m <- m/apply(m,1,sum)
-  zmisclassification.matrix(m,symmetric=FALSE) 
+  round(zmisclassification.matrix(m,symmetric=FALSE),digits=2) 
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}
