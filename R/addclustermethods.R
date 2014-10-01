@@ -147,11 +147,11 @@ pamk <- function (data, krange = 2:10, criterion = "asw", usepam = TRUE,
     scaling = FALSE, alpha = 0.001, diss = inherits(data, "dist"), 
     critout = FALSE, ns=10, seed=NULL, ...) 
 {
-    data <- as.matrix(data)
+    ddata <- as.matrix(data)
 #    require(cluster)
     if (!identical(scaling,FALSE))
-        sdata <- scale(data, scale = scaling)
-    else sdata <- data
+        sdata <- scale(ddata, scale = scaling)
+    else sdata <- ddata
     cluster1 <- 1 %in% krange
     critval <- numeric(max(krange))
     pams <- list()

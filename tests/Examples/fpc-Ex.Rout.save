@@ -1,7 +1,7 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+R version 3.1.1 (2014-07-10) -- "Sock it to Me"
+Copyright (C) 2014 The R Foundation for Statistical Computing
+Platform: x86_64-unknown-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -1138,7 +1138,8 @@ $z
 >   options(digits=2)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 4.3
+Package 'mclust' version 4.4
+Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
 >   siris <- summary(irisBIC,iriss)
@@ -1900,7 +1901,8 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 4.3
+Package 'mclust' version 4.4
+Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
 >   options(digits=3)
@@ -1988,7 +1990,8 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 4.3
+Package 'mclust' version 4.4
+Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
 >   siris <- summary(irisBIC,iriss)
@@ -2046,7 +2049,8 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 4.3
+Package 'mclust' version 4.4
+Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
 >   siris <- summary(irisBIC,iriss)
@@ -2567,7 +2571,8 @@ detaching ‘tonedata’
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 4.3
+Package 'mclust' version 4.4
+Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
 >   data(crabs)
@@ -2640,7 +2645,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  5.412 0.064 5.497 0 0 
+Time elapsed:  4.431 0.129 4.589 0 0 
 > grDevices::dev.off()
 null device 
           1 

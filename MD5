@@ -1,6 +1,6 @@
-9b1f8ada122ad6b8e9a04ce033de3660 *DESCRIPTION
+611cdb4cdbc26a8c4c269b95f4a8d68e *DESCRIPTION
 581c621b09499f393b77ed128758f8ca *NAMESPACE
-f999aec86296d6dddadd1353602fe678 *R/addclustermethods.R
+ee7ffb6e29f9f64ddabe8749089207c2 *R/addclustermethods.R
 270c55c3a0d0f22ae988f1131c3cf919 *R/clusterboot.R
 742e9a99e68a078688ab046eba68e97b *R/dbscan.R
 b7c01634910fd6957ef94642398dc4d7 *R/discrproj.R
@@ -87,6 +87,6 @@ cb3dfde046b5ef0896019cc3f9969e04 *man/unimodal.ind.Rd
 2deaf2a433fbcf36f3399b1abf29fda7 *man/weightplots.Rd
 9ab2ff14cb9f9ff845b4c1f56d9a70cc *man/wfu.Rd
 b66520b77ef271c4a41254d2aaaeee9d *man/zmisclassification.matrix.Rd
-a7691636291151cc459f6e07cfa80fe7 *tests/Examples/fpc-Ex.Rout.save
+f6488db4b513ab35b40a134cee6fdbfd *tests/Examples/fpc-Ex.Rout.save
 b7828b0f2cffe6e11d7adff907fc14f8 *tests/fpctests.R
-eb0f2b9b6d00408e4f81d13f9e15af22 *tests/fpctests.Rout.save
+e4a6bf24103fc92427f01679ea67e73b *tests/fpctests.Rout.save
