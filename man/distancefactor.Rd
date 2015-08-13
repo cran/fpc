@@ -6,7 +6,7 @@
   Computes a factor that can be used to standardise ordinal categorical
   variables and binary dummy variables coding categories of nominal scaled
   variables for Euclidean
-  dissimilarity computation in mixed type data. See Hennig and Liao (2010).
+  dissimilarity computation in mixed type data. See Hennig and Liao (2013).
 }
 \usage{
 distancefactor(cat,n=NULL, catsizes=NULL,type="categorical",
@@ -34,7 +34,7 @@ distancefactor(cat,n=NULL, catsizes=NULL,type="categorical",
    \item{normfactor}{numeric. Factor on which standardisation is based.
      As a default, this is \code{E(X_1-X_2)^2=2} for independent unit
      variance variables.}
-   \item{qfactor}{numeric. Factor q in Hennig and Liao (submitted) to
+   \item{qfactor}{numeric. Factor q in Hennig and Liao (2013) to
      adjust for clumping effects due to discreteness.}
 }
 
@@ -48,14 +48,11 @@ distancefactor(cat,n=NULL, catsizes=NULL,type="categorical",
 
 
 \references{
-  Hennig, C. and Liao, T. (2010) Comparing latent class and
-  dissimilarity based clustering for mixed type variables with
-  application to social stratification. Research report no. 308,
-  Department of Statistical Science, UCL.
-  \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}
-    Revised version accepted for publication
-  by Journal of the Royal Statistical Society
-  Series C.
+  Hennig, C. and Liao, T. (2013) How to find an appropriate clustering
+  for mixed-type variables with application to socio-economic
+  stratification, \emph{Journal of the Royal Statistical Society, Series
+  C Applied Statistics}, 62, 309-369.
+
 
   }
 

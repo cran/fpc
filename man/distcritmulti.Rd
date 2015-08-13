@@ -6,7 +6,7 @@
   Approximates average silhouette width or the Pearson version of
   Hubert's gamma criterion by hacking the
   dataset into pieces and averaging the subset-wise values, see Hennig
-  and Liao (2010).
+  and Liao (2013).
 }  
 \usage{
 distcritmulti(x,clustering,part=NULL,ns=10,criterion="asw",
@@ -52,14 +52,10 @@ distcritmulti(x,clustering,part=NULL,ns=10,criterion="asw",
   Validation Techniques, \emph{Journal of Intelligent Information
     Systems}, 17, 107-145.
   
-  Hennig, C. and Liao, T. (2010) Comparing latent class and
-  dissimilarity based clustering for mixed type variables with
-  application to social stratification. Research report no. 308,
-  Department of Statistical Science, UCL.
-  \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}
-    Revised version accepted for publication
-  by Journal of the Royal Statistical Society
-  Series C.
+  Hennig, C. and Liao, T. (2013) How to find an appropriate clustering
+  for mixed-type variables with application to socio-economic
+  stratification, \emph{Journal of the Royal Statistical Society, Series
+  C Applied Statistics}, 62, 309-369.
 
     Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
   An Introduction to Cluster Analysis". Wiley, New York.

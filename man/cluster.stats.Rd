@@ -150,7 +150,7 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
   \item{wb.ratio}{\code{average.within/average.between}.}
   \item{ch}{Calinski and Harabasz index (Calinski and Harabasz 1974,
     optimal in Milligan and Cooper 1985; generalised for dissimilarites
-    in Hennig and Liao 2010).}
+    in Hennig and Liao 2013).}
   \item{cwidegap}{vector of widest within-cluster gaps.}
   \item{widestgap}{widest within-cluster gap.}
   \item{sindex}{separation index, see argument \code{sepindex}.}
@@ -169,18 +169,13 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
   Validation Techniques, \emph{Journal of Intelligent Information
     Systems}, 17, 107-145.
 
-  Hennig, C. and Liao, T. (2010) Comparing latent class and
-  dissimilarity based clustering for mixed type variables with
-  application to social stratification. Research report no. 308,
-  Department of Statistical Science, UCL.
-  \url{http://www.ucl.ac.uk/Stats/research/reports/psfiles/rr308.pdf}.
-  Revised version accepted for publication
-  by Journal of the Royal Statistical Society
-  Series C.
+  Hennig, C. and Liao, T. (2013) How to find an appropriate clustering
+  for mixed-type variables with application to socio-economic
+  stratification, \emph{Journal of the Royal Statistical Society, Series
+  C Applied Statistics}, 62, 309-369.
 
   Hennig, C. (2013) How many bee species? A case study in
-determining the number of clusters. To appear in Proceedings of
-GfKl-2012, Hildesheim.
+determining the number of clusters. In: Spiliopoulou, L. Schmidt-Thieme, R. Janning (eds.): "Data Analysis, Machine Learning and Knowledge Discovery", Springer, Berlin, 41-49. 
   
     Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
   An Introduction to Cluster Analysis". Wiley, New York.

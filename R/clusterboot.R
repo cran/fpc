@@ -999,11 +999,11 @@ classifdist <- function(cdist,clustering,
     clustering[topredict] <- clpred
   }
   if(method=="centroid")
-    clustering[topredict] <- apply(cdist[topredict,centroids],1,which.min)
+    clustering[topredict] <- apply(cdist[topredict,centroids,drop=FALSE],1,which.min)
   if(method=="knn"){
     cdist[topredict,topredict] <- max(cdist)+1
     if (nnk==1){
-      bestobs <- apply(cdist[topredict,],1,which.min)
+      bestobs <- apply(cdist[topredict,,drop=FALSE],1,which.min)
       clustering[topredict] <- clustering[bestobs]
     }
     else{

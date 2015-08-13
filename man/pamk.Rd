@@ -33,7 +33,11 @@ pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
     out by  \code{\link[cluster]{pam}}/\code{\link[cluster]{clara}}, or
     as computed by \code{\link{distcritmulti}} if \code{"multiasw"} is
     specified; recommended for large data sets with \code{usepam=FALSE})
-    or Calinski-Harabasz is applied.}
+    or Calinski-Harabasz is applied. Note that the original
+    Calinski-Harabasz index is not defined for dissimilarities; if
+    dissimilarity data is run with \code{criterion="ch"}, the
+    dissimilarity-based generalisation in Hennig and Liao (2013) is
+    used.}
   \item{usepam}{logical. If \code{TRUE}, \code{\link[cluster]{pam}} is
     used, otherwise \code{\link[cluster]{clara}} (recommended for large
     datasets with 2,000 or more observations; dissimilarity matrices can
@@ -88,6 +92,11 @@ Analysis, \emph{Communications in Statistics}, 3, 1-27.
 
   Duda, R. O. and Hart, P. E. (1973) \emph{Pattern Classification and
   Scene Analysis}. Wiley, New York.
+
+  Hennig, C. and Liao, T. (2013) How to find an appropriate clustering
+  for mixed-type variables with application to socio-economic
+  stratification, \emph{Journal of the Royal Statistical Society, Series
+  C Applied Statistics}, 62, 309-369.
 
   Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
      An Introduction to Cluster Analysis". Wiley, New York.

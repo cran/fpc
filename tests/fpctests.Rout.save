@@ -1,6 +1,6 @@
 
-R version 3.0.2 (2013-09-25) -- "Frisbee Sailing"
-Copyright (C) 2013 The R Foundation for Statistical Computing
+R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
+Copyright (C) 2014 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 4.4
+Package 'mclust' version 5.0.2
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -948,14 +948,15 @@ $clustermethod
 > 
 > noisemclustCBI(face50,G=1:5,emModelNames="VVV",nnk=2)
 $result
-
-BIC:
+Bayesian Information Criterion (BIC):
    VVV
 1 -525
 2 -473
 3 -458
 4 -454
 5   NA
+attr(,"criterion")
+[1] "BIC"
 
 Top 3 models based on the BIC criterion:
 VVV,4 VVV,3 VVV,2 
@@ -1026,10 +1027,11 @@ $clustermethod
 +                         mdsmethod="classical",
 +                         mdsdim=2)
 $result
-
-BIC:
+Bayesian Information Criterion (BIC):
    EEE
 5 -439
+attr(,"criterion")
+[1] "BIC"
 
 Top 3 models based on the BIC criterion:
 EEE,5 
@@ -1369,7 +1371,7 @@ NULL
  [1,] 1.000
  [2,] 0.653
  [3,] 0.578
- [4,] 0.405
+ [4,] 0.418
  [5,] 0.406
  [6,] 0.175
  [7,] 0.145
@@ -1402,7 +1404,7 @@ Prediction strength
 Clustering method:  mclustBIC 
 Maximum number of clusters:  4 
 Resampled data sets:  10 
-Mean pred.str. for numbers of clusters:  1 0.616 0.916 0.298 
+Mean pred.str. for numbers of clusters:  1 0.632 0.916 0.298 
 Cutoff value:  0.8 
 Largest number of clusters better than cutoff:  3 
 > 
@@ -1419,4 +1421,4 @@ Largest number of clusters better than cutoff:  4
 > 
 > proc.time()
    user  system elapsed 
-  7.884   0.048   7.954 
+   9.68    0.04    9.74 
