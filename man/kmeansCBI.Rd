@@ -14,7 +14,8 @@
 \alias{mahalCBI}
 \alias{mergenormCBI}
 \alias{speccCBI}
-% \alias{tclustCBI}
+\alias{tclustCBI}
+\alias{pdfclustCBI}
 
 
 %- Also NEED an `\alias' for EACH other topic documented here.
@@ -43,10 +44,10 @@ disthclustCBI(dmatrix,k,cut="number",method,noisecut=0,...)
 
 % disthclusttreeCBI(dmatrix,minlevel=2,method,...)
 
-noisemclustCBI(data,G,k,emModelNames,nnk,hcmodel=NULL,Vinv=NULL,
+noisemclustCBI(data,G,k,modelNames,nnk,hcmodel=NULL,Vinv=NULL,
                         summary.out=FALSE,...)
 
-distnoisemclustCBI(dmatrix,G,k,emModelNames,nnk,
+distnoisemclustCBI(dmatrix,G,k,modelNames,nnk,
                         hcmodel=NULL,Vinv=NULL,mdsmethod="classical",
                         mdsdim=4, summary.out=FALSE, points.out=FALSE,...)
 
@@ -57,7 +58,7 @@ pamkCBI(data,krange=2:10,k=NULL,criterion="asw", usepam=TRUE,
 
 trimkmeansCBI(data,k,scaling=TRUE,trim=0.1,...)
 
-% tclustCBI(data,k,trim=0.05,...)
+tclustCBI(data,k,trim=0.05,...)
 
 disttrimkmeansCBI(dmatrix,k,scaling=TRUE,trim=0.1,
                          mdsmethod="classical",
@@ -67,13 +68,14 @@ dbscanCBI(data,eps,MinPts,diss=inherits(data,"dist"),...)
 
 mahalCBI(data,clustercut=0.5,...)
 
-mergenormCBI(data, G=NULL, k=NULL, emModelNames=NULL, nnk=0,
+mergenormCBI(data, G=NULL, k=NULL, modelNames=NULL, nnk=0,
                          hcmodel = NULL,
                          Vinv = NULL, mergemethod="bhat",
                          cutoff=0.1,...)
 
 speccCBI(data,k,...)
 
+pdfclustCBI(data,...)
 }
 \arguments{
   \item{data}{a numeric matrix. The data
@@ -128,7 +130,7 @@ speccCBI(data,k,...)
     \code{\link[mclust]{mclustBIC}}. If
     \code{G} has more than one entry, the number of clusters is
     estimated by the BIC.}
-  \item{emModelNames}{vector of string. Models for covariance matrices,
+  \item{modelNames}{vector of string. Models for covariance matrices,
     see documentation of
     \code{\link[mclust]{mclustBIC}}.}
   \item{nnk}{integer. Tuning constant for
@@ -244,13 +246,13 @@ speccCBI(data,k,...)
 	\code{restr.fact=1} will do about the same but faster.}	
     \item{tclustCBI}{an interface to the function
 	\code{tclust} in the tclust package for trimmed Gaussian 
-	clustering. This assumes a cases*variables matrix as input.
-	
-        NOTE: This package is currently only available in CRAN as
-	archived version. Therefore I cannot currently offer the
-	\code{tclustCBI}-function in \code{fpc}. The code for the
-	function is below in the Examples-Section, so if you need it,
-	run that code first.}
+	clustering. This assumes a cases*variables matrix as input.}
+%	
+%        NOTE: This package is currently only available in CRAN as
+%	archived version. Therefore I cannot currently offer the
+%	\code{tclustCBI}-function in \code{fpc}. The code for the
+%	function is below in the Examples-Section, so if you need it,
+%	run that code first.}
     \item{disttrimkmeansCBI}{an interface to the function
 	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
 	clustering. This assumes a dissimilarity matrix as input and
@@ -271,6 +273,10 @@ speccCBI(data,k,...)
       \code{\link[kernlab]{specc}} for spectral clustering. See
       the \code{\link[kernlab]{specc}} help page for additional tuning
       parameters. This assumes a cases*variables matrix as input.}
+    \item{pdfclustCBI}{an interface to the function
+      \code{\link[pdfCluster]{pdfCluster}} for density-based clustering. See
+      the \code{\link[pdfCluster]{pdfCluster}} help page for additional tuning
+      parameters. This assumes a cases*variables matrix as input.}
   }
 }
 
@@ -282,20 +288,21 @@ speccCBI(data,k,...)
 	output of the clustering method (the precise format doesn't
 	matter); whatever you want to use later.}
   \item{nc}{number of clusters. If some points don't belong to any
-	cluster but are declared as "noise", \code{nc} includes the
-	noise component, and there should be another component
+	cluster, these are declared "noise". \code{nc} includes the
+	"noise cluster", and there should be another component
 	\code{nccl}, being the number of clusters not including the
-	noise component.}
+	noise cluster.}
   \item{clusterlist}{this is a list consisting of a logical vectors
 	of length of the number of data points (\code{n}) for each cluster,
 	indicating whether a point is a member of this cluster
-	(\code{TRUE}) or not. If a noise component is included, it
+	(\code{TRUE}) or not. If a noise cluster is included, it
 	should always be the last vector in this list.}
   \item{partition}{an integer vector of length \code{n},
 	partitioning the data. If the method produces a partition, it
 	should be the clustering. This component is only used for plots,
 	so you could do something like \code{rep(1,n)} for
-	non-partitioning methods.}
+	non-partitioning methods. If a noise cluster is included,
+        \code{nc=nccl+1} and the noise cluster is cluster no. \code{nc}.}
   \item{clustermethod}{a string indicating the clustering method.}      
   The output of some of the functions has further components:
   \item{nccl}{see \code{nc} above.}
@@ -318,7 +325,8 @@ speccCBI(data,k,...)
   \code{\link[cluster]{pam}},  \code{\link{pamk}},
   \code{\link[cluster]{clara}},
   \code{\link[trimcluster]{trimkmeans}}, \code{\link{dbscan}},
-  \code{\link{fixmahal}}
+  \code{\link{fixmahal}},
+  \code{\link[tclust]{tclust}}, \code{\link[pdfCluster]{pdfCluster}} 
 }
 \examples{
   options(digits=3)
@@ -327,30 +335,9 @@ speccCBI(data,k,...)
   dbs <- dbscanCBI(face,eps=1.5,MinPts=4)
   dhc <- disthclustCBI(dist(face),method="average",k=1.5,noisecut=2)
   table(dbs$partition,dhc$partition)
-  dm <- mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
-
-# Not run:
-# Here is the tclustCBI-code:
-# tclustCBI <- function(data,k,trim=0.05,...){
-#   if(require(tclust)){
-#     data <- as.matrix(data)
-#     c1 <- tclust(data,k=k,alpha=trim,...)
-#     sc1c <- c1$cluster
-#     cl <- list()
-#     nc <- nccl <- max(sc1c)
-#     if (sum(sc1c==0)>0){
-#       nc <- nccl+1
-#       sc1c[sc1c==0] <- nc
-#     }
-#     for (i in 1:nc)
-#       cl[[i]] <- sc1c == i
-#     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
-#               clustermethod="tclust")
-#     out
-#   }
-#   else
-#     warning("tclust could not be loaded")    
-# }
+  dm <- mergenormCBI(face,G=10,modelNames="EEE",nnk=2)
+  dtc <- tclustCBI(face,6,trim=0.1,restr.fact=500)
+  table(dm$partition,dtc$partition)
 
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS

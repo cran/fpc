@@ -112,6 +112,10 @@ the \code{regmix}-function, \code{flexmix} didn't exist.)
 \code{\link[mclust]{EMclust}} for Normal mixture model fitting (non-regression).
 }
 \examples{
+\dontrun{
+# This apparently gives slightly different
+# but data-analytically fine results
+# on some versions of R.
 set.seed(12234)
 data(tonedata)
 attach(tonedata)
@@ -140,6 +144,7 @@ for (i in 1:cln)
       m[j,i] <- m[j,i]/stm[j]
   } 
 rmt2 <- regem(stretchratio, tuned, m, cln)
+}
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{regression}

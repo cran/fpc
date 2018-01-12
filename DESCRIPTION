@@ -1,12 +1,13 @@
 Package: fpc
 Title: Flexible Procedures for Clustering
-Version: 2.1-10
-Date: 2015-08-13
+Version: 2.1-11
+Date: 2018-01-05
 Author: Christian Hennig <c.hennig@ucl.ac.uk>
 Depends: R (>= 2.0)
 Imports: MASS, cluster, mclust, flexmix, prabclus, class, diptest,
         mvtnorm, robustbase, kernlab, trimcluster, grDevices, graphics,
         methods, stats, utils
+Suggests: tclust, pdfCluster
 Description: Various methods for clustering and cluster validation.
   Fixed point clustering. Linear regression clustering. Clustering by 
   merging Gaussian mixture components. Symmetric 
@@ -25,7 +26,7 @@ Description: Various methods for clustering and cluster validation.
 Maintainer: Christian Hennig <c.hennig@ucl.ac.uk>
 License: GPL
 URL: http://www.homepages.ucl.ac.uk/~ucakche/
-Packaged: 2015-08-13 17:09:22 UTC; chrish
 NeedsCompilation: no
+Packaged: 2018-01-11 22:06:47 UTC; chrish
 Repository: CRAN
-Date/Publication: 2015-08-14 08:27:19
+Date/Publication: 2018-01-13 00:18:28 UTC

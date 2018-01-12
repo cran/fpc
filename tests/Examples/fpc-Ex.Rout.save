@@ -1,6 +1,6 @@
 
-R version 3.1.2 (2014-10-31) -- "Pumpkin Helmet"
-Copyright (C) 2014 The R Foundation for Statistical Computing
+R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
+Copyright (C) 2017 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -132,7 +132,8 @@ Type 'q()' to quit R.
 > ### ** Examples
 > 
 >   round(bhattacharyya.dist(c(1,1),c(2,5),diag(2),diag(2)),digits=2)
-[1] 2.12
+modulus 
+   2.12 
 > 
 > 
 > 
@@ -220,6 +221,38 @@ Type 'q()' to quit R.
 >   d2 <- sample(1:4,20,replace=TRUE)
 >   ldata <- cbind(v1,v2,d1,d2)
 >   lc <- cat2bin(ldata,categorical=3:4)
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cdbw")
+> ### * cdbw
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cdbw
+> ### Title: CDbw-index for cluster validation
+> ### Aliases: cdbw
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   options(digits=3)
+>   iriss <- as.matrix(iris[c(1:5,51:55,101:105),-5])
+>   irisc <- as.numeric(iris[c(1:5,51:55,101:105),5])
+>   cdbw(iriss,irisc)
+$cdbw
+[1] 2.35
+
+$cohesion
+[1] 1.28
+
+$compactness
+[1] 1.33
+
+$sep
+[1] 1.38
+
 > 
 > 
 > 
@@ -673,6 +706,37 @@ dissolved:
 [1] 1 0 2 2 0
 recovered:
 [1] 1 2 1 1 3
+>   d1 <- c("a","b","a","c")
+>   d2 <- c("a","a","a","b")
+>   dx <- as.data.frame(cbind(d1,d2))
+>   cpx <- clusterboot(dx,k=2,B=10,clustermethod=claraCBI,
++           multipleboot=TRUE,usepam=TRUE,datatomatrix=FALSE)
+boot 1 
+boot 2 
+boot 3 
+boot 4 
+boot 5 
+boot 6 
+boot 7 
+boot 8 
+boot 9 
+boot 10 
+>   print(cpx)
+* Cluster stability assessment *
+Cluster method:  clara/pam 
+Full clustering results are given as parameter result
+of the clusterboot object, which also provides further statistics
+of the resampling results.
+Number of resampling runs:  10 
+
+Number of clusters found in data:  2 
+
+ Clusterwise Jaccard bootstrap mean:
+[1] 0.95 0.80
+dissolved:
+[1] 0 2
+recovered:
+[1] 8 8
 > 
 > 
 > 
@@ -794,6 +858,35 @@ $n.obs
 
 $wt
  [1] 0.0 0.0 0.0 0.2 0.2 0.2 0.2 0.2 0.0 0.0
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cvnn")
+> ### * cvnn
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cvnn
+> ### Title: Cluster validation based on nearest neighbours
+> ### Aliases: cvnn
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   options(digits=3)
+>   iriss <- as.matrix(iris[c(1:10,51:55,101:105),-5])
+>   irisc <- as.numeric(iris[c(1:10,51:55,101:105),5])
+>   print(cvnn(dist(iriss),list(irisc,rep(1:4,5))))
+$cvnnindex
+[1] 0.616 2.000
+
+$sep
+[1] 0.36 0.92
+
+$comp
+[1] 0.674 2.998
 
 > 
 > 
@@ -1138,7 +1231,7 @@ $z
 >   options(digits=2)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.0.2
+Package 'mclust' version 5.4
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -1149,11 +1242,11 @@ $pro
 
 $mean
 Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
-        4.57         2.73         1.37         0.27 
+        4.96         3.25         1.45         0.26 
 
 $variance
 $variance$modelName
-[1] "EEV"
+[1] "VEV"
 
 $variance$d
 [1] 4
@@ -1162,83 +1255,24 @@ $variance$G
 [1] 1
 
 $variance$sigma
-       [,1]    [,2]     [,3]     [,4]
-[1,] 0.0229  0.0250  0.00302  0.00337
-[2,] 0.0250  0.1010  0.01502 -0.00516
-[3,] 0.0030  0.0150  0.00270 -0.00084
-[4,] 0.0034 -0.0052 -0.00084  0.00168
+             Sepal.Length Sepal.Width Petal.Length Petal.Width
+Sepal.Length      0.08907     0.08652       0.0096     0.00016
+Sepal.Width       0.08652     0.14808       0.0302    -0.00072
+Petal.Length      0.00955     0.03022       0.0285     0.00874
+Petal.Width       0.00016    -0.00072       0.0087     0.00653
 
 $variance$scale
-[1] 0.0029
+[1] 0.134 0.024
 
 $variance$shape
-[1] 38.113  5.893  0.163  0.027
+[1] 9.138 1.541 0.810 0.088
 
 $variance$orientation
-, , 1
-
              Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length         0.44        0.23        0.868     7.4e-02
-Sepal.Width          0.65        0.58       -0.481     1.2e-05
-Petal.Length        -0.44        0.59        0.123    -6.7e-01
-Petal.Width         -0.44        0.51        0.024     7.4e-01
-
-, , 2
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length        0.274       0.923       -0.054       -0.26
-Sepal.Width         0.951      -0.243       -0.109        0.16
-Petal.Length        0.140      -0.077        0.935       -0.32
-Petal.Width        -0.038       0.287        0.333        0.90
-
-, , 3
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length         0.37       0.918       -0.016        0.15
-Sepal.Width         -0.42       0.306        0.267       -0.81
-Petal.Length        -0.78       0.249       -0.443        0.36
-Petal.Width         -0.27       0.051        0.856        0.44
-
-, , 4
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length        0.788       -0.16        -0.56       -0.20
-Sepal.Width         0.608        0.35         0.67        0.24
-Petal.Length        0.042       -0.41         0.46       -0.79
-Petal.Width         0.084       -0.83         0.16        0.53
-
-, , 5
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length            1           0            0           0
-Sepal.Width             0           1            0           0
-Petal.Length            0           0            1           0
-Petal.Width             0           0            0           1
-
-, , 6
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length        0.076        0.63        0.673       0.376
-Sepal.Width        -0.172        0.49        0.031      -0.852
-Petal.Length       -0.743       -0.42        0.517      -0.073
-Petal.Width        -0.642        0.43       -0.528       0.357
-
-, , 7
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length       -0.629       -0.66        -0.41       0.095
-Sepal.Width        -0.135        0.59        -0.64       0.474
-Petal.Length       -0.764        0.42         0.47      -0.111
-Petal.Width        -0.045        0.20        -0.45      -0.869
-
-, , 8
-
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length         0.77      -0.099        0.625    -0.05107
-Sepal.Width          0.44       0.792       -0.421    -0.00057
-Petal.Length        -0.44       0.594        0.654     0.15664
-Petal.Width         -0.11       0.099        0.072    -0.98633
-
+Sepal.Length       0.5676        0.65         0.50       -0.12
+Sepal.Width        0.8076       -0.32        -0.47        0.16
+Petal.Length       0.1603       -0.67         0.58       -0.43
+Petal.Width        0.0044       -0.19         0.44        0.88
 
 
 > 
@@ -1248,6 +1282,38 @@ Petal.Width         -0.11       0.099        0.072    -0.98633
 
 detaching ‘package:mclust’
 
+> nameEx("findrep")
+> ### * findrep
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: findrep
+> ### Title: Finding representatives for cluster border
+> ### Aliases: findrep
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   options(digits=3)
+>   iriss <- as.matrix(iris[c(1:5,51:55,101:105),-5])
+>   irisc <- as.numeric(iris[c(1:5,51:55,101:105),5])
+>   findrep(iriss,colMeans(iriss),irisc,cluster=1,r=2)
+$repc
+[1] 3 5
+
+$repx
+[1] 3 5
+
+$maxr
+[1] 2
+
+$wvar
+[1] 10.6
+
+> 
+> 
+> 
+> cleanEx()
 > nameEx("fixmahal")
 > ### * fixmahal
 > 
@@ -1448,26 +1514,28 @@ Number of points in intersection of  representative FPCs
 > # This is designed to have a fast example; default setting would be better.
 > # If you want to see more (and you have a bit more time),
 > # try out the following:
-> # set.seed(1000)
-> # tonefix <- fixreg(stretchratio,tuned)
-> ## Default - good for these data
-> # summary(tonefix)
-> # plot(tonefix,stretchratio,tuned,1)
-> # plot(tonefix,stretchratio,tuned,2)
-> # plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
-> # toneclus <- fpclusters(tonefix,stretchratio,tuned)
-> # plot(stretchratio,tuned,col=1+toneclus[[2]])
-> # tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
-> ## Every found fixed point cluster is reported,
-> ## no matter how instable it may be.
-> # summary(tonefix2)
-> # tonefix3 <- fixreg(stretchratio,tuned,ca=7)
-> ## ca defaults to 10.07 for these data.
-> # summary(tonefix3)
-> # subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
-> # tonefix4 <- fixreg(stretchratio,tuned,
-> #                    mtf=1,ir=0,init.group=list(subset))
-> # summary(tonefix4)
+> ## Not run: 
+> ##D  set.seed(1000)
+> ##D  tonefix <- fixreg(stretchratio,tuned)
+> ##D # Default - good for these data
+> ##D  summary(tonefix)
+> ##D  plot(tonefix,stretchratio,tuned,1)
+> ##D  plot(tonefix,stretchratio,tuned,2)
+> ##D  plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
+> ##D  toneclus <- fpclusters(tonefix,stretchratio,tuned)
+> ##D  plot(stretchratio,tuned,col=1+toneclus[[2]])
+> ##D  tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
+> ##D # Every found fixed point cluster is reported,
+> ##D # no matter how instable it may be.
+> ##D  summary(tonefix2)
+> ##D  tonefix3 <- fixreg(stretchratio,tuned,ca=7)
+> ##D # ca defaults to 10.07 for these data.
+> ##D  summary(tonefix3)
+> ##D  subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
+> ##D  tonefix4 <- fixreg(stretchratio,tuned,
+> ##D                     mtf=1,ir=0,init.group=list(subset))
+> ##D  summary(tonefix4)
+> ## End(Not run)
 > 
 > 
 > 
@@ -1497,11 +1565,11 @@ detaching ‘tonedata’
 >   fr <- flexmixedruns(ldata,
 +     continuous=2,discrete=2,simruns=2,n.cluster=2:3,allout=FALSE)
 k=  2  new best fit found in run  1 
-Nonoptimal or repeated fit found in run  2 
+k=  2  new best fit found in run  2 
 k=  2  BIC=  1258 
 k=  3  new best fit found in run  1 
 k=  3  new best fit found in run  2 
-k=  3  BIC=  1293 
+k=  3  BIC=  1300 
 >   print(fr$optimalk)
 [1] 2
 >   print(fr$optsummary)
@@ -1512,33 +1580,33 @@ flexmix(formula = x ~ 1, k = k, cluster = initial.cluster, model = lcmixed(conti
     control = control)
 
        prior size post>0 ratio
-Comp.1 0.506   48    100  0.48
-Comp.2 0.494   52    100  0.52
+Comp.1 0.527   51    100  0.51
+Comp.2 0.473   49    100  0.49
 
 'log Lik.' -576 (df=23)
 AIC: 1198   BIC: 1258 
 
 >   print(fr$flexout@cluster)
   [1] 2 1 1 1 2 2 1 2 2 1 1 2 2 1 2 2 1 2 1 1 1 1 2 1 2 1 1 2 2 1 1 2 2 1 2 1 1
- [38] 2 2 1 2 1 1 2 2 1 1 2 2 2 1 2 1 1 2 2 1 2 2 2 1 2 1 1 2 1 1 2 2 2 1 2 2 1
- [75] 1 1 1 2 2 1 2 1 1 1 1 2 2 1 2 1 1 2 1 2 2 2 2 2 2 2
+ [38] 2 2 1 2 1 1 2 2 1 1 2 1 2 1 2 1 1 2 2 1 2 2 2 1 2 1 1 2 1 1 2 2 1 1 2 2 1
+ [75] 1 1 1 2 2 1 2 1 1 1 1 2 1 1 2 1 1 2 1 2 2 2 2 2 2 2
 >   print(fr$flexout@components)
 $Comp.1
 $Comp.1[[1]]
 $center
-[1] -0.0679 -0.5410
+[1] -0.0636 -0.5109
 
 $cov
      [,1] [,2]
-[1,] 1.13 0.00
-[2,] 0.00 1.09
+[1,] 1.12  0.0
+[2,] 0.00  1.1
 
 $pp
 $pp[[1]]
-[1] 0.2788 0.2295 0.1478 0.3034 0.0405
+[1] 0.273 0.226 0.157 0.298 0.046
 
 $pp[[2]]
-[1] 0.144 0.168 0.513 0.175
+[1] 0.149 0.172 0.506 0.173
 
 
 
@@ -1546,19 +1614,19 @@ $pp[[2]]
 $Comp.2
 $Comp.2[[1]]
 $center
-[1] 0.237 0.412
+[1] 0.246 0.423
 
 $cov
       [,1]  [,2]
-[1,] 0.687 0.000
-[2,] 0.000 0.852
+[1,] 0.674 0.000
+[2,] 0.000 0.855
 
 $pp
 $pp[[1]]
-[1] 0.0993 0.1698 0.2736 0.0538 0.4035
+[1] 0.0974 0.1707 0.2691 0.0482 0.4145
 
 $pp[[2]]
-[1] 0.2773 0.4150 0.0617 0.2460
+[1] 0.2782 0.4220 0.0484 0.2514
 
 
 
@@ -1618,7 +1686,7 @@ $pp[[2]]
 > ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI
 > ###   disthclusttreeCBI noisemclustCBI distnoisemclustCBI claraCBI pamkCBI
 > ###   trimkmeansCBI disttrimkmeansCBI dbscanCBI mahalCBI mergenormCBI
-> ###   speccCBI
+> ###   speccCBI tclustCBI pdfclustCBI
 > ### Keywords: cluster multivariate
 > 
 > ### ** Examples
@@ -1636,30 +1704,15 @@ $pp[[2]]
   3  9
   4  5
   5 11
->   dm <- mergenormCBI(face,G=10,emModelNames="EEE",nnk=2)
-> 
-> # Not run:
-> # Here is the tclustCBI-code:
-> # tclustCBI <- function(data,k,trim=0.05,...){
-> #   if(require(tclust)){
-> #     data <- as.matrix(data)
-> #     c1 <- tclust(data,k=k,alpha=trim,...)
-> #     sc1c <- c1$cluster
-> #     cl <- list()
-> #     nc <- nccl <- max(sc1c)
-> #     if (sum(sc1c==0)>0){
-> #       nc <- nccl+1
-> #       sc1c[sc1c==0] <- nc
-> #     }
-> #     for (i in 1:nc)
-> #       cl[[i]] <- sc1c == i
-> #     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
-> #               clustermethod="tclust")
-> #     out
-> #   }
-> #   else
-> #     warning("tclust could not be loaded")    
-> # }
+>   dm <- mergenormCBI(face,G=10,modelNames="EEE",nnk=2)
+>   dtc <- tclustCBI(face,6,trim=0.1,restr.fact=500)
+>   table(dm$partition,dtc$partition)
+   
+     1  2  3  4  5  6  7
+  1  4  0  0  1  0  0  0
+  2 10  8  7  2  5  0  0
+  3  0  1  0  0  0  0  0
+  4  0  0  2  4  0  1  5
 > 
 > 
 > 
@@ -1900,7 +1953,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.0.2
+Package 'mclust' version 5.4
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -1918,23 +1971,23 @@ Loading required package: MASS
  Number of clusters after merging:  4 
  Values at which clusters were merged: 
      [,1]   [,2]
-[1,]    8 0.4772
-[2,]    7 0.4369
-[3,]    6 0.2338
-[4,]    5 0.2132
-[5,]    4 0.1058
-[6,]    3 0.0473
+[1,]    8 0.5746
+[2,]    7 0.2503
+[3,]    6 0.2307
+[4,]    5 0.1443
+[5,]    4 0.1258
+[6,]    3 0.0999
  Components assigned to clusters: 
       [,1]
  [1,]    1
- [2,]    2
- [3,]    1
+ [2,]    1
+ [3,]    2
  [4,]    3
- [5,]    1
- [6,]    3
+ [5,]    2
+ [6,]    1
  [7,]    4
- [8,]    3
- [9,]    2
+ [8,]    4
+ [9,]    3
 >   cmndemp <- mergenormals(crabs[,4:8],scm,method="demp")
 >   summary(cmndemp)
 * Merging Gaussian mixture components *
@@ -1944,23 +1997,23 @@ Loading required package: MASS
  Number of clusters after merging:  4 
  Values at which clusters were merged: 
      [,1]   [,2]
-[1,]    8 0.1026
-[2,]    7 0.0836
-[3,]    6 0.0434
-[4,]    5 0.0419
-[5,]    4 0.0251
-[6,]    3 0.0167
+[1,]    8 0.1902
+[2,]    7 0.0714
+[3,]    6 0.0694
+[4,]    5 0.0351
+[5,]    4 0.0266
+[6,]    3 0.0220
  Components assigned to clusters: 
       [,1]
  [1,]    1
- [2,]    2
- [3,]    1
+ [2,]    1
+ [3,]    2
  [4,]    3
- [5,]    1
- [6,]    3
+ [5,]    2
+ [6,]    1
  [7,]    4
- [8,]    3
- [9,]    2
+ [8,]    4
+ [9,]    3
 > # Other methods take a bit longer, but try them!
 > # The values of by and M below are still chosen for reasonably fast execution.
 > # cmnrr <- mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05)
@@ -1989,7 +2042,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.0.2
+Package 'mclust' version 5.4
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -2000,13 +2053,13 @@ Type 'citation("mclust")' for citing this R package in publications.
 >   z <- siris$z
 >   mpi <- mergeparameters(iriss,1,2,probs,muarray,Sigmaarray,z)
 >   mpi$probs
-[1] 0.25 0.15 0.25 0.15 0.05 0.15 0.05 0.10
+[1] 1.0 0.4
 >   mpi$muarray
-             [,1]  [,2] [,3] [,4] [,5] [,6] [,7] [,8]
-Sepal.Length 5.06 4.567 5.20 5.73  6.3 6.20  7.7 6.65
-Sepal.Width  2.88 2.734 3.56 2.53  3.4 2.33  2.8 3.00
-Petal.Length 2.70 1.367 1.50 3.97  5.6 4.80  6.7 4.90
-Petal.Width  0.88 0.267 0.26 1.23  2.4 1.57  2.0 1.45
+             [,1]  [,2]
+Sepal.Length 5.72 4.963
+Sepal.Width  2.95 3.250
+Petal.Length 3.47 1.450
+Petal.Width  1.07 0.262
 > 
 > 
 > 
@@ -2048,16 +2101,16 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.0.2
+Package 'mclust' version 5.4
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
 >   siris <- summary(irisBIC,iriss)
 >   round(mixdens(siris$modelName,iriss,siris$parameters),digits=2)
-   122     42     45     86     70    137     37     46    134     88     72 
-116.43 169.20 167.77 116.43 219.33 150.46  93.15 138.34 119.13 117.59 168.88 
-   123      1    147     51    120      9     18     28     54 
-150.46   1.55  68.80 119.07  28.78 107.56   1.22   0.28 195.94 
+  122    42    45    86    70   137    37    46   134    88    72   123     1 
+ 0.18  0.70  0.47  0.07  0.25  0.08  1.38 11.26  0.15  0.23  0.24  0.04 10.90 
+  147    51   120     9    18    28    54 
+ 0.06  0.03  0.11  1.68  2.98  5.05  0.32 
 > 
 > 
 > 
@@ -2126,6 +2179,27 @@ detaching ‘package:mclust’
 >   ncf2 <- ncoord(face,grface,weighted=TRUE)
 >   plot(ncf2$proj,col=grface)
 >   # ...done in one step by function plotcluster.
+> 
+> 
+> 
+> cleanEx()
+> nameEx("neginc")
+> ### * neginc
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: neginc
+> ### Title: Neg-entropy normality index for cluster validation
+> ### Aliases: neginc
+> ### Keywords: cluster
+> 
+> ### ** Examples
+> 
+>   options(digits=3)
+>   iriss <- as.matrix(iris[c(1:10,51:55,101:105),-5])
+>   irisc <- as.numeric(iris[c(1:10,51:55,101:105),5])
+>   neginc(iriss,irisc)
+[1] -2.92
 > 
 > 
 > 
@@ -2367,49 +2441,43 @@ Largest number of clusters better than cutoff:  2
 > 
 > ### ** Examples
 > 
-> set.seed(12234)
-> data(tonedata)
-> attach(tonedata)
-> rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
-Iteration  1  for  1  clusters.
-Iteration  1  for  2  clusters.
-> # nclust=1:2 makes the example fast;
-> # a more serious application would rather use the default.
-> rmt1$g
-  [1] 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 1 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2
- [38] 2 1 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 1 1 1 2 2 1 2 2 2 2 2 1 2 2 1 2 2 2 2 2
- [75] 2 2 2 1 1 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2
-[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 2
-[149] 2 1
-> round(rmt1$bic,digits=2)
-[1]   3.73 247.32
-> # start with initial parameter values
-> cln <- 3
-> n <- 150
-> initcoef <- cbind(c(2,0),c(0,1),c(0,2.5))
-> initvar <- c(0.001,0.0001,0.5)
-> initeps <- c(0.4,0.3,0.3)
-> # computation of m from initial parameters
-> m <- matrix(nrow=n, ncol=cln)
-> stm <- numeric(0)
-> for (i in 1:cln)
-+   for (j in 1:n){
-+     m[j,i] <- initeps[i]*dnorm(tuned[j],mean=initcoef[1,i]+
-+               initcoef[2,i]*stretchratio[j], sd=sqrt(initvar[i]))
-+   }
->   for (j in 1:n){
-+     stm[j] <- sum(m[j,])
-+     for (i in 1:cln)
-+       m[j,i] <- m[j,i]/stm[j]
-+   } 
-> rmt2 <- regem(stretchratio, tuned, m, cln)
+> ## Not run: 
+> ##D # This apparently gives slightly different
+> ##D # but data-analytically fine results
+> ##D # on some versions of R.
+> ##D set.seed(12234)
+> ##D data(tonedata)
+> ##D attach(tonedata)
+> ##D rmt1 <- regmix(stretchratio,tuned,nclust=1:2)
+> ##D # nclust=1:2 makes the example fast;
+> ##D # a more serious application would rather use the default.
+> ##D rmt1$g
+> ##D round(rmt1$bic,digits=2)
+> ##D # start with initial parameter values
+> ##D cln <- 3
+> ##D n <- 150
+> ##D initcoef <- cbind(c(2,0),c(0,1),c(0,2.5))
+> ##D initvar <- c(0.001,0.0001,0.5)
+> ##D initeps <- c(0.4,0.3,0.3)
+> ##D # computation of m from initial parameters
+> ##D m <- matrix(nrow=n, ncol=cln)
+> ##D stm <- numeric(0)
+> ##D for (i in 1:cln)
+> ##D   for (j in 1:n){
+> ##D     m[j,i] <- initeps[i]*dnorm(tuned[j],mean=initcoef[1,i]+
+> ##D               initcoef[2,i]*stretchratio[j], sd=sqrt(initvar[i]))
+> ##D   }
+> ##D   for (j in 1:n){
+> ##D     stm[j] <- sum(m[j,])
+> ##D     for (i in 1:cln)
+> ##D       m[j,i] <- m[j,i]/stm[j]
+> ##D   } 
+> ##D rmt2 <- regem(stretchratio, tuned, m, cln)
+> ## End(Not run)
 > 
 > 
 > 
 > cleanEx()
-
-detaching ‘tonedata’
-
 > nameEx("ridgeline")
 > ### * ridgeline
 > 
@@ -2570,7 +2638,7 @@ detaching ‘tonedata’
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.0.2
+Package 'mclust' version 5.4
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -2614,6 +2682,29 @@ detaching ‘package:MASS’, ‘package:mclust’
 > 
 > 
 > cleanEx()
+> nameEx("xtable")
+> ### * xtable
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: xtable
+> ### Title: Partition crosstable with empty clusters
+> ### Aliases: xtable
+> ### Keywords: array
+> 
+> ### ** Examples
+> 
+>   c1 <- 1:3
+>   c2 <- c(1,1,2)
+>   xtable(c1,c2,3)
+     [,1] [,2] [,3]
+[1,]    1    0    0
+[2,]    1    0    0
+[3,]    0    1    0
+> 
+> 
+> 
+> cleanEx()
 > nameEx("zmisclassification.matrix")
 > ### * zmisclassification.matrix
 > 
@@ -2644,7 +2735,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > ###
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.68 0.048 4.746 0 0 
+Time elapsed:  4.068 0.036 4.111 0 0 
 > grDevices::dev.off()
 null device 
           1 

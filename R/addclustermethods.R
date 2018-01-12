@@ -88,8 +88,8 @@ kmeansruns <- function(data,krange=2:10,criterion="ch",
                        scaledata=FALSE,alpha=0.001,
                        critout=FALSE,plot=FALSE,...){
   data <- as.matrix(data)
-  if (criterion=="asw") sdata <- dist(data)
   if (scaledata) data <- scale(data)
+  if (criterion=="asw") sdata <- dist(data)
   cluster1 <- 1 %in% krange
   crit <- numeric(max(krange))
   km <- list()
@@ -442,3 +442,4 @@ distcritmulti <- function(x,clustering,part=NULL,ns=10,criterion="asw",
   out <- list(crit.overall=aswav,crit.sub=asw,crit.sd=crit.sd,subsets=ss)
   out
 }
+

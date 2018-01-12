@@ -314,26 +314,28 @@ summary(tonefix)
 # This is designed to have a fast example; default setting would be better.
 # If you want to see more (and you have a bit more time),
 # try out the following:
-# set.seed(1000)
-# tonefix <- fixreg(stretchratio,tuned)
-## Default - good for these data
-# summary(tonefix)
-# plot(tonefix,stretchratio,tuned,1)
-# plot(tonefix,stretchratio,tuned,2)
-# plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
-# toneclus <- fpclusters(tonefix,stretchratio,tuned)
-# plot(stretchratio,tuned,col=1+toneclus[[2]])
-# tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
-## Every found fixed point cluster is reported,
-## no matter how instable it may be.
-# summary(tonefix2)
-# tonefix3 <- fixreg(stretchratio,tuned,ca=7)
-## ca defaults to 10.07 for these data.
-# summary(tonefix3)
-# subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
-# tonefix4 <- fixreg(stretchratio,tuned,
-#                    mtf=1,ir=0,init.group=list(subset))
-# summary(tonefix4)
+\dontrun{
+ set.seed(1000)
+ tonefix <- fixreg(stretchratio,tuned)
+# Default - good for these data
+ summary(tonefix)
+ plot(tonefix,stretchratio,tuned,1)
+ plot(tonefix,stretchratio,tuned,2)
+ plot(tonefix,stretchratio,tuned,3,bw=FALSE,pch=5) 
+ toneclus <- fpclusters(tonefix,stretchratio,tuned)
+ plot(stretchratio,tuned,col=1+toneclus[[2]])
+ tonefix2 <- fixreg(stretchratio,tuned,distcut=1,mtf=1,countmode=50)
+# Every found fixed point cluster is reported,
+# no matter how instable it may be.
+ summary(tonefix2)
+ tonefix3 <- fixreg(stretchratio,tuned,ca=7)
+# ca defaults to 10.07 for these data.
+ summary(tonefix3)
+ subset <- c(rep(FALSE,5),rep(TRUE,24),rep(FALSE,121))
+ tonefix4 <- fixreg(stretchratio,tuned,
+                    mtf=1,ir=0,init.group=list(subset))
+ summary(tonefix4)
+}
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{robust}% __ONLY ONE__ keyword per line

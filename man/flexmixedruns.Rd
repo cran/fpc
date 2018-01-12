@@ -88,7 +88,7 @@ flexmixedruns(x,diagonal=TRUE,xvarsorted=TRUE,
   General documentation on flexmix can be found in 
   Friedrich Leisch's "FlexMix: A General Framework for Finite Mixture
   Models and Latent Class Regression in R",
-  \url{http://cran.r-project.org/web/packages/flexmix/vignettes/flexmix-intro.pdf}
+  \url{https://CRAN.R-project.org/package=flexmix}
 }
  
 \value{

@@ -29,6 +29,9 @@ Press, New York.
   Hennig, C. (2010) Methods for merging Gaussian mixture components,
   \emph{Advances in Data Analysis and Classification}, 4, 3-34.
 }
+\note{
+  Thanks to David Pinto for improving this function.
+}
 \author{Christian Hennig
   \email{c.hennig@ucl.ac.uk}
   \url{http://www.homepages.ucl.ac.uk/~ucakche/}

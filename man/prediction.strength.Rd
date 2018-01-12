@@ -10,7 +10,10 @@
   choose as optimal number of cluster the largest number of clusters
   that leads to a prediction strength above 0.8 or 0.9. See details.
 
-  Various clustering methods can be used, see argument \code{clustermethod}. 
+  Various clustering methods can be used, see argument
+  \code{clustermethod}. In  Tibshirani and Walther (2005), only
+  classification to the nearest centroid is discussed, but more methods
+  are offered here, see argument \code{classification}.  
 }
 \usage{
   prediction.strength(xdata, Gmin=2, Gmax=10, M=50,
@@ -22,8 +25,7 @@
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{xdata}{data (something that can be coerced into a matrix). Note
-    that this can currently not be a dissimilarity matrix.}
+  \item{xdata}{data (something that can be coerced into a matrix).}
   \item{Gmin}{integer. Minimum number of clusters. Note that the
     prediction strength for 1 cluster is trivially 1, which is
     automatically included if \code{GMin>1}. Therefore \code{GMin<2} is
@@ -40,7 +42,8 @@
     and must otherwise follow the specifications in \code{\link{clusterboot}}.}
   \item{classification}{string.
     This determines how non-clustered points are classified to given
-    clusters. Options are explained in \code{\link{classifnp}}.
+    clusters. Options are explained in \code{\link{classifnp}} and
+    \code{\link{classifdist}}, the latter for dissimilarity data.
     Certain classification methods are connected to certain clustering
     methods. \code{classification="averagedist"} is recommended for
     average linkage, \code{classification="centroid"} is recommended for

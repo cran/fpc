@@ -9,7 +9,7 @@ clujaccard <- function(c1,c2,zerobyzero=NA){
 }
 
 
-noisemclustCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL,
+noisemclustCBI <- function(data, G=NULL, k=NULL, modelNames=NULL,
                            nnk=0, hcmodel = NULL,
                          Vinv = NULL, summary.out=FALSE, ...){
 #  require(mclust)
@@ -23,27 +23,27 @@ noisemclustCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL,
     if (!is.null(hcmodel)) 
       hcPairs <- hc(modelName = hcmodel, data = data)
     if (is.null(Vinv) & is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),...)
+      c1 <- mclustBIC(data, G, modelNames, initialization=list(noise=noise),...)
     if (!is.null(Vinv) & is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),
+      c1 <- mclustBIC(data, G, modelNames, initialization=list(noise=noise),
                       Vinv=Vinv,...)
     if (is.null(Vinv) & !is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames,
+      c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs, noise=noise),...)
     if (!is.null(Vinv) & !is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames,
+      c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs, noise=noise),
                       Vinv=Vinv,...)
   }
   else {
         if (!is.null(hcmodel)) {
             hcPairs <- hc(modelName = hcmodel, data = data)
-            c1 <- mclustBIC(data, G, emModelNames,
+            c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs),
                       Vinv=Vinv,...)           
         }
         else
-            c1 <- mclustBIC(data, G, emModelNames,
+            c1 <- mclustBIC(data, G, modelNames,
                       Vinv=Vinv,...)           
         noise <- rep(0, nrow(data))
   }
@@ -73,7 +73,7 @@ noisemclustCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL,
   out
 }
 
-distnoisemclustCBI <- function(dmatrix, G=NULL, k=NULL, emModelNames=NULL,
+distnoisemclustCBI <- function(dmatrix, G=NULL, k=NULL, modelNames=NULL,
                            nnk=0, hcmodel = NULL,
                          Vinv = NULL, mdsmethod="classical",
                             mdsdim=4, summary.out=FALSE,
@@ -98,27 +98,27 @@ distnoisemclustCBI <- function(dmatrix, G=NULL, k=NULL, emModelNames=NULL,
     if (!is.null(hcmodel)) 
       hcPairs <- hc(modelName = hcmodel, data = data)
     if (is.null(Vinv) & is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),...)
+      c1 <- mclustBIC(data, G, modelNames, initialization=list(noise=noise),...)
     if (!is.null(Vinv) & is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),
+      c1 <- mclustBIC(data, G, modelNames, initialization=list(noise=noise),
                       Vinv=Vinv,...)
     if (is.null(Vinv) & !is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames,
+      c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs, noise=noise),...)
     if (!is.null(Vinv) & !is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames,
+      c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs, noise=noise),
                       Vinv=Vinv,...)
   }
   else {
         if (!is.null(hcmodel)) {
             hcPairs <- hc(modelName = hcmodel, data = data)
-            c1 <- mclustBIC(data, G, emModelNames,
+            c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs),
                       Vinv=Vinv,...)           
         }
         else
-            c1 <- mclustBIC(data, G, emModelNames,
+            c1 <- mclustBIC(data, G, modelNames,
                       Vinv=Vinv,...)           
         noise <- rep(0, nrow(data))
   }
@@ -146,7 +146,7 @@ distnoisemclustCBI <- function(dmatrix, G=NULL, k=NULL, emModelNames=NULL,
   out
 }
 
-mergenormCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL, nnk=0,
+mergenormCBI <- function(data, G=NULL, k=NULL, modelNames=NULL, nnk=0,
                          hcmodel = NULL,
                          Vinv = NULL, mergemethod="bhat",
                          cutoff=0.1,...){
@@ -159,29 +159,29 @@ mergenormCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL, nnk=0,
     if (!is.null(hcmodel)) 
       hcPairs <- hc(modelName = hcmodel, data = data)
     if (is.null(Vinv) & is.null(hcmodel)){ 
-      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),...)
+      c1 <- mclustBIC(data, G, modelNames, initialization=list(noise=noise),...)
 #      print("mclust done")
     }
     if (!is.null(Vinv) & is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames, initialization=list(noise=noise),
+      c1 <- mclustBIC(data, G, modelNames, initialization=list(noise=noise),
                       Vinv=Vinv,...)
     if (is.null(Vinv) & !is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames,
+      c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs, noise=noise),...)
     if (!is.null(Vinv) & !is.null(hcmodel)) 
-      c1 <- mclustBIC(data, G, emModelNames,
+      c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs, noise=noise),
                       Vinv=Vinv,...)
   }
   else {
         if (!is.null(hcmodel)) {
             hcPairs <- hc(modelName = hcmodel, data = data)
-            c1 <- mclustBIC(data, G, emModelNames,
+            c1 <- mclustBIC(data, G, modelNames,
                       initialization=list(hcPairs=hcPairs),
                       Vinv=Vinv,...)           
         }
         else
-            c1 <- mclustBIC(data, G, emModelNames,
+            c1 <- mclustBIC(data, G, modelNames,
                       Vinv=Vinv,...)           
         noise <- rep(0, nrow(data))
   }
@@ -201,12 +201,14 @@ mergenormCBI <- function(data, G=NULL, k=NULL, emModelNames=NULL, nnk=0,
 #   }
   cl <- list()
   nc <- nccl <- max(jsc1$clustering)
-  if (sum(jsc1$clustering==0)>0)
+  if (sum(jsc1$clustering==0)>0){
     nc <- nc+1
-  for (i in 1:nccl)
+    renumcl[jsc1$clustering==0] <- nc
+  }
+  for (i in 1:nc)
     cl[[i]] <- renumcl == i
-  if (nc>nccl)
-    cl[[nc]] <- renumcl == 0
+# if (nc>nccl)
+#    cl[[nc]] <- renumcl == 0
   out <- list(result = jsc1, nc = nc, nccl = nccl, clusterlist = cl, 
         partition = renumcl, nnk = nnk, initnoise = as.logical(noise), 
         clustermethod = "mclust/mergenormals")
@@ -329,26 +331,26 @@ speccCBI <- function(data,k,...){
   out
 }
 
-# tclustCBI <- function(data,k,trim=0.05,...){
-#   if(require(tclust)){
-#     data <- as.matrix(data)
-#     c1 <- tclust(data,k=k,alpha=trim,...)
-#     sc1c <- c1$cluster
-#     cl <- list()
-#     nc <- nccl <- max(sc1c)
-#     if (sum(sc1c==0)>0){
-#       nc <- nccl+1
-#       sc1c[sc1c==0] <- nc
-#     }
-#     for (i in 1:nc)
-#       cl[[i]] <- sc1c == i
-#     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
-#               clustermethod="tclust")
-#     out
-#   }
-#   else
-#     warning("tclust could not be loaded")    
-# }
+tclustCBI <- function(data,k,trim=0.05,...){
+  if (requireNamespace("tclust", quietly = TRUE)) {
+    data <- as.matrix(data)
+    c1 <- tclust::tclust(data,k=k,alpha=trim,...)
+    sc1c <- c1$cluster
+    cl <- list()
+    nc <- nccl <- max(sc1c)
+    if (sum(sc1c==0)>0){
+      nc <- nccl+1
+      sc1c[sc1c==0] <- nc
+    }
+    for (i in 1:nc)
+      cl[[i]] <- sc1c == i
+    out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
+              clustermethod="tclust")
+    out
+  }
+  else
+    warning("tclust could not be loaded")    
+}
 
 trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
     c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
@@ -374,7 +376,7 @@ kmeansCBI <- function(data,krange,k=NULL,scaling=FALSE,runs=1,criterion="ch",...
   c1 <- kmeansruns(sdata,krange,runs=runs,criterion=criterion,...)
   partition <- c1$cluster
   cl <- list()
-  nc <- krange
+  nc <- c1$bestk
 #  print(nc)
 #  print(sc1)
   for (i in 1:nc)
@@ -443,6 +445,23 @@ mahalCBI <- function(data,clustercut=0.5,...){
   out
 }
 
+pdfclustCBI <- function(data,...){
+  if (requireNamespace("pdfCluster", quietly = TRUE)) {
+    c1 <- pdfCluster::pdfCluster(data,...)
+    sc1c <- c1@clusters
+    cl <- list()
+    nc <- nccl <- max(sc1c)
+    for (i in 1:nc)
+      cl[[i]] <- sc1c == i
+    out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=sc1c,
+              clustermethod="pdfCluster")
+    out
+  }
+  else
+    warning("pdfCluster could not be loaded")    
+}
+
+
 
 clusterboot <- function(data,B=100,
                         distances=(class(data)=="dist"),
@@ -453,7 +472,7 @@ clusterboot <- function(data,B=100,
                         clustermethod,noisemethod=FALSE,
                         count=TRUE,
                         showplots=FALSE,dissolution=0.5,
-                        recover=0.75,seed=NULL,...){
+                        recover=0.75,seed=NULL,datatomatrix=TRUE,...){
   sumlogic <- function(x,y,relation="eq")
     switch (relation,
           eq = sum(x==y, na.rm=TRUE),
@@ -464,12 +483,15 @@ clusterboot <- function(data,B=100,
 
   if (!is.null(seed)) set.seed(seed)
   invisible(distances)
-  data <- as.matrix(data)
-  if (distances & showplots) dpoints <- cmdscale(data)
+  if (datatomatrix)
+    data <- as.matrix(data)
+  if (distances & showplots & datatomatrix) dpoints <- cmdscale(data)
   n <- nrow(data)
   p <- ncol(data)
-  cod <- cov(data)
-  md <- colMeans(data)
+  if (datatomatrix & !distances){
+    cod <- cov(data)
+    md <- colMeans(data)
+  }
   lb <- length(bootmethod)
   c1 <- clustermethod(data,...)
 #  print(noisemethod)
@@ -483,6 +505,7 @@ clusterboot <- function(data,B=100,
   bootresult <- jitterresult <- noiseresult <-
     bojitresult <- subsetresult <- matrix(0,nrow=c1$nc,ncol=B)
   if (("jitter" %in% bootmethod) | ("bojit" %in% bootmethod)){
+    if (!datatomatrix | distances) stop("datatomatrix=FALSE and distances require boot or subset as bootmethod.")
     jsd <- numeric(0)
     ecd <- eigen(cod, symmetric=TRUE)
     ecd$values[ecd$values<0] <- 0
@@ -496,10 +519,11 @@ clusterboot <- function(data,B=100,
     }
   }
   if ("noise" %in% bootmethod){
+    if (!datatomatrix | distances) stop("datatomatrix=FALSE and distances require boot or subset as bootmethod.")
     ecd <- eigen(cod, symmetric=TRUE)
     ecd$values[ecd$values<0] <- 0
   }
-  if (showplots){
+  if (showplots & datatomatrix){
     if (distances)
       plot(dpoints,pch=sapply(c1$partition,toString),col=c1$partition)
     else 
@@ -555,7 +579,7 @@ clusterboot <- function(data,B=100,
 # print(mdata)
       bc1 <- clustermethod(mdata,...)
 # print("clustermethod done")
-      if (showplots){
+      if (showplots & datatomatrix){
         if (distances)
           plot(dpoints[bsamp,],pch=sapply(bc1$partition,toString),
                col=bc1$partition)
@@ -679,7 +703,7 @@ clusterboot <- function(data,B=100,
               bojitrecover=apply(bojitresult,1,sumlogic,y=recover,
                 relation="l")
   }
-  if (showplots){
+  if (showplots & datatomatrix){
     if (distances)
       plot(dpoints,pch=sapply(c1$partition,toString),col=c1$partition)
     else 
@@ -936,53 +960,57 @@ disthclusttreeCBI <- function(dmatrix,minlevel=2,method,...){
 }
 
 
-# clustering<0: to be predicted
-classifnp <- function(data,clustering,
-                      method="centroid",cdist=NULL,
-                      centroids=NULL,nnk=1){
-  data <- as.matrix(data)
-  k <- max(clustering)
-  p <- ncol(data)
-  n <- nrow(data)
-  topredict <- clustering<0
-  if(method=="averagedist"){
-    if(is.null(cdist))
-      cdist <- as.matrix(dist(data))
-    else
-      cdist <- as.matrix(cdist)
-    prmatrix <- matrix(0,ncol=k,nrow=sum(topredict))
-#    browser()
-    for (j in 1:k)
-      prmatrix[,j] <- rowMeans(as.matrix(cdist[topredict,clustering==j]))
-    clpred <- apply(prmatrix,1,which.min)
-    clustering[topredict] <- clpred
-  }
-  if(method=="centroid"){
-#    require(class)
-    if(is.null(centroids)){
-      centroids <- matrix(0,ncol=p,nrow=k)
-      for (j in 1:k)
-        centroids[j,] <- colMeans(as.matrix(data[clustering==j,]))
-#      browser()
+classifnp <- function (data, clustering, method = "centroid", cdist = NULL, 
+    centroids = NULL, nnk = 1) 
+{
+    data <- as.matrix(data)
+    k <- max(clustering)
+    p <- ncol(data)
+    n <- nrow(data)
+    topredict <- clustering < 0
+    if (method == "averagedist") {
+        if (is.null(cdist)) 
+            cdist <- as.matrix(dist(data))
+        else cdist <- as.matrix(cdist)
+        prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+        for (j in 1:k) prmatrix[, j] <- rowMeans(as.matrix(cdist[topredict, 
+            clustering == j]))
+        clpred <- apply(prmatrix, 1, which.min)
+        clustering[topredict] <- clpred
     }
-    clustering[topredict] <- knn1(centroids,data[topredict,],1:k)
-  }
-  if(method=="qda"){
-    qq <- try(qda(data[!topredict,],
-              grouping=as.factor(clustering[!topredict])),silent=TRUE)
-    if (identical(attr(qq,"class"),"try-error"))
-      qq <- lda(data[!topredict,],
-              grouping=as.factor(clustering[!topredict]))        
-    clustering[topredict] <- as.integer(predict(qq,data[topredict,])$class)
-  }
-  if(method=="knn")
-    clustering[topredict] <- as.integer(knn(data[!topredict,],
-                                            data[topredict,],
-                                            as.factor(clustering[!topredict]),
-                                            k=nnk))
-  clustering
+    if (method == "centroid") {
+        if (is.null(centroids)) {
+            centroids <- matrix(NA, ncol = p, nrow = k)
+            grvec <- numeric(0)
+            for (j in 1:k)
+              if (sum(clustering==j)>0){
+                   centroids[j, ] <- colMeans(as.matrix(data[clustering == j, ]))
+                   grvec <- c(grvec,j)
+              }
+        }
+        else
+          grvec <- 1:k
+#        print(centroids)
+        clustering[topredict] <- knn1(centroids[grvec,], data[topredict, 
+            ], grvec)
+    }
+    if (method == "qda") {
+        qq <- try(qda(data[!topredict, ], grouping = as.factor(clustering[!topredict])), 
+            silent = TRUE)
+        if (identical(attr(qq, "class"), "try-error")) 
+            qq <- lda(data[!topredict, ], grouping = as.factor(clustering[!topredict]))
+        clustering[topredict] <- as.integer(predict(qq, data[topredict, 
+            ])$class)
+    }
+    if (method == "knn") 
+        clustering[topredict] <- as.integer(knn(data[!topredict, 
+            ], data[topredict, ], as.factor(clustering[!topredict]), 
+            k = nnk))
+    clustering
 }
-    
+
+
+
 # method centroids doesn't allow centroids=NULL
 classifdist <- function(cdist,clustering,
                       method="averagedist",
@@ -1008,7 +1036,7 @@ classifdist <- function(cdist,clustering,
     }
     else{
       for(i in (1:n)[topredict]){
-        bestobs <- order(cdist[i,])[1:k]
+        bestobs <- order(cdist[i,])[1:nnk]
         clasum <- numeric(0)
         for (j in 1:k)
           clasum[j] <- sum(clustering[bestobs]==j)

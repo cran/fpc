@@ -36,7 +36,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
                         subtuning=floor(nrow(data)/2),
                         clustermethod,noisemethod=FALSE,count=TRUE,
                         showplots=FALSE,dissolution=0.5,
-                        recover=0.75,seed=NULL,...)
+                        recover=0.75,seed=NULL,datatomatrix=TRUE,...)
 
 \method{print}{clboot}(x,statistics=c("mean","dissolution","recovery"),...)
 
@@ -44,9 +44,12 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{data}{something that can be coerced into a matrix. The data
-    matrix - either an \code{n*p}-data matrix (or data frame) or an
-    \code{n*n}-dissimilarity matrix (or \code{dist}-object).}
+  \item{data}{by default something that can be coerced into a
+    (numerical) matrix (data frames with non-numerical data are allowed
+    when using \code{datatomatrix=FALSE}, see below). The data matrix -
+    either an \code{n*p}-data matrix (or data frame) or an
+    \code{n*n}-dissimilarity matrix (or
+    \code{dist}-object).}
   \item{B}{integer. Number of resampling runs for each scheme, see
     \code{bootmethod}.}
   \item{distances}{logical. If \code{TRUE}, the data is interpreted as
@@ -76,7 +79,8 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       noise to the points, see \code{jittertuning}.
       
     \strong{Important:} only the methods \code{"boot"} and
-    \code{"subset"} work with dissimilarity data!
+    \code{"subset"} work with dissimilarity data, or if
+    \code{datatomatrix=FALSE}!
 
     The results in Hennig (2007) indicate that \code{"boot"} is
     generally informative and often quite similar to \code{"subset"} and
@@ -122,12 +126,12 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
     interface functions and guidelines how to write your own ones. 
   }
   \item{noisemethod}{logical. If \code{TRUE}, the last cluster is
-    regarded as "noise component", which means that for computing the Jaccard
-    similarity, it is not treated as a cluster. The noise component of
-    the original clustering is only compared with the noise component of
+    regarded as "noise cluster", which means that for computing the Jaccard
+    similarity, it is not treated as a cluster. The noise cluster of
+    the original clustering is only compared with the noise cluster of
     the clustering of the resampled data. This means that in the
     \code{clusterboot}-output (and plot), if points were assigned to the
-    noise component, the last cluster number refers to it, and its
+    noise cluster, the last cluster number refers to it, and its
     Jaccard similarity values refer to comparisons with estimated noise
     components in resampled datasets only.
     (Some cluster methods such as
@@ -138,7 +142,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   \item{showplots}{logical. If \code{TRUE}, a plot of the first two
     dimensions of the resampled data set (or the classical MDS solution
     for dissimilarity data) is shown for every resampling run. The last
-    plot shows the original data set.}
+    plot shows the original data set. Ignored if \code{datatomatrix=FALSE}.}
   \item{dissolution}{numeric between 0 and 1. If the Jaccard similarity
     between the resampling version of the original cluster and the most
     similar cluster on the resampled data is smaller or equal to this
@@ -152,6 +156,13 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   \item{seed}{integer. Seed for random generator (fed into
     \code{set.seed}) to make results reproducible. If \code{NULL},
     results depend on chance.}
+  \item{datatomatrix}{logical. If \code{TRUE}, \code{data} is coerced
+    into a (numerical) matrix at the start of
+    \code{clusterboot}. \code{FALSE} may be chosen for mixed type data
+    including e.g. categorical factors (assuming that the chosen
+    \code{clustermethod} allows for this). This disables some features
+    of \code{clusterboot}, see parameters \code{bootmethod} and
+    \code{showplots}.}  
   \item{...}{additional parameters for the clustermethods called by
     \code{clusterboot}. No effect in \code{print.clboot} and
     \code{plot.clboot}.}
@@ -202,7 +213,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 	cases*variables matrix as input.}
       \item{hclustCBI}{an interface to the function
 	\code{hclust} for agglomerative hierarchical clustering with
-	optional noise component. This
+	optional noise cluster. This
 	function produces a partition and assumes a cases*variables
 	matrix as input.}
       \item{hclusttreeCBI}{an interface to the function
@@ -212,7 +223,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 	matrix as input.}
       \item{disthclustCBI}{an interface to the function
 	\code{hclust} for agglomerative hierarchical clustering with
-	optional noise component. This
+	optional noise cluster. This
 	function produces a partition and assumes a dissimilarity
 	matrix as input.}
       \item{noisemclustCBI}{an interface to the function
@@ -266,8 +277,10 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       \code{\link[kernlab]{specc}} for spectral clustering.}
     }
     You can write your own interface function. The first argument of an
-    interface function should always be a data matrix (of class
-    "matrix", but it may be a symmetrical dissimilarity matrix). Further
+    interface function should preferably be a data matrix (of class
+    "matrix", but it may be a symmetrical dissimilarity matrix). It can
+    be a data frame, but this restricts some of the functionality of
+    \code{clusterboot}, see above. Further
     arguments can be tuning constants for the clustering method. The
     output of an interface function should be a list containing (at
     least) the following components:
@@ -277,22 +290,23 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
 	matter); whatever you want to use later.}
       \item{nc}{number of clusters. If some points don't belong to any
 	cluster but are declared as "noise", \code{nc} includes the
-	noise component, and there should be another component
+	noise cluster, and there should be another component
 	\code{nccl}, being the number of clusters not including the
-	noise component (note that it is not mandatory to define a noise
+	noise cluster (note that it is not mandatory to define a noise
 	component if not all points are assigned to clusters, but if you
-	do it, the stability of the noise component is assessed as
+	do it, the stability of the noise cluster is assessed as
 	well.)}
       \item{clusterlist}{this is a list consisting of a logical vectors
 	of length of the number of data points (\code{n}) for each cluster,
 	indicating whether a point is a member of this cluster
-	(\code{TRUE}) or not. If a noise component is included, it
+	(\code{TRUE}) or not. If a noise cluster is included, it
 	should always be the last vector in this list.}
       \item{partition}{an integer vector of length \code{n},
 	partitioning the data. If the method produces a partition, it
 	should be the clustering. This component is only used for plots,
 	so you could do something like \code{rep(1,n)} for
-	non-partitioning methods.}
+	non-partitioning methods. If a noise cluster is included,
+        \code{nc=nccl+1} and the noise cluster is cluster no. \code{nc}.}
       \item{clustermethod}{a string indicating the clustering method.}
     }      
   
@@ -367,6 +381,12 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
           "subset",clustermethod=disthclustCBI,
           k=5, cut="number", method="average", showplots=TRUE, seed=15555)
   print(cf2)
+  d1 <- c("a","b","a","c")
+  d2 <- c("a","a","a","b")
+  dx <- as.data.frame(cbind(d1,d2))
+  cpx <- clusterboot(dx,k=2,B=10,clustermethod=claraCBI,
+          multipleboot=TRUE,usepam=TRUE,datatomatrix=FALSE)
+  print(cpx)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

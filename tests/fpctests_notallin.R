@@ -84,7 +84,7 @@ summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
 summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
 # summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
 # summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
-summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))
+# summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))
 
 set.seed(20000)
 x1 <- rnorm(50)

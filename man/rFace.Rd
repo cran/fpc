@@ -4,6 +4,7 @@
 \title{"Face-shaped" clustered benchmark datasets}
 \description{
   Generates "face-shaped" clustered benchmark datasets.
+  This is based on a collaboration with Martin Maechler.
 }
 \usage{
 rFace(n, p = 6, nrep.top = 2, smile.coef = 0.6, dMoNo = 1.2, dNoEy = 1)
@@ -51,9 +52,7 @@ rFace(n, p = 6, nrep.top = 2, smile.coef = 0.6, dMoNo = 1.2, dNoEy = 1)
     belonging to the six groups.}
 }
 
-\author{Martin Maechler
-  \email{maechler@stat.math.ethz.ch}
-  \url{http://stat.ethz.ch/~maechler/}
+\author{
   
   Christian Hennig
   \email{c.hennig@ucl.ac.uk}
