@@ -1,6 +1,6 @@
 Package: fpc
 Title: Flexible Procedures for Clustering
-Version: 2.1-11
+Version: 2.1-11.1
 Date: 2018-01-05
 Author: Christian Hennig <c.hennig@ucl.ac.uk>
 Depends: R (>= 2.0)
@@ -23,10 +23,13 @@ Description: Various methods for clustering and cluster validation.
   clustering methods implemented in R, including estimating the number of
   clusters with kmeans, pam and clara. Modality diagnosis for Gaussian
   mixtures. For an overview see package?fpc.
-Maintainer: Christian Hennig <c.hennig@ucl.ac.uk>
+Maintainer: ORPHANED
 License: GPL
 URL: http://www.homepages.ucl.ac.uk/~ucakche/
 NeedsCompilation: no
-Packaged: 2018-01-11 22:06:47 UTC; chrish
+Packaged: 2018-07-20 09:19:29 UTC; hornik
 Repository: CRAN
-Date/Publication: 2018-01-13 00:18:28 UTC
+Date/Publication: 2018-07-20 12:43:31 UTC
+X-CRAN-Original-Maintainer: Christian Hennig <c.hennig@ucl.ac.uk>
+X-CRAN-Comment: Orphaned and corrected on 2018-07-20 as check problems
+        were not corrected despite reminders.

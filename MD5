@@ -1,4 +1,4 @@
-d506cadd27e2908cfb0ac2a3bdfcb167 *DESCRIPTION
+f409842f0610d6da02ced0574f99ba50 *DESCRIPTION
 dac1f66b7dfdbef6a4b4ab3b5bc5cf17 *NAMESPACE
 18b968a3e5276f63ea306ef326c71f79 *R/addclustermethods.R
 148f346f96f3607e9dc3c1c04af3d939 *R/clusterboot.R
@@ -6,7 +6,7 @@ dac1f66b7dfdbef6a4b4ab3b5bc5cf17 *NAMESPACE
 742e9a99e68a078688ab046eba68e97b *R/dbscan.R
 b7c01634910fd6957ef94642398dc4d7 *R/discrproj.R
 d85447226e4ac2c17ce73fc907193176 *R/discrproj2.R
-dcec4b33cef48ead86771938d227a53d *R/fixreg.R
+3c202a2edec373eba19e01c6790c5eef *R/fixreg.R
 0ab94f68945472325cad0b9691e961be *R/fpc.R
 7a96d820680dd545dcbc1f65876a0330 *R/lcmixed.R
 9a31672e2d1b0eaa383861dd2b630b23 *R/localshape.R
