@@ -1,4 +1,4 @@
-f409842f0610d6da02ced0574f99ba50 *DESCRIPTION
+8afdd60796e7beaca6709882963cd444 *DESCRIPTION
 dac1f66b7dfdbef6a4b4ab3b5bc5cf17 *NAMESPACE
 18b968a3e5276f63ea306ef326c71f79 *R/addclustermethods.R
 148f346f96f3607e9dc3c1c04af3d939 *R/clusterboot.R
@@ -93,6 +93,6 @@ cb3dfde046b5ef0896019cc3f9969e04 *man/unimodal.ind.Rd
 9ab2ff14cb9f9ff845b4c1f56d9a70cc *man/wfu.Rd
 100a773842f2dd66b28dfb8458b065dc *man/xtable.Rd
 b66520b77ef271c4a41254d2aaaeee9d *man/zmisclassification.matrix.Rd
-e9ddc75486399cbe860dffddd6d10e9f *tests/Examples/fpc-Ex.Rout.save
+ab7d88441bce75c31b2815eb1cc5842e *tests/Examples/fpc-Ex.Rout.save
 6450fb305c7985445460721aa73fc380 *tests/fpctests_notallin.R
 8153de7b3f0a43c1b59a7282df1dbcea *tests/fpctests_notallin.Rout
