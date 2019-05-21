@@ -56,8 +56,8 @@ findrep(x,xcen,clustering,cluster,r,p=ncol(x),n=nrow(x),
 }
 
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
   options(digits=3)

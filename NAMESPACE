@@ -14,15 +14,14 @@ import(
   class,
   diptest,
   mvtnorm,
-  robustbase,
-  trimcluster
+  robustbase
 )
 
 importFrom("kernlab",specc)
 
 importFrom("grDevices", "colors", "colours", "grey", "xy.coords")
 importFrom("graphics", "abline", "hist", "legend", "pairs", "par",
-             "points", "polygon", "title")
+             "points", "polygon", "title","axis","text")
 importFrom("methods", "new")
 importFrom("stats", "BIC", "addmargins", "as.dist", "cmdscale", "coef",
              "coefficients", "cor", "cov", "cov.wt", "cutree", "density",
@@ -30,9 +29,9 @@ importFrom("stats", "BIC", "addmargins", "as.dist", "cmdscale", "coef",
              "lsfit", "mahalanobis", "median", "pchisq", "pnorm",
              "qbinom", "qchisq", "qnorm", "quantile", "rbinom", "resid",
               "residuals", "rexp", "rgamma", "rnorm", "rt", "runif", "sd",
-             "weighted.mean")
+             "weighted.mean","ecdf","pgamma")
 importFrom("utils", "data")
-
+importFrom("parallel", "mclapply", "detectCores")
 
 S3method(fpclusters, mfpc)
 S3method(fpclusters, rfpc)
@@ -40,6 +39,7 @@ S3method(plot, clboot)
 S3method(plot, dbscan)
 S3method(plot, mfpc)
 S3method(plot, rfpc)
+S3method(plot, valstat)
 S3method(predict, dbscan)
 S3method(print, clboot)
 S3method(print, dbscan)
@@ -49,10 +49,14 @@ S3method(print, rfpc)
 S3method(print, summary.mergenorm)
 S3method(print, summary.mfpc)
 S3method(print, summary.rfpc)
+S3method(print, summary.cquality)
 S3method(print, varwisetables)
+S3method(print, clusterbenchstats)
+S3method(print, valstat)
 S3method(summary, mergenorm)
 S3method(summary, mfpc)
 S3method(summary, rfpc)
+S3method(summary, cquality)
 
 
          

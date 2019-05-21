@@ -1,6 +1,6 @@
 
-R version 3.4.3 (2017-11-30) -- "Kite-Eating Tree"
-Copyright (C) 2017 The R Foundation for Statistical Computing
+R Under development (unstable) (2019-05-19 r76539) -- "Unsuffered Consequences"
+Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 5.4
+Package 'mclust' version 5.4.3
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -206,7 +206,7 @@ Number of points (rounded weights) in intersection of representative FPCs
 +                     control=list(minprior=0.1),
 +                     n.cluster=3,allout=FALSE)
 k=  3  new best fit found in run  1 
-k=  3  BIC=  1300 
+k=  3  BIC=  1299 
 > print(fr$optsummary)
 
 Call:
@@ -215,12 +215,12 @@ flexmix(formula = x ~ 1, k = k, cluster = initial.cluster, model = lcmixed(conti
     control = control)
 
        prior size post>0 ratio
-Comp.1 0.427   43     79 0.544
-Comp.2 0.273   25     64 0.391
-Comp.3 0.300   32     78 0.410
+Comp.1 0.204   23     61 0.377
+Comp.2 0.284   30     71 0.423
+Comp.3 0.512   47     77 0.610
 
 'log Lik.' -569 (df=35)
-AIC: 1209   BIC: 1300 
+AIC: 1208   BIC: 1299 
 
 > 
 > dface <- dist(face50)
@@ -948,7 +948,7 @@ $clustermethod
 > 
 > noisemclustCBI(face50,G=1:5,emModelNames="VVV",nnk=2)
 $result
-Bayesian Information Criterion (BIC):
+Bayesian Information Criterion (BIC): 
    EII  VII  EEI  VEI  EVI  VVI  EEE  EVE  VEE  VVE  EEV  VEV  EVV  VVV
 1 -521 -521 -506 -506 -506 -506 -525 -525 -525 -525 -525 -525 -525 -525
 2 -498 -501 -501 -477 -464 -466 -505 -467 -481 -470 -467 -470 -470 -473
@@ -956,7 +956,7 @@ Bayesian Information Criterion (BIC):
 4 -449 -448 -485 -449 -445 -449 -488 -439 -452 -452 -486 -482 -444 -455
 5 -456 -452 -456 -454 -444 -458 -460 -448 -458 -462 -451 -485 -456 -469
 
-Top 3 models based on the BIC criterion:
+Top 3 models based on the BIC criterion: 
 EVE,4 EVV,4 EVI,5 
  -439  -444  -444 
 
@@ -1025,11 +1025,11 @@ $clustermethod
 +                         mdsmethod="classical",
 +                         mdsdim=2)
 $result
-Bayesian Information Criterion (BIC):
+Bayesian Information Criterion (BIC): 
    EII VII  EEI VEI EVI VVI  EEE EVE VEE VVE  EEV VEV EVV VVV
 5 -461  NA -496  NA  NA  NA -500  NA  NA  NA -496  NA  NA  NA
 
-Top 3 models based on the BIC criterion:
+Top 3 models based on the BIC criterion: 
 EII,5 EEI,5 EEV,5 
  -461  -496  -496 
 
@@ -1167,11 +1167,11 @@ Number of resampling runs:  2
 Number of clusters found in data:  6 
 
  Clusterwise Jaccard bootstrap (omitting multiple points) mean:
-[1] 0.403 0.750 1.000 0.417 0.825 1.000
+[1] 0.971 0.750 0.525 0.532 0.929 0.503
 dissolved:
-[1] 2 1 0 2 0 0
+[1] 0 0 1 1 0 1
 recovered:
-[1] 0 1 2 0 1 2
+[1] 2 1 0 1 2 0
 > # suppressWarnings(if(require(tclust))
 > # print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
 > 
@@ -1312,14 +1312,14 @@ NULL
  Number of clusters after merging:  1 
  Values at which clusters were merged: 
      [,1]  [,2]
-[1,]    8 0.804
+[1,]    8 0.828
 [2,]    7 1.000
 [3,]    6 1.000
-[4,]    5 1.000
-[5,]    4 0.881
-[6,]    3 0.948
-[7,]    2 0.739
-[8,]    1 0.700
+[4,]    5 0.888
+[5,]    4 1.000
+[6,]    3 1.000
+[7,]    2 0.784
+[8,]    1 0.845
  Components assigned to clusters: 
       [,1]
  [1,]    0
@@ -1371,9 +1371,9 @@ Prediction strength
 Clustering method:  mclustBIC 
 Maximum number of clusters:  4 
 Resampled data sets:  10 
-Mean pred.str. for numbers of clusters:  1 0.891 0.791 0.484 
+Mean pred.str. for numbers of clusters:  1 0.815 0.874 0.591 
 Cutoff value:  0.8 
-Largest number of clusters better than cutoff:  2 
+Largest number of clusters better than cutoff:  3 
 > 
 > prediction.strength(dist(x0),M=10,Gmax=4,
 +                            clustermethod=claraCBI,
@@ -1386,6 +1386,170 @@ Mean pred.str. for numbers of clusters:  1 0 0 0
 Cutoff value:  0.8 
 Largest number of clusters better than cutoff:  1 
 > 
+> 
+> set.seed(20000)
+> xdata <- c(rnorm(10,0,1),rnorm(10,8,1))
+> clustermethod=c("claraCBI","dbscanCBI")
+> 
+> clustermethodpars <- list()
+> clustermethodpars[[1]] <- clustermethodpars[[2]] <- list()
+> clustermethodpars[[2]]$eps <- 2
+> clustermethodpars[[2]]$MinPts <- 2
+> cbs <-  clusterbenchstats(xdata,G=3,clustermethod=clustermethod,
++     distmethod=rep(TRUE,2),ncinput=c(TRUE,FALSE),scaling=FALSE,
++     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,useallg=TRUE)
+[1] "claraCBI"
+[1] "dbscanCBI"
+[1] "Computation of validity statistics"
+[1] "Simulation"
+3  clusters; nn run  1 
+3  clusters; nn run  2 
+3  clusters; km run  1 
+3  clusters; km run  2 
+[1] "Simulation quantile re-standardisation"
+[1] "Simulation sd re-standardisation"
+> 
+> print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
+avewithin 
+     method     2    3
+1  claraCBI    NA 0.54
+2 dbscanCBI 0.064   NA
+mnnd 
+     method    2    3
+1  claraCBI   NA 0.51
+2 dbscanCBI 0.67   NA
+cvnnd 
+     method   2   3
+1  claraCBI  NA 1.5
+2 dbscanCBI 1.4  NA
+maxdiameter 
+     method    2    3
+1  claraCBI   NA 0.52
+2 dbscanCBI 0.42   NA
+widestgap 
+     method    2    3
+1  claraCBI   NA 0.45
+2 dbscanCBI 0.45   NA
+sindex 
+     method   2     3
+1  claraCBI  NA 0.029
+2 dbscanCBI 5.6    NA
+minsep 
+     method  2    3
+1  claraCBI NA -1.3
+2 dbscanCBI 18   NA
+asw 
+     method   2    3
+1  claraCBI  NA 0.47
+2 dbscanCBI 1.2   NA
+dindex 
+     method    2   3
+1  claraCBI   NA 1.2
+2 dbscanCBI -1.6  NA
+denscut 
+     method    2    3
+1  claraCBI   NA -1.8
+2 dbscanCBI 0.45   NA
+highdgap 
+     method   2    3
+1  claraCBI  NA 0.59
+2 dbscanCBI 0.4   NA
+pearsongamma 
+     method   2    3
+1  claraCBI  NA 0.41
+2 dbscanCBI 1.7   NA
+withinss 
+     method    2   3
+1  claraCBI   NA 0.5
+2 dbscanCBI 0.31  NA
+entropy 
+     method   2    3
+1  claraCBI  NA 0.71
+2 dbscanCBI 1.4   NA
+pamc 
+     method      2    3
+1  claraCBI     NA 0.67
+2 dbscanCBI -0.024   NA
+dmode 
+     method    2   3
+1  claraCBI   NA 1.1
+2 dbscanCBI -1.1  NA
+aggregate 
+     method   2    3
+1  claraCBI  NA 0.13
+2 dbscanCBI 1.2   NA
+> print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
+avewithin 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.33   NA
+mnnd 
+     method    2    3
+1  claraCBI   NA 0.67
+2 dbscanCBI 0.83   NA
+cvnnd 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.83   NA
+maxdiameter 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.33   NA
+widestgap 
+     method    2    3
+1  claraCBI   NA 0.33
+2 dbscanCBI 0.33   NA
+sindex 
+     method  2    3
+1  claraCBI NA 0.33
+2 dbscanCBI  1   NA
+minsep 
+     method  2    3
+1  claraCBI NA 0.17
+2 dbscanCBI  1   NA
+asw 
+     method  2    3
+1  claraCBI NA 0.67
+2 dbscanCBI  1   NA
+dindex 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.17   NA
+denscut 
+     method    2    3
+1  claraCBI   NA 0.17
+2 dbscanCBI 0.33   NA
+highdgap 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.33   NA
+pearsongamma 
+     method  2   3
+1  claraCBI NA 0.5
+2 dbscanCBI  1  NA
+withinss 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.33   NA
+entropy 
+     method  2    3
+1  claraCBI NA 0.67
+2 dbscanCBI  1   NA
+pamc 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.33   NA
+dmode 
+     method    2    3
+1  claraCBI   NA 0.83
+2 dbscanCBI 0.21   NA
+aggregate 
+     method    2    3
+1  claraCBI   NA 0.58
+2 dbscanCBI 0.53   NA
+> 
+> 
+> 
 > proc.time()
    user  system elapsed 
-  3.660   0.044   3.703 
+  5.909   0.039   5.947 

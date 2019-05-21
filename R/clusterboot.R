@@ -352,20 +352,20 @@ tclustCBI <- function(data,k,trim=0.05,...){
     warning("tclust could not be loaded")    
 }
 
-trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
-    c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
-    partition <- c1$classification
-    cl <- list()
-    nc <- k+1
-    nccl <- k
-#  print(nc)
-#  print(sc1)
-    for (i in 1:nc)
-      cl[[i]] <- partition==i
-    out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
-              nccl=nccl,clustermethod="trimkmeans")
-    out      
-}
+# trimkmeansCBI <- function(data,k,scaling=TRUE,trim=0.1,...){
+#     c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
+#     partition <- c1$classification
+#     cl <- list()
+#     nc <- k+1
+#     nccl <- k
+# #  print(nc)
+# #  print(sc1)
+#     for (i in 1:nc)
+#       cl[[i]] <- partition==i
+#     out <- list(result=c1,nc=nc,clusterlist=cl,partition=partition,
+#               nccl=nccl,clustermethod="trimkmeans")
+#     out      
+# }
 
 kmeansCBI <- function(data,krange,k=NULL,scaling=FALSE,runs=1,criterion="ch",...){
   if (!is.null(k)) krange <- k
@@ -461,6 +461,36 @@ pdfclustCBI <- function(data,...){
     warning("pdfCluster could not be loaded")    
 }
 
+# distr could also be mvt, msn, mst
+emskewCBI <- function(data,k,distr="mst",repeats=100,...){
+  if (requireNamespace("EMMIXskew", quietly = TRUE)) {
+    if (!exists("distr")) distr="mvn" 
+    attempt <- 1
+    repeat{
+      c1 <- EMMIXskew::EmSkew(data,g=k,distr=distr,...)
+      if (!is.null(c1)){
+        if (max(c1$clust)==k)
+          break
+      }
+      attempt <- attempt+1
+      if(attempt>repeats){
+        cat("EmSkew failed after ",repeats," repetitions.")
+        break
+      }
+      if(debug) print("Repeat EmSkew exection")    
+    }
+    partition <- c1$clust
+    nc <- max(partition)
+    cl <- list()
+    for (i in 1:nc) cl[[i]] <- partition == i
+    out <- list(result = c1, nc = nc, clusterlist = cl, partition = partition, 
+          clustermethod = paste("emskew_",distr,sep=""))
+    out
+  }
+  else
+    warning("EMMIXskew could not be loaded")    
+}
+
 
 
 clusterboot <- function(data,B=100,
@@ -493,7 +523,10 @@ clusterboot <- function(data,B=100,
     md <- colMeans(data)
   }
   lb <- length(bootmethod)
-  c1 <- clustermethod(data,...)
+  if (distances)
+    c1 <- clustermethod(as.dist(data),...)
+  else
+    c1 <- clustermethod(data,...)
 #  print(noisemethod)
 #  print(str(c1))
   if (noisemethod){
@@ -576,8 +609,11 @@ clusterboot <- function(data,B=100,
         mdata[noiseind,] <- jnoise
         bsamp <- (1:n)[!noiseind]
       }
-# print(mdata)
-      bc1 <- clustermethod(mdata,...)
+      # print(mdata)
+      if ("diss" %in% names(formals(clustermethod)) & distances)
+        bc1 <- clustermethod(mdata,diss=TRUE,...)
+      else
+        bc1 <- clustermethod(mdata,...)
 # print("clustermethod done")
       if (showplots & datatomatrix){
         if (distances)
@@ -865,32 +901,32 @@ plot.clboot <- function(x,xlim=c(0,1),breaks=seq(0,1,by=0.05),...){
   
 
 
-disttrimkmeansCBI <- function(dmatrix,k,scaling=TRUE,trim=0.1,
-                           mdsmethod="classical",
-                            mdsdim=4,...){
-    dmatrix <- as.matrix(dmatrix)
-    n <- ncol(dmatrix)
-  #  require(MASS)
-    if (mdsmethod != "classical") {
-      mindm <- min(dmatrix[dmatrix > 0])/10
-      dmatrix[dmatrix<mindm] <- mindm 
-    }
-    data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
-          kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
-                  sammon(dmatrix, k = mdsdim)$points)
-    c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
-    partition <- c1$classification
-    cl <- list()
-    nccl <- k
-    nc <- k+1
-  #  print(nc)
-  #  print(sc1)
-    for (i in 1:nc)
-      cl[[i]] <- partition==i
-    out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=partition,
-                clustermethod="trimkmeans plus MDS")
-    out
-}
+# disttrimkmeansCBI <- function(dmatrix,k,scaling=TRUE,trim=0.1,
+#                            mdsmethod="classical",
+#                             mdsdim=4,...){
+#     dmatrix <- as.matrix(dmatrix)
+#     n <- ncol(dmatrix)
+#   #  require(MASS)
+#     if (mdsmethod != "classical") {
+#       mindm <- min(dmatrix[dmatrix > 0])/10
+#       dmatrix[dmatrix<mindm] <- mindm 
+#     }
+#     data <- switch(mdsmethod, classical = cmdscale(dmatrix, k = mdsdim), 
+#           kruskal = isoMDS(dmatrix, k = mdsdim)$points, sammon =
+#                   sammon(dmatrix, k = mdsdim)$points)
+#     c1 <- trimkmeans(data,k=k,scaling=scaling,trim=trim,...)
+#     partition <- c1$classification
+#     cl <- list()
+#     nccl <- k
+#     nc <- k+1
+#   #  print(nc)
+#   #  print(sc1)
+#     for (i in 1:nc)
+#       cl[[i]] <- partition==i
+#     out <- list(result=c1,nc=nc,nccl=nccl,clusterlist=cl,partition=partition,
+#                 clustermethod="trimkmeans plus MDS")
+#     out
+# }
 
 
 disthclustCBI <- function(dmatrix,k,cut="number",method,noisecut=0,...){
@@ -1026,6 +1062,9 @@ classifdist <- function(cdist,clustering,
     clpred <- apply(prmatrix,1,which.min)
     clustering[topredict] <- clpred
   }
+# print("centroids&cdist")
+# print(centroids)
+#  print(cdist[topredict,centroids,drop=FALSE])
   if(method=="centroid")
     clustering[topredict] <- apply(cdist[topredict,centroids,drop=FALSE],1,which.min)
   if(method=="knn"){
@@ -1077,13 +1116,24 @@ nselectboot <- function (data, B = 50, distances = inherits(data, "dist"), clust
                 dmat2 <- data[d2, ]
             }
 #            print("start clustermethod")
-            clm1 <- clustermethod(dmat1, k = k, ...)
+#           if ("diss" %in% names(formals(clustermethod)) & distances){
+            if (distances){
+              clm1 <- clustermethod(as.dist(dmat1), k = k, diss=TRUE, ...)
+              clm2 <- clustermethod(as.dist(dmat2), k = k, diss=TRUE, ...)
+            }
+            else{
+              clm1 <- clustermethod(dmat1, k = k, ...)
 #            cl1 <- clm1$partition
 #            print("done 1")
-            clm2 <- clustermethod(dmat2, k = k, ...)
-#            cl2 <- clm2$partition
+              clm2 <- clustermethod(dmat2, k = k, ...)
+            }
+            cl2 <- clm2$partition
 #            print("done 2")
             cj1 <- cj2 <- rep(-1, n)
+#            print(d1)            
+#            print(clm1$partition)            
+#            print(d2)            
+#            print(clm2$partition)            
             cj1[d1] <- clm1$partition
             cj2[d2] <- clm2$partition
 #            browser()

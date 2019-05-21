@@ -83,8 +83,8 @@ pamk(data,krange=2:10,criterion="asw", usepam=TRUE,
     if 1 is in \code{krange} and \code{diss=FALSE}.}
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \references{
   Calinski, R. B., and Harabasz, J. (1974) A Dendrite Method for Cluster 

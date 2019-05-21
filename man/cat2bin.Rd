@@ -33,8 +33,8 @@
 }
 
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en}}
 
 \seealso{\code{\link{discrete.recode}}}
 
@@ -44,7 +44,7 @@
   v2 <- rnorm(20)
   d1 <- sample(1:5,20,replace=TRUE)
   d2 <- sample(1:4,20,replace=TRUE)
-  ldata <- cbind(v1,v2,d1,d2)
+  ldata <-cbind(v1,v2,d1,d2)
   lc <- cat2bin(ldata,categorical=3:4)
 }
 

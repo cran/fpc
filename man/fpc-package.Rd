@@ -31,7 +31,11 @@
       characterising
       measures such as average between cluster and within cluster
       dissimilarity and separation. See also \code{\link{calinhara}},
-      \code{\link{dudahart2}} for specific indexes.}
+      \code{\link{dudahart2}} for specific indexes, and a new version
+      \code{\link{cqcluster.stats}} that computes some more indexes and
+      statistics used for computing them. There's also
+      \code{\link{distrsimilarity}}, which computes within-cluster
+      dissimilarity to the Gaussian and uniform distribution.}
     \item{prediction.strength}{Estimates the number of clusters by
       computing the prediction strength of a
       clustering of a dataset into different numbers of components for
@@ -43,7 +47,17 @@
     \item{nselectboot}{Estimates the number of clusters by bootstrap
       stability selection, see Fang and Wang (2012). This is quite
       flexible regarding clustering methods and point classification
-      schemes and also allows for dissimilarity data.} 
+      schemes and also allows for dissimilarity data.}
+    \item{clusterbenchstats}{This runs many clustering methods (to be
+      specifed by the user) with many numbers of clusters on a dataset
+      and produces standardised and comparable versions of many cluster
+      validity indexes (see Hennig 2017). This is done by means of
+      producing random clusterings on the given data, see
+      \code{\link{stupidkcentroids}} and \code{\link{stupidknn}}. It
+      allows to compare many 
+      clusterings based on many different potential desirable features
+      of a clustering. \code{\link{print.valstat}} allows to compute an
+      aggregated index with user-specified weights.}
     }}
 \section{Cluster visualisation and validation}{
   \describe{
@@ -117,7 +131,7 @@ Hennig, C. (2003) Clusters, outliers and regression:
    Hennig, C. (2005) Fuzzy and Crisp Mahalanobis Fixed Point Clusters,
   in Baier, D., Decker, R., and Schmidt-Thieme, L. (eds.):
   \emph{Data Analysis and Decision Support}. Springer, Heidelberg,
-  47-56, \url{http://www.homepages.ucl.ac.uk/~ucakche/papers/fuzzyfix.ps}
+  47-56.
   
     Hennig, C. (2007) Cluster-wise assessment of cluster
   stability. \emph{Computational Statistics and Data Analysis},
@@ -126,6 +140,10 @@ Hennig, C. (2003) Clusters, outliers and regression:
 Hennig, C. (2010) Methods for merging Gaussian mixture components,
   \emph{Advances in Data Analysis and Classification}, 4, 3-34.
 
+  Hennig, C. (2017) Cluster validation by measurement of clustering
+  characteristics relevant to the user. In C. H. Skiadas (ed.)
+  \emph{Proceedings of ASMDA 2017}, 501-520,
+    \url{https://arxiv.org/abs/1703.09282}
   
   Hennig, C. and Christlieb, N. (2002) Validating visual clusters in
   large datasets: Fixed point clusters of spectral features,
@@ -142,8 +160,8 @@ Prediction Strength, \emph{Journal of Computational and Graphical
   Statistics}, 14, 511-528.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 
 

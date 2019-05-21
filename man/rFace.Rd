@@ -55,8 +55,8 @@ rFace(n, p = 6, nrep.top = 2, smile.coef = 0.6, dMoNo = 1.2, dNoEy = 1)
 \author{
   
   Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}}
 
 \examples{
   set.seed(4634)

@@ -39,8 +39,8 @@ cov.wml(x, wt = rep(1/nrow(x), nrow(x)), cor = FALSE, center = TRUE)
           `TRUE'.}
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}}
 
 \seealso{\code{\link{cov.wt}}, \code{\link{cov}}, \code{\link{var}}}
 

@@ -92,7 +92,8 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
     average.distance, median.distance, separation, average.toother,
     separation.matrix, average.between, average.within,
     n.between, n.within, within.cluster.ss, clus.avg.silwidths, avg.silwidth,
-    g2, g3, pearsongamma, dunn, entropy, wb.ratio, ch,
+    g2, g3, pearsongamma, dunn, entropy, wb.ratio, ch, cwidegap,
+    widestgap, sindex, 
     corrected.rand, vi} except if \code{compareonly=TRUE}, in which case
     only the last two components are computed.
 
@@ -117,7 +118,8 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
   \item{ave.between.matrix}{matrix of mean dissimilarities between
   points of every pair of clusters.}
   \item{average.between}{average distance between clusters.}
-  \item{average.within}{average distance within clusters.}
+  \item{average.within}{average distance within clusters (reweighted so
+  that every observation, rather than every distance, has the same weight).}
   \item{n.between}{number of distances between clusters.}
   \item{n.within}{number of distances within clusters.}
   \item{max.diameter}{maximum cluster diameter.}
@@ -187,14 +189,16 @@ determining the number of clusters. In: Spiliopoulou, L. Schmidt-Thieme, R. Jann
   for determining the number of clusters. \emph{Psychometrika}, 50, 159-179.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \seealso{
+  \code{\link{cqcluster.stats}} is a more sophisticated version of
+  \code{cluster.stats} with more options.
   \code{\link{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
   \code{\link{distcritmulti}}.
   \code{\link{clusterboot}} computes clusterwise stability statistics by
-  resampling.
+  resampling. 
 }
 \examples{  
   set.seed(20000)

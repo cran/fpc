@@ -1,5 +1,5 @@
 
-R version 3.6.0 RC (2019-04-21 r76409) -- "Planting of a Tree"
+R Under development (unstable) (2019-05-19 r76539) -- "Unsuffered Consequences"
 Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -151,7 +151,7 @@ modulus
 > 
 > ### ** Examples
 > 
->   muarray <- cbind(c(0,0),c(0,0.1),c(10,10))
+>   muarray <-cbind(c(0,0),c(0,0.1),c(10,10))
 >   sigmaarray <- array(c(diag(2),diag(2),diag(2)),dim=c(2,2,3))
 >   bhattacharyya.matrix(muarray,sigmaarray,ipairs=list(c(1,2),c(2,3)))
           [,1]         [,2]        [,3]
@@ -220,7 +220,7 @@ modulus
 >   v2 <- rnorm(20)
 >   d1 <- sample(1:5,20,replace=TRUE)
 >   d2 <- sample(1:4,20,replace=TRUE)
->   ldata <- cbind(v1,v2,d1,d2)
+>   ldata <-cbind(v1,v2,d1,d2)
 >   lc <- cat2bin(ldata,categorical=3:4)
 > 
 > 
@@ -258,6 +258,291 @@ $sep
 > 
 > 
 > cleanEx()
+> nameEx("cgrestandard")
+> ### * cgrestandard
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cgrestandard
+> ### Title: Standardise cluster validation statistics by random clustering
+> ###   results
+> ### Aliases: cgrestandard
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
+>   dif <- dist(face)
+>   clusum <- list()
+>   clusum[[2]] <- list()
+>   cl12 <- kmeansCBI(face,2)
+>   cl13 <- kmeansCBI(face,3)
+>   cl22 <- claraCBI(face,2)
+>   cl23 <- claraCBI(face,2)
+>   ccl12 <- clustatsum(dif,cl12$partition)
+>   ccl13 <- clustatsum(dif,cl13$partition)
+>   ccl22 <- clustatsum(dif,cl22$partition)
+>   ccl23 <- clustatsum(dif,cl23$partition)
+>   clusum[[1]] <- list()
+>   clusum[[1]][[2]] <- ccl12
+>   clusum[[1]][[3]] <- ccl13
+>   clusum[[2]][[2]] <- ccl22
+>   clusum[[2]][[3]] <- ccl23
+>   clusum$maxG <- 3
+>   clusum$minG <- 2
+>   clusum$method <- c("kmeansCBI","claraCBI")
+>   clusum$name <- c("kmeansCBI","claraCBI")
+>   clusim <- randomclustersim(dist(face),G=2:3,nnruns=2,kmruns=2,monitor=FALSE)
+>   cgr <- cgrestandard(clusum,clusim,2:3)
+>   cgr2 <- cgrestandard(clusum,clusim,2:3,useallg=TRUE)
+>   cgr3 <- cgrestandard(clusum,clusim,2:3,percentage=TRUE)
+>   print(str(cgr))
+List of 6
+ $       :List of 3
+  ..$ : NULL
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.378
+  .. ..$ mnnd        : num 2.46
+  .. ..$ cvnnd       : num -21.3
+  .. ..$ maxdiameter : num 0.879
+  .. ..$ widestgap   : num -0.799
+  .. ..$ sindex      : num -0.125
+  .. ..$ minsep      : num -0.125
+  .. ..$ asw         : num 0.369
+  .. ..$ dindex      : num 0.5
+  .. ..$ denscut     : num 0.5
+  .. ..$ highdgap    : num -0.576
+  .. ..$ pearsongamma: num 0.574
+  .. ..$ withinss    : num 0.572
+  .. ..$ entropy     : num 0.294
+  .. ..$ pamc        : num 0.798
+  .. ..$ dmode       : num 0.231
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.966
+  .. ..$ mnnd        : num 16.5
+  .. ..$ cvnnd       : num 0.543
+  .. ..$ maxdiameter : num 1.18
+  .. ..$ widestgap   : num 0.5
+  .. ..$ sindex      : num 0.821
+  .. ..$ minsep      : num 0.758
+  .. ..$ asw         : num 0.875
+  .. ..$ dindex      : num NaN
+  .. ..$ denscut     : num 0.538
+  .. ..$ highdgap    : num 0.5
+  .. ..$ pearsongamma: num 1.19
+  .. ..$ withinss    : num 0.932
+  .. ..$ entropy     : num 0.558
+  .. ..$ pamc        : num 0.836
+  .. ..$ dmode       : num NaN
+ $       :List of 3
+  ..$ : NULL
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.749
+  .. ..$ mnnd        : num 3.81
+  .. ..$ cvnnd       : num 9.29
+  .. ..$ maxdiameter : num 0.826
+  .. ..$ widestgap   : num 0.865
+  .. ..$ sindex      : num 0.746
+  .. ..$ minsep      : num 0.746
+  .. ..$ asw         : num 0.743
+  .. ..$ dindex      : num 0.5
+  .. ..$ denscut     : num 0.5
+  .. ..$ highdgap    : num 0.845
+  .. ..$ pearsongamma: num 0.732
+  .. ..$ withinss    : num 0.744
+  .. ..$ entropy     : num 0.294
+  .. ..$ pamc        : num 0.707
+  .. ..$ dmode       : num 0.586
+  ..$ :List of 16
+  .. ..$ avewithin   : num -0.266
+  .. ..$ mnnd        : num 12.3
+  .. ..$ cvnnd       : num 0.564
+  .. ..$ maxdiameter : num -0.919
+  .. ..$ widestgap   : num 0.5
+  .. ..$ sindex      : num 1.64
+  .. ..$ minsep      : num 1.68
+  .. ..$ asw         : num 1.08
+  .. ..$ dindex      : num NaN
+  .. ..$ denscut     : num 0.538
+  .. ..$ highdgap    : num 0.5
+  .. ..$ pearsongamma: num 1.71
+  .. ..$ withinss    : num -0.709
+  .. ..$ entropy     : num 0.665
+  .. ..$ pamc        : num -1.04
+  .. ..$ dmode       : num NaN
+ $ maxG  : num 3
+ $ minG  : num 2
+ $ method: chr [1:2] "kmeansCBI" "claraCBI"
+ $ name  : chr [1:2] "kmeansCBI" "claraCBI"
+ - attr(*, "class")= chr "valstat"
+NULL
+>   print(str(cgr2))
+List of 6
+ $       :List of 3
+  ..$ : NULL
+  ..$ :List of 16
+  .. ..$ avewithin   : num -0.0825
+  .. ..$ mnnd        : num 2.68
+  .. ..$ cvnnd       : num -5.23
+  .. ..$ maxdiameter : num 0.235
+  .. ..$ widestgap   : num -1.16
+  .. ..$ sindex      : num 0.101
+  .. ..$ minsep      : num 0.294
+  .. ..$ asw         : num 0.519
+  .. ..$ dindex      : num 0.354
+  .. ..$ denscut     : num 0.399
+  .. ..$ highdgap    : num -0.971
+  .. ..$ pearsongamma: num 0.588
+  .. ..$ withinss    : num 0.0915
+  .. ..$ entropy     : num 0.519
+  .. ..$ pamc        : num 0.0159
+  .. ..$ dmode       : num 0.0223
+  ..$ :List of 16
+  .. ..$ avewithin   : num 1.13
+  .. ..$ mnnd        : num 5.6
+  .. ..$ cvnnd       : num 1.71
+  .. ..$ maxdiameter : num 1.23
+  .. ..$ widestgap   : num 0.724
+  .. ..$ sindex      : num 0.449
+  .. ..$ minsep      : num 0.294
+  .. ..$ asw         : num 0.762
+  .. ..$ dindex      : num 0.354
+  .. ..$ denscut     : num 0.399
+  .. ..$ highdgap    : num 0.71
+  .. ..$ pearsongamma: num 0.638
+  .. ..$ withinss    : num 0.932
+  .. ..$ entropy     : num 0.383
+  .. ..$ pamc        : num 1.23
+  .. ..$ dmode       : num 0.443
+ $       :List of 3
+  ..$ : NULL
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.329
+  .. ..$ mnnd        : num 4.29
+  .. ..$ cvnnd       : num 1.75
+  .. ..$ maxdiameter : num 0.181
+  .. ..$ widestgap   : num 0.724
+  .. ..$ sindex      : num 1.15
+  .. ..$ minsep      : num 1.16
+  .. ..$ asw         : num 0.957
+  .. ..$ dindex      : num 0.354
+  .. ..$ denscut     : num 0.399
+  .. ..$ highdgap    : num 0.71
+  .. ..$ pearsongamma: num 0.815
+  .. ..$ withinss    : num 0.289
+  .. ..$ entropy     : num 0.519
+  .. ..$ pamc        : num -0.0613
+  .. ..$ dmode       : num 0.443
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.329
+  .. ..$ mnnd        : num 4.29
+  .. ..$ cvnnd       : num 1.75
+  .. ..$ maxdiameter : num 0.181
+  .. ..$ widestgap   : num 0.724
+  .. ..$ sindex      : num 1.15
+  .. ..$ minsep      : num 1.16
+  .. ..$ asw         : num 0.957
+  .. ..$ dindex      : num 0.354
+  .. ..$ denscut     : num 0.399
+  .. ..$ highdgap    : num 0.71
+  .. ..$ pearsongamma: num 0.815
+  .. ..$ withinss    : num 0.289
+  .. ..$ entropy     : num 0.519
+  .. ..$ pamc        : num -0.0613
+  .. ..$ dmode       : num 0.443
+ $ maxG  : num 3
+ $ minG  : num 2
+ $ method: chr [1:2] "kmeansCBI" "claraCBI"
+ $ name  : chr [1:2] "kmeansCBI" "claraCBI"
+ - attr(*, "class")= chr "valstat"
+NULL
+>   print(str(cgr3))
+List of 6
+ $       :List of 3
+  ..$ : NULL
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.6
+  .. ..$ mnnd        : num 1
+  .. ..$ cvnnd       : num 0.2
+  .. ..$ maxdiameter : num 1
+  .. ..$ widestgap   : num 0.4
+  .. ..$ sindex      : num 0.4
+  .. ..$ minsep      : num 0.4
+  .. ..$ asw         : num 0.6
+  .. ..$ dindex      : num 0.4
+  .. ..$ denscut     : num 0.4
+  .. ..$ highdgap    : num 0.4
+  .. ..$ pearsongamma: num 0.6
+  .. ..$ withinss    : num 0.6
+  .. ..$ entropy     : num 0.4
+  .. ..$ pamc        : num 1
+  .. ..$ dmode       : num 0.4
+  ..$ :List of 16
+  .. ..$ avewithin   : num 1
+  .. ..$ mnnd        : num 1
+  .. ..$ cvnnd       : num 0.667
+  .. ..$ maxdiameter : num 1
+  .. ..$ widestgap   : num 0.4
+  .. ..$ sindex      : num 1
+  .. ..$ minsep      : num 0.6
+  .. ..$ asw         : num 1
+  .. ..$ dindex      : num 0.2
+  .. ..$ denscut     : num 0.6
+  .. ..$ highdgap    : num 0.4
+  .. ..$ pearsongamma: num 1
+  .. ..$ withinss    : num 1
+  .. ..$ entropy     : num 0.6
+  .. ..$ pamc        : num 0.6
+  .. ..$ dmode       : num 0.25
+ $       :List of 3
+  ..$ : NULL
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.6
+  .. ..$ mnnd        : num 1
+  .. ..$ cvnnd       : num 1
+  .. ..$ maxdiameter : num 0.6
+  .. ..$ widestgap   : num 0.6
+  .. ..$ sindex      : num 0.6
+  .. ..$ minsep      : num 0.6
+  .. ..$ asw         : num 0.6
+  .. ..$ dindex      : num 0.4
+  .. ..$ denscut     : num 0.4
+  .. ..$ highdgap    : num 0.6
+  .. ..$ pearsongamma: num 0.6
+  .. ..$ withinss    : num 0.6
+  .. ..$ entropy     : num 0.4
+  .. ..$ pamc        : num 0.6
+  .. ..$ dmode       : num 0.45
+  ..$ :List of 16
+  .. ..$ avewithin   : num 0.6
+  .. ..$ mnnd        : num 1
+  .. ..$ cvnnd       : num 0.667
+  .. ..$ maxdiameter : num 0.2
+  .. ..$ widestgap   : num 0.4
+  .. ..$ sindex      : num 1
+  .. ..$ minsep      : num 1
+  .. ..$ asw         : num 1
+  .. ..$ dindex      : num 0.2
+  .. ..$ denscut     : num 0.6
+  .. ..$ highdgap    : num 0.4
+  .. ..$ pearsongamma: num 1
+  .. ..$ withinss    : num 0.4
+  .. ..$ entropy     : num 0.6
+  .. ..$ pamc        : num 0.2
+  .. ..$ dmode       : num 0.25
+ $ maxG  : num 3
+ $ minG  : num 2
+ $ method: chr [1:2] "kmeansCBI" "claraCBI"
+ $ name  : chr [1:2] "kmeansCBI" "claraCBI"
+ - attr(*, "class")= chr "valstat"
+NULL
+> 
+> 
+> 
+> cleanEx()
 > nameEx("classifdist")
 > ### * classifdist
 > 
@@ -275,7 +560,7 @@ $sep
 > y <- rnorm(100)
 > x2 <- rnorm(40,mean=20)
 > x3 <- rnorm(10,mean=25,sd=100)
-> x <- cbind(c(x1,x2,x3),y)
+> x <-cbind(c(x1,x2,x3),y)
 > truec <- c(rep(1,50),rep(2,40),rep(3,10))
 > topredict <- c(1,2,51,52,91)
 > clumin <- truec
@@ -369,6 +654,240 @@ detaching ‘package:flexmix’, ‘package:lattice’, ‘package:MASS’
 > 
 >   round(clusexpect(500,4,150,2000),digits=2)
 [1] 1.36
+> 
+> 
+> 
+> cleanEx()
+> nameEx("clustatsum")
+> ### * clustatsum
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clustatsum
+> ### Title: Compute and format cluster validation statistics
+> ### Aliases: clustatsum
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(20,dMoNo=2,dNoEy=0,p=2)
+>   dface <- dist(face)
+>   complete3 <- cutree(hclust(dface),3)
+>   clustatsum(dface,complete3)
+$avewithin
+[1] 0.875
+
+$mnnd
+[1] 0.63
+
+$cvnnd
+[1] 0.88
+
+$maxdiameter
+[1] 0.696
+
+$widestgap
+[1] 0.719
+
+$sindex
+[1] 0.287
+
+$minsep
+[1] 0.274
+
+$asw
+[1] 0.683
+
+$dindex
+[1] 0.984
+
+$denscut
+[1] 1
+
+$highdgap
+[1] 0.904
+
+$pearsongamma
+[1] 0.895
+
+$withinss
+[1] 0.916
+
+$entropy
+[1] 0.908
+
+$pamc
+[1] 0.919
+
+>   
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cluster.magazine")
+> ### * cluster.magazine
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cluster.magazine
+> ### Title: Run many clustering methods on many numbers of clusters
+> ### Aliases: cluster.magazine
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
+>   clustermethod=c("kmeansCBI","hclustCBI","hclustCBI")
+> # A clustering method can be used more than once, with different
+> # parameters
+>   clustermethodpars <- list()
+>   clustermethodpars[[2]] <- clustermethodpars[[3]] <- list()
+>   clustermethodpars[[2]]$method <- "complete"
+>   clustermethodpars[[3]]$method <- "average"
+>   cmf <-  cluster.magazine(face,G=2:3,clustermethod=clustermethod,
++     distmethod=rep(FALSE,3),clustermethodpars=clustermethodpars)
+[1] "kmeansCBI"
+[1] "hclustCBI"
+[1] "hclustCBI"
+>   print(str(cmf))
+List of 4
+ $ output    :List of 3
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ :List of 4
+  .. .. ..$ result       :List of 11
+  .. .. .. ..$ cluster     : int [1:10] 2 2 2 2 2 1 1 2 1 1
+  .. .. .. ..$ centers     : num [1:2, 1:2] -0.711 0.474 0.852 -0.568
+  .. .. .. .. ..- attr(*, "dimnames")=List of 2
+  .. .. .. .. .. ..$ : chr [1:2] "1" "2"
+  .. .. .. .. .. ..$ : NULL
+  .. .. .. ..$ totss       : num 18
+  .. .. .. ..$ withinss    : num [1:2] 3.44 6.35
+  .. .. .. ..$ tot.withinss: num 9.79
+  .. .. .. ..$ betweenss   : num 8.21
+  .. .. .. ..$ size        : int [1:2] 4 6
+  .. .. .. ..$ iter        : int 1
+  .. .. .. ..$ ifault      : int 0
+  .. .. .. ..$ crit        : num [1:2] 0 6.7
+  .. .. .. ..$ bestk       : int 2
+  .. .. .. ..- attr(*, "class")= chr "kmeans"
+  .. .. ..$ nc           : int 2
+  .. .. ..$ partition    : int [1:10] 2 2 2 2 2 1 1 2 1 1
+  .. .. ..$ clustermethod: chr "kmeans"
+  .. ..$ :List of 4
+  .. .. ..$ result       :List of 11
+  .. .. .. ..$ cluster     : int [1:10] 1 1 1 1 3 2 2 3 2 2
+  .. .. .. ..$ centers     : num [1:3, 1:2] 0.0512 -0.7113 1.3201 -1.0511 0.8515 ...
+  .. .. .. .. ..- attr(*, "dimnames")=List of 2
+  .. .. .. .. .. ..$ : chr [1:3] "1" "2" "3"
+  .. .. .. .. .. ..$ : NULL
+  .. .. .. ..$ totss       : num 18
+  .. .. .. ..$ withinss    : num [1:3] 0.828 3.439 0.576
+  .. .. .. ..$ tot.withinss: num 4.84
+  .. .. .. ..$ betweenss   : num 13.2
+  .. .. .. ..$ size        : int [1:3] 4 4 2
+  .. .. .. ..$ iter        : int 2
+  .. .. .. ..$ ifault      : int 0
+  .. .. .. ..$ crit        : num [1:3] 0 0 9.51
+  .. .. .. ..$ bestk       : int 3
+  .. .. .. ..- attr(*, "class")= chr "kmeans"
+  .. .. ..$ nc           : int 3
+  .. .. ..$ partition    : int [1:10] 1 1 1 1 3 2 2 3 2 2
+  .. .. ..$ clustermethod: chr "kmeans"
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ :List of 5
+  .. .. ..$ result       :List of 7
+  .. .. .. ..$ merge      : int [1:9, 1:2] -9 -2 -4 -1 -6 4 -8 6 -7 -10 ...
+  .. .. .. ..$ height     : num [1:9] 0 0.158 0.226 1.033 1.26 ...
+  .. .. .. ..$ order      : int [1:10] 7 1 5 6 4 2 3 8 9 10
+  .. .. .. ..$ labels     : NULL
+  .. .. .. ..$ method     : chr "complete"
+  .. .. .. ..$ call       : language hclust(d = dist(sdata), method = method)
+  .. .. .. ..$ dist.method: chr "euclidean"
+  .. .. .. ..- attr(*, "class")= chr "hclust"
+  .. .. ..$ noise        : logi FALSE
+  .. .. ..$ nc           : int 2
+  .. .. ..$ partition    : int [1:10] 1 1 1 1 1 1 2 1 1 1
+  .. .. ..$ clustermethod: chr "hclust/cutree"
+  .. ..$ :List of 5
+  .. .. ..$ result       :List of 7
+  .. .. .. ..$ merge      : int [1:9, 1:2] -9 -2 -4 -1 -6 4 -8 6 -7 -10 ...
+  .. .. .. ..$ height     : num [1:9] 0 0.158 0.226 1.033 1.26 ...
+  .. .. .. ..$ order      : int [1:10] 7 1 5 6 4 2 3 8 9 10
+  .. .. .. ..$ labels     : NULL
+  .. .. .. ..$ method     : chr "complete"
+  .. .. .. ..$ call       : language hclust(d = dist(sdata), method = method)
+  .. .. .. ..$ dist.method: chr "euclidean"
+  .. .. .. ..- attr(*, "class")= chr "hclust"
+  .. .. ..$ noise        : logi FALSE
+  .. .. ..$ nc           : int 3
+  .. .. ..$ partition    : int [1:10] 1 1 1 1 1 1 2 3 3 3
+  .. .. ..$ clustermethod: chr "hclust/cutree"
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ :List of 5
+  .. .. ..$ result       :List of 7
+  .. .. .. ..$ merge      : int [1:9, 1:2] -9 -2 -4 -1 -5 -6 1 6 -7 -10 ...
+  .. .. .. ..$ height     : num [1:9] 0 0.158 0.195 1.032 1.073 ...
+  .. .. .. ..$ order      : int [1:10] 7 6 1 4 2 3 9 10 5 8
+  .. .. .. ..$ labels     : NULL
+  .. .. .. ..$ method     : chr "average"
+  .. .. .. ..$ call       : language hclust(d = dist(sdata), method = method)
+  .. .. .. ..$ dist.method: chr "euclidean"
+  .. .. .. ..- attr(*, "class")= chr "hclust"
+  .. .. ..$ noise        : logi FALSE
+  .. .. ..$ nc           : int 2
+  .. .. ..$ partition    : int [1:10] 1 1 1 1 1 1 2 1 1 1
+  .. .. ..$ clustermethod: chr "hclust/cutree"
+  .. ..$ :List of 5
+  .. .. ..$ result       :List of 7
+  .. .. .. ..$ merge      : int [1:9, 1:2] -9 -2 -4 -1 -5 -6 1 6 -7 -10 ...
+  .. .. .. ..$ height     : num [1:9] 0 0.158 0.195 1.032 1.073 ...
+  .. .. .. ..$ order      : int [1:10] 7 6 1 4 2 3 9 10 5 8
+  .. .. .. ..$ labels     : NULL
+  .. .. .. ..$ method     : chr "average"
+  .. .. .. ..$ call       : language hclust(d = dist(sdata), method = method)
+  .. .. .. ..$ dist.method: chr "euclidean"
+  .. .. .. ..- attr(*, "class")= chr "hclust"
+  .. .. ..$ noise        : logi FALSE
+  .. .. ..$ nc           : int 3
+  .. .. ..$ partition    : int [1:10] 1 1 1 1 2 1 3 2 2 2
+  .. .. ..$ clustermethod: chr "hclust/cutree"
+ $ clustering:List of 3
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ : int [1:10] 2 2 2 2 2 1 1 2 1 1
+  .. ..$ : int [1:10] 1 1 1 1 3 2 2 3 2 2
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ : int [1:10] 1 1 1 1 1 1 2 1 1 1
+  .. ..$ : int [1:10] 1 1 1 1 1 1 2 3 3 3
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ : int [1:10] 1 1 1 1 1 1 2 1 1 1
+  .. ..$ : int [1:10] 1 1 1 1 2 1 3 2 2 2
+ $ noise     :List of 3
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ : logi FALSE
+  .. ..$ : logi FALSE
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ : logi FALSE
+  .. ..$ : logi FALSE
+  ..$ :List of 3
+  .. ..$ : logi NA
+  .. ..$ : logi FALSE
+  .. ..$ : logi FALSE
+ $ othernc   : list()
+NULL
+> 
 > 
 > 
 > 
@@ -629,6 +1148,148 @@ Cluster 4WD Front Rear
 
 detaching ‘package:flexmix’, ‘package:lattice’, ‘package:MASS’
 
+> nameEx("clusterbenchstats")
+> ### * clusterbenchstats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: clusterbenchstats
+> ### Title: Run and validate many clusterings
+> ### Aliases: clusterbenchstats print.clusterbenchstats
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
+>   clustermethod=c("kmeansCBI","hclustCBI","hclustCBI")
+> # A clustering method can be used more than once, with different
+> # parameters
+>   clustermethodpars <- list()
+>   clustermethodpars[[2]] <- clustermethodpars[[3]] <- list()
+>   clustermethodpars[[2]]$method <- "complete"
+>   clustermethodpars[[3]]$method <- "average"
+>   methodname <- c("kmeans","complete","average")
+>   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
++     methodname=methodname,distmethod=rep(FALSE,3),
++     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2)
+[1] "kmeansCBI"
+[1] "hclustCBI"
+[1] "hclustCBI"
+[1] "Computation of validity statistics"
+[1] "Simulation"
+2  clusters; nn run  1 
+2  clusters; nn run  2 
+2  clusters; km run  1 
+2  clusters; km run  2 
+3  clusters; nn run  1 
+3  clusters; nn run  2 
+3  clusters; km run  1 
+3  clusters; km run  2 
+[1] "Simulation quantile re-standardisation"
+[1] "Simulation sd re-standardisation"
+>   print(cbs)
+Output object of clusterbenchstats.
+Clustering methods:  kmeans complete average  
+Cluster validation statistics:  avewithin mnnd cvnnd maxdiameter widestgap sindex minsep asw dindex denscut highdgap pearsongamma withinss entropy pamc dmode 
+Numbers of clusters minimum:  2  maximum:  3 
+Output components are cm, stat, sim, qstat, sstat.stat, qstat, and sstat are valstat-objects.Use plot.valstat and print.valstat on these to get more information.
+>   print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,1,0,1,0,1,0,0,1,1))
+avewithin 
+    method    2    3
+1   kmeans 0.50 0.62
+2 complete 0.12 0.38
+3  average 0.12 0.25
+mnnd 
+    method    2    3
+1   kmeans 0.25 0.88
+2 complete 0.75 0.38
+3  average 0.75 0.12
+cvnnd 
+    method    2    3
+1   kmeans 0.12 0.50
+2 complete 0.38 0.38
+3  average 0.38 0.12
+maxdiameter 
+    method    2    3
+1   kmeans 0.50 0.12
+2 complete 0.12 0.50
+3  average 0.12 0.38
+widestgap 
+    method    2    3
+1   kmeans 0.12 0.50
+2 complete 0.38 0.12
+3  average 0.38 0.12
+sindex 
+    method    2    3
+1   kmeans 0.25 0.50
+2 complete 0.50 0.62
+3  average 0.50 0.25
+minsep 
+    method    2    3
+1   kmeans 0.25 0.38
+2 complete 0.50 0.62
+3  average 0.50 0.38
+asw 
+    method    2    3
+1   kmeans 0.50 0.62
+2 complete 0.12 0.38
+3  average 0.12 0.25
+dindex 
+    method    2    3
+1   kmeans 0.50 0.12
+2 complete 0.12 0.12
+3  average 0.12 0.12
+denscut 
+    method    2    3
+1   kmeans 0.25 0.38
+2 complete 0.25 0.38
+3  average 0.25 0.38
+highdgap 
+    method    2    3
+1   kmeans 0.50 0.50
+2 complete 0.12 0.12
+3  average 0.12 0.12
+pearsongamma 
+    method    2    3
+1   kmeans 0.50 0.50
+2 complete 0.12 0.62
+3  average 0.12 0.38
+withinss 
+    method    2    3
+1   kmeans 0.50 0.62
+2 complete 0.12 0.38
+3  average 0.12 0.25
+entropy 
+    method    2    3
+1   kmeans 0.50 0.62
+2 complete 0.12 0.12
+3  average 0.12 0.50
+pamc 
+    method    2    3
+1   kmeans 0.50 0.62
+2 complete 0.12 0.50
+3  average 0.12 0.38
+dmode 
+    method    2    3
+1   kmeans 0.50 0.22
+2 complete 0.12 0.12
+3  average 0.12 0.12
+aggregate 
+    method    2    3
+1   kmeans 0.43 0.50
+2 complete 0.20 0.43
+3  average 0.20 0.29
+> # The weights are weights for the validation statistics ordered as in
+> # cbs$qstat$statistics for computation of an aggregated index, see
+> # ?print.valstat.
+> 
+> 
+> 
+> 
+> cleanEx()
 > nameEx("clusterboot")
 > ### * clusterboot
 > 
@@ -860,6 +1521,341 @@ $n.obs
 $wt
  [1] 0.0 0.0 0.0 0.2 0.2 0.2 0.2 0.2 0.0 0.0
 
+> 
+> 
+> 
+> cleanEx()
+> nameEx("cqcluster.stats")
+> ### * cqcluster.stats
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: cqcluster.stats
+> ### Title: Cluster validation statistics (version for use with
+> ###   clusterbenchstats
+> ### Aliases: cqcluster.stats summary.cquality print.summary.cquality
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   dface <- dist(face)
+>   complete3 <- cutree(hclust(dface),3)
+>   cqcluster.stats(dface,complete3,
++                 alt.clustering=as.integer(attr(face,"grouping")))
+$n
+[1] 200
+
+$cluster.number
+[1] 3
+
+$cluster.size
+[1] 136  60   4
+
+$min.cluster.size
+[1] 4
+
+$noisen
+[1] 0
+
+$diameter
+[1] 10.80  5.76  9.00
+
+$average.distance
+[1] 3.03 2.21 7.05
+
+$median.distance
+[1] 2.84 1.48 8.32
+
+$separation
+[1] 5.87 5.87 7.22
+
+$average.toother
+[1] 13.8 13.0 20.8
+
+$separation.matrix
+      [,1] [,2]  [,3]
+[1,]  0.00 5.87 14.98
+[2,]  5.87 0.00  7.22
+[3,] 14.98 7.22  0.00
+
+$ave.between.matrix
+     [,1] [,2] [,3]
+[1,]  0.0 13.1 24.5
+[2,] 13.1  0.0 12.2
+[3,] 24.5 12.2  0.0
+
+$avebetween
+[1] 0.428
+
+$avewithin
+[1] 0.0893
+
+$n.between
+[1] 8944
+
+$n.within
+[1] 10956
+
+$maxdiameter
+[1] 0.336
+
+$minsep
+[1] 0.183
+
+$withinss
+[1] 0.124
+
+$clus.avg.silwidths
+    1     2     3 
+0.752 0.818 0.355 
+
+$asw
+[1] 0.764
+
+$g2
+NULL
+
+$g3
+NULL
+
+$pearsongamma
+[1] 0.942
+
+$dunn
+[1] 0.544
+
+$dunn2
+[1] 1.73
+
+$entropy
+[1] 0.639
+
+$wb.ratio
+[1] 0.209
+
+$ch
+[1] 699
+
+$cwidegap
+[1] 1.81 1.21 8.32
+
+$widestgap
+[1] 0.259
+
+$corrected.rand
+[1] 0.345
+
+$vi
+[1] 0.907
+
+$sindex
+[1] 0.232
+
+$svec
+ [1] 8.55 8.81 7.98 7.82 7.90 8.50 7.30 8.99 7.96 8.78 7.29 8.60 5.87 8.69 6.13
+[16] 5.90 5.98 6.07 5.87 6.04 7.22
+
+$psep
+  [1] 11.19 13.98  8.55 13.20  9.06 16.34 16.54  8.81 10.85 10.76 16.39 13.27
+ [13] 16.24  9.28 16.10 10.32 16.54  9.50 15.07 16.28  7.98  7.82 14.54 15.59
+ [25] 10.30 16.50 10.43 11.52 15.06 14.21 10.35  7.90 15.48  8.50 15.84  7.30
+ [37] 15.20 16.41 13.82 13.92 13.24 13.44 13.28 13.14 13.31 13.02 13.23 13.45
+ [49] 13.40 13.64 13.59 13.26 13.00 13.50 13.11 13.48 13.40 13.08 13.18 13.69
+ [61] 13.17 13.66 13.21 12.81 13.26 13.16 13.57 13.34 13.47 13.41 13.69 13.15
+ [73] 13.63 12.99 13.29 13.69 13.48 13.37 13.29 13.15 13.13 13.36 13.66 12.89
+ [85] 13.57 13.45 13.69 11.91 13.15 13.30 13.23 13.27 13.80 13.46 13.48 13.47
+ [97] 13.08 13.48 10.14 11.32 10.07 11.18  9.08 11.08 11.00  9.74  8.99  9.97
+[109]  9.00  7.96  9.29 11.34  9.62  9.64  8.78  7.29 10.45  8.60  9.55  5.87
+[121] 11.09 11.22 11.14 10.31 11.28 11.44  8.69 10.74 10.40 11.03  9.59  6.30
+[133] 10.72 11.00  9.41  9.75 11.32  6.62  7.01  6.55  6.95  6.53  6.88  6.69
+[145]  6.67  6.77  6.63  6.47  7.01  6.72  7.08  7.04  6.23  6.67  6.15  6.31
+[157]  7.12  7.10  6.69  7.35  6.13  6.15  5.90  6.62  6.73  6.52  6.37  6.66
+[169]  7.02  6.75  6.90  6.62  6.48  7.02  7.08  6.86  6.28  6.43  5.98  6.14
+[181]  7.44  7.43  6.67  6.07  6.40  6.19  7.22  7.19  7.22  6.59  5.87  6.56
+[193]  7.26  6.57  6.04  6.57  7.22  7.63 14.08 14.08
+
+$stan
+[1] 32.1
+
+$nnk
+[1] 2
+
+$mnnd
+[1] 0.0533
+
+$pamc
+[1] 0.0624
+
+$pamcentroids
+[1]  58 138 200
+
+$dindex
+[1] 0.0238
+
+$denscut
+[1] 0
+
+$highdgap
+[1] 0.0149
+
+$npenalty
+[1] 0 0 0
+
+$dpenalty
+[1] 0.0991 0.0141 0.0000
+
+$withindensp
+  [1]  1.41  1.99  1.31  1.89  1.72  4.82  5.58  1.94  1.99  1.97  5.78  1.89
+ [13]  3.26  1.36  2.89  3.23  4.96  1.41  3.23  3.94  3.10  3.10  1.86  2.17
+ [25]  3.19  5.73  1.55  1.07  3.27  1.00  3.24  3.20  1.47  2.20  1.85  1.60
+ [37]  3.10  5.85  1.78  9.35 23.85 28.50 26.48  9.94 12.53  5.39 23.69 28.80
+ [49] 27.65 25.24 25.86 14.12 14.61 16.27  4.95 27.05 27.70 18.54 12.35 21.58
+ [61]  7.53 21.89 21.41  4.12 25.77 17.50 27.21 26.93 28.50 26.16 19.59 15.00
+ [73] 24.67  4.87 21.68 23.44 28.26 26.71 16.37 10.33 20.66 25.89 23.12  5.53
+ [85] 26.05 16.05 17.50  1.00 20.91 26.39 19.53 26.42 12.42 24.00 23.77 17.19
+ [97] 14.77 28.71  3.70  8.63  5.83  7.25  5.20  7.92  9.09  7.53  4.98  6.53
+[109]  4.12  1.30  6.59  8.09  7.58  6.16  4.16  1.10  5.18  3.57  7.38  1.00
+[121]  9.38  9.08  7.10  4.74  7.77  6.60  4.10  3.14  4.27  8.93  7.12  1.00
+[133]  6.41  8.07  5.54  7.48  7.51 14.53 13.64 11.49 14.52 13.47 14.42 15.70
+[145] 14.74 14.97 15.34 10.01  4.16 15.79 12.36 12.01  6.42  3.52  3.73  7.03
+[157]  9.81 11.82  7.03  5.49  4.85  4.47  2.95 12.47 13.23 13.89  4.41 14.65
+[169]  8.97  3.77 12.11  5.00 12.14  5.11 12.34  5.84  2.08  4.83  4.17  1.85
+[181]  1.51  3.13  3.80  4.75  4.56  4.96  3.44  2.68  1.67  3.11  3.70  3.31
+[193]  3.44  4.06  2.58  3.73  1.00  1.00  2.00  2.00
+
+$densoc
+  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ [38] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ [75] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[112] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[149] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[186] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+$pdistto
+$pdistto[[1]]
+  [1]  NA  48  69  48  48  42  49  68  98  67  50  50  51  90  41  47  89  63
+ [19]  63  66  76  73  85  56  70  82  78  70  94  73  60  62  97  66  79  52
+ [37]  79  78  65  92  65  81  71  83  59  82  91  72  80  80  45  96  61  74
+ [55]  87  44  46  46  55  12  61  39   2  23  19  29  37  24  15  13  17   7
+ [73]  26  11  11   6  20  35  12  84  88  28   9  31  16  25  14   8  34  21
+ [91]  32  22  88 126 112 112 100 122 121 105 130 104 123 102 121 105 133 117
+[109] 124 124 108 136 106 113 113 131 119 131 108 101 111 109 115 127 135 103
+[127] 134 118 110 116 123   1  10  27  18   5
+
+$pdistto[[2]]
+ [1]  NA 150 144 150 146 145 147 166 142 173 140 164 147 138 143 141 139 158 143
+[20] 171 139 175 151 157 138 148 156 153 169 174 176 161 140 162 155 167 172 170
+[39] 170 159 132 180 179 191 184 186 178 185 186 194 194 192 190 186 183 187 193
+[58] 187 188 182
+
+$pdistto[[3]]
+[1]  NA 199 199 199
+
+
+$pclosetomode
+$pclosetomode[[1]]
+  [1]  48  69  77  42  98  49  68  90  67  50  76  51  83  41  47  89  63  75
+ [19]  66  97  73  85  56  70  82  78  57  94  95  60  62  71  53  79  52  59
+ [37]  86  65  92  43  81  58  93  87  61  91  72  80  44  45  96  54  74  64
+ [55]  40  46  55  84  12   4  39   2  23  19  29  37  24  15  13  17   7  26
+ [73]  11  38   6  20  35  33  30  88  28   9  31  16  25  14   8  34  21  32
+ [91]  22  36 126 112 100 125 122 121 105 130 104 123 102 137 134 133 117 124
+[109] 129 108 136 106 113 119 131 114 135 111 101  99 109 115 127 118 103 107
+[127] 128 110 116 120   1  10  27  18   5   3
+
+$pclosetomode[[2]]
+ [1] 150 144 147 146 145 168 166 142 173 140 164 165 138 143 141 139 158 152 171
+[20] 169 175 151 157 160 148 156 153 161 174 176 159 163 162 155 167 172 170 154
+[39] 149 132 180 179 191 184 186 178 185 196 194 183 192 190 177 195 187 193 182
+[58] 188 181 189
+
+$pclosetomode[[3]]
+[1] 199 200 197 198
+
+
+$distto
+$distto[[1]]
+  [1]        NA -0.010308 -0.008199 -0.010265 -0.002805 -0.029572 -0.024898
+  [8] -0.018713 -0.052255 -0.068266 -0.062747  0.021523 -0.095210 -0.088147
+ [15] -0.005542 -0.096747  0.017529  0.009342 -0.135760 -0.094820  0.042933
+ [22]  0.047641  0.034916 -0.030965 -0.009467  0.028707  0.034230 -0.075005
+ [29] -0.008034 -0.107555  0.010907 -0.079852 -0.005589 -0.039372 -0.078150
+ [36] -0.061560 -0.010983 -0.032677  0.022470  0.002038 -0.177657 -0.073619
+ [43] -0.248917 -0.195095 -0.167149 -0.220591 -0.157537 -0.162211 -0.013300
+ [50]  0.076384  0.161927 -0.032004 -0.092537 -0.025939 -0.283240 -0.158031
+ [57] -0.015482  0.004635 -0.106143  0.000000 -0.199966  0.007360 -0.004461
+ [64]  0.047700  0.001219 -0.005897 -0.032149  0.024814  0.012786  0.059112
+ [71]  0.021739  0.004992  0.001735  0.002452 -0.033090 -0.030655 -0.072734
+ [78] -0.013223 -0.030961 -0.157221  0.002537  0.031912  0.043207 -0.000288
+ [85] -0.001281 -0.063523  0.020193  0.009040  0.031200  0.003498 -0.003548
+ [92] -0.051979  0.194308  0.051962  0.018810 -0.011259  0.015496  0.010479
+ [99] -0.010186 -0.005647 -0.034853 -0.028384  0.005062  0.008929 -0.045612
+[106] -0.093128 -0.042588 -0.015108 -0.016329  0.062131  0.032728  0.001954
+[113]  0.001515 -0.006843 -0.015786 -0.033391 -0.063940 -0.018370 -0.024519
+[120] -0.073963 -0.085706  0.001138 -0.001867 -0.018489 -0.011797 -0.007750
+[127] -0.171206 -0.079010 -0.006788 -0.003495 -0.197571  0.019128 -0.014412
+[134] -0.005023  0.010807 -0.014106
+
+$distto[[2]]
+ [1]        NA -3.06e-03 -1.24e-02 -2.83e-02 -7.96e-03 -3.20e-03 -5.05e-02
+ [8] -1.46e-02 -4.60e-02 -2.26e-02  3.38e-02  2.64e-02 -2.83e-02 -3.64e-03
+[15]  3.30e-03 -3.05e-02 -6.32e-02  6.65e-03 -8.03e-02 -1.09e-01 -4.52e-02
+[22]  9.18e-04 -8.87e-02 -1.50e-01 -1.57e-01 -1.04e-01 -2.11e-02 -5.46e-02
+[29] -1.34e-01  2.51e-02  4.14e-02 -6.58e-02 -2.44e-01 -2.56e-02  2.35e-02
+[36]  2.05e-02 -4.26e-02 -8.61e-03  1.35e-02 -2.09e-01  2.94e-02  8.06e-02
+[43] -1.62e-02  3.64e-02  7.30e-03 -4.62e-03 -9.46e-03 -2.86e-02 -3.15e-02
+[50] -8.85e-03 -2.57e-02 -7.18e-03 -3.57e-02 -8.27e-02 -1.24e-02 -9.93e-05
+[57] -1.09e-02 -2.65e-02 -4.08e-02 -5.05e-02
+
+$distto[[3]]
+[1]      NA  0.0000 -0.0347 -0.0347
+
+
+$percwdens
+  [1] 0.0491 0.0690 0.0455 0.0657 0.0596 0.1675 0.1939 0.0675 0.0692 0.0683
+ [11] 0.2006 0.0657 0.1131 0.0473 0.1003 0.1121 0.1722 0.0488 0.1123 0.1369
+ [21] 0.1077 0.1077 0.0646 0.0755 0.1108 0.1989 0.0539 0.0373 0.1135 0.0347
+ [31] 0.1124 0.1112 0.0509 0.0765 0.0642 0.0557 0.1076 0.2031 0.0617 0.3247
+ [41] 0.8284 0.9897 0.9195 0.3453 0.4350 0.1873 0.8229 1.0000 0.9602 0.8767
+ [51] 0.8982 0.4904 0.5075 0.5650 0.1718 0.9394 0.9619 0.6437 0.4288 0.7493
+ [61] 0.2617 0.7602 0.7436 0.1432 0.8950 0.6079 0.9449 0.9353 0.9897 0.9085
+ [71] 0.6804 0.5209 0.8569 0.1691 0.7530 0.8139 0.9815 0.9277 0.5685 0.3586
+ [81] 0.7174 0.8990 0.8030 0.1919 0.9045 0.5575 0.6079 0.0347 0.7261 0.9166
+ [91] 0.6784 0.9175 0.4314 0.8334 0.8254 0.5970 0.5131 0.9972 0.1284 0.2998
+[101] 0.2024 0.2518 0.1805 0.2751 0.3156 0.2616 0.1728 0.2269 0.1432 0.0450
+[111] 0.2289 0.2810 0.2631 0.2139 0.1444 0.0382 0.1799 0.1240 0.2563 0.0347
+[121] 0.3258 0.3153 0.2467 0.1648 0.2697 0.2290 0.1425 0.1090 0.1484 0.3099
+[131] 0.2473 0.0347 0.2225 0.2802 0.1923 0.2596 0.2607 0.5045 0.4737 0.3991
+[141] 0.5041 0.4677 0.5009 0.5451 0.5119 0.5199 0.5328 0.3477 0.1445 0.5482
+[151] 0.4294 0.4171 0.2229 0.1224 0.1295 0.2440 0.3406 0.4104 0.2441 0.1906
+[161] 0.1683 0.1551 0.1025 0.4330 0.4593 0.4823 0.1530 0.5087 0.3115 0.1310
+[171] 0.4206 0.1736 0.4217 0.1776 0.4284 0.2027 0.0722 0.1677 0.1448 0.0641
+[181] 0.0523 0.1086 0.1320 0.1650 0.1582 0.1723 0.1196 0.0931 0.0580 0.1079
+[191] 0.1286 0.1151 0.1195 0.1408 0.0896 0.1296 0.0347 0.0347 0.0695 0.0695
+
+$percdensoc
+  [1] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ [38] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+ [75] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[112] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[149] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+[186] 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
+
+$parsimony
+[1] 0.3
+
+$cvnnd
+[1] 0.067
+
+$cvnndc
+[1] 1.070 0.733 0.000
+
+attr(,"class")
+[1] "cquality"
+>   
 > 
 > 
 > 
@@ -1155,6 +2151,86 @@ $subsets[[2]]
 $subsets[[3]]
  [1]  3  8 32 48 50 13 44 38 24 20 27 15 11  2 26 41 25 33
 
+
+> 
+> 
+> 
+> cleanEx()
+> nameEx("distrsimilarity")
+> ### * distrsimilarity
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: distrsimilarity
+> ### Title: Similarity of within-cluster distributions to normal and uniform
+> ### Aliases: distrsimilarity
+> ### Keywords: multivariate classif cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   km3 <- kmeans(face,3)
+>   distrsimilarity(face,km3$cluster) 
+$kdnorm
+[1] 0.194
+
+$kdunif
+[1] 0.631
+
+$kdnormc
+[1] 0.213 0.114 0.240
+
+$kdunifc
+[1] 0.536 0.470 0.891
+
+$xmahal
+  [1]  3.5129  4.7799  6.3495  7.8442  5.0433  5.6147  6.0117  2.8951  3.4951
+ [10]  3.3331  5.4346  7.4691  4.9576  2.5102  4.4414  2.7912  5.8919  4.1839
+ [19]  3.7049  5.8845  4.0592  4.3852  3.6482  3.8863  2.8131  5.8701  3.3964
+ [28]  4.5995  3.4337  6.0519  2.8604  4.2351  5.5251  3.2639  5.5791  5.6654
+ [37]  3.3749  5.3881  5.1841  0.1951  0.5543  0.2182  0.3423  1.3870  1.0588
+ [46]  2.2913  0.5611  0.1924  0.2815  0.0719  0.1155  1.2668  1.0872  0.6318
+ [55]  2.4902  0.1747  0.2197  0.5771  1.5045  0.0861  2.2272  0.1307  0.7233
+ [64]  3.2335  0.3505  1.0175  0.1018  0.3543  0.1838  0.2504  0.1653  0.8485
+ [73]  0.0698  3.1368  0.6831  0.0465  0.1856  0.2635  1.0392  1.3378  0.5079
+ [82]  0.2897  0.0961  1.9485  0.1066  0.8219  0.2738  7.4076  0.7187  0.3910
+ [91]  0.5886  0.3360  0.3379  0.2821  0.2710  0.6091  1.2201  0.1610  0.2435
+[100]  1.3166  0.1236  1.1852  0.6172  1.0057  0.7931  0.0836  0.6910  0.0241
+[109]  0.4402  2.3749  0.2522  1.3834  0.1406  0.0374  0.7562  4.3898  0.2228
+[118]  1.1830  0.1869 11.0909  0.9184  1.1382  1.1336  0.1277  1.2978  1.5902
+[127]  0.9341  0.6224  0.1983  0.8693  0.0827  0.1414  0.4996  0.8275  0.3648
+[136]  0.0871  1.3740  0.3438  0.3971  0.6755  0.3984  0.5457  0.3319  0.4708
+[145]  0.5582  0.5483  0.4577  0.2446  1.0912  0.4667  0.5092  0.3227  0.2626
+[154]  1.4643  1.0198  0.2357  0.6785  0.3872  0.1366  0.7052  0.2668  0.8800
+[163]  0.4571  0.6615  0.6485  0.4795  1.1714  0.5612  0.2161  1.3731  0.2612
+[172]  1.1953  0.5939  0.1136  0.5080  0.1114  3.2163  1.4314  1.1823  0.7213
+[181]  1.0050  1.9337  2.0463  1.4902  1.1999  1.6324  1.8385  1.2525  2.5465
+[190]  2.8546  1.3114  2.7367  1.8662  2.0296  2.2878  1.1876 11.6174 10.4323
+[199] 23.1443 23.1443
+
+$xdknn
+  [1] 0.7869 0.5996 0.9758 0.8746 0.5241 0.2066 0.1396 0.4856 0.5316 0.4451
+ [11] 0.1041 0.8472 0.4166 0.8038 0.5286 0.0330 0.2158 0.9412 0.1836 0.3729
+ [21] 0.1554 0.1554 0.5434 0.5559 0.0445 0.1041 0.7869 1.2058 0.1624 1.0412
+ [31] 0.0445 0.0792 0.9497 0.5262 0.5460 0.6086 0.1836 0.1201 0.7696 0.3148
+ [41] 0.0925 0.0373 0.0686 0.1787 0.1787 0.2043 0.0850 0.0368 0.0634 0.0647
+ [51] 0.0735 0.0877 0.1696 0.2180 0.3033 0.0847 0.0817 0.1949 0.1573 0.0905
+ [61] 0.2285 0.0610 0.0810 0.3732 0.0686 0.1248 0.0735 0.0634 0.0352 0.0602
+ [71] 0.0905 0.2093 0.1010 0.2285 0.1312 0.0931 0.0428 0.0517 0.1569 0.1692
+ [81] 0.1518 0.0522 0.0858 0.2576 0.0975 0.2108 0.2287 1.2165 0.0850 0.1060
+ [91] 0.2131 0.0365 0.2383 0.0987 0.1149 0.2074 0.1481 0.0503 0.4643 0.1035
+[101] 0.3037 0.1217 0.3723 0.1217 0.1360 0.1248 0.4015 0.2825 0.3543 0.6843
+[111] 0.3329 0.0968 0.1248 0.2612 0.2589 1.3065 0.2769 0.3047 0.1963 2.1923
+[121] 0.1477 0.1416 0.1031 0.2388 0.1412 0.1595 0.1747 0.4555 0.2769 0.1722
+[131] 0.1812 1.2096 0.3164 0.2369 0.2848 0.1386 0.2088 0.2163 0.0919 0.1223
+[141] 0.1260 0.0983 0.1396 0.0609 0.1027 0.1113 0.0916 0.2354 0.4479 0.0916
+[151] 0.1720 0.1345 0.1015 0.2424 0.2546 0.1630 0.2245 0.1167 0.3315 0.3251
+[161] 0.1807 0.3613 0.4538 0.1241 0.1310 0.1222 0.2546 0.1113 0.2096 0.1844
+[171] 0.1576 0.2424 0.1223 0.2617 0.1708 0.1843 0.4485 0.2678 0.2942 0.5822
+[181] 0.8005 0.2150 0.4959 0.2568 0.2056 0.2958 0.2150 0.4788 0.6237 0.4241
+[191] 0.2568 0.4485 0.1713 0.4629 0.5524 0.2678 7.5721 7.8539 8.3217 8.3217
 
 > 
 > 
@@ -1677,7 +2753,7 @@ $pp[[2]]
 > ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI
 > ###   disthclusttreeCBI noisemclustCBI distnoisemclustCBI claraCBI pamkCBI
 > ###   trimkmeansCBI disttrimkmeansCBI dbscanCBI mahalCBI mergenormCBI
-> ###   speccCBI tclustCBI pdfclustCBI
+> ###   speccCBI tclustCBI pdfclustCBI emskewCBI
 > ### Keywords: cluster multivariate
 > 
 > ### ** Examples
@@ -2293,6 +3369,139 @@ detaching ‘package:mclust’
 > 
 > 
 > cleanEx()
+> nameEx("plot.valstat")
+> ### * plot.valstat
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: plot.valstat
+> ### Title: Simulation-standardised plot and print of cluster validation
+> ###   statistics
+> ### Aliases: plot.valstat print.valstat
+> ### Keywords: cluster multivariate
+> 
+> ### ** Examples
+>   
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
+>   clustermethod=c("kmeansCBI","hclustCBI","hclustCBI")
+>   clustermethodpars <- list()
+>   clustermethodpars[[2]] <- clustermethodpars[[3]] <- list()
+>   clustermethodpars[[2]]$method <- "ward.D2"
+>   clustermethodpars[[3]]$method <- "single"
+>   methodname <- c("kmeans","ward","single")
+>   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
++     methodname=methodname,distmethod=rep(FALSE,3),
++     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2)
+[1] "kmeansCBI"
+[1] "hclustCBI"
+[1] "hclustCBI"
+[1] "Computation of validity statistics"
+[1] "Simulation"
+2  clusters; nn run  1 
+2  clusters; nn run  2 
+2  clusters; km run  1 
+2  clusters; km run  2 
+3  clusters; nn run  1 
+3  clusters; nn run  2 
+3  clusters; km run  1 
+3  clusters; km run  2 
+[1] "Simulation quantile re-standardisation"
+[1] "Simulation sd re-standardisation"
+>   plot(cbs$stat,cbs$sim)
+>   plot(cbs$stat,cbs$sim,statistic="dindex")
+>   plot(cbs$stat,cbs$sim,statistic="avewithin")
+>   print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
+avewithin 
+  method      2     3
+1 kmeans -0.072  0.37
+2   ward  0.239 -1.06
+3 single -1.572 -0.91
+mnnd 
+  method     2    3
+1 kmeans -1.20  0.3
+2   ward  0.44 -2.1
+3 single  0.78  1.1
+cvnnd 
+  method      2     3
+1 kmeans -1.120  0.28
+2   ward -0.076 -0.72
+3 single -0.355 -1.35
+maxdiameter 
+  method     2      3
+1 kmeans -0.13  0.051
+2   ward -0.13 -0.962
+3 single -1.33 -1.554
+widestgap 
+  method     2     3
+1 kmeans -0.68  0.64
+2   ward -0.52 -1.16
+3 single -0.52 -1.02
+sindex 
+  method     2     3
+1 kmeans -1.12 -0.11
+2   ward  0.15 -0.54
+3 single  0.15  0.68
+minsep 
+  method     2     3
+1 kmeans -1.12 -0.31
+2   ward  0.15 -0.68
+3 single  0.15  1.02
+asw 
+  method     2     3
+1 kmeans -0.13  0.13
+2   ward  0.28 -1.03
+3 single -1.60 -0.25
+dindex 
+  method     2   3
+1 kmeans  0.42 NaN
+2   ward  0.42 NaN
+3 single -2.26 NaN
+denscut 
+  method    2    3
+1 kmeans 0.38 0.43
+2   ward 0.38 0.28
+3 single 0.38 0.43
+highdgap 
+  method     2     3
+1 kmeans  0.12  0.64
+2   ward  0.18 -1.16
+3 single -2.11 -1.02
+pearsongamma 
+  method       2     3
+1 kmeans -0.0095  0.36
+2   ward  0.2948 -1.56
+3 single -1.6227 -1.03
+withinss 
+  method      2     3
+1 kmeans  0.046  0.45
+2   ward  0.261 -0.80
+3 single -1.696 -1.58
+entropy 
+  method      2     3
+1 kmeans  0.500  0.56
+2   ward  0.019  0.84
+3 single -2.195 -1.56
+pamc 
+  method     2     3
+1 kmeans  0.13  0.26
+2   ward  0.32 -0.46
+3 single -1.76 -1.11
+dmode 
+  method     2   3
+1 kmeans  0.34 NaN
+2   ward  0.36 NaN
+3 single -2.22 NaN
+aggregate 
+  method     2     3
+1 kmeans -0.40  0.21
+2   ward  0.23 -1.06
+3 single -1.01 -0.42
+> 
+> 
+> 
+> cleanEx()
 > nameEx("plotcluster")
 > ### * plotcluster
 > 
@@ -2416,6 +3625,94 @@ Largest number of clusters better than cutoff:  3
 > 
 >   randconf(10,3)
  [1] FALSE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE FALSE
+> 
+> 
+> 
+> cleanEx()
+> nameEx("randomclustersim")
+> ### * randomclustersim
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: randomclustersim
+> ### Title: Simulation of validity indexes based on random clusterings
+> ### Aliases: randomclustersim
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
+>   randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,nnruns=3,kmruns=3)
+2  clusters; nn run  1 
+2  clusters; nn run  2 
+2  clusters; nn run  3 
+2  clusters; km run  1 
+2  clusters; km run  2 
+2  clusters; km run  3 
+3  clusters; nn run  1 
+3  clusters; nn run  2 
+3  clusters; nn run  3 
+3  clusters; km run  1 
+3  clusters; km run  2 
+3  clusters; km run  3 
+$km
+$km[[1]]
+NULL
+
+$km[[2]]
+  avewithin   mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.773 0.1294 0.925      0.4825     0.715 0.4054 0.4054 0.648  1.000
+2     0.683 0.0646 0.927      0.2268     0.595 0.2725 0.2725 0.446  1.000
+3     0.557 0.0000 0.935      0.0792     0.585 0.0827 0.0827 0.151  0.987
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1   1.000    0.862        0.885    0.785   0.971 0.832  0.599  0.541
+2   1.000    0.804        0.771    0.580   0.881 0.796  0.522  0.465
+3   0.995    0.782        0.586    0.281   1.000 0.723  0.780  0.418
+
+$km[[3]]
+  avewithin   mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.838    NaN   NaN       0.661     0.715 0.3148  0.285 0.587      1
+2     0.715 0.1065 0.975       0.493     0.595 0.0908  0.000 0.177      1
+3     0.650 0.0696 0.931       0.221     0.595 0.0949  0.000 0.123      1
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1   1.000    0.862        0.857    0.912   0.991 0.913  0.415  0.562
+2   0.906    0.804        0.798    0.757   0.817 0.837  0.630  0.368
+3   0.906    0.804        0.722    0.595   0.730 0.796  0.548  0.425
+
+
+$nn
+$nn[[1]]
+NULL
+
+$nn[[2]]
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.500 0.129 0.958       0.000     0.595  0.285  0.285 0.000  0.847
+2     0.773 0.129 0.925       0.482     0.715  0.405  0.405 0.648  1.000
+3     0.773 0.129 0.925       0.482     0.715  0.405  0.405 0.648  1.000
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1       1    0.608        0.498    0.082   0.469 0.675  0.608  0.558
+2       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
+3       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
+
+$nn[[3]]
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.764 0.129 0.925       0.482     0.715  0.190 0.0827 0.403      1
+2     0.838   NaN   NaN       0.661     0.715  0.315 0.2846 0.587      1
+3     0.782 0.122 0.935       0.482     0.715  0.135 0.0000 0.297      1
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1   0.995    0.862        0.801    0.790   0.817 0.843  0.475  0.448
+2   1.000    0.862        0.857    0.912   0.991 0.913  0.415  0.562
+3   0.906    0.862        0.830    0.835   0.859 0.861  0.542  0.501
+
+
+$nnruns
+[1] 3
+
+$kmruns
+[1] 3
+
 > 
 > 
 > 
@@ -2574,6 +3871,58 @@ detaching ‘tonedata’
 > 
 > 
 > cleanEx()
+> nameEx("stupidkcentroids")
+> ### * stupidkcentroids
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stupidkcentroids
+> ### Title: Stupid k-centroids random clustering
+> ### Aliases: stupidkcentroids
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   stupidkcentroids(dist(face),3) 
+  [1] 3 3 3 2 3 1 1 2 2 3 1 2 1 2 1 2 1 3 1 1 2 2 1 1 2 1 3 2 1 2 2 2 1 2 1 2 1
+ [38] 1 3 1 3 1 3 2 2 2 3 1 1 1 1 3 3 2 2 1 1 3 3 1 3 1 3 3 1 3 1 3 1 1 1 2 1 3
+ [75] 3 1 1 1 3 2 3 1 1 2 1 3 1 2 3 3 1 1 1 1 1 2 3 1 3 3 3 3 3 3 3 3 3 3 2 2 3
+[112] 3 3 2 2 2 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
+[149] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2
+[186] 2 2 2 2 2 2 2 2 2 2 2 2 3 2 2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("stupidknn")
+> ### * stupidknn
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stupidknn
+> ### Title: Stupid nearest neighbour random clustering
+> ### Aliases: stupidknn
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   stupidknn(dist(face),3) 
+  [1] 2 3 2 2 2 3 3 2 2 2 3 2 3 2 3 2 3 2 3 3 2 2 3 3 2 3 2 2 3 2 2 2 3 2 3 2 3
+ [38] 3 3 1 3 1 1 1 1 2 3 1 1 1 1 3 3 1 2 1 1 1 3 1 3 1 3 3 1 3 1 1 1 1 1 1 1 3
+ [75] 3 1 1 1 3 1 1 1 1 2 1 3 1 2 3 1 1 1 1 1 1 1 3 1 2 2 2 2 2 2 2 2 2 2 2 2 2
+[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[149] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[186] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+> 
+> 
+> 
+> cleanEx()
 > nameEx("tdecomp")
 > ### * tdecomp
 > 
@@ -2727,7 +4076,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  4.293 0.141 4.525 0 0 
+Time elapsed:  6.359 0.071 6.439 0 0 
 > grDevices::dev.off()
 null device 
           1 

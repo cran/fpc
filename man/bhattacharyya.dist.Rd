@@ -33,8 +33,8 @@ Press, New York.
   Thanks to David Pinto for improving this function.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
   round(bhattacharyya.dist(c(1,1),c(2,5),diag(2),diag(2)),digits=2)

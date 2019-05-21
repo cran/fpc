@@ -349,7 +349,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
   Hennig, C. (2005) Fuzzy and Crisp Mahalanobis Fixed Point Clusters,
   in Baier, D., Decker, R., and Schmidt-Thieme, L. (eds.):
   \emph{Data Analysis and Decision Support}. Springer, Heidelberg,
-  47-56, \url{http://www.homepages.ucl.ac.uk/~ucakche/papers/fuzzyfix.ps}
+  47-56.
   
 
   Hennig, C. and Christlieb, N. (2002) Validating visual clusters in
@@ -358,8 +358,8 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
 
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \seealso{
 \code{\link{fixreg}} for linear regression fixed point clusters.

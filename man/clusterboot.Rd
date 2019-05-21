@@ -68,8 +68,7 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
       determined by \code{subtuning}.
       
       \code{"noise"}: replacing a certain percentage of the points by
-      random noise, see \code{noisetuning} (note that this will not
-      work if within-cluster .
+      random noise, see \code{noisetuning}.
       
       \code{"jitter"} add random noise to all points, see
       \code{jittertuning}. (This didn't perform well in Hennig (2007),
@@ -352,8 +351,8 @@ clusterboot(data,B=100, distances=(class(data)=="dist"),
   \emph{Journal of Multivariate Analysis} 99, 1154-1176.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \seealso{
   \code{\link{dist}},

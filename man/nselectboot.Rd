@@ -38,7 +38,10 @@ nselectboot(data,B=50,distances=inherits(data,"dist"),
     and \code{\link{kmeansCBI}} for the format. Clustering methods for
     \code{nselectboot} must have a \code{k}-argument for the number of
     clusters and must otherwise follow the specifications in
-    \code{\link{clusterboot}}. 
+    \code{\link{clusterboot}}. Note that \code{nselectboot} won't work
+    with CBI-functions that implicitly already estimate the number of
+    clusters such as \code{\link{pamkCBI}}; use \code{\link{claraCBI}}
+    if you want to run it for pam/clara clustering. 
   }
   \item{classification}{string.
     This determines how non-clustered points are classified to given
@@ -47,7 +50,8 @@ nselectboot(data,B=50,distances=inherits(data,"dist"),
     Certain classification methods are connected to certain clustering
     methods. \code{classification="averagedist"} is recommended for
     average linkage, \code{classification="centroid"} is recommended for
-    k-means, clara and pam, \code{classification="knn"} with
+    k-means, clara and pam (with distances it will work with
+    \code{\link{claraCBI}} only), \code{classification="knn"} with
     \code{nnk=1} is recommended for single linkage and
     \code{classification="qda"} is recommended for Gaussian mixtures
     with flexible covariance matrices.  
@@ -75,8 +79,8 @@ nselectboot(data,B=50,distances=inherits(data,"dist"),
     Analysis}, 56, 468-477.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \seealso{
   \code{\link{classifdist}}, \code{\link{classifnp}},

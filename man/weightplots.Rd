@@ -55,8 +55,8 @@ Hennig, C. (2010) Methods for merging Gaussian mixture components,
   \emph{Advances in Data Analysis and Classification}, 4, 3-34.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 
 \examples{

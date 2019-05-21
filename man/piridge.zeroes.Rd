@@ -35,8 +35,8 @@ piridge.zeroes(prop, mu1, mu2, Sigma1, Sigma2, alphamin=0,
 Normal Mixtures, \emph{Annals of Statistics}, 33, 2042-2065.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
   q <- piridge.zeroes(0.2,c(1,1),c(2,5),diag(2),diag(2),by=0.1)

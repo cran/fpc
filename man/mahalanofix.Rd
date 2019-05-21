@@ -51,8 +51,8 @@ mahalanofuz(x, n = nrow(as.matrix(x)), p = ncol(as.matrix(x)),
     (numerically) singular.}
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}}
 
 \note{Methods \code{"mcd"} and \code{"mve"} require library \code{lqs}.}
 

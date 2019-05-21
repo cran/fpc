@@ -22,8 +22,8 @@ simmatrix(fpcobj)
 }
 
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \note{The intersection between representative FPCs no. \code{i} and
   \code{j} is at position \code{\link{sseg}(i,j)}.}

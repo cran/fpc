@@ -100,8 +100,8 @@ regem(indep, dep, m, cln, icrit=1.e-5, minsig=1.e-6, warnings=FALSE)
     Classification} 12, 21-56.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}}
 \seealso{
 Regression mixtures can also (and probably better) be computed with the
 flexmix package, see \code{\link[flexmix]{flexmix}}. (When I first write

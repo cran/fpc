@@ -161,8 +161,7 @@ fixreg <- function (indep=rep(1,n), dep, n=length(dep),
   gv <- rep (TRUE, times=n)
   fpc <- rfpi(indep, dep, p, gv, ca, maxit, plot)   # WDC-iteration
   if (fpc$coll){
-    print("Independent variables of whole data collinear. Break forced.")
-    return
+    stop("Independent variables of whole data collinear.")
   }
   imatrix <- c(sum(fpc$g)) # matrix of FPC size and intersections
   smatrix <- c(sum(fpc$g)) # matrix of FPC size and dissimilarities

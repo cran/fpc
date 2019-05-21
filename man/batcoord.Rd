@@ -71,8 +71,8 @@ differences in mean and variance as explained for the argument \code{dom}.
     Recognition} (2nd ed.). Boston: Academic Press.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}}
 
 \seealso{
   \code{\link{plotcluster}} for straight forward discriminant plots.

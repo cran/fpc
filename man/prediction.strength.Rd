@@ -39,7 +39,12 @@
     and \code{\link{kmeansCBI}} for the format. Clustering methods for
     \code{prediction.strength} must have a \code{k}-argument for the number of
     clusters, must operate on n times p data matrices
-    and must otherwise follow the specifications in \code{\link{clusterboot}}.}
+    and must otherwise follow the specifications in
+    \code{\link{clusterboot}}
+    Note that \code{prediction.strength} won't work
+    with CBI-functions that implicitly already estimate the number of
+    clusters such as \code{\link{pamkCBI}}; use \code{\link{claraCBI}}
+    if you want to run it for pam/clara clustering.}
   \item{classification}{string.
     This determines how non-clustered points are classified to given
     clusters. Options are explained in \code{\link{classifnp}} and
@@ -47,10 +52,11 @@
     Certain classification methods are connected to certain clustering
     methods. \code{classification="averagedist"} is recommended for
     average linkage, \code{classification="centroid"} is recommended for
-    k-means, clara and pam, \code{classification="knn"} with
+    k-means, clara and pam (with distances it will work with
+    \code{\link{claraCBI}} only), \code{classification="knn"} with
     \code{nnk=1} is recommended for single linkage and
     \code{classification="qda"} is recommended for Gaussian mixtures
-    with flexible covariance matrices.  
+    with flexible covariance matrices. 
   }
   \item{cutoff}{numeric between 0 and 1. The optimal number of clusters
     is the maximum one with prediction strength above \code{cutoff}.}
@@ -111,8 +117,8 @@ Prediction Strength, \emph{Journal of Computational and Graphical
 }
 
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
   options(digits=3)

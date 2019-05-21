@@ -100,3 +100,21 @@ prediction.strength(x0,M=10,Gmax=4,
 prediction.strength(dist(x0),M=10,Gmax=4,
                            clustermethod=claraCBI,
                            classification="centroids")
+
+
+set.seed(20000)
+xdata <- c(rnorm(10,0,1),rnorm(10,8,1))
+clustermethod=c("claraCBI","dbscanCBI")
+
+clustermethodpars <- list()
+clustermethodpars[[1]] <- clustermethodpars[[2]] <- list()
+clustermethodpars[[2]]$eps <- 2
+clustermethodpars[[2]]$MinPts <- 2
+cbs <-  clusterbenchstats(xdata,G=3,clustermethod=clustermethod,
+    distmethod=rep(TRUE,2),ncinput=c(TRUE,FALSE),scaling=FALSE,
+    clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,useallg=TRUE)
+
+print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
+print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
+
+

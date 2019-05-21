@@ -31,8 +31,8 @@ against \code{alpha}.}
 Normal Mixtures, \emph{Annals of Statistics}, 33, 2042-2065.
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
   q <- piridge(seq(0,1,0.1),c(1,1),c(2,5),diag(2),diag(2))

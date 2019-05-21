@@ -16,6 +16,7 @@
 \alias{speccCBI}
 \alias{tclustCBI}
 \alias{pdfclustCBI}
+\alias{emskewCBI}
 
 
 %- Also NEED an `\alias' for EACH other topic documented here.
@@ -56,13 +57,7 @@ claraCBI(data,k,usepam=TRUE,diss=inherits(data,"dist"),...)
 pamkCBI(data,krange=2:10,k=NULL,criterion="asw", usepam=TRUE,
         scaling=TRUE,diss=inherits(data,"dist"),...)
 
-trimkmeansCBI(data,k,scaling=TRUE,trim=0.1,...)
-
 tclustCBI(data,k,trim=0.05,...)
-
-disttrimkmeansCBI(dmatrix,k,scaling=TRUE,trim=0.1,
-                         mdsmethod="classical",
-                         mdsdim=4,...)
 
 dbscanCBI(data,eps,MinPts,diss=inherits(data,"dist"),...)
 
@@ -76,6 +71,8 @@ mergenormCBI(data, G=NULL, k=NULL, modelNames=NULL, nnk=0,
 speccCBI(data,k,...)
 
 pdfclustCBI(data,...)
+
+emskewCBI(data,k,distr="mst",repeats=100,...)
 }
 \arguments{
   \item{data}{a numeric matrix. The data
@@ -180,7 +177,15 @@ pdfclustCBI(data,...)
   \item{mergemethod}{method for merging Gaussians, passed on as
     \code{method} to \code{\link{mergenormals}}.}
   \item{cutoff}{numeric between 0 and 1, tuning constant for
-    \code{\link{mergenormals}}.} 
+    \code{\link{mergenormals}}.}
+  \item{distr}{one of \code{"mvn", "mvt", "msn", "mst"}. Defines the
+    family of mixtures (multivariate normal, multivariate t,
+    multivariate skew normal, or multivariate skew t). See
+    \code{\link[EMMIXskew]{EmSkew}}.}, 
+  \item{repeats}{integer. In case that \code{\link[EMMIXskew]{EmSkew}}
+    doesn't give a solution, how often should execution be repeated with
+    new random initialisations? (\code{EmSkew}'s own \code{nrandom}
+    doesn't help if an initialisation leads to a \code{NULL} output.)}
   \item{...}{further parameters to be transferred to the original
     clustering functions (not required).}
 }
@@ -238,12 +243,6 @@ pdfclustCBI(data,...)
       partitioning around medoids. The number
       of clusters is estimated by the Calinski-Harabasz index or by the
       average silhouette width.}
-    \item{trimkmeansCBI}{an interface to the function
-	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
-	clustering. This assumes a cases*variables matrix as input. Note
-	that for
-	most applications, \code{tclustCBI} with parameter
-	\code{restr.fact=1} will do about the same but faster.}	
     \item{tclustCBI}{an interface to the function
 	\code{tclust} in the tclust package for trimmed Gaussian 
 	clustering. This assumes a cases*variables matrix as input.}
@@ -277,6 +276,12 @@ pdfclustCBI(data,...)
       \code{\link[pdfCluster]{pdfCluster}} for density-based clustering. See
       the \code{\link[pdfCluster]{pdfCluster}} help page for additional tuning
       parameters. This assumes a cases*variables matrix as input.}
+    \item{emskewCBI}{an interface to the function
+      \code{\link[EMMIXskew]{EmSkew}} for clustering with the
+      EM-algorithm based on Gaussian, skew Gaussian, t or skew-t
+      mixtures. See
+      help page of \code{\link[EMMIXskew]{EmSkew}}. This assumes a
+      cases*variables matrix as input.} 
   }
 }
 
@@ -315,8 +320,8 @@ pdfclustCBI(data,...)
     noise/outliers by \code{disthclustCBI}.}
 }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \seealso{
   \code{\link{clusterboot}}, \code{\link{dist}},
@@ -326,7 +331,8 @@ pdfclustCBI(data,...)
   \code{\link[cluster]{clara}},
   \code{\link[trimcluster]{trimkmeans}}, \code{\link{dbscan}},
   \code{\link{fixmahal}},
-  \code{\link[tclust]{tclust}}, \code{\link[pdfCluster]{pdfCluster}} 
+  \code{\link[tclust]{tclust}}, \code{\link[pdfCluster]{pdfCluster}},
+  \code{\link[EMMIXskew]{EmSkew}}
 }
 \examples{
   options(digits=3)

@@ -62,8 +62,8 @@ distcritmulti(x,clustering,part=NULL,ns=10,criterion="asw",
   }
 
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche}}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en}}
 
 \seealso{\code{\link{cluster.stats}}, \code{\link[cluster]{silhouette}}}
 

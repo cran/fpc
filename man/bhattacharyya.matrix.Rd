@@ -42,8 +42,8 @@ Press, New York.
   \emph{Advances in Data Analysis and Classification}, 4, 3-34.
   }
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 
 \seealso{
@@ -51,7 +51,7 @@ Press, New York.
   }
 
 \examples{
-  muarray <- cbind(c(0,0),c(0,0.1),c(10,10))
+  muarray <-cbind(c(0,0),c(0,0.1),c(10,10))
   sigmaarray <- array(c(diag(2),diag(2),diag(2)),dim=c(2,2,3))
   bhattacharyya.matrix(muarray,sigmaarray,ipairs=list(c(1,2),c(2,3)))
 

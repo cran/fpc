@@ -70,8 +70,8 @@ classifnp(data,clustering,
 }
   
 \author{Christian Hennig
-  \email{c.hennig@ucl.ac.uk}
-  \url{http://www.homepages.ucl.ac.uk/~ucakche/}
+  \email{christian.hennig@unibo.it}
+  \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \seealso{
   \code{\link{prediction.strength}}, \code{\link{nselectboot}}
@@ -82,7 +82,7 @@ x1 <- rnorm(50)
 y <- rnorm(100)
 x2 <- rnorm(40,mean=20)
 x3 <- rnorm(10,mean=25,sd=100)
-x <- cbind(c(x1,x2,x3),y)
+x <-cbind(c(x1,x2,x3),y)
 truec <- c(rep(1,50),rep(2,40),rep(3,10))
 topredict <- c(1,2,51,52,91)
 clumin <- truec
