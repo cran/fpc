@@ -10,7 +10,7 @@ lcmixed <- function ( formula = .~. , continuous, discrete, ppdim,
     logLik <- function (x, y) {
 #      print("LogLik")
       if (continuous!=0){
-        out <- dmvnorm (as.matrix(y)[,1:continuous,drop=FALSE], mean = center ,
+        out <- mvtnorm::dmvnorm(as.matrix(y)[,1:continuous,drop=FALSE], mean = center ,
                sigma = cov , log = TRUE )
       }
       else

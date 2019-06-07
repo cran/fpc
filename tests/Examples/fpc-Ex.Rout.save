@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2019-05-19 r76539) -- "Unsuffered Consequences"
+R Under development (unstable) (2019-06-03 r76653) -- "Unsuffered Consequences"
 Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -957,7 +957,7 @@ $average.between
 [1] 13.7
 
 $average.within
-[1] 2.9
+[1] 2.86
 
 $n.between
 [1] 8944
@@ -1000,7 +1000,7 @@ $entropy
 [1] 0.702
 
 $wb.ratio
-[1] 0.211
+[1] 0.209
 
 $ch
 [1] 699
@@ -2308,7 +2308,7 @@ $z
 >   options(digits=2)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.3
+Package 'mclust' version 5.4.2
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3020,7 +3020,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.3
+Package 'mclust' version 5.4.2
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3109,7 +3109,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.3
+Package 'mclust' version 5.4.2
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3168,7 +3168,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.3
+Package 'mclust' version 5.4.2
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3978,7 +3978,7 @@ detaching ‘tonedata’
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.3
+Package 'mclust' version 5.4.2
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4076,7 +4076,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.359 0.071 6.439 0 0 
+Time elapsed:  5.99 0.06 6.065 0 0 
 > grDevices::dev.off()
 null device 
           1 

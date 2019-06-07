@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2019-05-19 r76539) -- "Unsuffered Consequences"
+R Under development (unstable) (2019-06-03 r76653) -- "Unsuffered Consequences"
 Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 5.4.3
+Package 'mclust' version 5.4.2
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -1225,7 +1225,7 @@ $average.between
 [1] 15.2
 
 $average.within
-[1] 2.87
+[1] 3.05
 
 $n.between
 [1] 632
@@ -1268,7 +1268,7 @@ $entropy
 [1] 0.844
 
 $wb.ratio
-[1] 0.188
+[1] 0.2
 
 $ch
 [1] 229
@@ -1552,4 +1552,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  5.909   0.039   5.947 
+  5.692   0.067   5.751 

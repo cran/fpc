@@ -17,8 +17,8 @@ dridgeline <- function(alpha=seq(0,1,0.001), prop,
       out <- c(out,prop*dnorm(ralpha,mu1,sqrt(Sigma1))+
              (1-prop)*dnorm(ralpha,mu2,sqrt(Sigma2)))
     else  
-      out <- c(out,prop*dmvnorm(t(ralpha),mu1,Sigma1)+
-             (1-prop)*dmvnorm(t(ralpha),mu2,Sigma2))
+      out <- c(out,prop*mvtnorm::dmvnorm(t(ralpha),mu1,Sigma1)+
+             (1-prop)*mvtnorm::dmvnorm(t(ralpha),mu2,Sigma2))
   }
   if (showplot)
     plot(alpha,out,type="l",ylab="density", ylim=c(0,max(out)), ...)
@@ -37,8 +37,8 @@ piridge <- function(alpha, mu1, mu2, Sigma1, Sigma2, showplot=FALSE){
              (alpha1*dnorm(ralpha,mu2,sqrt(Sigma2)))))
     else
       out <- c(out,1/
-            (1+alpha2*dmvnorm(t(ralpha),mu1,Sigma1)/
-             (alpha1*dmvnorm(t(ralpha),mu2,Sigma2))))
+            (1+alpha2*mvtnorm::dmvnorm(t(ralpha),mu1,Sigma1)/
+             (alpha1*mvtnorm::dmvnorm(t(ralpha),mu2,Sigma2))))
   }
   out[is.na(out) & alpha<1e-8] <- 0
   out[is.na(out) & alpha>1-1e-8] <- 1  
@@ -508,10 +508,10 @@ mixdens <- function(modelName,data,parameters){
   else{
     out <- 0
     if (G==1)
-      out <- dmvnorm(data,parameters$mean,parameters$variance$sigma)
+      out <- mvtnorm::dmvnorm(data,parameters$mean,parameters$variance$sigma)
     else
       for (i in 1:G)
-        out <- out+parameters$pro[i]*dmvnorm(data,
+        out <- out+parameters$pro[i]*mvtnorm::dmvnorm(data,
                                              as.matrix(parameters$mean)[,i],
                                          parameters$variance$sigma[,,i])
   }

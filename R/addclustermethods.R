@@ -266,7 +266,6 @@ cluster.stats <- function (d = NULL, clustering, alt.clustering = NULL,
                                             sum(clustering<=cwn)
         ave.between.matrix <-
           separation.matrix <- matrix(0, ncol = cn, nrow = cn)
-        di <- list()
         for (i in 1:cn) {
             cluster.size[i] <- sum(clustering == i)
             di <- as.dist(dmat[clustering == i, clustering == 
@@ -300,7 +299,8 @@ cluster.stats <- function (d = NULL, clustering, alt.clustering = NULL,
             average.toother[i] <- mean(bv)
         }
         average.between <- mean(between.dist)
-        average.within <- mean(within.dist)
+#        average.within <- mean(within.dist)
+        average.within <- weighted.mean(average.distance,cluster.size,na.rm=TRUE)
         nwithin <- length(within.dist)
         nbetween <- length(between.dist)
         between.cluster.ss <- nonnoise.ss - within.cluster.ss
