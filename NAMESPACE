@@ -13,7 +13,6 @@ import(
   prabclus,
   class,
   diptest,
-  mvtnorm,
   robustbase
 )
 
