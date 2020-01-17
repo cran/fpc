@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2019-06-03 r76653) -- "Unsuffered Consequences"
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
 Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -295,7 +295,8 @@ $sep
 >   clusum$minG <- 2
 >   clusum$method <- c("kmeansCBI","claraCBI")
 >   clusum$name <- c("kmeansCBI","claraCBI")
->   clusim <- randomclustersim(dist(face),G=2:3,nnruns=2,kmruns=2,monitor=FALSE)
+>   clusim <- randomclustersim(dist(face),G=2:3,nnruns=1,kmruns=1,
++     fnruns=1,avenruns=1,monitor=FALSE)
 >   cgr <- cgrestandard(clusum,clusim,2:3)
 >   cgr2 <- cgrestandard(clusum,clusim,2:3,useallg=TRUE)
 >   cgr3 <- cgrestandard(clusum,clusim,2:3,percentage=TRUE)
@@ -321,21 +322,21 @@ List of 6
   .. ..$ pamc        : num 0.798
   .. ..$ dmode       : num 0.231
   ..$ :List of 16
-  .. ..$ avewithin   : num 0.966
-  .. ..$ mnnd        : num 16.5
-  .. ..$ cvnnd       : num 0.543
-  .. ..$ maxdiameter : num 1.18
-  .. ..$ widestgap   : num 0.5
-  .. ..$ sindex      : num 0.821
-  .. ..$ minsep      : num 0.758
-  .. ..$ asw         : num 0.875
+  .. ..$ avewithin   : num 0.964
+  .. ..$ mnnd        : num NA
+  .. ..$ cvnnd       : num NA
+  .. ..$ maxdiameter : num 0.998
+  .. ..$ widestgap   : num NaN
+  .. ..$ sindex      : num 0.85
+  .. ..$ minsep      : num 0.797
+  .. ..$ asw         : num 0.939
   .. ..$ dindex      : num NaN
   .. ..$ denscut     : num 0.538
-  .. ..$ highdgap    : num 0.5
-  .. ..$ pearsongamma: num 1.19
-  .. ..$ withinss    : num 0.932
-  .. ..$ entropy     : num 0.558
-  .. ..$ pamc        : num 0.836
+  .. ..$ highdgap    : num NaN
+  .. ..$ pearsongamma: num 1.01
+  .. ..$ withinss    : num 0.882
+  .. ..$ entropy     : num 0.359
+  .. ..$ pamc        : num 0.824
   .. ..$ dmode       : num NaN
  $       :List of 3
   ..$ : NULL
@@ -357,21 +358,21 @@ List of 6
   .. ..$ pamc        : num 0.707
   .. ..$ dmode       : num 0.586
   ..$ :List of 16
-  .. ..$ avewithin   : num -0.266
-  .. ..$ mnnd        : num 12.3
-  .. ..$ cvnnd       : num 0.564
-  .. ..$ maxdiameter : num -0.919
-  .. ..$ widestgap   : num 0.5
-  .. ..$ sindex      : num 1.64
-  .. ..$ minsep      : num 1.68
-  .. ..$ asw         : num 1.08
+  .. ..$ avewithin   : num -0.782
+  .. ..$ mnnd        : num NA
+  .. ..$ cvnnd       : num NA
+  .. ..$ maxdiameter : num -0.861
+  .. ..$ widestgap   : num NaN
+  .. ..$ sindex      : num 1.82
+  .. ..$ minsep      : num 1.74
+  .. ..$ asw         : num 1.24
   .. ..$ dindex      : num NaN
   .. ..$ denscut     : num 0.538
-  .. ..$ highdgap    : num 0.5
-  .. ..$ pearsongamma: num 1.71
-  .. ..$ withinss    : num -0.709
-  .. ..$ entropy     : num 0.665
-  .. ..$ pamc        : num -1.04
+  .. ..$ highdgap    : num NaN
+  .. ..$ pearsongamma: num 1.52
+  .. ..$ withinss    : num -1.25
+  .. ..$ entropy     : num 0.496
+  .. ..$ pamc        : num -1.42
   .. ..$ dmode       : num NaN
  $ maxG  : num 3
  $ minG  : num 2
@@ -384,161 +385,130 @@ List of 6
  $       :List of 3
   ..$ : NULL
   ..$ :List of 16
-  .. ..$ avewithin   : num -0.0825
-  .. ..$ mnnd        : num 2.68
-  .. ..$ cvnnd       : num -5.23
-  .. ..$ maxdiameter : num 0.235
-  .. ..$ widestgap   : num -1.16
-  .. ..$ sindex      : num 0.101
-  .. ..$ minsep      : num 0.294
-  .. ..$ asw         : num 0.519
+  .. ..$ avewithin   : num -0.174
+  .. ..$ mnnd        : num 2.46
+  .. ..$ cvnnd       : num -23.2
+  .. ..$ maxdiameter : num 0.217
+  .. ..$ widestgap   : num -1.54
+  .. ..$ sindex      : num 0.0591
+  .. ..$ minsep      : num 0.305
+  .. ..$ asw         : num 0.452
   .. ..$ dindex      : num 0.354
   .. ..$ denscut     : num 0.399
-  .. ..$ highdgap    : num -0.971
-  .. ..$ pearsongamma: num 0.588
-  .. ..$ withinss    : num 0.0915
-  .. ..$ entropy     : num 0.519
-  .. ..$ pamc        : num 0.0159
-  .. ..$ dmode       : num 0.0223
+  .. ..$ highdgap    : num -1.25
+  .. ..$ pearsongamma: num 0.562
+  .. ..$ withinss    : num 0.0414
+  .. ..$ entropy     : num 0.431
+  .. ..$ pamc        : num -0.0345
+  .. ..$ dmode       : num -0.0485
   ..$ :List of 16
-  .. ..$ avewithin   : num 1.13
-  .. ..$ mnnd        : num 5.6
-  .. ..$ cvnnd       : num 1.71
-  .. ..$ maxdiameter : num 1.23
-  .. ..$ widestgap   : num 0.724
-  .. ..$ sindex      : num 0.449
-  .. ..$ minsep      : num 0.294
-  .. ..$ asw         : num 0.762
+  .. ..$ avewithin   : num 1.03
+  .. ..$ mnnd        : num 5.09
+  .. ..$ cvnnd       : num 10.1
+  .. ..$ maxdiameter : num 1.19
+  .. ..$ widestgap   : num 0.54
+  .. ..$ sindex      : num 0.429
+  .. ..$ minsep      : num 0.305
+  .. ..$ asw         : num 0.73
   .. ..$ dindex      : num 0.354
   .. ..$ denscut     : num 0.399
-  .. ..$ highdgap    : num 0.71
-  .. ..$ pearsongamma: num 0.638
-  .. ..$ withinss    : num 0.932
-  .. ..$ entropy     : num 0.383
-  .. ..$ pamc        : num 1.23
-  .. ..$ dmode       : num 0.443
+  .. ..$ highdgap    : num 0.531
+  .. ..$ pearsongamma: num 0.611
+  .. ..$ withinss    : num 0.866
+  .. ..$ entropy     : num 0.26
+  .. ..$ pamc        : num 1.17
+  .. ..$ dmode       : num 0.398
  $       :List of 3
   ..$ : NULL
   ..$ :List of 16
-  .. ..$ avewithin   : num 0.329
-  .. ..$ mnnd        : num 4.29
-  .. ..$ cvnnd       : num 1.75
-  .. ..$ maxdiameter : num 0.181
-  .. ..$ widestgap   : num 0.724
-  .. ..$ sindex      : num 1.15
-  .. ..$ minsep      : num 1.16
-  .. ..$ asw         : num 0.957
+  .. ..$ avewithin   : num 0.233
+  .. ..$ mnnd        : num 3.91
+  .. ..$ cvnnd       : num 10.3
+  .. ..$ maxdiameter : num 0.165
+  .. ..$ widestgap   : num 0.54
+  .. ..$ sindex      : num 1.17
+  .. ..$ minsep      : num 1.17
+  .. ..$ asw         : num 0.953
   .. ..$ dindex      : num 0.354
   .. ..$ denscut     : num 0.399
-  .. ..$ highdgap    : num 0.71
-  .. ..$ pearsongamma: num 0.815
-  .. ..$ withinss    : num 0.289
-  .. ..$ entropy     : num 0.519
-  .. ..$ pamc        : num -0.0613
-  .. ..$ dmode       : num 0.443
+  .. ..$ highdgap    : num 0.531
+  .. ..$ pearsongamma: num 0.787
+  .. ..$ withinss    : num 0.235
+  .. ..$ entropy     : num 0.431
+  .. ..$ pamc        : num -0.111
+  .. ..$ dmode       : num 0.398
   ..$ :List of 16
-  .. ..$ avewithin   : num 0.329
-  .. ..$ mnnd        : num 4.29
-  .. ..$ cvnnd       : num 1.75
-  .. ..$ maxdiameter : num 0.181
-  .. ..$ widestgap   : num 0.724
-  .. ..$ sindex      : num 1.15
-  .. ..$ minsep      : num 1.16
-  .. ..$ asw         : num 0.957
+  .. ..$ avewithin   : num 0.233
+  .. ..$ mnnd        : num 3.91
+  .. ..$ cvnnd       : num 10.3
+  .. ..$ maxdiameter : num 0.165
+  .. ..$ widestgap   : num 0.54
+  .. ..$ sindex      : num 1.17
+  .. ..$ minsep      : num 1.17
+  .. ..$ asw         : num 0.953
   .. ..$ dindex      : num 0.354
   .. ..$ denscut     : num 0.399
-  .. ..$ highdgap    : num 0.71
-  .. ..$ pearsongamma: num 0.815
-  .. ..$ withinss    : num 0.289
-  .. ..$ entropy     : num 0.519
-  .. ..$ pamc        : num -0.0613
-  .. ..$ dmode       : num 0.443
+  .. ..$ highdgap    : num 0.531
+  .. ..$ pearsongamma: num 0.787
+  .. ..$ withinss    : num 0.235
+  .. ..$ entropy     : num 0.431
+  .. ..$ pamc        : num -0.111
+  .. ..$ dmode       : num 0.398
  $ maxG  : num 3
  $ minG  : num 2
  $ method: chr [1:2] "kmeansCBI" "claraCBI"
  $ name  : chr [1:2] "kmeansCBI" "claraCBI"
  - attr(*, "class")= chr "valstat"
 NULL
->   print(str(cgr3))
-List of 6
- $       :List of 3
-  ..$ : NULL
-  ..$ :List of 16
-  .. ..$ avewithin   : num 0.6
-  .. ..$ mnnd        : num 1
-  .. ..$ cvnnd       : num 0.2
-  .. ..$ maxdiameter : num 1
-  .. ..$ widestgap   : num 0.4
-  .. ..$ sindex      : num 0.4
-  .. ..$ minsep      : num 0.4
-  .. ..$ asw         : num 0.6
-  .. ..$ dindex      : num 0.4
-  .. ..$ denscut     : num 0.4
-  .. ..$ highdgap    : num 0.4
-  .. ..$ pearsongamma: num 0.6
-  .. ..$ withinss    : num 0.6
-  .. ..$ entropy     : num 0.4
-  .. ..$ pamc        : num 1
-  .. ..$ dmode       : num 0.4
-  ..$ :List of 16
-  .. ..$ avewithin   : num 1
-  .. ..$ mnnd        : num 1
-  .. ..$ cvnnd       : num 0.667
-  .. ..$ maxdiameter : num 1
-  .. ..$ widestgap   : num 0.4
-  .. ..$ sindex      : num 1
-  .. ..$ minsep      : num 0.6
-  .. ..$ asw         : num 1
-  .. ..$ dindex      : num 0.2
-  .. ..$ denscut     : num 0.6
-  .. ..$ highdgap    : num 0.4
-  .. ..$ pearsongamma: num 1
-  .. ..$ withinss    : num 1
-  .. ..$ entropy     : num 0.6
-  .. ..$ pamc        : num 0.6
-  .. ..$ dmode       : num 0.25
- $       :List of 3
-  ..$ : NULL
-  ..$ :List of 16
-  .. ..$ avewithin   : num 0.6
-  .. ..$ mnnd        : num 1
-  .. ..$ cvnnd       : num 1
-  .. ..$ maxdiameter : num 0.6
-  .. ..$ widestgap   : num 0.6
-  .. ..$ sindex      : num 0.6
-  .. ..$ minsep      : num 0.6
-  .. ..$ asw         : num 0.6
-  .. ..$ dindex      : num 0.4
-  .. ..$ denscut     : num 0.4
-  .. ..$ highdgap    : num 0.6
-  .. ..$ pearsongamma: num 0.6
-  .. ..$ withinss    : num 0.6
-  .. ..$ entropy     : num 0.4
-  .. ..$ pamc        : num 0.6
-  .. ..$ dmode       : num 0.45
-  ..$ :List of 16
-  .. ..$ avewithin   : num 0.6
-  .. ..$ mnnd        : num 1
-  .. ..$ cvnnd       : num 0.667
-  .. ..$ maxdiameter : num 0.2
-  .. ..$ widestgap   : num 0.4
-  .. ..$ sindex      : num 1
-  .. ..$ minsep      : num 1
-  .. ..$ asw         : num 1
-  .. ..$ dindex      : num 0.2
-  .. ..$ denscut     : num 0.6
-  .. ..$ highdgap    : num 0.4
-  .. ..$ pearsongamma: num 1
-  .. ..$ withinss    : num 0.4
-  .. ..$ entropy     : num 0.6
-  .. ..$ pamc        : num 0.2
-  .. ..$ dmode       : num 0.25
- $ maxG  : num 3
- $ minG  : num 2
- $ method: chr [1:2] "kmeansCBI" "claraCBI"
- $ name  : chr [1:2] "kmeansCBI" "claraCBI"
- - attr(*, "class")= chr "valstat"
-NULL
+>   print(cgr3[[1]][[2]])
+$avewithin
+[1] 0.6
+
+$mnnd
+[1] 1
+
+$cvnnd
+[1] 0.2
+
+$maxdiameter
+[1] 1
+
+$widestgap
+[1] 0.4
+
+$sindex
+[1] 0.4
+
+$minsep
+[1] 0.4
+
+$asw
+[1] 0.6
+
+$dindex
+[1] 0.4
+
+$denscut
+[1] 0.4
+
+$highdgap
+[1] 0.4
+
+$pearsongamma
+[1] 0.6
+
+$withinss
+[1] 0.6
+
+$entropy
+[1] 0.4
+
+$pamc
+[1] 1
+
+$dmode
+[1] 0.4
+
 > 
 > 
 > 
@@ -1164,124 +1134,105 @@ detaching ‘package:flexmix’, ‘package:lattice’, ‘package:MASS’
 >   set.seed(20000)
 >   options(digits=3)
 >   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
->   clustermethod=c("kmeansCBI","hclustCBI","hclustCBI")
+>   clustermethod=c("kmeansCBI","hclustCBI")
 > # A clustering method can be used more than once, with different
 > # parameters
 >   clustermethodpars <- list()
->   clustermethodpars[[2]] <- clustermethodpars[[3]] <- list()
->   clustermethodpars[[2]]$method <- "complete"
->   clustermethodpars[[3]]$method <- "average"
->   methodname <- c("kmeans","complete","average")
+>   clustermethodpars[[2]] <- list()
+>   clustermethodpars[[2]]$method <- "average"
+>   methodname <- c("kmeans","average")
 >   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
-+     methodname=methodname,distmethod=rep(FALSE,3),
-+     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2)
++     methodname=methodname,distmethod=rep(FALSE,2),
++     clustermethodpars=clustermethodpars,nnruns=1,kmruns=1,fnruns=1,avenruns=1)
 [1] "kmeansCBI"
-[1] "hclustCBI"
 [1] "hclustCBI"
 [1] "Computation of validity statistics"
 [1] "Simulation"
 2  clusters; nn run  1 
-2  clusters; nn run  2 
+2  clusters; fn run  1 
+2  clusters; aven run  1 
 2  clusters; km run  1 
-2  clusters; km run  2 
 3  clusters; nn run  1 
-3  clusters; nn run  2 
+3  clusters; fn run  1 
+3  clusters; aven run  1 
 3  clusters; km run  1 
-3  clusters; km run  2 
 [1] "Simulation quantile re-standardisation"
 [1] "Simulation sd re-standardisation"
 >   print(cbs)
 Output object of clusterbenchstats.
-Clustering methods:  kmeans complete average  
+Clustering methods:  kmeans average  
 Cluster validation statistics:  avewithin mnnd cvnnd maxdiameter widestgap sindex minsep asw dindex denscut highdgap pearsongamma withinss entropy pamc dmode 
 Numbers of clusters minimum:  2  maximum:  3 
 Output components are cm, stat, sim, qstat, sstat.stat, qstat, and sstat are valstat-objects.Use plot.valstat and print.valstat on these to get more information.
 >   print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,1,0,1,0,1,0,0,1,1))
 avewithin 
-    method    2    3
-1   kmeans 0.50 0.62
-2 complete 0.12 0.38
-3  average 0.12 0.25
+   method    2    3
+1  kmeans 0.43 0.57
+2 average 0.14 0.14
 mnnd 
-    method    2    3
-1   kmeans 0.25 0.88
-2 complete 0.75 0.38
-3  average 0.75 0.12
+   method    2    3
+1  kmeans 0.29 0.71
+2 average 0.86 0.14
 cvnnd 
-    method    2    3
-1   kmeans 0.12 0.50
-2 complete 0.38 0.38
-3  average 0.38 0.12
+   method    2    3
+1  kmeans 0.14 0.29
+2 average 0.43 0.14
 maxdiameter 
-    method    2    3
-1   kmeans 0.50 0.12
-2 complete 0.12 0.50
-3  average 0.12 0.38
+   method    2    3
+1  kmeans 0.43 0.14
+2 average 0.14 0.57
 widestgap 
-    method    2    3
-1   kmeans 0.12 0.50
-2 complete 0.38 0.12
-3  average 0.38 0.12
+   method    2    3
+1  kmeans 0.14 0.29
+2 average 0.43 0.14
 sindex 
-    method    2    3
-1   kmeans 0.25 0.50
-2 complete 0.50 0.62
-3  average 0.50 0.25
+   method    2    3
+1  kmeans 0.29 0.57
+2 average 0.57 0.29
 minsep 
-    method    2    3
-1   kmeans 0.25 0.38
-2 complete 0.50 0.62
-3  average 0.50 0.38
+   method    2    3
+1  kmeans 0.29 0.43
+2 average 0.57 0.43
 asw 
-    method    2    3
-1   kmeans 0.50 0.62
-2 complete 0.12 0.38
-3  average 0.12 0.25
+   method    2    3
+1  kmeans 0.43 0.57
+2 average 0.14 0.14
 dindex 
-    method    2    3
-1   kmeans 0.50 0.12
-2 complete 0.12 0.12
-3  average 0.12 0.12
+   method    2    3
+1  kmeans 0.43 0.14
+2 average 0.14 0.14
 denscut 
-    method    2    3
-1   kmeans 0.25 0.38
-2 complete 0.25 0.38
-3  average 0.25 0.38
+   method    2    3
+1  kmeans 0.29 0.43
+2 average 0.29 0.43
 highdgap 
-    method    2    3
-1   kmeans 0.50 0.50
-2 complete 0.12 0.12
-3  average 0.12 0.12
+   method    2    3
+1  kmeans 0.43 0.29
+2 average 0.14 0.14
 pearsongamma 
-    method    2    3
-1   kmeans 0.50 0.50
-2 complete 0.12 0.62
-3  average 0.12 0.38
+   method    2    3
+1  kmeans 0.43 0.57
+2 average 0.14 0.29
 withinss 
-    method    2    3
-1   kmeans 0.50 0.62
-2 complete 0.12 0.38
-3  average 0.12 0.25
+   method    2    3
+1  kmeans 0.43 0.57
+2 average 0.14 0.14
 entropy 
-    method    2    3
-1   kmeans 0.50 0.62
-2 complete 0.12 0.12
-3  average 0.12 0.50
+   method    2    3
+1  kmeans 0.43 0.43
+2 average 0.14 0.29
 pamc 
-    method    2    3
-1   kmeans 0.50 0.62
-2 complete 0.12 0.50
-3  average 0.12 0.38
+   method    2    3
+1  kmeans 0.43 0.57
+2 average 0.14 0.29
 dmode 
-    method    2    3
-1   kmeans 0.50 0.22
-2 complete 0.12 0.12
-3  average 0.12 0.12
+   method    2    3
+1  kmeans 0.43 0.18
+2 average 0.14 0.14
 aggregate 
-    method    2    3
-1   kmeans 0.43 0.50
-2 complete 0.20 0.43
-3  average 0.20 0.29
+   method    2    3
+1  kmeans 0.39 0.49
+2 average 0.22 0.24
 > # The weights are weights for the validation statistics ordered as in
 > # cbs$qstat$statistics for computation of an aggregated index, see
 > # ?print.valstat.
@@ -2305,53 +2256,24 @@ $z
 > ### ** Examples
 > 
 >   set.seed(98765)
->   options(digits=2)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.4
+Package 'mclust' version 5.4.5
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
->   irisBIC <- mclustBIC(iriss)
+>   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
 >   siris <- summary(irisBIC,iriss)
->   extract.mixturepars(siris,2)
-$pro
+>   emp <- extract.mixturepars(siris,2)
+>   emp$pro
 [1] 1
-
-$mean
+>   round(emp$mean,digits=1)
 Sepal.Length  Sepal.Width Petal.Length  Petal.Width 
          7.6          2.8          6.7          2.2 
-
-$variance
-$variance$modelName
+>   emp$variance$modelName
 [1] "VEV"
-
-$variance$d
-[1] 4
-
-$variance$G
-[1] 1
-
-$variance$sigma
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length      0.00081     -0.0027       0.0017      0.0012
-Sepal.Width      -0.00265      0.0103      -0.0071     -0.0049
-Petal.Length      0.00165     -0.0071       0.0061      0.0039
-Petal.Width       0.00119     -0.0049       0.0039      0.0025
-
-$variance$scale
-[1] 0.00076 0.00032 0.02380 0.00465 0.03334
-
-$variance$shape
-[1] 57.927  2.836  0.256  0.024
-
-$variance$orientation
-             Sepal.Length Sepal.Width Petal.Length Petal.Width
-Sepal.Length         0.18       -0.35     -0.91796        0.00
-Sepal.Width         -0.73        0.55     -0.35783        0.18
-Petal.Length         0.55        0.73     -0.17119       -0.37
-Petal.Width          0.37        0.19      0.00011        0.91
-
-
+>   round(emp$variance$scale,digits=2)
+[1] 0.00 0.00 0.02 0.00 0.03
+>   
 > 
 > 
 > 
@@ -3020,7 +2942,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.4
+Package 'mclust' version 5.4.5
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3109,7 +3031,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.4
+Package 'mclust' version 5.4.5
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3168,7 +3090,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.4
+Package 'mclust' version 5.4.5
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3393,7 +3315,7 @@ detaching ‘package:mclust’
 >   methodname <- c("kmeans","ward","single")
 >   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
 +     methodname=methodname,distmethod=rep(FALSE,3),
-+     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2)
++     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,fnruns=2,avenruns=2)
 [1] "kmeansCBI"
 [1] "hclustCBI"
 [1] "hclustCBI"
@@ -3401,10 +3323,18 @@ detaching ‘package:mclust’
 [1] "Simulation"
 2  clusters; nn run  1 
 2  clusters; nn run  2 
+2  clusters; fn run  1 
+2  clusters; fn run  2 
+2  clusters; aven run  1 
+2  clusters; aven run  2 
 2  clusters; km run  1 
 2  clusters; km run  2 
 3  clusters; nn run  1 
 3  clusters; nn run  2 
+3  clusters; fn run  1 
+3  clusters; fn run  2 
+3  clusters; aven run  1 
+3  clusters; aven run  2 
 3  clusters; km run  1 
 3  clusters; km run  2 
 [1] "Simulation quantile re-standardisation"
@@ -3414,90 +3344,90 @@ detaching ‘package:mclust’
 >   plot(cbs$stat,cbs$sim,statistic="avewithin")
 >   print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
 avewithin 
-  method      2     3
-1 kmeans -0.072  0.37
-2   ward  0.239 -1.06
-3 single -1.572 -0.91
+  method     2     3
+1 kmeans -0.56  0.38
+2   ward -0.17 -0.89
+3 single -2.43 -0.76
 mnnd 
-  method     2    3
-1 kmeans -1.20  0.3
-2   ward  0.44 -2.1
-3 single  0.78  1.1
+  method     2     3
+1 kmeans -1.94 -0.15
+2   ward  0.31 -2.64
+3 single  0.79  0.71
 cvnnd 
-  method      2     3
-1 kmeans -1.120  0.28
-2   ward -0.076 -0.72
-3 single -0.355 -1.35
+  method     2     3
+1 kmeans -1.36  0.33
+2   ward -0.29 -0.61
+3 single -0.57 -1.21
 maxdiameter 
-  method     2      3
-1 kmeans -0.13  0.051
-2   ward -0.13 -0.962
-3 single -1.33 -1.554
+  method    2     3
+1 kmeans -0.6  0.17
+2   ward -0.6 -0.73
+3 single -1.9 -1.25
 widestgap 
   method     2     3
-1 kmeans -0.68  0.64
-2   ward -0.52 -1.16
-3 single -0.52 -1.02
+1 kmeans -0.85  0.69
+2   ward -0.70 -1.16
+3 single -0.70 -1.01
 sindex 
   method     2     3
-1 kmeans -1.12 -0.11
-2   ward  0.15 -0.54
-3 single  0.15  0.68
+1 kmeans -1.66 -0.18
+2   ward -0.13 -0.62
+3 single -0.13  0.62
 minsep 
   method     2     3
-1 kmeans -1.12 -0.31
-2   ward  0.15 -0.68
-3 single  0.15  1.02
+1 kmeans -1.66 -0.37
+2   ward -0.13 -0.71
+3 single -0.13  0.88
 asw 
   method     2     3
-1 kmeans -0.13  0.13
-2   ward  0.28 -1.03
-3 single -1.60 -0.25
+1 kmeans -0.61  0.21
+2   ward -0.11 -0.91
+3 single -2.43 -0.16
 dindex 
-  method     2   3
-1 kmeans  0.42 NaN
-2   ward  0.42 NaN
-3 single -2.26 NaN
+  method    2   3
+1 kmeans  0.3 NaN
+2   ward  0.3 NaN
+3 single -3.0 NaN
 denscut 
-  method    2    3
-1 kmeans 0.38 0.43
-2   ward 0.38 0.28
-3 single 0.38 0.43
+  method   2    3
+1 kmeans NaN 0.60
+2   ward NaN 0.47
+3 single NaN 0.60
 highdgap 
-  method     2     3
-1 kmeans  0.12  0.64
-2   ward  0.18 -1.16
-3 single -2.11 -1.02
+  method      2     3
+1 kmeans -0.106  0.69
+2   ward -0.042 -1.16
+3 single -2.760 -1.01
 pearsongamma 
-  method       2     3
-1 kmeans -0.0095  0.36
-2   ward  0.2948 -1.56
-3 single -1.6227 -1.03
-withinss 
-  method      2     3
-1 kmeans  0.046  0.45
-2   ward  0.261 -0.80
-3 single -1.696 -1.58
-entropy 
-  method      2     3
-1 kmeans  0.500  0.56
-2   ward  0.019  0.84
-3 single -2.195 -1.56
-pamc 
   method     2     3
-1 kmeans  0.13  0.26
-2   ward  0.32 -0.46
-3 single -1.76 -1.11
+1 kmeans -0.50  0.34
+2   ward -0.12 -1.44
+3 single -2.53 -0.94
+withinss 
+  method     2     3
+1 kmeans -0.42  0.51
+2   ward -0.15 -0.57
+3 single -2.57 -1.25
+entropy 
+  method     2     3
+1 kmeans  0.47  0.85
+2   ward -0.13  1.13
+3 single -2.90 -1.27
+pamc 
+  method      2     3
+1 kmeans -0.334  0.34
+2   ward -0.093 -0.32
+3 single -2.691 -0.91
 dmode 
   method     2   3
-1 kmeans  0.34 NaN
-2   ward  0.36 NaN
-3 single -2.22 NaN
+1 kmeans  0.20 NaN
+2   ward  0.22 NaN
+3 single -2.95 NaN
 aggregate 
   method     2     3
-1 kmeans -0.40  0.21
-2   ward  0.23 -1.06
-3 single -1.01 -0.42
+1 kmeans -0.91  0.18
+2   ward -0.14 -0.98
+3 single -1.69 -0.36
 > 
 > 
 > 
@@ -3644,42 +3574,73 @@ Largest number of clusters better than cutoff:  3
 >   set.seed(20000)
 >   options(digits=3)
 >   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
->   randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,nnruns=3,kmruns=3)
+>   randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,
++     nnruns=2,kmruns=2, fnruns=1,avenruns=1,nnk=2)
 2  clusters; nn run  1 
 2  clusters; nn run  2 
-2  clusters; nn run  3 
+2  clusters; fn run  1 
+2  clusters; aven run  1 
 2  clusters; km run  1 
 2  clusters; km run  2 
-2  clusters; km run  3 
 3  clusters; nn run  1 
 3  clusters; nn run  2 
-3  clusters; nn run  3 
+3  clusters; fn run  1 
+3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
-3  clusters; km run  3 
 $km
 $km[[1]]
 NULL
 
 $km[[2]]
-  avewithin   mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
-1     0.773 0.1294 0.925      0.4825     0.715 0.4054 0.4054 0.648  1.000
-2     0.683 0.0646 0.927      0.2268     0.595 0.2725 0.2725 0.446  1.000
-3     0.557 0.0000 0.935      0.0792     0.585 0.0827 0.0827 0.151  0.987
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.683 0.266 0.841      0.2268     0.595 0.2725 0.2725 0.446  1.000
+2     0.557 0.000 0.763      0.0792     0.585 0.0827 0.0827 0.151  0.987
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
-1   1.000    0.862        0.885    0.785   0.971 0.832  0.599  0.541
-2   1.000    0.804        0.771    0.580   0.881 0.796  0.522  0.465
-3   0.995    0.782        0.586    0.281   1.000 0.723  0.780  0.418
+1   1.000    0.804        0.771    0.580   0.881 0.796  0.522  0.465
+2   0.995    0.782        0.586    0.281   1.000 0.723  0.780  0.418
 
 $km[[3]]
-  avewithin   mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
-1     0.838    NaN   NaN       0.661     0.715 0.3148  0.285 0.587      1
-2     0.715 0.1065 0.975       0.493     0.595 0.0908  0.000 0.177      1
-3     0.650 0.0696 0.931       0.221     0.595 0.0949  0.000 0.123      1
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.715 0.237 0.808       0.493     0.595 0.0908      0 0.177      1
+2     0.650 0.388 0.778       0.221     0.595 0.0949      0 0.123      1
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
-1   1.000    0.862        0.857    0.912   0.991 0.913  0.415  0.562
-2   0.906    0.804        0.798    0.757   0.817 0.837  0.630  0.368
-3   0.906    0.804        0.722    0.595   0.730 0.796  0.548  0.425
+1   0.906    0.804        0.798    0.757   0.817 0.837  0.630  0.368
+2   0.906    0.804        0.722    0.595   0.730 0.796  0.548  0.425
+
+
+$aven
+$aven[[1]]
+NULL
+
+$aven[[2]]
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.773 0.317  0.97       0.482     0.715  0.405  0.405 0.648      1
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
+
+$aven[[3]]
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.847 0.385 0.969       0.692     0.715  0.317  0.272 0.609      1
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1       1    0.862        0.867    0.919    0.96 0.912   0.54  0.505
+
+
+$fn
+$fn[[1]]
+NULL
+
+$fn[[2]]
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.773 0.317  0.97       0.482     0.715  0.405  0.405 0.648      1
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
+
+$fn[[3]]
+  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
+1     0.718 0.358 0.719       0.493     0.595 0.0908      0 0.206      1
+  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
+1   0.906    0.804        0.786     0.76   0.865 0.837  0.484  0.376
 
 
 $nn
@@ -3688,30 +3649,32 @@ NULL
 
 $nn[[2]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
-1     0.500 0.129 0.958       0.000     0.595  0.285  0.285 0.000  0.847
-2     0.773 0.129 0.925       0.482     0.715  0.405  0.405 0.648  1.000
-3     0.773 0.129 0.925       0.482     0.715  0.405  0.405 0.648  1.000
+1     0.500 0.332  0.82       0.000     0.595  0.285  0.285 0.000  0.847
+2     0.773 0.317  0.97       0.482     0.715  0.405  0.405 0.648  1.000
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
 1       1    0.608        0.498    0.082   0.469 0.675  0.608  0.558
 2       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
-3       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
 
 $nn[[3]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
-1     0.764 0.129 0.925       0.482     0.715  0.190 0.0827 0.403      1
-2     0.838   NaN   NaN       0.661     0.715  0.315 0.2846 0.587      1
-3     0.782 0.122 0.935       0.482     0.715  0.135 0.0000 0.297      1
+1     0.764 0.279 0.980       0.482     0.715  0.190 0.0827 0.403      1
+2     0.838 0.285 0.964       0.661     0.715  0.315 0.2846 0.587      1
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
 1   0.995    0.862        0.801    0.790   0.817 0.843  0.475  0.448
 2   1.000    0.862        0.857    0.912   0.991 0.913  0.415  0.562
-3   0.906    0.862        0.830    0.835   0.859 0.861  0.542  0.501
 
 
 $nnruns
-[1] 3
+[1] 2
+
+$fnruns
+[1] 1
+
+$avenruns
+[1] 1
 
 $kmruns
-[1] 3
+[1] 2
 
 > 
 > 
@@ -3871,6 +3834,32 @@ detaching ‘tonedata’
 > 
 > 
 > cleanEx()
+> nameEx("stupidkaven")
+> ### * stupidkaven
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stupidkaven
+> ### Title: Stupid average dissimilarity random clustering
+> ### Aliases: stupidkaven
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   stupidkaven(dist(face),3) 
+  [1] 2 3 2 2 2 3 3 2 2 2 3 2 3 2 3 2 3 2 3 3 2 2 3 3 2 3 2 2 3 2 2 2 1 2 1 2 3
+ [38] 3 3 1 3 1 1 2 2 2 3 1 1 1 1 3 3 2 2 1 1 1 3 1 3 1 3 3 1 3 1 3 1 1 1 2 1 3
+ [75] 3 1 1 1 3 2 1 1 1 2 1 3 1 2 3 3 2 1 1 1 1 2 3 1 2 2 2 2 2 2 2 2 2 2 2 2 2
+[112] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[149] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+[186] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
+> 
+> 
+> 
+> cleanEx()
 > nameEx("stupidkcentroids")
 > ### * stupidkcentroids
 > 
@@ -3893,6 +3882,32 @@ detaching ‘tonedata’
 [112] 3 3 2 2 2 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
 [149] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2
 [186] 2 2 2 2 2 2 2 2 2 2 2 2 3 2 2
+> 
+> 
+> 
+> cleanEx()
+> nameEx("stupidkfn")
+> ### * stupidkfn
+> 
+> flush(stderr()); flush(stdout())
+> 
+> ### Name: stupidkfn
+> ### Title: Stupid farthest neighbour random clustering
+> ### Aliases: stupidkfn
+> ### Keywords: multivariate cluster
+> 
+> ### ** Examples
+> 
+>   set.seed(20000)
+>   options(digits=3)
+>   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
+>   stupidkfn(dist(face),3) 
+  [1] 1 3 1 2 1 3 3 2 2 1 3 2 3 2 3 2 3 1 3 3 1 1 3 3 2 3 1 2 3 2 2 1 3 2 3 1 3
+ [38] 3 3 3 3 1 3 2 2 2 3 1 3 1 1 3 3 2 2 1 1 1 3 1 3 1 3 3 3 3 1 3 1 1 1 2 1 3
+ [75] 3 1 1 1 3 2 1 1 1 2 1 3 3 2 3 3 2 3 1 1 1 2 3 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[112] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[149] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
+[186] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
 > 
 > 
 > 
@@ -3978,7 +3993,7 @@ detaching ‘tonedata’
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.4
+Package 'mclust' version 5.4.5
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4076,7 +4091,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  6.155 0.052 6.21 0 0 
+Time elapsed:  3.266 0.08 3.406 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -51,7 +51,8 @@
     \item{clusterbenchstats}{This runs many clustering methods (to be
       specifed by the user) with many numbers of clusters on a dataset
       and produces standardised and comparable versions of many cluster
-      validity indexes (see Hennig 2017). This is done by means of
+      validity indexes (see Hennig 2017, Akhanli and Hennig 2020).
+      This is done by means of
       producing random clusterings on the given data, see
       \code{\link{stupidkcentroids}} and \code{\link{stupidknn}}. It
       allows to compare many 
@@ -143,7 +144,12 @@ Hennig, C. (2010) Methods for merging Gaussian mixture components,
   Hennig, C. (2017) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
   \emph{Proceedings of ASMDA 2017}, 501-520,
-    \url{https://arxiv.org/abs/1703.09282}
+  \url{https://arxiv.org/abs/1703.09282}
+
+  Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+On arxiv from February 2020. 
+
   
   Hennig, C. and Christlieb, N. (2002) Validating visual clusters in
   large datasets: Fixed point clusters of spectral features,

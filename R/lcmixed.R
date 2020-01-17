@@ -168,7 +168,7 @@ flexmixedruns <- function(x,diagonal=TRUE,xvarsorted=TRUE,
                model=lcmixed(continuous=continuous,discrete=discrete,
                  ppdim=ppdim,diagonal=diagonal),cluster=initial.cluster,
                control=control),silent=silent)
-      if (class(fmo)=="try-error"){
+      if (inherits(fmo,"try-error")){
         if (verbose) cat("k= ",k," flexmix error in run ",i," \n")
         errcount[k] <- errcount[k]+1
       }

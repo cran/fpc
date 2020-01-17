@@ -55,7 +55,7 @@ distnoisemclustCBI(dmatrix,G,k,modelNames,nnk,
 claraCBI(data,k,usepam=TRUE,diss=inherits(data,"dist"),...)
 
 pamkCBI(data,krange=2:10,k=NULL,criterion="asw", usepam=TRUE,
-        scaling=TRUE,diss=inherits(data,"dist"),...)
+        scaling=FALSE,diss=inherits(data,"dist"),...)
 
 tclustCBI(data,k,trim=0.05,...)
 

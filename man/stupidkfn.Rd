@@ -1,13 +1,19 @@
-\name{stupidkcentroids}
-\alias{stupidkcentroids}
+\name{stupidkfn}
+\alias{stupidkfn}
 %- Also NEED an `\alias' for EACH other topic documented here.
-\title{Stupid k-centroids random clustering}
+\title{Stupid farthest neighbour random clustering}
 \description{
-  Picks k random centroids from given dataset and assigns every point to
-  closest centroid. This is called stupid k-centroids in Hennig (2017).
+  Picks k random starting points from given dataset to initialise k
+  clusters. Then, one by one, a point not yet assigned to any cluster
+  is assigned to that
+  cluster, until all points are assigned. The point/cluster pair to be
+  used is picked according to the smallest distance of a point to the
+  farthest point to it in any of the already existing clusters as in
+  complete linkage clustering, see
+  Akhanli and Hennig (2020).
 }
 \usage{
-  stupidkcentroids(d,k)
+  stupidkfn(d,k)
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
@@ -22,11 +28,6 @@
   behind \code{d}), 
 }
 \references{
-Hennig, C. (2017) Cluster validation by measurement of clustering
-  characteristics relevant to the user. In C. H. Skiadas (ed.)
-  \emph{Proceedings of ASMDA 2017}, 501-520,
-  \url{https://arxiv.org/abs/1703.09282}
-  
 Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
 validity indexes for context-adapted comparison of clusterings.
 On arxiv from February 2020. 
@@ -39,14 +40,14 @@ On arxiv from February 2020.
 }
 
 \seealso{
-  \code{\link{stupidknn}}, \code{\link{stupidkfn}}, \code{\link{stupidkaven}}
+  \code{\link{stupidkcentroids}}, \code{\link{stupidknn}}, \code{\link{stupidkaven}}
 }
 
 \examples{
   set.seed(20000)
   options(digits=3)
   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
-  stupidkcentroids(dist(face),3) 
+  stupidkfn(dist(face),3) 
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{cluster}% __ONLY ONE__ keyword per line

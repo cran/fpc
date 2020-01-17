@@ -28,7 +28,7 @@
   transformed to crisp clusterings by the interface function.  
 }
 \usage{
-clusterboot(data,B=100, distances=(class(data)=="dist"),
+clusterboot(data,B=100, distances=(inherits(data, "dist")),
                         bootmethod="boot",
                         bscompare=TRUE, 
                         multipleboot=FALSE,

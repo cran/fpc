@@ -314,7 +314,7 @@ speccCBI <- function(data,k,...){
   options(show.error.messages = FALSE)
   c1 <- try(specc(data,centers=k,...))
   options(show.error.messages = TRUE)
-  if (class(c1)=="try-error"){
+  if (inherits(c1,"try-error")){
     partition <- rep(1,nrow(data))
     cat("Function specc returned an error, probably a one-point cluster.\n All observations were classified to cluster 1.\n")
   }
@@ -388,7 +388,7 @@ kmeansCBI <- function(data,krange,k=NULL,scaling=FALSE,runs=1,criterion="ch",...
 
 pamkCBI <- function (data, krange = 2:10,k=NULL,
                      criterion="asw", usepam=TRUE,
-                     scaling = TRUE, diss = inherits(data,"dist"), ...) 
+                     scaling = FALSE, diss = inherits(data,"dist"), ...) 
 {
 #    require(cluster)
     if (!is.null(k)) krange <- k
@@ -494,7 +494,7 @@ emskewCBI <- function(data,k,distr="mst",repeats=100,...){
 
 
 clusterboot <- function(data,B=100,
-                        distances=(class(data)=="dist"),
+                        distances=(inherits(data,"dist")),
                         bootmethod="boot",
                         bscompare=TRUE, multipleboot=FALSE,
                         jittertuning=0.05, noisetuning=c(0.05,4),

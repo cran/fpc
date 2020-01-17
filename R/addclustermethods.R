@@ -103,7 +103,7 @@ kmeansruns <- function(data,krange=2:10,criterion="ch",
 #          cat(k," ",i,"before \n")
           kmm <- try(kmeans(data,k,iter.max=iter.max,...))
 #          str(kmm)
-          if (class(kmm) != "try-error") break
+          if (!inherits(kmm,"try-error")) break
 #         cat(k," ",i,"\n")
         }
         options(show.error.messages = TRUE)

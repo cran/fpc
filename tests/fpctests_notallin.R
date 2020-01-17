@@ -57,7 +57,10 @@ mahalCBI(face50,clustercut=0.5)
 
 set.seed(20000)
 face100 <- rFace(100,dMoNo=2,dNoEy=0,p=2)
-print(clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000))
+cbf <- clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000)
+cbf$nc
+cbf$noisemethod
+cbf$bootmethod
 # suppressWarnings(if(require(tclust))
 # print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
 
@@ -112,7 +115,7 @@ clustermethodpars[[2]]$eps <- 2
 clustermethodpars[[2]]$MinPts <- 2
 cbs <-  clusterbenchstats(xdata,G=3,clustermethod=clustermethod,
     distmethod=rep(TRUE,2),ncinput=c(TRUE,FALSE),scaling=FALSE,
-    clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,useallg=TRUE)
+    clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,fnruns=1,avenruns=1,useallg=TRUE)
 
 print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
 print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)

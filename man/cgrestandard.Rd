@@ -7,7 +7,8 @@
   \code{\link{clustatsum}} relative to results that were achieved by
   random clusterings on the same data by
   \code{\link{randomclustersim}}. The aim is to make differences between
-  values comparable between indexes, see Hennig (2017).
+  values comparable between indexes, see Hennig (2017), Akhanli and
+  Hennig (2020).
 
   This is mainly for use within \code{\link{clusterbenchstats}}.
 }
@@ -64,6 +65,10 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
   \emph{Proceedings of ASMDA 2017}, 501-520,
     \url{https://arxiv.org/abs/1703.09282}
 
+Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+On arxiv from February 2020. 
+
 
 }
 \author{Christian Hennig
@@ -72,7 +77,7 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
 }
 
 \seealso{
-  \code{\link{valstat.object}}, \code{\link{clusterbenchstats}}, \code{\link{stupidkcentroids}}, \code{\link{stupidknn}}, \code{\link{clustatsum}}
+  \code{\link{valstat.object}}, \code{\link{clusterbenchstats}}, \code{\link{stupidkcentroids}}, \code{\link{stupidknn}}, \\code{\link{stupidkfn}}, \code{\link{stupidkaven}}, code{\link{clustatsum}}
 }
 
 \examples{
@@ -100,13 +105,14 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
   clusum$minG <- 2
   clusum$method <- c("kmeansCBI","claraCBI")
   clusum$name <- c("kmeansCBI","claraCBI")
-  clusim <- randomclustersim(dist(face),G=2:3,nnruns=2,kmruns=2,monitor=FALSE)
+  clusim <- randomclustersim(dist(face),G=2:3,nnruns=1,kmruns=1,
+    fnruns=1,avenruns=1,monitor=FALSE)
   cgr <- cgrestandard(clusum,clusim,2:3)
   cgr2 <- cgrestandard(clusum,clusim,2:3,useallg=TRUE)
   cgr3 <- cgrestandard(clusum,clusim,2:3,percentage=TRUE)
   print(str(cgr))
   print(str(cgr2))
-  print(str(cgr3))
+  print(cgr3[[1]][[2]])
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{cluster}% __ONLY ONE__ keyword per line

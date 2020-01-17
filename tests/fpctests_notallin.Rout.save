@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2019-06-03 r76653) -- "Unsuffered Consequences"
+R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
 Copyright (C) 2019 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 5.4.4
+Package 'mclust' version 5.4.5
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -1154,24 +1154,15 @@ $clustermethod
 > 
 > set.seed(20000)
 > face100 <- rFace(100,dMoNo=2,dNoEy=0,p=2)
-> print(clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000))
+> cbf <- clusterboot(face100,B=2,clustermethod=speccCBI,showplots=TRUE,k=6,seed=50000)
 boot 1 
 boot 2 
-* Cluster stability assessment *
-Cluster method:  spectral 
-Full clustering results are given as parameter result
-of the clusterboot object, which also provides further statistics
-of the resampling results.
-Number of resampling runs:  2 
-
-Number of clusters found in data:  6 
-
- Clusterwise Jaccard bootstrap (omitting multiple points) mean:
-[1] 0.971 0.750 0.525 0.532 0.929 0.503
-dissolved:
-[1] 0 0 1 1 0 1
-recovered:
-[1] 2 1 0 1 2 0
+> cbf$nc
+[1] 6
+> cbf$noisemethod
+[1] FALSE
+> cbf$bootmethod
+[1] "boot"
 > # suppressWarnings(if(require(tclust))
 > # print(clusterboot(face100,B=2,clustermethod=tclustCBI,showplots=TRUE,k=5,seed=50000,noisemethod=TRUE)))
 > 
@@ -1397,13 +1388,15 @@ Largest number of clusters better than cutoff:  1
 > clustermethodpars[[2]]$MinPts <- 2
 > cbs <-  clusterbenchstats(xdata,G=3,clustermethod=clustermethod,
 +     distmethod=rep(TRUE,2),ncinput=c(TRUE,FALSE),scaling=FALSE,
-+     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,useallg=TRUE)
++     clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,fnruns=1,avenruns=1,useallg=TRUE)
 [1] "claraCBI"
 [1] "dbscanCBI"
 [1] "Computation of validity statistics"
 [1] "Simulation"
 3  clusters; nn run  1 
 3  clusters; nn run  2 
+3  clusters; fn run  1 
+3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
 [1] "Simulation quantile re-standardisation"
@@ -1411,145 +1404,145 @@ Largest number of clusters better than cutoff:  1
 > 
 > print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
 avewithin 
-     method     2    3
-1  claraCBI    NA 0.54
-2 dbscanCBI 0.064   NA
+     method    2    3
+1  claraCBI   NA 0.67
+2 dbscanCBI 0.14   NA
 mnnd 
      method    2    3
-1  claraCBI   NA 0.51
-2 dbscanCBI 0.67   NA
+1  claraCBI   NA 0.37
+2 dbscanCBI 0.39   NA
 cvnnd 
-     method   2   3
-1  claraCBI  NA 1.5
-2 dbscanCBI 1.4  NA
+     method   2    3
+1  claraCBI  NA 0.32
+2 dbscanCBI 0.3   NA
 maxdiameter 
      method    2    3
-1  claraCBI   NA 0.52
-2 dbscanCBI 0.42   NA
+1  claraCBI   NA 0.66
+2 dbscanCBI 0.56   NA
 widestgap 
      method    2    3
-1  claraCBI   NA 0.45
-2 dbscanCBI 0.45   NA
+1  claraCBI   NA 0.59
+2 dbscanCBI 0.59   NA
 sindex 
-     method   2     3
-1  claraCBI  NA 0.029
-2 dbscanCBI 5.6    NA
+     method   2   3
+1  claraCBI  NA 0.1
+2 dbscanCBI 5.4  NA
 minsep 
      method  2    3
-1  claraCBI NA -1.3
-2 dbscanCBI 18   NA
+1  claraCBI NA -1.6
+2 dbscanCBI 17   NA
 asw 
      method   2    3
-1  claraCBI  NA 0.47
-2 dbscanCBI 1.2   NA
+1  claraCBI  NA 0.55
+2 dbscanCBI 1.7   NA
 dindex 
      method    2   3
-1  claraCBI   NA 1.2
-2 dbscanCBI -1.6  NA
+1  claraCBI   NA 1.4
+2 dbscanCBI -1.3  NA
 denscut 
      method    2    3
-1  claraCBI   NA -1.8
-2 dbscanCBI 0.45   NA
+1  claraCBI   NA -2.3
+2 dbscanCBI 0.38   NA
 highdgap 
-     method   2    3
-1  claraCBI  NA 0.59
-2 dbscanCBI 0.4   NA
+     method    2    3
+1  claraCBI   NA 0.73
+2 dbscanCBI 0.55   NA
 pearsongamma 
      method   2    3
-1  claraCBI  NA 0.41
-2 dbscanCBI 1.7   NA
+1  claraCBI  NA 0.54
+2 dbscanCBI 1.9   NA
 withinss 
-     method    2   3
-1  claraCBI   NA 0.5
-2 dbscanCBI 0.31  NA
+     method    2    3
+1  claraCBI   NA 0.63
+2 dbscanCBI 0.42   NA
 entropy 
      method   2    3
-1  claraCBI  NA 0.71
-2 dbscanCBI 1.4   NA
+1  claraCBI  NA 0.85
+2 dbscanCBI 1.6   NA
 pamc 
-     method      2    3
-1  claraCBI     NA 0.67
-2 dbscanCBI -0.024   NA
+     method     2    3
+1  claraCBI    NA 0.83
+2 dbscanCBI 0.052   NA
 dmode 
-     method    2   3
-1  claraCBI   NA 1.1
-2 dbscanCBI -1.1  NA
+     method     2   3
+1  claraCBI    NA 1.2
+2 dbscanCBI -0.87  NA
 aggregate 
      method   2    3
-1  claraCBI  NA 0.13
+1  claraCBI  NA 0.15
 2 dbscanCBI 1.2   NA
 > print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,1,0,1,1,0,0,1),include.othernc=cbs$cm$othernc)
 avewithin 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.38   NA
 mnnd 
      method    2    3
-1  claraCBI   NA 0.67
-2 dbscanCBI 0.83   NA
+1  claraCBI   NA 0.62
+2 dbscanCBI 0.75   NA
 cvnnd 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.83   NA
+1  claraCBI   NA 0.75
+2 dbscanCBI 0.75   NA
 maxdiameter 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.38   NA
 widestgap 
      method    2    3
-1  claraCBI   NA 0.33
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.38
+2 dbscanCBI 0.38   NA
 sindex 
      method  2    3
-1  claraCBI NA 0.33
+1  claraCBI NA 0.38
 2 dbscanCBI  1   NA
 minsep 
      method  2    3
-1  claraCBI NA 0.17
+1  claraCBI NA 0.12
 2 dbscanCBI  1   NA
 asw 
      method  2    3
-1  claraCBI NA 0.67
+1  claraCBI NA 0.62
 2 dbscanCBI  1   NA
 dindex 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.17   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.12   NA
 denscut 
      method    2    3
-1  claraCBI   NA 0.17
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.12
+2 dbscanCBI 0.25   NA
 highdgap 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.38   NA
 pearsongamma 
      method  2   3
 1  claraCBI NA 0.5
 2 dbscanCBI  1  NA
 withinss 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.38   NA
 entropy 
      method  2    3
-1  claraCBI NA 0.67
+1  claraCBI NA 0.75
 2 dbscanCBI  1   NA
 pamc 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.33   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.38   NA
 dmode 
      method    2    3
-1  claraCBI   NA 0.83
-2 dbscanCBI 0.21   NA
+1  claraCBI   NA 0.88
+2 dbscanCBI 0.19   NA
 aggregate 
-     method    2    3
-1  claraCBI   NA 0.58
-2 dbscanCBI 0.53   NA
+     method    2   3
+1  claraCBI   NA 0.6
+2 dbscanCBI 0.53  NA
 > 
 > 
 > 
 > proc.time()
    user  system elapsed 
-  5.876   0.064   5.933 
+  3.117   0.042   3.150 

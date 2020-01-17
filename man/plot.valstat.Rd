@@ -18,9 +18,9 @@
 \method{plot}{valstat}(x,simobject=NULL,statistic="sindex",
                             xlim=NULL,ylim=c(0,1),
                             nmethods=length(x)-5,
-                            col=1:nmethods,cex=1,pch=20,
-                            simcol=rep(grey(0.7),2),
-                         shift=0.1,include.othernc=NULL,...)
+                            col=1:nmethods,cex=1,pch=c("c","f","a","n"),
+                            simcol=rep(grey(0.7),4),
+                         shift=c(-0.1,-1/3,1/3,0.1),include.othernc=NULL,...)
 
 
 \method{print}{valstat}(x,statistics=x$statistics,
@@ -50,14 +50,18 @@
       \code{x$name}).}
   \item{col}{colours used for the different clustering methods.}
   \item{cex}{passed on to \code{plot}.}
-  \item{pch}{passed on to \code{plot}; symbol for random clustering
-    results.}
-  \item{simcol}{colour used for random clustering results.}
-  \item{shift}{numeric. Results from \code{\link{stupidkcentroids}} are
-    plotted by an amount of \code{shift} to the left, and results from
-    \code{\link{stupidknn}} are
-    plotted by an amount of \code{shift} to the right of their respective
-    number of clusters.}
+  \item{pch}{vector of symbols for random clustering results from
+    \code{\link{stupidkcentroids}}, \code{\link{stupidkfn}},
+    \code{\link{stupidkaven}}, \code{\link{stupidknn}}.
+    To be passed on to \code{plot}.}
+  \item{simcol}{vector of colours used for random clustering results in
+    order \code{\link{stupidkcentroids}}, \code{\link{stupidkfn}},
+    \code{\link{stupidkaven}}, \code{\link{stupidknn}}.}
+  \item{shift}{numeric vector. Indicates the amount to which the results
+    from  \code{\link{stupidkcentroids}}, \code{\link{stupidkfn}},
+    \code{\link{stupidkaven}}, \code{\link{stupidknn}} are
+    plotted to the right of their respective
+    number of clusters (negative numbers plot to the left).}
   \item{include.othernc}{this indicates whether methods should be
     included that estimated their number of clusters themselves and gave
     a result outside the standard range as given by \code{x$minG}
@@ -113,7 +117,12 @@
   Hennig, C. (2017) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
   \emph{Proceedings of ASMDA 2017}, 501-520,
-    \url{https://arxiv.org/abs/1703.09282}
+  \url{https://arxiv.org/abs/1703.09282}
+
+  Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+On arxiv from February 2020. 
+
 }
 \author{Christian Hennig
   \email{christian.hennig@unibo.it}
@@ -135,7 +144,7 @@
   methodname <- c("kmeans","ward","single")
   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
     methodname=methodname,distmethod=rep(FALSE,3),
-    clustermethodpars=clustermethodpars,nnruns=2,kmruns=2)
+    clustermethodpars=clustermethodpars,nnruns=2,kmruns=2,fnruns=2,avenruns=2)
   plot(cbs$stat,cbs$sim)
   plot(cbs$stat,cbs$sim,statistic="dindex")
   plot(cbs$stat,cbs$sim,statistic="avewithin")

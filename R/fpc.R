@@ -132,7 +132,7 @@ cov.wml <- function (x, wt = rep(1/nrow(x), nrow(x)),
 solvecov <- function(m, cmax=1e10){
   options(show.error.messages = FALSE)
   covinv <- try(solve(m))
-  if(class(covinv)!="try-error")
+  if(!inherits(covinv,"try-error"))
      coll=FALSE 
   else{ 
     p <- nrow(m)

@@ -1,3 +1,4 @@
+# cquality 19 implements Serhat's stupid clustering methods
 
 # Re-defined average.within with reweighting!
 
@@ -178,13 +179,22 @@ cqcluster.stats <- function (d = NULL, clustering, alt.clustering = NULL,
           for (i in (1:cn)[kenough]){
               nndi <- apply(dmat[clustering==i,clustering==i],
                      1,sort,partial=nnk+1)[nnk+1,]
+#              print(nndi)
               nnd <- c(nnd,nndi)
               cvnndc[i] <- sd(nndi)/mean(nndi)
           }
           cvnnd <- weighted.mean(cvnndc,pk1,na.rm=TRUE)
           mnnd <- mean(nnd,na.rm=TRUE)
+#          print("cluster.size")
+#          print(cluster.size)
+#          print(nnk)
+#          print(kenough)
+#          print(nnd)
+#          print(mnnd)
           if (!standardisation=="none"){
                 maxnnd <- max(apply(dmat,1,sort,partial=nnk+1)[nnk+1,])
+#                print("stan")
+#                print(maxnnd)
                 mnnd <- mnnd/maxnnd
                 cvnnd <- cvnnd/cvstan
           }
@@ -740,7 +750,67 @@ stupidknn <- function(d,k){
   }
   clustering
 }
-  
+
+# This computes a clustering starting from k centroids in which in each step
+# the point that is nearest to the furthest point of an existing cluster is added to that cluster.
+stupidkfn <- function(d,k){
+  cdist <- as.matrix(d)
+  n <- ncol(cdist)
+  kcent <- sample(n,k)
+  clustering <- rep(0,n)
+  clustering[kcent] <- 1:k
+  classified <- clustering>0
+  repeat{
+    cclustering  <-  clustering[clustering>0]
+    topredict <- clustering==0
+    cdistx <- cdist[topredict,classified,drop=FALSE]
+#    print(str(cdistx))
+    opt.ind <- minmaxd <- numeric(0)
+    for (i in 1:k){
+      cmk <- cdistx[,cclustering==i,drop=FALSE]
+      maxd <- apply(cmk,1,max)
+      minmaxd[i] <- min(maxd)
+      opt.ind[i] <- which.min(maxd)
+#      opt.ind2[i] <- which(cmk==minmaxd[i],arr.ind=TRUE)[1,,drop=FALSE]
+    }
+    kopt <- which.min(minmaxd)
+    clustering[topredict][opt.ind[kopt]] <- kopt
+    classified <- clustering>0
+    if(sum(classified)==n) break
+  }
+  clustering
+}
+
+# This computes a clustering starting from k centroids in which in each step
+# the point that has minimum average distiance to an existing cluster is added to that cluster.
+stupidkaven <- function(d,k){
+  cdist <- as.matrix(d)
+  n <- ncol(cdist)
+  kcent <- sample(n,k)
+  clustering <- rep(0,n)
+  clustering[kcent] <- 1:k
+  classified <- clustering>0
+  repeat{
+    cclustering  <-  clustering[clustering>0]
+    topredict <- clustering==0
+    cdistx <- cdist[topredict,classified,drop=FALSE]
+#    print(str(cdistx))
+    opt.ind <- minmaxd <- numeric(0)
+    for (i in 1:k){
+      cmk <- cdistx[,cclustering==i,drop=FALSE]
+      maxd <- apply(cmk,1,mean)
+      minmaxd[i] <- min(maxd)
+      opt.ind[i] <- which.min(maxd)
+#      opt.ind2[i] <- which(cmk==minmaxd[i],arr.ind=TRUE)[1,,drop=FALSE]
+    }
+    kopt <- which.min(minmaxd)
+    clustering[topredict][opt.ind[kopt]] <- kopt
+    classified <- clustering>0
+    if(sum(classified)==n) break
+  }
+  clustering
+}
+
 # This prepares the output of cqcluster.stats for some other
 # ways of plotting and printing, plot.clustatsum, print.clustatsum
 clustatsum <- function(datadist=NULL,clustering,noisecluster=FALSE,
@@ -780,10 +850,11 @@ clustatsum <- function(datadist=NULL,clustering,noisecluster=FALSE,
 }
 
     
-# This applies stupidkcenroids and stupidknn lots of times to
-# data.
+# This applies stupidkcentroids, stupidknn, stupidkfn and stupidkaven
+# lots of times to data.
 randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
-                      G,nnruns=100,kmruns=100,nnk=4,dnnk=2,
+                      G,nnruns=100,kmruns=100,fnruns=100,avenruns=100,
+                      nnk=4,dnnk=2,
                       pamcrit=TRUE, 
                       multicore=FALSE,cores=detectCores()-1,monitor=TRUE){
   nnsim <- function(k,g){
@@ -791,6 +862,70 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
     solution <- data.frame(NA)
     names(solution) <- "avewithin"
     gcl <- stupidknn(datadist,g)
+#    print(gcl)
+    grs <- cqcluster.stats(datadist,gcl,nnk=nnk,pamcrit=pamcrit)
+    grss <- summary(grs)
+    solution$avewithin <- grss$avewithin
+    solution$mnnd <- grss$mnnd
+    solution$cvnnd <- grss$cvnnd
+    solution$maxdiameter <- grss$maxdiameter
+    solution$widestgap <- grss$widestgap
+    solution$sindex <- grss$sindex
+    solution$minsep <- grss$minsep
+    solution$asw <-  grss$asw
+    solution$dindex <- grss$dindex
+    solution$denscut <- grss$denscut
+    solution$highdgap <- grss$highdgap
+    solution$pearsongamma <- grss$pearsongamma
+    solution$withinss <- grss$withinss
+    solution$entropy <- grss$entropy
+    if (pamcrit)
+      solution$pamc <- grss$pamc
+    if (npstats){
+      geysdist <- distrsimilarity(datanp,gcl,nnk=dnnk,largeisgood=TRUE)
+      solution$kdnorm <- geysdist$kdnorm
+      solution$kdunif <- geysdist$kdunif
+    }
+    solution
+  }
+  
+  fnsim <- function(k,g){
+    if(monitor) cat(g," clusters; fn run ",k,"\n")
+    solution <- data.frame(NA)
+    names(solution) <- "avewithin"
+    gcl <- stupidkfn(datadist,g)
+#    print(gcl)
+    grs <- cqcluster.stats(datadist,gcl,nnk=nnk,pamcrit=pamcrit)
+    grss <- summary(grs)
+    solution$avewithin <- grss$avewithin
+    solution$mnnd <- grss$mnnd
+    solution$cvnnd <- grss$cvnnd
+    solution$maxdiameter <- grss$maxdiameter
+    solution$widestgap <- grss$widestgap
+    solution$sindex <- grss$sindex
+    solution$minsep <- grss$minsep
+    solution$asw <-  grss$asw
+    solution$dindex <- grss$dindex
+    solution$denscut <- grss$denscut
+    solution$highdgap <- grss$highdgap
+    solution$pearsongamma <- grss$pearsongamma
+    solution$withinss <- grss$withinss
+    solution$entropy <- grss$entropy
+    if (pamcrit)
+      solution$pamc <- grss$pamc
+    if (npstats){
+      geysdist <- distrsimilarity(datanp,gcl,nnk=dnnk,largeisgood=TRUE)
+      solution$kdnorm <- geysdist$kdnorm
+      solution$kdunif <- geysdist$kdunif
+    }
+    solution
+  }
+  
+  avensim <- function(k,g){
+    if(monitor) cat(g," clusters; aven run ",k,"\n")
+    solution <- data.frame(NA)
+    names(solution) <- "avewithin"
+    gcl <- stupidkaven(datadist,g)
 #    print(gcl)
     grs <- cqcluster.stats(datadist,gcl,nnk=nnk,pamcrit=pamcrit)
     grss <- summary(grs)
@@ -851,8 +986,10 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
   }
       
   out <- list()
-  out$nn <- out$km <- list()
+  out$nn <- out$fn <- out$aven <- out$km <- list()
   out$nnruns <- nnruns
+  out$fnruns <- fnruns
+  out$avenruns <- avenruns
   out$kmruns <- kmruns
   for (g in G){
 #    out$nn[[g]] <- out$km[[g]] <- data.frame()
@@ -860,6 +997,12 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
       if (nnruns>0)
         out$nn[[g]] <- do.call(rbind,
                                mclapply(1:nnruns,nnsim,g=g,mc.cores=cores))
+      if (fnruns>0)
+        out$fn[[g]] <- do.call(rbind,
+                               mclapply(1:fnruns,fnsim,g=g,mc.cores=cores))
+      if (avenruns>0)
+        out$aven[[g]] <- do.call(rbind,
+                               mclapply(1:avenruns,avensim,g=g,mc.cores=cores))
       if(kmruns>0)
         out$km[[g]] <- do.call(rbind,
                                mclapply(1:kmruns,kmsim,g=g,mc.cores=cores))
@@ -867,6 +1010,10 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
     else{
       if (nnruns>0)
         out$nn[[g]] <- do.call(rbind,lapply(1:nnruns,nnsim,g=g))
+      if (fnruns>0)
+        out$fn[[g]] <- do.call(rbind,lapply(1:fnruns,fnsim,g=g))
+      if (avenruns>0)
+        out$aven[[g]] <- do.call(rbind,lapply(1:avenruns,avensim,g=g))
       if (kmruns>0)
         out$km[[g]] <- do.call(rbind,lapply(1:kmruns,kmsim,g=g))
     }
@@ -936,8 +1083,12 @@ cgrestandard <- function(clusum,clusim,G,percentage=FALSE,
           }
         if (clusim$kmruns>0)
           svec <- c(svec, clusim$km[[g]][[st,exact=FALSE]])
-        if (clusim$nnrun>0)
+        if (clusim$nnruns>0)
           svec <- c(svec, clusim$nn[[g]][[st,exact=FALSE]])
+        if (clusim$fnruns>0)
+          svec <- c(svec, clusim$fn[[g]][[st,exact=FALSE]])
+        if (clusim$avenruns>0)
+          svec <- c(svec, clusim$aven[[g]][[st,exact=FALSE]])
         if (useallmethods)
           svec <- c(svec,sumvec[[g]])
       }
@@ -990,6 +1141,10 @@ cgrestandard <- function(clusum,clusim,G,percentage=FALSE,
           svec <- c(svec, clusim$km[[g]][[st,exact=FALSE]])
         if (clusim$nnrun>0)
           svec <- c(svec, clusim$nn[[g]][[st,exact=FALSE]])
+        if (clusim$fnruns>0)
+          svec <- c(svec, clusim$fn[[g]][[st,exact=FALSE]])
+        if (clusim$avenrun>0)
+          svec <- c(svec, clusim$aven[[g]][[st,exact=FALSE]])
         if (useallmethods)
           svec <- c(svec,sumvec)
 #        if(percentage){
@@ -1196,7 +1351,7 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
                               pamcrit=TRUE,snnk=2,
                               dnnk=2,
 #                              noisecluster=FALSE,
-                              nnruns=100,kmruns=100,
+                              nnruns=100,kmruns=100,fnruns=100,avenruns=100,
                               multicore=FALSE,cores=detectCores()-1,
                               useallmethods=TRUE,
                               useallg=FALSE,...){
@@ -1268,7 +1423,8 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
   if (trace)
     print("Simulation")
   out$sim <- randomclustersim(datadist,datanp,npstats=npstats,G=G,
-                       nnruns=nnruns,kmruns=kmruns,
+                       nnruns=nnruns,kmruns=kmruns,fnruns=fnruns,
+                       avenruns=avenruns,
                        nnk=snnk,dnnk=dnnk,pamcrit=pamcrit,
                        multicore=multicore,
                        cores=cores,monitor=trace)
@@ -1350,9 +1506,9 @@ print.clusterbenchstats <- function(x,...){
 plot.valstat <- function(x,simobject=NULL,statistic="sindex",
                             xlim=NULL,ylim=c(0,1),
                             nmethods=length(x)-5,
-                            col=1:nmethods,cex=1,pch=20,
-                            simcol=rep(grey(0.7),2),
-                         shift=0.1,include.othernc=NULL,...){
+                            col=1:nmethods,cex=1,pch=c("c","f","a","n"),
+                            simcol=rep(grey(0.7),4),
+                         shift=c(-0.1,-1/3,1/3,0.1),include.othernc=NULL,...){
   ion <- !is.null(include.othernc)
   if (ion) ion <- length(include.othernc)>0
   othernc <- numeric(0)
@@ -1370,13 +1526,21 @@ plot.valstat <- function(x,simobject=NULL,statistic="sindex",
   if(!is.null(simobject)){
     for(g in x$minG:x$maxG){
       if(simobject$kmruns>0)
-        points(rep(g-shift,simobject$kmruns),
+        points(rep(g+shift[1],simobject$kmruns),
                unlist(simobject$km[[g]][statistic]),
-               pch=pch,col=simcol[1])
+               pch=pch[1],col=simcol[1],cex=cex)
       if(simobject$nnruns>0)
-        points(rep(g+shift,simobject$nnruns),
+        points(rep(g+shift[4],simobject$nnruns),
                unlist(simobject$nn[[g]][statistic]),
-               pch=pch,col=simcol[2])
+               pch=pch[4],col=simcol[4], cex=cex)
+      if(simobject$fnruns>0)
+        points(rep(g+shift[2],simobject$fnruns),
+               unlist(simobject$fn[[g]][statistic]),
+               pch=pch[2],col=simcol[2], cex=cex)
+      if(simobject$avenruns>0)
+        points(rep(g+shift[3],simobject$avenruns),
+               unlist(simobject$aven[[g]][statistic]),
+               pch=pch[3],col=simcol[3], cex=cex)
     }
   }    
   for(i in 1:nmethods)

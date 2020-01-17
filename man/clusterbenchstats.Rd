@@ -5,7 +5,8 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Run and validate many clusterings}
 \description{
-  This runs the methodology explained in Hennig (2017). It runs a
+  This runs the methodology explained in Hennig (2017), Akhanli and
+  Hennig (2020). It runs a
   user-specified set of clustering methods (CBI-functions, see
   \code{\link{kmeansCBI}}) with several numbers of clusters on a dataset,
   and computes many cluster validation indexes. In order to explore the
@@ -30,7 +31,7 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
                               trace=TRUE,
                               pamcrit=TRUE,snnk=2,
                               dnnk=2,
-                              nnruns=100,kmruns=100,
+                              nnruns=100,kmruns=100,fnruns=100,avenruns=100,
                               multicore=FALSE,cores=detectCores()-1,
                               useallmethods=TRUE,
                               useallg=FALSE,...)
@@ -87,15 +88,19 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
   \item{snnk}{integer. Number of neighbours used in coefficient of
     variation of distance to nearest within cluster neighbour, the
     \code{cvnnd}-statistic  (clusters
-    with \code{nnk} or fewer points are ignored for this). Passed on to
-    \code{\link{cqcluster.stats}}.}
-    \item{dnnk}{integer. Number of nearest neighbors to use for
+    with \code{snnk} or fewer points are ignored for this). Passed on to
+    \code{\link{cqcluster.stats}} as argument \code{nnk}.}
+  \item{dnnk}{integer. Number of nearest neighbors to use for
     dissimilarity to the uniform in case that \code{npstats=TRUE};
     \code{nnk}-argument  to be passed on to \code{\link{distrsimilarity}}.}
   \item{nnruns}{integer. Number of runs of \code{\link{stupidknn}}
     (random clusterings).}
   \item{kmruns}{integer. Number of runs of
     \code{\link{stupidkcentroids}} (random clusterings).}
+  \item{fnruns}{integer. Number of runs of \code{\link{stupidkfn}}
+    (random clusterings).}
+  \item{avenruns}{integer. Number of runs of \code{\link{stupidkaven}}
+    (random clusterings).}
   \item{multicore}{logical. If \code{TRUE}, parallel computing is used
     through the function \code{\link{mclapply}} from package
     \code{parallel}; read warnings there if you intend to use this; it
@@ -156,6 +161,9 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
   \emph{Proceedings of ASMDA 2017}, 501-520,
     \url{https://arxiv.org/abs/1703.09282}
 
+Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+On arxiv from February 2020. 
 
 }
 \author{Christian Hennig
@@ -175,17 +183,16 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
   set.seed(20000)
   options(digits=3)
   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
-  clustermethod=c("kmeansCBI","hclustCBI","hclustCBI")
+  clustermethod=c("kmeansCBI","hclustCBI")
 # A clustering method can be used more than once, with different
 # parameters
   clustermethodpars <- list()
-  clustermethodpars[[2]] <- clustermethodpars[[3]] <- list()
-  clustermethodpars[[2]]$method <- "complete"
-  clustermethodpars[[3]]$method <- "average"
-  methodname <- c("kmeans","complete","average")
+  clustermethodpars[[2]] <- list()
+  clustermethodpars[[2]]$method <- "average"
+  methodname <- c("kmeans","average")
   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
-    methodname=methodname,distmethod=rep(FALSE,3),
-    clustermethodpars=clustermethodpars,nnruns=2,kmruns=2)
+    methodname=methodname,distmethod=rep(FALSE,2),
+    clustermethodpars=clustermethodpars,nnruns=1,kmruns=1,fnruns=1,avenruns=1)
   print(cbs)
   print(cbs$qstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,1,0,1,0,1,0,0,1,1))
 # The weights are weights for the validation statistics ordered as in
