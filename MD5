@@ -1,4 +1,4 @@
-7495b3073dd671f93df01d2c146b7e42 *DESCRIPTION
+87030b2db49ed451b38991ce29efcf8f *DESCRIPTION
 1125ef47578160408d5075ac0948abcd *NAMESPACE
 aec30efb5a63e14e8987a882e3585a7c *R/addclustermethods.R
 543d32eb9301490e41a101be73af7349 *R/clusterboot.R
@@ -35,7 +35,7 @@ ab40c02193537ab2cec1a5c3cb848102 *man/clujaccard.Rd
 842f8373efbf920aa2a6a57765a1e02a *man/cluster.stats.Rd
 030b373fea2741e53ece7db3f4224032 *man/cluster.varstats.Rd
 167b0a02e13fd238683c0195853a012d *man/clusterbenchstats.Rd
-3d984e7559924fb7063f3b725f49fb39 *man/clusterboot.Rd
+e8fdf85cbdfc2de7056bacf599ca5c75 *man/clusterboot.Rd
 9db8a890d7d579b062342b96ae870eed *man/cmahal.Rd
 dfc9b80c1b32810d9819f14bd18a2f4f *man/concomp.Rd
 69c83485d86d098e5b1e382aa1aa0e03 *man/confusion.Rd
@@ -63,7 +63,7 @@ ef902926337553264cc8080cc2bfe18d *man/fixreg.Rd
 84bcae9460565f4244353ff7d349de38 *man/fpclusters.Rd
 3406d81af07dca5bb922b4e7746d0bff *man/itnumber.Rd
 2f0dd05ea31c9534529bb763076af795 *man/jittervar.Rd
-2f541335299590d38b9b04824a4db316 *man/kmeansCBI.Rd
+a7a3f5570ccaf3ac0ad95917c020091b *man/kmeansCBI.Rd
 aff11c26aeab6c65b65bf0cf17f35363 *man/kmeansruns.Rd
 f8ac0ee0d2969de37064f386b660f3b4 *man/lcmixed.Rd
 1327aab55e8b9d988cb8702c360334e8 *man/localshape.Rd
@@ -107,6 +107,6 @@ e156cb0ced917fe86298bf3fbb316a25 *man/tonedata.Rd
 19cb8bae42e9c79f99e7ec427a2c66ad *man/wfu.Rd
 c895dda06251f6f2c38b2f0669f66874 *man/xtable.Rd
 98033be110c0e6d320a01868fa441d27 *man/zmisclassification.matrix.Rd
-9a980a148be233321ec6f1c636b4a2de *tests/Examples/fpc-Ex.Rout.save
+4a1f6307620ce239db494e7969af5b3f *tests/Examples/fpc-Ex.Rout.save
 897b000edb7de45128e215b3e7f07a65 *tests/fpctests_notallin.R
 48409c4feb6a95c5a5d80ee2c5e21050 *tests/fpctests_notallin.Rout.save

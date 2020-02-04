@@ -134,7 +134,8 @@ clusterboot(data,B=100, distances=(inherits(data, "dist")),
     Jaccard similarity values refer to comparisons with estimated noise
     components in resampled datasets only.
     (Some cluster methods such as
-    trimmed k-means and \code{\link[mclust]{mclustBIC}} produce such noise
+    \code{\link[tclust]{tclust}} and
+    \code{\link[mclust]{mclustBIC}} produce such noise
     components.)}
   \item{count}{logical. If \code{TRUE}, the resampling runs are counted
     on the screen.}    
@@ -249,19 +250,19 @@ clusterboot(data,B=100, distances=(inherits(data, "dist")),
 	of cluster is estimated by the average silhouette width.
 	This can be used with
 	cases*variables as well as dissimilarity matrices as input.}
-      \item{trimkmeansCBI}{an interface to the function
-	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
-	clustering. This assumes a cases*variables matrix as input.}
+%      \item{trimkmeansCBI}{an interface to the function
+%	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
+%	clustering. This assumes a cases*variables matrix as input.}
       \item{tclustCBI}{an interface to the function
 	\code{tclust} in the tclust library for trimmed Gaussian 
 	clustering. This assumes a cases*variables matrix as input. Note
         that this function is not currently provided because the tclust
         package is only available in the CRAN archives, but the code is
         in the Examples-section of the \code{\link{kmeansCBI}}-help page.}
-      \item{disttrimkmeansCBI}{an interface to the function
-	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
-	clustering. This assumes a dissimilarity matrix as input and
-	generates a data matrix by multidimensional scaling first.}
+%      \item{disttrimkmeansCBI}{an interface to the function
+%	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
+%	clustering. This assumes a dissimilarity matrix as input and
+%	generates a data matrix by multidimensional scaling first.}
       \item{dbscanCBI}{an interface to the function
 	\code{\link{dbscan}} for density based 
 	clustering. This can be used with
@@ -361,7 +362,6 @@ clusterboot(data,B=100, distances=(inherits(data, "dist")),
   \code{\link{hclusttreeCBI}}, \code{\link{disthclustCBI}},
   \code{\link{noisemclustCBI}}, \code{\link{distnoisemclustCBI}},
   \code{\link{claraCBI}}, \code{\link{pamkCBI}},
-  \code{\link{trimkmeansCBI}}, \code{\link{disttrimkmeansCBI}},
   \code{\link{dbscanCBI}}, \code{\link{mahalCBI}}
 }
 \examples{

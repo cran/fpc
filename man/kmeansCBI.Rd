@@ -8,8 +8,8 @@
 \alias{distnoisemclustCBI}
 \alias{claraCBI}
 \alias{pamkCBI}
-\alias{trimkmeansCBI}
-\alias{disttrimkmeansCBI}
+%\alias{trimkmeansCBI}
+%\alias{disttrimkmeansCBI}
 \alias{dbscanCBI}
 \alias{mahalCBI}
 \alias{mergenormCBI}
@@ -163,8 +163,7 @@ emskewCBI(data,k,distr="mst",repeats=100,...)
     \code{usepam=TRUE}.}
   \item{krange}{vector of integers. Numbers of clusters to be compared.}
   \item{trim}{numeric between 0 and 1. Proportion of data points
-    trimmed, i.e., assigned to noise. See \code{tclust} in the tclust package,
-    \code{\link[trimcluster]{trimkmeans}}.}
+    trimmed, i.e., assigned to noise. See \code{tclust} in the tclust package.}
   \item{eps}{numeric. The radius of the neighborhoods to be considered
     by \code{\link{dbscan}}.}
   \item{MinPts}{integer. How many points have to be in a neighborhood so
@@ -252,10 +251,10 @@ emskewCBI(data,k,distr="mst",repeats=100,...)
 %	\code{tclustCBI}-function in \code{fpc}. The code for the
 %	function is below in the Examples-Section, so if you need it,
 %	run that code first.}
-    \item{disttrimkmeansCBI}{an interface to the function
-	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
-	clustering. This assumes a dissimilarity matrix as input and
-	generates a data matrix by multidimensional scaling first.}
+%    \item{disttrimkmeansCBI}{an interface to the function
+%	\code{\link[trimcluster]{trimkmeans}} for trimmed k-means
+%	clustering. This assumes a dissimilarity matrix as input and
+%	generates a data matrix by multidimensional scaling first.}
     \item{dbscanCBI}{an interface to the function
 	\code{\link{dbscan}} for density based 
 	clustering.}
@@ -329,7 +328,7 @@ emskewCBI(data,k,distr="mst",repeats=100,...)
   \code{\link[mclust]{mclustBIC}}, 
   \code{\link[cluster]{pam}},  \code{\link{pamk}},
   \code{\link[cluster]{clara}},
-  \code{\link[trimcluster]{trimkmeans}}, \code{\link{dbscan}},
+  \code{\link{dbscan}},
   \code{\link{fixmahal}},
   \code{\link[tclust]{tclust}}, \code{\link[pdfCluster]{pdfCluster}},
   \code{\link[EMMIXskew]{EmSkew}}

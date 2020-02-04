@@ -1,7 +1,7 @@
 Package: fpc
 Title: Flexible Procedures for Clustering
-Version: 2.2-4
-Date: 2020-01-14
+Version: 2.2-5
+Date: 2020-02-04
 Author: Christian Hennig <christian.hennig@unibo.it>
 Depends: R (>= 2.0)
 Imports: MASS, cluster, mclust, flexmix, prabclus, class, diptest,
@@ -30,6 +30,6 @@ Maintainer: Christian Hennig <christian.hennig@unibo.it>
 License: GPL
 URL: https://www.unibo.it/sitoweb/christian.hennig/en/
 NeedsCompilation: no
-Packaged: 2020-01-14 14:43:38 UTC; christian_hennig
+Packaged: 2020-02-04 16:21:27 UTC; root
 Repository: CRAN
-Date/Publication: 2020-01-17 09:40:16 UTC
+Date/Publication: 2020-02-04 17:00:02 UTC
