@@ -1086,13 +1086,19 @@ classifdist <- function(cdist,clustering,
   clustering
 }
     
-nselectboot <- function (data, B = 50, distances = inherits(data, "dist"), clustermethod = NULL, 
-    classification = "averagedist", krange = 2:10, count = FALSE, 
-    nnk = 1, ...) 
+# Introduces parameter centroidname to indicate where in CBIoutput$result
+# the centroids can be found (automatically for kmeansCBI, claraCBI);
+# If NULL and data are not distances, mean is computed within classifnp
+# largeisgood: Take 1-original value so that large is good (only stabk)
+nselectboot <- function (data, B = 50, distances = inherits(data, "dist"),
+                         clustermethod = NULL, 
+    classification = "averagedist", centroidname = NULL,
+    krange = 2:10, count = FALSE, 
+    nnk = 1, largeisgood=FALSE,...) 
 {
     dista <- distances
     data <- as.matrix(data)
-    if (classification == "average") {
+    if (classification == "averagedist") {
         if (dista) 
             dmat <- data
         else dmat <- as.matrix(dist(data))
@@ -1115,154 +1121,78 @@ nselectboot <- function (data, B = 50, distances = inherits(data, "dist"), clust
                 dmat1 <- data[d1, ]
                 dmat2 <- data[d2, ]
             }
-#            print("start clustermethod")
-#           if ("diss" %in% names(formals(clustermethod)) & distances){
             if (distances){
-              clm1 <- clustermethod(as.dist(dmat1), k = k, diss=TRUE, ...)
-              clm2 <- clustermethod(as.dist(dmat2), k = k, diss=TRUE, ...)
-            }
-            else{
-              clm1 <- clustermethod(dmat1, k = k, ...)
-#            cl1 <- clm1$partition
-#            print("done 1")
-              clm2 <- clustermethod(dmat2, k = k, ...)
-            }
-            cl2 <- clm2$partition
-#            print("done 2")
-            cj1 <- cj2 <- rep(-1, n)
-#            print(d1)            
-#            print(clm1$partition)            
-#            print(d2)            
-#            print(clm2$partition)            
-            cj1[d1] <- clm1$partition
-            cj2[d2] <- clm2$partition
-#            browser()
-            if (dista) {
-                cj1 <- classifdist(data, cj1, method = classification, 
-                  centroids = clm1$result$medoids, nnk = nnk)
-                cj2 <- classifdist(data, cj2, method = classification, 
-                  centroids = clm2$result$medoids, nnk = nnk)
+              if ("diss" %in% names(formals(clustermethod))){
+                clm1 <- clustermethod(as.dist(dmat1), k = k, 
+                  diss = TRUE, ...)
+                clm2 <- clustermethod(as.dist(dmat2), k = k, 
+                  diss = TRUE, ...)
+              }
+              else{
+                clm1 <- clustermethod(as.dist(dmat1), k = k, ...)
+                clm2 <- clustermethod(as.dist(dmat2), k = k, ...)
+              }
             }
             else {
-                centroids <- NULL
-                if (classification == "centroid") {
-                  if (identical(clustermethod, kmeansCBI)){ 
-                    centroids1 <- clm1$result$centers
-                    centroids2 <- clm2$result$centers
-                  }
-                  if (identical(clustermethod, claraCBI)){ 
-                    centroids1 <- clm1$result$medoids
-                    centroids2 <- clm2$result$medoids
-                  }
-                }
-#                print("classifnp")
+                clm1 <- clustermethod(dmat1, k = k, ...)
+                clm2 <- clustermethod(dmat2, k = k, ...)
+            }
+#            cl2 <- clm2$partition
+            centroids1 <- centroids2 <- NULL
+            cj1 <- cj2 <- rep(-1, n)
+            cj1[d1] <- clm1$partition
+            cj2[d2] <- clm2$partition
+#            centroids <- NULL
+            if (classification == "centroid") {
+              if (is.null(centroidname)){
+                if (identical(clustermethod, kmeansCBI))
+                  centroidname <- "centers"
+                if (identical(clustermethod, claraCBI))
+                   centroidname <- "medoids"
+              }
+              if (!is.null(centroidname)){
+                centroids1 <- clm1$result[centroidname][[1]]
+                centroids2 <- clm2$result[centroidname][[1]]
+              }
+            }
+ #         print(centroidname)
+ #           if (classification == "centroid" & dista){
+ #           centroids1 <- unlist(centroids1)
+ #           centroids2 <- unlist(centroids2,recursive=FALSE)
+ #           }
+#          print(str(clm1))
+#          print(str(centroids1))
+            if (dista) {
+#              print("classifdist")
+                cj1 <- classifdist(data, cj1, method = classification, 
+                  centroids = centroids1, nnk = nnk)
+#              print(cj1)
+#              print(cj2)
+#              print(centroids1)
+#              print(centroids2)
+                cj2 <- classifdist(data, cj2, method = classification, 
+                  centroids = centroids2, nnk = nnk)
+            }
+            else {
                 cj1 <- classifnp(data, cj1, method = classification, 
                   centroids = centroids1, nnk = nnk)
-#                print("done 1")
                 cj2 <- classifnp(data, cj2, method = classification, 
                   centroids = centroids2, nnk = nnk)
-#                plot(data,col=cj1,pch=cj1,main=paste(k,"clusters a -",i))
-#                plot(data,col=cj2,pch=cj2,main=paste(k,"clusters b -",i))
-#                print("done 2")
-#                browser()
             }
-#            print(" for n loop")
-#            j <- 1
-            ctable <- table(cj1,cj2)
+            ctable <- table(cj1, cj2)
             nck1 <- rowSums(ctable)
-            stab[i,k] <- sum(nck1^2-rowSums(ctable^2))
-#            browser()
-#            for(j in 1:k)
-#             for(j in 1:n){
-#               cj1e <- cj1==cj1[j]
-#               cj1u <- !cj1e
-#               cj2e <- cj2==cj2[j]
-#               cj2u <- !cj2e
-#               stab[i,k] <- stab[i,k]+sum(cj1e & cj2u)+sum(cj2e & cj1u)
-#              j <- j+1 }
-#            print("done")
-        } # for i
-    } # for k
+            stab[i, k] <- sum(nck1^2 - rowSums(ctable^2))
+        }
+    }
     stab <- stab/n^2
     stabk <- rep(NA, max(krange))
-#   browser()
     for (k in krange) stabk[k] <- mean(stab[, k])
     kopt <- which.min(stabk)
+    if (largeisgood){
+      stabk <- 1-stabk
+    }
     out <- list(kopt = kopt, stabk = stabk, stab = stab)
 }
+
+
  
-        
-# nselectboot <- function (data, B = 50, distances = inherits(data, "dist"), clustermethod = NULL, 
-#     classification = "averagedist", krange = 2:10, count = FALSE, 
-#     nnk = 1, ...) 
-# {
-#     dista <- distances
-#     data <- as.matrix(data)
-#     if (classification == "average") {
-#         if (dista) 
-#             dmat <- data
-#         else dmat <- as.matrix(dist(data))
-#     }
-#     stab <- matrix(0, nrow = B, ncol = max(krange))
-#     n <- nrow(data)
-#     for (k in krange) {
-#         if (count) 
-#             cat(k, " clusters\n")
-#         for (i in 1:B) {
-#             if (count) 
-#                 print(i)
-#             d1 <- sample(n, n, replace = TRUE)
-#             d2 <- sample(n, n, replace = TRUE)
-#             if (dista) {
-#                 dmat1 <- data[d1, d1]
-#                 dmat2 <- data[d2, d2]
-#             }
-#             else {
-#                 dmat1 <- data[d1, ]
-#                 dmat2 <- data[d2, ]
-#             }
-#             clm1 <- clustermethod(dmat1, k = k, ...)
-#             clm2 <- clustermethod(dmat2, k = k, ...)
-#             cj1 <- cj2 <- rep(-1, n)
-#             cj1[d1] <- clm1$partition
-#             cj2[d2] <- clm2$partition
-#             if (dista) {
-#                 cj1 <- classifdist(data, cj1, method = classification, 
-#                   centroids = clm1$result$medoids, nnk = nnk)
-#                 cj2 <- classifdist(data, cj2, method = classification, 
-#                   centroids = clm2$result$medoids, nnk = nnk)
-#             }
-#             else {
-#                 centroids <- NULL
-#                 if (classification == "centroid") {
-#                   if (identical(clustermethod, kmeansCBI)){ 
-#                     centroids1 <- clm1$result$centers
-#                     centroids2 <- clm2$result$centers
-#                   }
-#                   if (identical(clustermethod, claraCBI)){ 
-#                     centroids1 <- clm1$result$medoids
-#                     centroids2 <- clm2$result$medoids
-#                   }
-#                 }
-#                 cj1 <- classifnp(data, cj1, method = classification, 
-#                   centroids = centroids1, nnk = nnk)
-#                 cj2 <- classifnp(data, cj2, method = classification, 
-#                   centroids = centroids2, nnk = nnk)
-#             }
-#             j <- 1
-#             if (j<=n){
-#               cj1e <- cj1==cj1[j]
-#               cj1u <- !cj1e
-#               cj2e <- cj2==cj2[j]
-#               cj2u <- !cj2e
-#               stab[i,k] <- stab[i,k]+sum(cj1e & cj2u)+sum(cj2e & cj1u)
-#               j <- j+1
-#             }
-#         }
-#     }
-#     stab <- stab/n^2
-#     stabk <- rep(NA, max(krange))
-#     for (k in krange) stabk[k] <- mean(stab[, k])
-#     kopt <- which.min(stabk)
-#     out <- list(kopt = kopt, stabk = stabk, stab = stab)
-# }

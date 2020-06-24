@@ -17,7 +17,10 @@
 \alias{tclustCBI}
 \alias{pdfclustCBI}
 \alias{emskewCBI}
-
+\alias{stupidkcentroidsCBI}
+\alias{stupidknnCBI}
+\alias{stupidkfnCBI}
+\alias{stupidkavenCBI}
 
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Interface functions for clustering methods}
@@ -73,6 +76,15 @@ speccCBI(data,k,...)
 pdfclustCBI(data,...)
 
 emskewCBI(data,k,distr="mst",repeats=100,...)
+
+stupidkcentroidsCBI(dmatrix,k,distances=TRUE)
+
+stupidknnCBI(dmatrix,k)
+
+stupidkfnCBI(dmatrix,k)
+
+stupidkavenCBI(dmatrix,k)
+
 }
 \arguments{
   \item{data}{a numeric matrix. The data
@@ -185,6 +197,9 @@ emskewCBI(data,k,distr="mst",repeats=100,...)
     doesn't give a solution, how often should execution be repeated with
     new random initialisations? (\code{EmSkew}'s own \code{nrandom}
     doesn't help if an initialisation leads to a \code{NULL} output.)}
+  \item{distances}{logical (only for \code{stupidkcentroidsCBI}). If
+    \code{FALSE}, \code{dmatrix} is
+    interpreted as cases&variables data matrix.}
   \item{...}{further parameters to be transferred to the original
     clustering functions (not required).}
 }
@@ -281,6 +296,23 @@ emskewCBI(data,k,distr="mst",repeats=100,...)
       mixtures. See
       help page of \code{\link[EMMIXskew]{EmSkew}}. This assumes a
       cases*variables matrix as input.} 
+    \item{stupidkcentroidsCBI}{an interface to the function
+      \code{stupidkcentroids} for random centroid-based clustering. See
+      the \code{\link{stupidkcentroids}} help page. This can have a
+      distance matrix as well as a cases*variables matrix as input, see
+      parameter \code{distances}.}
+    \item{stupidknnCBI}{an interface to the function
+      \code{stupidknn} for random nearest neighbour clustering. See
+      the \code{\link{stupidknn}} help page. This assumes a
+      distance matrix as input.}
+    \item{stupidkfnCBI}{an interface to the function
+      \code{stupidkfn} for random farthest neighbour clustering. See
+      the \code{\link{stupidkfn}} help page. This assumes a
+      distance matrix as input.}
+    \item{stupidkavenCBI}{an interface to the function
+      \code{stupidkaven} for random average dissimilarity clustering. See
+      the \code{\link{stupidkaven}} help page. This assumes a
+      distance matrix as input.}
   }
 }
 

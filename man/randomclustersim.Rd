@@ -10,7 +10,9 @@
   clustering. 
 }
 \usage{
-  randomclustersim(datadist,datanp=NULL,npstats=FALSE,
+  randomclustersim(datadist,datanp=NULL,npstats=FALSE,useboot=FALSE,
+                      bootmethod="nselectboot",
+                      bootruns=25, 
                       G,nnruns=100,kmruns=100,fnruns=100,avenruns=100,
                       nnk=4,dnnk=2,
                       pamcrit=TRUE, 
@@ -26,6 +28,14 @@
     is called and the two statistics computed there are added to the
     output. These are based on \code{datanp} and require \code{datanp}
     to be specified.}
+  \item{useboot}{logical. If \code{TRUE}, a stability index (either
+    \code{nselectboot} or \code{prediction.strength}) will be involved.}
+  \item{bootmethod}{either \code{"nselectboot"} or
+    \code{"prediction.strength"}; stability index to be used if
+    \code{useboot=TRUE}.}
+  \item{bootruns}{integer. Number of resampling runs. If
+    \code{useboot=TRUE}, passed on as \code{B} to \code{nselectboot} or
+    \code{M} to \code{prediction.strength}.}
   \item{G}{vector of integers. Numbers of clusters to consider.}
   \item{nnruns}{integer. Number of runs of \code{\link{stupidknn}}.}
   \item{kmruns}{integer. Number of runs of \code{\link{stupidkcentroids}}.}
@@ -90,6 +100,9 @@
   \item{fnruns}{number of involved runs of \code{\link{stupidkfn}},}
   \item{avenruns}{number of involved runs of \code{\link{stupidkaven}},}
   \item{kmruns}{number of involved runs of \code{\link{stupidkcentroids}},}
+  \item{boot}{if \code{useboot=TRUE}, stability value; \code{stabk} for
+    method \code{\link{nselectboot}}; \code{mean.pred} for method
+    \code{\link{prediction.strength}}.}
   
 }
 \references{
@@ -99,9 +112,9 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
     \url{https://arxiv.org/abs/1703.09282}
 
 Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings.
-On arxiv from February 2020. 
-
+validity indexes for context-adapted comparison of clusterings. Accepted
+for
+publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig

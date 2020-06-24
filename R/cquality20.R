@@ -1,6 +1,9 @@
 # cquality 19 implements Serhat's stupid clustering methods
+# cquality 20 allows for bootstrap stability
 
 # Re-defined average.within with reweighting!
+# Changed print.valstat output to be in line with documentation, but
+# can make documentation clearar
 
 # standardisation is for ave distance, separation, 
 # largest within gap, 
@@ -718,16 +721,56 @@ distrsimilarity <- function(x,clustering,noisecluster = FALSE,
   out
 }
 
-# This computes k-centroids clustering to k random centroids
-stupidkcentroids <- function(d,k){
-  cdist <- as.matrix(d)
+# This computes k-centroids clustering to k random centroids (Serhat's version)
+stupidkcentroids <- function(xdata, k, distances = inherits(xdata, "dist")){
+  if (distances){
+    cdist <- as.matrix(xdata)
+  }
+  else{
+    cdist <- as.matrix(dist(xdata))
+  }
   n <- ncol(cdist)
   kcent <- sample(n,k)
   clustering <- rep(0,n)
   clustering[kcent] <- 1:k
   topredict <- (1:n)[clustering==0]
   clustering[topredict] <- apply(cdist[topredict,kcent], 1, which.min)
-  clustering
+  
+  if (distances){
+    centroids <- kcent
+  }
+  else{
+    centroids <- xdata[kcent,]
+  }
+# print(str(centroids))
+  out <- list(partition = clustering, 
+              centroids = centroids,
+              distances=distances)
+  out
+}
+
+
+# stupidkcentroids <- function(d,k){
+#   cdist <- as.matrix(d)
+#   n <- ncol(cdist)
+#   kcent <- sample(n,k)
+#   clustering <- rep(0,n)
+#   clustering[kcent] <- 1:k
+#   topredict <- (1:n)[clustering==0]
+#   clustering[topredict] <- apply(cdist[topredict,kcent], 1, which.min)
+#   clustering
+# }
+
+stupidkcentroidsCBI <- function(dmatrix,k,distances=TRUE){
+  c1 <- stupidkcentroids(dmatrix,k,distances=distances)
+  partition <- c1$partition
+  cl <- list()
+  for (i in 1:k) cl[[i]] <- partition == i
+  out <- list(result = c1, nc = max(c1$partition), clusterlist = cl, partition = partition, 
+        clustermethod = "randomkcentroids")
+#  print(str(out))
+#  print(out$result["centroids"])
+  out
 }
 
 # This computes a clustering starting from k centroids in which in each step
@@ -750,6 +793,17 @@ stupidknn <- function(d,k){
   }
   clustering
 }
+
+stupidknnCBI <- function(dmatrix,k){
+  c1 <- stupidknn(dmatrix,k)
+  partition <- c1
+  cl <- list()
+  for (i in 1:k) cl[[i]] <- partition == i
+  out <- list(result = c1, nc = max(c1), clusterlist = cl, partition = partition, 
+        clustermethod = "randomkcentroids")
+  out
+}
+
 
 # This computes a clustering starting from k centroids in which in each step
 # the point that is nearest to the furthest point of an existing cluster is added to that cluster.
@@ -781,6 +835,17 @@ stupidkfn <- function(d,k){
   clustering
 }
 
+stupidkfnCBI <- function(dmatrix,k){
+  c1 <- stupidkfn(dmatrix,k)
+  partition <- c1
+  cl <- list()
+  for (i in 1:k) cl[[i]] <- partition == i
+  out <- list(result = c1, nc = max(c1), clusterlist = cl, partition = partition, 
+        clustermethod = "randomkcentroids")
+  out
+}
+
+
 # This computes a clustering starting from k centroids in which in each step
 # the point that has minimum average distiance to an existing cluster is added to that cluster.
 stupidkaven <- function(d,k){
@@ -811,10 +876,26 @@ stupidkaven <- function(d,k){
   clustering
 }
 
+stupidkavenCBI <- function(dmatrix,k){
+  c1 <- stupidkaven(dmatrix,k)
+  partition <- c1
+  cl <- list()
+  for (i in 1:k) cl[[i]] <- partition == i
+  out <- list(result = c1, nc = max(c1), clusterlist = cl, partition = partition, 
+        clustermethod = "randomkcentroids")
+  out
+}
+
+
 # This prepares the output of cqcluster.stats for some other
 # ways of plotting and printing, plot.clustatsum, print.clustatsum
+# cbmethod: clustering method to be used for stability if useboot
 clustatsum <- function(datadist=NULL,clustering,noisecluster=FALSE,
-                       datanp=NULL,npstats=FALSE,dnnk=2,
+                       datanp=NULL,npstats=FALSE, useboot=FALSE,
+                              bootclassif=NULL,
+                              bootmethod="nselectboot",
+                              bootruns=25, cbmethod=NULL,methodpars=NULL,
+                       distmethod=NULL, dnnk=2,
                        pamcrit=TRUE,...){
   out <- list()
   if (is.null(datadist))
@@ -846,13 +927,55 @@ clustatsum <- function(datadist=NULL,clustering,noisecluster=FALSE,
     out$kdnorm <- outd$kdnorm
     out$kdunif <- outd$kdunif
   }
+  if (useboot){
+    if (distmethod){
+      if (bootmethod=="nselectboot"){
+#        print(cbmethod)
+        out$boot <- do.call(nselectboot,c(list(data=datadist,B=bootruns,
+                                          distances=TRUE,
+                              clustermethod=get(cbmethod),
+                              classification=bootclassif,
+                              krange=max(clustering),largeisgood=TRUE),
+                              methodpars))$stabk[max(clustering)]
+#        cat(cbmethod,"nselectboot end\n")
+      }
+      else
+        out$boot <- do.call(prediction.strength,c(list(xdata=datadist,
+                                                  M=bootruns,distances=TRUE,
+                              clustermethod=get(cbmethod),
+                              classification=bootclassif,
+                              Gmin=max(clustering),
+                              Gmax=max(clustering)),methodpars))$mean.pred[max(clustering)]
+    }
+    else{
+      if (bootmethod=="nselectboot"){
+#        print(cbmethod)
+        out$boot <- do.call(nselectboot,c(list(data=datanp,B=bootruns,
+                                          distances=FALSE,
+                              clustermethod=get(cbmethod),
+                              classification=bootclassif,
+                              krange=max(clustering),largeisgood=TRUE),
+                              methodpars))$stabk[max(clustering)]
+#        cat(cbmethod,"nselectboot end\n")
+      }
+      else
+        out$boot <- do.call(prediction.strength,c(list(xdata=datanp,M=bootruns,
+                                                  distances=FALSE,
+                              clustermethod=get(cbmethod),
+                              classification=bootclassif,
+                              Gmin=max(clustering),
+                              Gmax=max(clustering)),methodpars))$mean.pred[max(clustering)]
+    }
+  } # if useboot
   out
 }
 
     
 # This applies stupidkcentroids, stupidknn, stupidkfn and stupidkaven
 # lots of times to data.
-randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
+randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,useboot=FALSE,
+                              bootmethod="nselectboot",
+                              bootruns=25, 
                       G,nnruns=100,kmruns=100,fnruns=100,avenruns=100,
                       nnk=4,dnnk=2,
                       pamcrit=TRUE, 
@@ -886,11 +1009,25 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
       solution$kdnorm <- geysdist$kdnorm
       solution$kdunif <- geysdist$kdunif
     }
+    if (useboot){
+      if (bootmethod=="nselectboot")
+        solution$boot <- nselectboot(datadist,B=bootruns,distances=TRUE,
+                               clustermethod=stupidknnCBI,
+                               classification="knn",
+                               krange=g,largeisgood=TRUE)$stabk[g]
+      else
+        out$boot <- prediction.strength(datadist,M=bootruns,distances=TRUE,
+                              clustermethod=stupidknnCBI,
+                              classification="knn",
+                              Gmin=g,
+                              Gmax=g)$mean.pred[g]
+    }
     solution
   }
   
   fnsim <- function(k,g){
     if(monitor) cat(g," clusters; fn run ",k,"\n")
+#    print("start fnsim")
     solution <- data.frame(NA)
     names(solution) <- "avewithin"
     gcl <- stupidkfn(datadist,g)
@@ -918,6 +1055,21 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
       solution$kdnorm <- geysdist$kdnorm
       solution$kdunif <- geysdist$kdunif
     }
+    if (useboot){
+#      print("boot")
+      if (bootmethod=="nselectboot")
+        solution$boot <- nselectboot(datadist,B=bootruns,distances=TRUE,
+                               clustermethod=stupidkfnCBI,
+                               classification="fn",
+                               krange=g,largeisgood=TRUE)$stabk[g]
+      else
+        out$boot <- prediction.strength(datadist,M=bootruns,distances=TRUE,
+                              clustermethod=stupidkfnCBI,
+                              classification="fn",
+                              Gmin=g,
+                              Gmax=g)$mean.pred[g]
+    }
+    print("end fnsim")
     solution
   }
   
@@ -950,14 +1102,27 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
       solution$kdnorm <- geysdist$kdnorm
       solution$kdunif <- geysdist$kdunif
     }
-    solution
+    if (useboot){
+      if (bootmethod=="nselectboot")
+        solution$boot <- nselectboot(datadist,B=bootruns,distances=TRUE,
+                               clustermethod=stupidkavenCBI,
+                               classification="averagedist",
+                               krange=g,largeisgood=TRUE)$stabk[g]
+      else
+        out$boot <- prediction.strength(datadist,M=bootruns,distances=TRUE,
+                              clustermethod=stupidkavenCBI,
+                              classification="averagedist",
+                              Gmin=g,
+                              Gmax=g)$mean.pred[g]
+    }
+     solution
   }
       
   kmsim <- function(k,g){
     if(monitor) cat(g," clusters; km run ",k,"\n")
     solution <- data.frame(NA)
     names(solution) <- "avewithin"
-    gcl <- stupidkcentroids(datadist,g)
+    gcl <- stupidkcentroids(datadist,g)$partition
 #    print(gcl)
     grs <- cqcluster.stats(datadist,gcl,nnk=nnk,pamcrit=pamcrit)
     grss <- summary(grs)
@@ -982,7 +1147,22 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,
       solution$kdnorm <- geysdist$kdnorm
       solution$kdunif <- geysdist$kdunif
     }
-    solution
+    if (useboot){
+      if (bootmethod=="nselectboot")
+        solution$boot <- nselectboot(datadist,B=bootruns,distances=TRUE,
+                               clustermethod=stupidkcentroidsCBI,
+                               classification="centroid",
+                               centroidname="centroids",
+                               krange=g,largeisgood=TRUE)$stabk[g]
+      else
+        out$boot <- prediction.strength(datadist,M=bootruns,distances=TRUE,
+                              clustermethod=stupidkcentroidsCBI,
+                              classification="centroid",
+                              centroidname="centroids",
+                              Gmin=g,
+                              Gmax=g)$mean.pred[g]
+    }
+     solution
   }
       
   out <- list()
@@ -1065,6 +1245,8 @@ cgrestandard <- function(clusum,clusim,G,percentage=FALSE,
      statistics <- c(statistics,"pamc")
   if(!is.null(clusum[[1]][[min(G)]]$kdnorm))
     statistics <- c(statistics,"kdnorm","kdunif")
+  if(!is.null(clusum[[1]][[min(G)]]$boot))
+    statistics <- c(statistics,"boot")
 
   out <- clusum
   lon <- length(othernc)
@@ -1334,6 +1516,18 @@ cluster.magazine <- function(data,G,diss = inherits(data, "dist"),
 # estimated > max(G), see cgrestandard for the handling.
 # This requires useallg=TRUE, otherwise these results are ignored
 # for standardisation.
+#
+# useboot will involve a stability resampling method.
+# bootclassif is a vector of classification methods to be used with
+# the different clustering methods.
+# bootmethod is either "nselectboot" or "prediction.strength"
+# bootruns is the number of bootstrap replicates, all only
+# active if useboot=TRUE.
+
+# Help page: clustermethodpars last entry must be specified
+# Mentions output list member statistics that doesn't exist
+# (it's stat$statistics).
+# Can't use methods like dbscan that don't take fixed nc with useboot!
 clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
                                   scaling=TRUE, clustermethod,
                                   methodnames=clustermethod,
@@ -1345,6 +1539,10 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
 #                              mdsdim=4,summary.out=FALSE,points.out=FALSE,
 #                              usepam=TRUE, samples=100,
                               npstats=FALSE,
+                              useboot=FALSE,
+                              bootclassif=NULL,
+                              bootmethod="nselectboot",
+                              bootruns=25,
 #                              usepdf=TRUE, graphtype="pairs",
 #                              lambda=c(0.1,0.01,0.001), 
                               trace=TRUE,
@@ -1357,12 +1555,20 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
                               useallg=FALSE,...){
 
   comsum <- function(i){
+    if (trace)
+      cat("comsum ",i,"\n")
     statl <- as.list(rep(NA,max(G)))
     for (g in G)
       if(!identical(out$cm$clustering[[i]][[g]],NA))
         statl[[g]] <- clustatsum(datadist,out$cm$clustering[[i]][[g]],
                                          noisecluster=out$cm$noise[[i]][[g]],
                                          datanp=data,npstats=npstats,
+                                 useboot=useboot,
+                                 bootclassif=bootclassif[i],
+                                 bootmethod=bootmethod,
+                                 bootruns=bootruns, cbmethod=clustermethod[i],
+                                 methodpars=clustermethodpars[[i]],
+                                 distmethod=distmethod[i],
                                  nnk=snnk,pamcrit=pamcrit,...)
     lon <- length(out$cm$othernc)
     if (lon>0)
@@ -1374,6 +1580,12 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
               clustatsum(datadist,out$cm$clustering[[i]][[g]],
                                          noisecluster=out$cm$noise[[i]][[g]],
                                          datanp=data,npstats=npstats,
+                                 useboot=useboot,
+                                 bootclassif=bootclassif[i],
+                                 bootmethod=bootmethod,
+                                 cbmethod=clustermethod[i],
+                                 methodpars=clustermethodpars[[i]],
+                                 bootruns=bootruns, 
                        nnk=snnk,pamcrit=pamcrit,...)
         }        
     statl
@@ -1422,7 +1634,10 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
 #  browser()
   if (trace)
     print("Simulation")
-  out$sim <- randomclustersim(datadist,datanp,npstats=npstats,G=G,
+  out$sim <- randomclustersim(datadist,datanp,npstats=npstats,
+                                 useboot=useboot,
+                                 bootmethod=bootmethod,
+                                 bootruns=bootruns, G=G,
                        nnruns=nnruns,kmruns=kmruns,fnruns=fnruns,
                        avenruns=avenruns,
                        nnk=snnk,dnnk=dnnk,pamcrit=pamcrit,
@@ -1446,6 +1661,8 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
      ostatistics <- c(ostatistics,"pamc")
   if(npstats)
     ostatistics <- c(ostatistics,"kdnorm","kdunif")
+  if(useboot)
+    ostatistics <- c(ostatistics,"boot")
   ostatistics <- c(ostatistics,"dmode")
   out$stat$statistics <- out$qstat$statistics <- out$sstat$statistics <- ostatistics
   class(out) <- "clusterbenchstats"
@@ -1593,9 +1810,11 @@ print.valstat <- function(x,statistics=x$statistics,
     }
     statistics <- c(statistics,"aggregate")
   } # if aggregate
+  printobject <- list()
+  l <- 1
   for(statistic in statistics){
     cat(statistic,"\n")
-    printobject <- data.frame(x$name)
+    printobject[[l]] <- data.frame(x$name)
     q <- x$minG:x$maxG
     ion <- !is.null(include.othernc)
     if (ion) ion <- length(include.othernc)>0
@@ -1608,17 +1827,203 @@ print.valstat <- function(x,statistics=x$statistics,
     }
     lq <- length(q)
     for(i in 1:lq){
-      printobject[,i+1] <- rep(NA,nmethods)
-      for (j in 1:nmethods)
-        if(length(x[[j]])>=q[i])
-          if(!identical(x[[j]][[q[i]]],NA))
-            printobject[j,i+1] <- x[[j]][[q[i]]][statistic]
-    }
-    names(printobject) <- c("method",sapply(q,toString))
-    print(printobject,digits=digits)
-  }
+      printobject[[l]][,i+1] <- rep(NA,nmethods)
+      for (j in 1:nmethods){
+          if(length(x[[j]])>=q[i])
+            if(!identical(x[[j]][[q[i]]],NA)){
+              if(is.null(unlist(x[[j]][[q[i]]][statistic])))
+                printobject[[l]][j,i+1] <- NA
+              else
+                printobject[[l]][j,i+1] <- x[[j]][[q[i]]][statistic]
+            } 
+      } # for j
+    } # for i
+    names(printobject[[l]]) <- c("method",sapply(q,toString))
+    print(printobject[[l]],digits=digits)
+    l <- l+1
+  } # for statistic
   invisible(printobject)
 }
 
-  
 
+
+# New with "fn" method 
+classifdist <- function (cdist, clustering, method = "averagedist", centroids = NULL, nnk = 1) {
+  k <- max(clustering)
+  n <- nrow(cdist)
+  cdist <- as.matrix(cdist)
+  topredict <- clustering < 0
+  if (method == "averagedist") {
+    prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+#    print("classifdist")
+#    print(topredict)
+#    print(clustering)
+#    print(prmatrix)
+    for (j in 1:k) {
+#      print(j)
+#      print(cdist[topredict, clustering == j,drop=FALSE])
+      if (sum(clustering==j)>0)
+        prmatrix[, j] <- rowMeans(as.matrix(cdist[topredict, clustering == j,drop=FALSE]))
+      else
+        prmatrix[, j] <- rep(Inf,sum(topredict))
+    }
+    clpred <- apply(prmatrix, 1, which.min)
+    clustering[topredict] <- clpred
+  }
+#  print(method)
+#  print(str(centroids))
+#  print(str(topredict))
+#  print(str(cdist))
+#  print(str(clustering))
+#  if (method == "MSS") {
+#    RowMSS <- function(x) {
+#      rowSums((x - rowMeans(x))^2)
+#    }
+#    prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+#    for (j in 1:k) {
+#      prmatrix[, j] <- RowMSS(as.matrix(cdist[topredict, clustering == j]))
+#    }
+#    clpred <- apply(prmatrix, 1, which.min)
+#    clustering[topredict] <- clpred
+#  }
+  if (method == "centroid"){
+    clustering[topredict] <- apply(cdist[topredict, centroids, 
+                                         drop = FALSE], 1, which.min)
+  }
+  if (method == "knn") {
+    cdist[topredict, topredict] <- max(cdist) + 1
+    if (nnk == 1) {
+      bestobs <- apply(cdist[topredict, , drop = FALSE], 
+                       1, which.min)
+      clustering[topredict] <- clustering[bestobs]
+    }
+    else {
+      for (i in (1:n)[topredict]) {
+        bestobs <- order(cdist[i, ])[1:k]
+        clasum <- numeric(0)
+        for (j in 1:k) clasum[j] <- sum(clustering[bestobs] == 
+                                          j)
+        clustering[i] <- which.max(clasum)
+      }
+    }
+  }
+  if (method == "fn") {
+    fdist <- matrix(0, nrow=sum(topredict), ncol = k)
+    for (i in 1:k) {
+      if (sum(clustering==i)>0)
+        fdist[,i] <- apply(as.matrix(cdist[topredict, clustering==i, drop=FALSE]), 1, max)
+      else
+        fdist[,i] <- rep(Inf,sum(topredict))      
+    }
+    bestobs1 <- apply(fdist, 1, which.min)
+    clustering[topredict] <- bestobs1
+  }
+  clustering
+}
+
+# New with "fn" and "lda" method
+classifnp <- function (data, clustering, method = "centroid", 
+                        cdist = NULL, centroids = NULL, nnk = 1){
+#  require(class)
+#  require(MASS)
+  data <- as.matrix(data)
+  k <- max(clustering)
+  p <- ncol(data)
+  n <- nrow(data)
+  topredict <- clustering < 0
+  
+  ##### Average linkage 
+  if (method == "averagedist") {
+    if (is.null(cdist)) { cdist <- as.matrix(dist(data)) } 
+    else                { cdist <- as.matrix(cdist) }
+    
+    prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+#    print("classifnp")
+#    print(topredict)
+#    print(clustering)
+    for (j in 1:k){
+      prmatrix[, j] <- rowMeans(as.matrix(cdist[topredict, clustering == j,drop=FALSE]))
+    }
+    clpred <- apply(prmatrix, 1, which.min)
+    clustering[topredict] <- clpred
+  }
+  
+  #### Kmeans, PAM, specc, ...
+  if (method == "centroid") {
+    if (is.null(centroids)) {
+      centroids <- matrix(0, ncol = p, nrow = k)
+      for (j in 1:k) centroids[j, ] <- colMeans(as.matrix(data[clustering == j, ]))
+    }
+#    print(centroids)
+#    print(sum(topredict))
+    clustering[topredict] <- knn1(centroids, data[topredict,], 1:k)
+  }
+  
+  #### Mclust
+  if (method == "qda") {
+    qq <- try(qda(data[!topredict, ], grouping = as.factor(clustering[!topredict])), silent = TRUE)
+    
+    if (identical(attr(qq, "class"), "try-error")) {
+      qq <- lda(data[!topredict, ], grouping = as.factor(clustering[!topredict]))
+      clustering[topredict] <- as.integer(predict(qq, data[topredict, ])$class)
+    }
+  }
+  if (method == "lda") {
+      qq <- lda(data[!topredict, ], grouping = as.factor(clustering[!topredict]))
+      clustering[topredict] <- as.integer(predict(qq, data[topredict, ])$class)
+  }
+  ### Single linkage, specClust
+  if (method == "knn"){
+    clustering[topredict] <- as.integer(knn(data[!topredict, ], 
+                                            data[topredict, ], 
+                                            as.factor(clustering[!topredict]), 
+                                            k = nnk))
+  } 
+  
+  #### Complete linkage
+  if (method == "fn") {
+    if (is.null(cdist)){ cdist <- as.matrix(dist(data)) } 
+    else               { cdist <- as.matrix(cdist)      }
+    
+    fdist <- matrix(0, nrow=sum(topredict), ncol = k)
+    for (i in 1:k) {
+      fdist[,i] <- apply(as.matrix(cdist[topredict, clustering==i]), 1, max)
+    }
+    bestobs1 <- apply(fdist, 1, which.min)
+    clustering[topredict] <- bestobs1
+  }
+  clustering
+}
+
+
+emskewCBI <- function (data, k, distr = "mst", repeats = 100, ...) 
+{
+    if (requireNamespace("EMMIXskew", quietly = TRUE)) {
+        if (!exists("distr")) 
+            distr = "mvn"
+        attempt <- 1
+        repeat {
+            c1 <- EMMIXskew::EmSkew(data, g = k, distr = distr, 
+                ...)
+            if (!is.null(c1)) {
+                if (max(c1$clust) == k) 
+                  break
+            }
+            attempt <- attempt + 1
+            if (attempt > repeats) {
+                cat("EmSkew failed after ", repeats, " repetitions.")
+                break
+            }
+#            if (debug) 
+#                print("Repeat EmSkew exection")
+        }
+        partition <- c1$clust
+        nc <- max(partition)
+        cl <- list()
+        for (i in 1:nc) cl[[i]] <- partition == i
+        out <- list(result = c1, nc = nc, clusterlist = cl, partition = partition, 
+            clustermethod = paste("emskew_", distr, sep = ""))
+        out
+    }
+    else warning("EMMIXskew could not be loaded")
+}

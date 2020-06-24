@@ -18,7 +18,7 @@
 \usage{
   prediction.strength(xdata, Gmin=2, Gmax=10, M=50,
                       clustermethod=kmeansCBI,
-                                classification="centroid",
+                                classification="centroid", centroidname = NULL,
                                 cutoff=0.8,nnk=1,
                       distances=inherits(xdata,"dist"),count=FALSE,...)
   \method{print}{predstr}(x, ...)
@@ -58,6 +58,14 @@
     \code{classification="qda"} is recommended for Gaussian mixtures
     with flexible covariance matrices. 
   }
+  \item{centroidname}{string. Indicates the name of the component of
+    \code{CBIoutput$result} that contains the cluster centroids in case of
+    \code{classification="centroid"}, where \code{CBIoutput} is the
+    output object of \code{clustermethod}. If \code{clustermethod} is
+    \code{kmeansCBI} or \code{claraCBI}, centroids are recognised
+    automatically if \code{centroidname=NULL}. If
+    \code{centroidname=NULL} and \code{distances=FALSE}, cluster means
+    are computed as the cluster centroids.}  
   \item{cutoff}{numeric between 0 and 1. The optimal number of clusters
     is the maximum one with prediction strength above \code{cutoff}.}
   \item{nnk}{number of nearest neighbours if

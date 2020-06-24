@@ -13,7 +13,11 @@
 }
 \usage{
 clustatsum(datadist=NULL,clustering,noisecluster=FALSE,
-                       datanp=NULL,npstats=FALSE,dnnk=2,
+                       datanp=NULL,npstats=FALSE,useboot=FALSE,
+                       bootclassif=NULL,
+                       bootmethod="nselectboot",
+                       bootruns=25, cbmethod=NULL,methodpars=NULL,
+                       distmethod=NULL,dnnk=2,
                        pamcrit=TRUE,...)
 
 }
@@ -38,6 +42,25 @@ clustatsum(datadist=NULL,clustering,noisecluster=FALSE,
     is called and the two statistics computed there are added to the
     output. These are based on \code{datanp} and require \code{datanp}
     to be specified.}
+  \item{useboot}{logical. If \code{TRUE}, a stability index (either
+    \code{nselectboot} or \code{prediction.strength}) will be involved.}
+  \item{bootclassif}{If \code{useboot=TRUE}, a string indicating the
+    classification method to be used with the stability index, see the
+    \code{classification} argument of \code{nselectboot} and
+    \code{prediction.strength}.}
+  \item{bootmethod}{either \code{"nselectboot"} or
+    \code{"prediction.strength"}; stability index to be used if
+    \code{useboot=TRUE}.}
+  \item{bootruns}{integer. Number of resampling runs. If
+    \code{useboot=TRUE}, passed on as \code{B} to
+    \code{\link{nselectboot}} or
+    \code{M} to \code{\link{prediction.strength}}.}
+  \item{cbmethod}{CBI-function (see \code{\link{kmeansCBI}}); clustering
+    method to be used for
+    stability assessment if \code{useboot=TRUE}.}
+  \item{methodpars}{parameters to be passed on to \code{cbmethod}.}
+  \item{distmethod}{logical. In case of \code{useboot=TRUE} indicates
+    whether \code{cbmethod} will interpret data as distances.} 
   \item{dnnk}{\code{nnk}-argument to be passed on to
     \code{\link{distrsimilarity}}.}
   \item{pamcrit}{\code{pamcrit}-argument to be passed on to
@@ -100,6 +123,9 @@ clustatsum(datadist=NULL,clustering,noisecluster=FALSE,
     \code{nnk}th nearest within-cluster neighbor and appropriate
     Gamma-distribution, see Byers and Raftery (1998), aggregated over
     clusters.}
+  \item{boot}{if \code{useboot=TRUE}, stability value; \code{stabk} for
+    method \code{\link{nselectboot}}; \code{mean.pred} for method
+    \code{\link{prediction.strength}}.}
 }
 \references{
 

@@ -29,10 +29,11 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
   \emph{Proceedings of ASMDA 2017}, 501-520,
   \url{https://arxiv.org/abs/1703.09282}
-  
-Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings.
-On arxiv from February 2020. 
+
+  Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings. Accepted
+for
+publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
 
 
 }

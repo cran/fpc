@@ -18,7 +18,10 @@
   The function \code{\link{print.valstat}} can be used to provide
   weights for the cluster
   validation statistics, and will then compute a weighted validation index
-  that can be used to compare all clusterings. 
+  that can be used to compare all clusterings.
+
+  See the examples for how to get the indexes A1 and A2 from
+  Akhanli and Hennig (2020).
 }
 \usage{
 clusterbenchstats(data,G,diss = inherits(data, "dist"),
@@ -28,6 +31,10 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
                               ncinput=rep(TRUE,length(clustermethod)),
                               clustermethodpars,
                               npstats=FALSE,
+                              useboot=FALSE,
+                              bootclassif=NULL,
+                              bootmethod="nselectboot",
+                              bootruns=25,
                               trace=TRUE,
                               pamcrit=TRUE,snnk=2,
                               dnnk=2,
@@ -67,16 +74,38 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
   \item{ncinput}{vector of logicals, of the same length as
     \code{clustermethod}. \code{TRUE} indicates that the corresponding
     clustering method requires the number of clusters as input and will
-    not estimate the number of clusters itself.}
+    not estimate the number of clusters itself. Only methods for which
+    this is \code{TRUE} can be used with \code{useboot=TRUE}.}
   \item{clustermethodpars}{list of the same length as
     \code{clustermethod}. Specifies parameters for all involved
     clustering methods. Its jth entry is passed to clustermethod number
     k. Can be an empty entry in case all defaults are used for a
-    clustering method. The number of clusters does not need to be
+    clustering method. However, the last entry is not allowed to be
+    empty (you may just set a parameter of the last clustering method to
+    its default value if you don't want to specify anything else)! The
+    number of clusters does not need to be
     specified here.}
   \item{npstats}{logical. If \code{TRUE}, \code{\link{distrsimilarity}}
     is called and the two validity statistics computed there are
     added. These require \code{diss=FALSE}.}
+  \item{useboot}{logical. If \code{TRUE}, a stability index (either
+    \code{nselectboot} or \code{prediction.strength}) will be involved.}
+  \item{bootclassif}{If \code{useboot=TRUE}, a vector of strings
+    indicating the
+    classification methods to be used with the stability index for the
+    different methods indicated in \code{clustermethods}, see the
+    \code{classification} argument of \code{nselectboot} and
+    \code{prediction.strength}.}
+  \item{bootmethod}{either \code{"nselectboot"} or
+    \code{"prediction.strength"}; stability index to be used if
+    \code{useboot=TRUE}.}
+  \item{bootruns}{integer. Number of resampling runs. If
+    \code{useboot=TRUE}, passed on as \code{B} to
+    \code{\link{nselectboot}} or
+    \code{M} to \code{\link{prediction.strength}}. Note that these are
+    applied to all \code{kmruns+nnruns+avenruns+fnruns} random
+    clusterings on top of the regular ones, which may take a lot of time
+    if \code{bootruns} and these values are chosen large.}
   \item{trace}{logical. If \code{TRUE}, some runtime information is
     printed.}
   \item{pamcrit}{logical. If \code{TRUE}, the average distance of points
@@ -94,13 +123,18 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
     dissimilarity to the uniform in case that \code{npstats=TRUE};
     \code{nnk}-argument  to be passed on to \code{\link{distrsimilarity}}.}
   \item{nnruns}{integer. Number of runs of \code{\link{stupidknn}}
-    (random clusterings).}
+    (random clusterings). With \code{useboot=TRUE} one may want to
+    choose this lower than the default for reasons of computation time.}
   \item{kmruns}{integer. Number of runs of
-    \code{\link{stupidkcentroids}} (random clusterings).}
+    \code{\link{stupidkcentroids}} (random clusterings). With
+    \code{useboot=TRUE} one may want to
+    choose this lower than the default for reasons of computation time.}
   \item{fnruns}{integer. Number of runs of \code{\link{stupidkfn}}
-    (random clusterings).}
+    (random clusterings).  With \code{useboot=TRUE} one may want to
+    choose this lower than the default for reasons of computation time.}
   \item{avenruns}{integer. Number of runs of \code{\link{stupidkaven}}
-    (random clusterings).}
+    (random clusterings). With \code{useboot=TRUE} one may want to
+    choose this lower than the default for reasons of computation time.}
   \item{multicore}{logical. If \code{TRUE}, parallel computing is used
     through the function \code{\link{mclapply}} from package
     \code{parallel}; read warnings there if you intend to use this; it
@@ -132,7 +166,7 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
 \value{
   The output of \code{clusterbenchstats} is a
   big list of lists comprising lists \code{cm, stat, sim, qstat,
-    sstat, statistics}
+    sstat}
   
   \item{cm}{output object of \code{\link{cluster.magazine}}, see there
     for details. Clustering of all methods and numbers of clusters on
@@ -151,7 +185,8 @@ clusterbenchstats(data,G,diss = inherits(data, "dist"),
   \item{sstat}{object of class \code{"valstat"}, see
     \code{\link{valstat.object}} for details. Cluster validation
     statistics standardised by random clusterings, output of
-    \code{\link{cgrestandard}} based on mean and standard deviation,
+    \code{\link{cgrestandard}} based on mean and standard deviation
+    (called Z-score standardisation in Akhanli and Hennig (2020),
     i.e., with \code{percentage=FALSE}.}
 
 }
@@ -162,8 +197,9 @@ Hennig, C. (2017) Cluster validation by measurement of clustering
     \url{https://arxiv.org/abs/1703.09282}
 
 Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings.
-On arxiv from February 2020. 
+validity indexes for context-adapted comparison of clusterings. Accepted
+for
+publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig
@@ -189,6 +225,7 @@ On arxiv from February 2020.
   clustermethodpars <- list()
   clustermethodpars[[2]] <- list()
   clustermethodpars[[2]]$method <- "average"
+# Last element of clustermethodpars needs to have an entry!
   methodname <- c("kmeans","average")
   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
     methodname=methodname,distmethod=rep(FALSE,2),
@@ -199,6 +236,21 @@ On arxiv from February 2020.
 # cbs$qstat$statistics for computation of an aggregated index, see
 # ?print.valstat.
 
+# Now using bootstrap stability assessment as in Akhanli and Hennig (2020):
+  bootclassif <- c("centroid","averagedist")
+  cbsboot <- clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
+    methodname=methodname,distmethod=rep(FALSE,2),
+    clustermethodpars=clustermethodpars,
+    useboot=TRUE,bootclassif=bootclassif,bootmethod="nselectboot",
+    bootruns=2,nnruns=1,kmruns=1,fnruns=1,avenruns=1,useallg=TRUE)
+  print(cbsboot)
+# Index A1 in Akhanli and Hennig (2020) (need these weights choices):
+  print(cbsboot$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0))
+# Index A2 in Akhanli and Hennig (2020) (need these weights choices):
+  print(cbsboot$sstat,aggregate=TRUE,weights=c(0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0))
+
+# Results from nselectboot:
+  plot(cbsboot$stat,cbsboot$sim,statistic="boot")
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{cluster}% __ONLY ONE__ keyword per line

@@ -1,6 +1,6 @@
 
-R version 3.6.2 (2019-12-12) -- "Dark and Stormy Night"
-Copyright (C) 2019 The R Foundation for Statistical Computing
+R Under development (unstable) (2020-06-23 r78741) -- "Unsuffered Consequences"
+Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 5.4.5
+Package 'mclust' version 5.4.6
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -1362,9 +1362,9 @@ Prediction strength
 Clustering method:  mclustBIC 
 Maximum number of clusters:  4 
 Resampled data sets:  10 
-Mean pred.str. for numbers of clusters:  1 0.815 0.874 0.591 
+Mean pred.str. for numbers of clusters:  1 0 0.0214 0.157 
 Cutoff value:  0.8 
-Largest number of clusters better than cutoff:  3 
+Largest number of clusters better than cutoff:  1 
 > 
 > prediction.strength(dist(x0),M=10,Gmax=4,
 +                            clustermethod=claraCBI,
@@ -1392,10 +1392,13 @@ Largest number of clusters better than cutoff:  1
 [1] "claraCBI"
 [1] "dbscanCBI"
 [1] "Computation of validity statistics"
+comsum  1 
+comsum  2 
 [1] "Simulation"
 3  clusters; nn run  1 
 3  clusters; nn run  2 
 3  clusters; fn run  1 
+[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
@@ -1545,4 +1548,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  3.117   0.042   3.150 
+   6.32    0.08    6.40 

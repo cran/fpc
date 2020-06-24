@@ -109,7 +109,7 @@ the \code{regmix}-function, \code{flexmix} didn't exist.)
 
 \code{\link{fixreg}} for fixed point clusters for clusterwise linear regression.
 
-\code{\link[mclust]{EMclust}} for Normal mixture model fitting (non-regression).
+\code{\link[mclust:mclustBIC]{EMclust}} for Normal mixture model fitting (non-regression).
 }
 \examples{
 \dontrun{

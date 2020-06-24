@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2020-02-04 r77771) -- "Unsuffered Consequences"
+R Under development (unstable) (2020-06-23 r78741) -- "Unsuffered Consequences"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -297,6 +297,8 @@ $sep
 >   clusum$name <- c("kmeansCBI","claraCBI")
 >   clusim <- randomclustersim(dist(face),G=2:3,nnruns=1,kmruns=1,
 +     fnruns=1,avenruns=1,monitor=FALSE)
+[1] "end fnsim"
+[1] "end fnsim"
 >   cgr <- cgrestandard(clusum,clusim,2:3)
 >   cgr2 <- cgrestandard(clusum,clusim,2:3,useallg=TRUE)
 >   cgr3 <- cgrestandard(clusum,clusim,2:3,percentage=TRUE)
@@ -541,9 +543,10 @@ $dmode
  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
  [75] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 1 3 3 3 3 3 3 3 3 3
 > classifnp(x,clumin, method="qda")
-  [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
- [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
- [75] 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 3 3 3 3 3 3 3 3 3 3
+  [1] -1 -1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+ [26]  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1  1
+ [51] -1 -1  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2
+ [76]  2  2  2  2  2  2  2  2  2  2  2  2  2  2  2 -1  3  3  3  3  3  3  3  3  3
 > classifdist(dist(x),clumin, centroids=c(3,53,93),method="centroid")
   [1] 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
  [38] 1 1 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2 2
@@ -1140,6 +1143,7 @@ detaching ‘package:flexmix’, ‘package:lattice’, ‘package:MASS’
 >   clustermethodpars <- list()
 >   clustermethodpars[[2]] <- list()
 >   clustermethodpars[[2]]$method <- "average"
+> # Last element of clustermethodpars needs to have an entry!
 >   methodname <- c("kmeans","average")
 >   cbs <-  clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
 +     methodname=methodname,distmethod=rep(FALSE,2),
@@ -1147,13 +1151,17 @@ detaching ‘package:flexmix’, ‘package:lattice’, ‘package:MASS’
 [1] "kmeansCBI"
 [1] "hclustCBI"
 [1] "Computation of validity statistics"
+comsum  1 
+comsum  2 
 [1] "Simulation"
 2  clusters; nn run  1 
 2  clusters; fn run  1 
+[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; km run  1 
 3  clusters; nn run  1 
 3  clusters; fn run  1 
+[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 [1] "Simulation quantile re-standardisation"
@@ -1237,6 +1245,188 @@ aggregate
 > # cbs$qstat$statistics for computation of an aggregated index, see
 > # ?print.valstat.
 > 
+> # Now using bootstrap stability assessment as in Akhanli and Hennig (2020):
+>   bootclassif <- c("centroid","averagedist")
+>   cbsboot <- clusterbenchstats(face,G=2:3,clustermethod=clustermethod,
++     methodname=methodname,distmethod=rep(FALSE,2),
++     clustermethodpars=clustermethodpars,
++     useboot=TRUE,bootclassif=bootclassif,bootmethod="nselectboot",
++     bootruns=2,nnruns=1,kmruns=1,fnruns=1,avenruns=1,useallg=TRUE)
+[1] "kmeansCBI"
+[1] "hclustCBI"
+[1] "Computation of validity statistics"
+comsum  1 
+comsum  2 
+[1] "Simulation"
+2  clusters; nn run  1 
+2  clusters; fn run  1 
+[1] "end fnsim"
+2  clusters; aven run  1 
+2  clusters; km run  1 
+3  clusters; nn run  1 
+3  clusters; fn run  1 
+[1] "end fnsim"
+3  clusters; aven run  1 
+3  clusters; km run  1 
+[1] "Simulation quantile re-standardisation"
+[1] "Simulation sd re-standardisation"
+>   print(cbsboot)
+Output object of clusterbenchstats.
+Clustering methods:  kmeans average  
+Cluster validation statistics:  avewithin mnnd cvnnd maxdiameter widestgap sindex minsep asw dindex denscut highdgap pearsongamma withinss entropy pamc boot dmode 
+Numbers of clusters minimum:  2  maximum:  3 
+Output components are cm, stat, sim, qstat, sstat.stat, qstat, and sstat are valstat-objects.Use plot.valstat and print.valstat on these to get more information.
+> # Index A1 in Akhanli and Hennig (2020) (need these weights choices):
+>   print(cbsboot$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0))
+avewithin 
+   method     2      3
+1  kmeans -0.95  0.412
+2 average -2.55 -0.083
+mnnd 
+   method     2     3
+1  kmeans -2.71  0.36
+2 average  0.91 -0.68
+cvnnd 
+   method     2     3
+1  kmeans -1.75  0.17
+2 average -0.96 -1.48
+maxdiameter 
+   method     2    3
+1  kmeans -0.97 0.26
+2 average -1.97 0.26
+widestgap 
+   method    2     3
+1  kmeans -1.2  0.62
+2 average -1.1 -1.07
+sindex 
+   method      2     3
+1  kmeans -1.405 -0.54
+2 average  0.066 -0.91
+minsep 
+   method     2    3
+1  kmeans -1.12 -1.1
+2 average  0.23 -1.1
+asw 
+   method     2     3
+1  kmeans -0.54 -0.28
+2 average -2.35 -0.93
+dindex 
+   method     2    3
+1  kmeans  0.32 0.32
+2 average -3.16 0.32
+denscut 
+   method    2    3
+1  kmeans 0.29 0.29
+2 average 0.29 0.29
+highdgap 
+   method     2    3
+1  kmeans -0.27  0.5
+2 average -2.87 -0.2
+pearsongamma 
+   method     2     3
+1  kmeans -0.62 0.161
+2 average -2.73 0.022
+withinss 
+   method     2    3
+1  kmeans -0.79 0.51
+2 average -2.68 0.20
+entropy 
+   method     2     3
+1  kmeans  0.45  0.38
+2 average -2.92 -0.30
+pamc 
+   method     2    3
+1  kmeans -0.78 0.48
+2 average -2.37 0.27
+boot 
+   method    2   3
+1  kmeans  1.1 1.4
+2 average -1.2 0.6
+dmode 
+   method     2    3
+1  kmeans  0.17 0.36
+2 average -3.09 0.19
+aggregate 
+   method     2    3
+1  kmeans -0.15 0.65
+2 average -2.17 0.18
+> # Index A2 in Akhanli and Hennig (2020) (need these weights choices):
+>   print(cbsboot$sstat,aggregate=TRUE,weights=c(0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0))
+avewithin 
+   method     2      3
+1  kmeans -0.95  0.412
+2 average -2.55 -0.083
+mnnd 
+   method     2     3
+1  kmeans -2.71  0.36
+2 average  0.91 -0.68
+cvnnd 
+   method     2     3
+1  kmeans -1.75  0.17
+2 average -0.96 -1.48
+maxdiameter 
+   method     2    3
+1  kmeans -0.97 0.26
+2 average -1.97 0.26
+widestgap 
+   method    2     3
+1  kmeans -1.2  0.62
+2 average -1.1 -1.07
+sindex 
+   method      2     3
+1  kmeans -1.405 -0.54
+2 average  0.066 -0.91
+minsep 
+   method     2    3
+1  kmeans -1.12 -1.1
+2 average  0.23 -1.1
+asw 
+   method     2     3
+1  kmeans -0.54 -0.28
+2 average -2.35 -0.93
+dindex 
+   method     2    3
+1  kmeans  0.32 0.32
+2 average -3.16 0.32
+denscut 
+   method    2    3
+1  kmeans 0.29 0.29
+2 average 0.29 0.29
+highdgap 
+   method     2    3
+1  kmeans -0.27  0.5
+2 average -2.87 -0.2
+pearsongamma 
+   method     2     3
+1  kmeans -0.62 0.161
+2 average -2.73 0.022
+withinss 
+   method     2    3
+1  kmeans -0.79 0.51
+2 average -2.68 0.20
+entropy 
+   method     2     3
+1  kmeans  0.45  0.38
+2 average -2.92 -0.30
+pamc 
+   method     2    3
+1  kmeans -0.78 0.48
+2 average -2.37 0.27
+boot 
+   method    2   3
+1  kmeans  1.1 1.4
+2 average -1.2 0.6
+dmode 
+   method     2    3
+1  kmeans  0.17 0.36
+2 average -3.09 0.19
+aggregate 
+   method     2     3
+1  kmeans -0.50  0.49
+2 average -0.75 -0.46
+> 
+> # Results from nselectboot:
+>   plot(cbsboot$stat,cbsboot$sim,statistic="boot")
 > 
 > 
 > 
@@ -2258,7 +2448,7 @@ $z
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.5
+Package 'mclust' version 5.4.6
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
@@ -2675,7 +2865,8 @@ $pp[[2]]
 > ### Aliases: kmeansCBI hclustCBI hclusttreeCBI disthclustCBI
 > ###   disthclusttreeCBI noisemclustCBI distnoisemclustCBI claraCBI pamkCBI
 > ###   dbscanCBI mahalCBI mergenormCBI speccCBI tclustCBI pdfclustCBI
-> ###   emskewCBI
+> ###   emskewCBI stupidkcentroidsCBI stupidknnCBI stupidkfnCBI
+> ###   stupidkavenCBI
 > ### Keywords: cluster multivariate
 > 
 > ### ** Examples
@@ -2942,7 +3133,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.5
+Package 'mclust' version 5.4.6
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3031,7 +3222,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.5
+Package 'mclust' version 5.4.6
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3090,7 +3281,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.5
+Package 'mclust' version 5.4.6
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3320,11 +3511,16 @@ detaching ‘package:mclust’
 [1] "hclustCBI"
 [1] "hclustCBI"
 [1] "Computation of validity statistics"
+comsum  1 
+comsum  2 
+comsum  3 
 [1] "Simulation"
 2  clusters; nn run  1 
 2  clusters; nn run  2 
 2  clusters; fn run  1 
+[1] "end fnsim"
 2  clusters; fn run  2 
+[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; aven run  2 
 2  clusters; km run  1 
@@ -3332,7 +3528,9 @@ detaching ‘package:mclust’
 3  clusters; nn run  1 
 3  clusters; nn run  2 
 3  clusters; fn run  1 
+[1] "end fnsim"
 3  clusters; fn run  2 
+[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; aven run  2 
 3  clusters; km run  1 
@@ -3428,6 +3626,10 @@ aggregate
 1 kmeans -0.91  0.18
 2   ward -0.14 -0.98
 3 single -1.69 -0.36
+> # Some of the values are "NaN" because due to the low number of runs of
+> # the stupid clustering methods there is no variation. If this happens
+> # in a real application, nnruns etc. should be chosen higher than 2.
+> # Also useallg=TRUE in clusterbenchstats may help.  
 > 
 > 
 > 
@@ -3579,12 +3781,14 @@ Largest number of clusters better than cutoff:  3
 2  clusters; nn run  1 
 2  clusters; nn run  2 
 2  clusters; fn run  1 
+[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; km run  1 
 2  clusters; km run  2 
 3  clusters; nn run  1 
 3  clusters; nn run  2 
 3  clusters; fn run  1 
+[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
@@ -3876,12 +4080,20 @@ detaching ‘tonedata’
 >   options(digits=3)
 >   face <- rFace(200,dMoNo=2,dNoEy=0,p=2)
 >   stupidkcentroids(dist(face),3) 
+$partition
   [1] 3 3 3 2 3 1 1 2 2 3 1 2 1 2 1 2 1 3 1 1 2 2 1 1 2 1 3 2 1 2 2 2 1 2 1 2 1
  [38] 1 3 1 3 1 3 2 2 2 3 1 1 1 1 3 3 2 2 1 1 3 3 1 3 1 3 3 1 3 1 3 1 1 1 2 1 3
  [75] 3 1 1 1 3 2 3 1 1 2 1 3 1 2 3 3 1 1 1 1 1 2 3 1 3 3 3 3 3 3 3 3 3 3 2 2 3
 [112] 3 3 2 2 2 3 3 3 3 3 3 3 3 3 3 2 2 2 3 3 2 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3
 [149] 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 3 2 2 2 2 2 2 2 2 2
 [186] 2 2 2 2 2 2 2 2 2 2 2 2 3 2 2
+
+$centroids
+[1] 51 55 63
+
+$distances
+[1] TRUE
+
 > 
 > 
 > 
@@ -3993,7 +4205,7 @@ detaching ‘tonedata’
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.5
+Package 'mclust' version 5.4.6
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4091,7 +4303,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.656 0.064 7.724 0 0 
+Time elapsed:  8.096 0.067 8.169 0 0 
 > grDevices::dev.off()
 null device 
           1 

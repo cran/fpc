@@ -29,10 +29,9 @@
 }
 \references{
 Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings.
-On arxiv from February 2020. 
-
-
+validity indexes for context-adapted comparison of clusterings. Accepted
+for
+publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
 }
 \author{Christian Hennig
   \email{christian.hennig@unibo.it}

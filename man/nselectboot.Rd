@@ -17,8 +17,9 @@
 \usage{
 nselectboot(data,B=50,distances=inherits(data,"dist"),
                         clustermethod=NULL,
-                        classification="averagedist",krange=2:10,
-                        count=FALSE,nnk=1, ...)
+                        classification="averagedist",centroidname = NULL,
+                        krange=2:10, count=FALSE,nnk=1,
+                        largeisgood=FALSE,...)
 }
 
 %- maybe also `usage' for other objects documented here.
@@ -56,12 +57,23 @@ nselectboot(data,B=50,distances=inherits(data,"dist"),
     \code{classification="qda"} is recommended for Gaussian mixtures
     with flexible covariance matrices.  
   }
+  \item{centroidname}{string. Indicates the name of the component of
+    \code{CBIoutput$result} that contains the cluster centroids in case of
+    \code{classification="centroid"}, where \code{CBIoutput} is the
+    output object of \code{clustermethod}. If \code{clustermethod} is
+    \code{kmeansCBI} or \code{claraCBI}, centroids are recognised
+    automatically if \code{centroidname=NULL}. If
+    \code{centroidname=NULL} and \code{distances=FALSE}, cluster means
+    are computed as the cluster centroids.}  
   \item{krange}{integer vector; numbers of clusters to be tried.}
   \item{count}{logical. If \code{TRUE}, numbers of clusters and
     bootstrap runs are printed.}
   \item{nnk}{number of nearest neighbours if
     \code{classification="knn"}, see  \code{\link{classifdist}} (if
     \code{distances=TRUE}) and \code{\link{classifnp}} (otherwise).}
+  \item{largeisgood}{logical. If \code{TRUE}, output component
+    \code{stabk} is taken as one minus the original instability value
+    so that larger values of \code{stabk} are better.}
   \item{...}{arguments to be passed on to the clustering method.}
 }
     
@@ -69,7 +81,8 @@ nselectboot(data,B=50,distances=inherits(data,"dist"),
   \code{nselectboot} returns a list with components
   \code{kopt,stabk,stab}.
   \item{kopt}{optimal number of clusters.}
-  \item{stabk}{mean instability values for numbers of clusters.}
+  \item{stabk}{mean instability values for numbers of clusters (or one
+    minus this if \code{largeisgood=TRUE}).}
   \item{stab}{matrix of instability values for all bootstrap runs and
     numbers of clusters.} 
 }

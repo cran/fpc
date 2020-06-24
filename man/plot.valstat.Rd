@@ -12,7 +12,7 @@
   Unlike for many other plot methods, the additional arguments
   of \code{plot.valstat} are essential. \code{print.valstat} should make
   good sense with the defaults, but for computing the aggregate index
-  \code{aggregate} and \code{weights} need to be set.
+   need to be set.
 }
 \usage{
 \method{plot}{valstat}(x,simobject=NULL,statistic="sindex",
@@ -106,6 +106,10 @@
   \code{stat}-component if \code{simobject} is specified, because the
   simulated cluster validity statistics are unstandardised and need to
   be compared with unstandardised values on the dataset of interest.
+
+  \code{print.valstat} will print all values for all validation indexes
+  and the aggregated index (in case of \code{aggregate=TRUE} and set
+  \code{weights} will be printed last.
 }
   
 
@@ -120,8 +124,9 @@
   \url{https://arxiv.org/abs/1703.09282}
 
   Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings.
-On arxiv from February 2020. 
+validity indexes for context-adapted comparison of clusterings. Accepted
+for
+publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig
@@ -149,6 +154,10 @@ On arxiv from February 2020.
   plot(cbs$stat,cbs$sim,statistic="dindex")
   plot(cbs$stat,cbs$sim,statistic="avewithin")
   print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
+# Some of the values are "NaN" because due to the low number of runs of
+# the stupid clustering methods there is no variation. If this happens
+# in a real application, nnruns etc. should be chosen higher than 2.
+# Also useallg=TRUE in clusterbenchstats may help.  
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

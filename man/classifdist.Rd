@@ -48,18 +48,24 @@ classifnp(data,clustering,
     \item{"centroid"}{assigns observations to the cluster with closest
       cluster centroid as specified in argument \code{centroids} (this
       is associated to k-means and pam/clara-clustering).}
-    \item{"averagedist"}{assigns to the cluster to which an observation
-      has the minimum average dissimilarity to all points in the cluster
-      (this is associated to average linkage clustering).}
     \item{"qda"}{only in \code{classifnp}. Classifies by quadratic
       discriminant analysis (this is associated to Gaussian clusters
       with flexible covariance matrices), calling
       \code{\link[MASS]{qda}} with default settings. If
       \code{\link[MASS]{qda}} gives an error (usually because a class
       was too small), \code{\link[MASS]{lda}} is used.}
+    \item{"lda"}{only in \code{classifnp}. Classifies by linear
+      discriminant analysis (this is associated to Gaussian clusters
+      with equal covariance matrices), calling
+      \code{\link[MASS]{lda}} with default settings.}
+    \item{"averagedist"}{assigns to the cluster to which an observation
+      has the minimum average dissimilarity to all points in the cluster
+      (this is associated with average linkage clustering).}
     \item{"knn"}{classifies by \code{nnk} nearest neighbours (for
       \code{nnk=1}, this is associated with single linkage clustering).
       Calls \code{\link[class]{knn}} in \code{classifnp}.}
+    \item{"fn"}{classifies by the minimum distance to the farthest
+      neighbour. This is associated with complete linkage clustering).}
   }
 }
     

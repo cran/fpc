@@ -7,30 +7,33 @@
   closest centroid. This is called stupid k-centroids in Hennig (2017).
 }
 \usage{
-  stupidkcentroids(d,k)
+  stupidkcentroids(xdata, k, distances = inherits(xdata, "dist"))
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{d}{\code{dist}-object or dissimilarity matrix.}
+  \item{xdata}{cases*variables data, \code{dist}-object or dissimilarity
+    matrix, see \code{distances}.}
   \item{k}{integer. Number of clusters.}
+  \item{distances}{logical. If \code{TRUE}, \code{xdata} is interpreted
+    as distances.}
 }
 
 % \details{
 % }
 \value{
   The clustering vector (values 1 to \code{k}, length number of objects
-  behind \code{d}), 
+  behind \code{xdata}), 
 }
 \references{
 Hennig, C. (2017) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
   \emph{Proceedings of ASMDA 2017}, 501-520,
   \url{https://arxiv.org/abs/1703.09282}
-  
-Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings.
-On arxiv from February 2020. 
 
+Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings. Accepted
+for
+publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig
