@@ -1276,154 +1276,12 @@ Clustering methods:  kmeans average
 Cluster validation statistics:  avewithin mnnd cvnnd maxdiameter widestgap sindex minsep asw dindex denscut highdgap pearsongamma withinss entropy pamc boot dmode 
 Numbers of clusters minimum:  2  maximum:  3 
 Output components are cm, stat, sim, qstat, sstat.stat, qstat, and sstat are valstat-objects.Use plot.valstat and print.valstat on these to get more information.
-> # Index A1 in Akhanli and Hennig (2020) (need these weights choices):
->   print(cbsboot$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0))
-avewithin 
-   method     2      3
-1  kmeans -0.95  0.412
-2 average -2.55 -0.083
-mnnd 
-   method     2     3
-1  kmeans -2.71  0.36
-2 average  0.91 -0.68
-cvnnd 
-   method     2     3
-1  kmeans -1.75  0.17
-2 average -0.96 -1.48
-maxdiameter 
-   method     2    3
-1  kmeans -0.97 0.26
-2 average -1.97 0.26
-widestgap 
-   method    2     3
-1  kmeans -1.2  0.62
-2 average -1.1 -1.07
-sindex 
-   method      2     3
-1  kmeans -1.405 -0.54
-2 average  0.066 -0.91
-minsep 
-   method     2    3
-1  kmeans -1.12 -1.1
-2 average  0.23 -1.1
-asw 
-   method     2     3
-1  kmeans -0.54 -0.28
-2 average -2.35 -0.93
-dindex 
-   method     2    3
-1  kmeans  0.32 0.32
-2 average -3.16 0.32
-denscut 
-   method    2    3
-1  kmeans 0.29 0.29
-2 average 0.29 0.29
-highdgap 
-   method     2    3
-1  kmeans -0.27  0.5
-2 average -2.87 -0.2
-pearsongamma 
-   method     2     3
-1  kmeans -0.62 0.161
-2 average -2.73 0.022
-withinss 
-   method     2    3
-1  kmeans -0.79 0.51
-2 average -2.68 0.20
-entropy 
-   method     2     3
-1  kmeans  0.45  0.38
-2 average -2.92 -0.30
-pamc 
-   method     2    3
-1  kmeans -0.78 0.48
-2 average -2.37 0.27
-boot 
-   method    2   3
-1  kmeans  1.1 1.4
-2 average -1.2 0.6
-dmode 
-   method     2    3
-1  kmeans  0.17 0.36
-2 average -3.09 0.19
-aggregate 
-   method     2    3
-1  kmeans -0.15 0.65
-2 average -2.17 0.18
-> # Index A2 in Akhanli and Hennig (2020) (need these weights choices):
->   print(cbsboot$sstat,aggregate=TRUE,weights=c(0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0))
-avewithin 
-   method     2      3
-1  kmeans -0.95  0.412
-2 average -2.55 -0.083
-mnnd 
-   method     2     3
-1  kmeans -2.71  0.36
-2 average  0.91 -0.68
-cvnnd 
-   method     2     3
-1  kmeans -1.75  0.17
-2 average -0.96 -1.48
-maxdiameter 
-   method     2    3
-1  kmeans -0.97 0.26
-2 average -1.97 0.26
-widestgap 
-   method    2     3
-1  kmeans -1.2  0.62
-2 average -1.1 -1.07
-sindex 
-   method      2     3
-1  kmeans -1.405 -0.54
-2 average  0.066 -0.91
-minsep 
-   method     2    3
-1  kmeans -1.12 -1.1
-2 average  0.23 -1.1
-asw 
-   method     2     3
-1  kmeans -0.54 -0.28
-2 average -2.35 -0.93
-dindex 
-   method     2    3
-1  kmeans  0.32 0.32
-2 average -3.16 0.32
-denscut 
-   method    2    3
-1  kmeans 0.29 0.29
-2 average 0.29 0.29
-highdgap 
-   method     2    3
-1  kmeans -0.27  0.5
-2 average -2.87 -0.2
-pearsongamma 
-   method     2     3
-1  kmeans -0.62 0.161
-2 average -2.73 0.022
-withinss 
-   method     2    3
-1  kmeans -0.79 0.51
-2 average -2.68 0.20
-entropy 
-   method     2     3
-1  kmeans  0.45  0.38
-2 average -2.92 -0.30
-pamc 
-   method     2    3
-1  kmeans -0.78 0.48
-2 average -2.37 0.27
-boot 
-   method    2   3
-1  kmeans  1.1 1.4
-2 average -1.2 0.6
-dmode 
-   method     2    3
-1  kmeans  0.17 0.36
-2 average -3.09 0.19
-aggregate 
-   method     2     3
-1  kmeans -0.50  0.49
-2 average -0.75 -0.46
+> ## Not run: 
+> ##D # Index A1 in Akhanli and Hennig (2020) (need these weights choices):
+> ##D   print(cbsboot$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0))
+> ##D # Index A2 in Akhanli and Hennig (2020) (need these weights choices):
+> ##D   print(cbsboot$sstat,aggregate=TRUE,weights=c(0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0))
+> ## End(Not run)
 > 
 > # Results from nselectboot:
 >   plot(cbsboot$stat,cbsboot$sim,statistic="boot")
@@ -4303,7 +4161,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  8.096 0.067 8.169 0 0 
+Time elapsed:  7.644 0.05 7.701 0 0 
 > grDevices::dev.off()
 null device 
           1 

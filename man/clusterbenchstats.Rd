@@ -244,10 +244,12 @@ publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
     useboot=TRUE,bootclassif=bootclassif,bootmethod="nselectboot",
     bootruns=2,nnruns=1,kmruns=1,fnruns=1,avenruns=1,useallg=TRUE)
   print(cbsboot)
+\dontrun{
 # Index A1 in Akhanli and Hennig (2020) (need these weights choices):
   print(cbsboot$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0))
 # Index A2 in Akhanli and Hennig (2020) (need these weights choices):
   print(cbsboot$sstat,aggregate=TRUE,weights=c(0,0,0,0,1,1,0,0,0,0,0,0,0,0,0,1,0))
+}
 
 # Results from nselectboot:
   plot(cbsboot$stat,cbsboot$sim,statistic="boot")

@@ -1,4 +1,4 @@
-11c52bd0d1da2a1ee13a32d15a2cd916 *DESCRIPTION
+e9820dd2c9df3f34cb4e2cf62ebcc814 *DESCRIPTION
 1125ef47578160408d5075ac0948abcd *NAMESPACE
 aec30efb5a63e14e8987a882e3585a7c *R/addclustermethods.R
 7a20575849dc97aaf85edafd0caeb99f *R/clusterboot.R
@@ -34,7 +34,7 @@ ab40c02193537ab2cec1a5c3cb848102 *man/clujaccard.Rd
 3cba7a50d7060a4587566801556ca9b3 *man/cluster.magazine.Rd
 842f8373efbf920aa2a6a57765a1e02a *man/cluster.stats.Rd
 030b373fea2741e53ece7db3f4224032 *man/cluster.varstats.Rd
-aa24fd629d9cade6c4280af71be13e5c *man/clusterbenchstats.Rd
+7cd62aa0d7baaa90fead75bf686660bb *man/clusterbenchstats.Rd
 e8fdf85cbdfc2de7056bacf599ca5c75 *man/clusterboot.Rd
 9db8a890d7d579b062342b96ae870eed *man/cmahal.Rd
 dfc9b80c1b32810d9819f14bd18a2f4f *man/concomp.Rd
@@ -107,6 +107,6 @@ ab58c057d7e378bb58b2a0ed3c7a7418 *man/valstat.object.Rd
 19cb8bae42e9c79f99e7ec427a2c66ad *man/wfu.Rd
 c895dda06251f6f2c38b2f0669f66874 *man/xtable.Rd
 98033be110c0e6d320a01868fa441d27 *man/zmisclassification.matrix.Rd
-24dd5f69d732211900565914d9c9ba51 *tests/Examples/fpc-Ex.Rout.save
+e64bb1d212abe8c7c79481a6565dedea *tests/Examples/fpc-Ex.Rout.save
 897b000edb7de45128e215b3e7f07a65 *tests/fpctests_notallin.R
 3834eafa6780031a45fb8207fd195d10 *tests/fpctests_notallin.Rout.save
