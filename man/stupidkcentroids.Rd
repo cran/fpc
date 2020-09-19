@@ -4,7 +4,7 @@
 \title{Stupid k-centroids random clustering}
 \description{
   Picks k random centroids from given dataset and assigns every point to
-  closest centroid. This is called stupid k-centroids in Hennig (2017).
+  closest centroid. This is called stupid k-centroids in Hennig (2019).
 }
 \usage{
   stupidkcentroids(xdata, k, distances = inherits(xdata, "dist"))
@@ -25,15 +25,18 @@
   behind \code{xdata}), 
 }
 \references{
-Hennig, C. (2017) Cluster validation by measurement of clustering
+
+Hennig, C. (2019) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
-  \emph{Proceedings of ASMDA 2017}, 501-520,
-  \url{https://arxiv.org/abs/1703.09282}
+  \emph{Data Analysis and Applications 1: Clustering and Regression,
+  Modeling-estimating, Forecasting and Data Mining, Volume 2}, Wiley,
+  New York 1-24,
+    \url{https://arxiv.org/abs/1703.09282}
 
 Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings. Accepted
-for
-publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
+validity indexes for context-adapted comparison of clusterings.
+\emph{Statistics and Computing}, 30, 1523-1544,
+\url{https://link.springer.com/article/10.1007/s11222-020-09958-2}, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig

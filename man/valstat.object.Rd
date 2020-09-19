@@ -41,7 +41,7 @@
   \item{cvnnd}{coefficient of variation of dissimilarities to
     \code{nnk}th nearest wthin-cluster neighbour, measuring uniformity of
     within-cluster densities, weighted over all clusters, see Sec. 3.7 of
-    Hennig (2017). (\code{nnk} is a parameter of
+    Hennig (2019). (\code{nnk} is a parameter of
     \code{\link{cqcluster.stats}}, default 2.)}
   \item{maxdiameter}{maximum cluster diameter.}
   \item{widestgap}{widest within-cluster gap or average of cluster-wise
@@ -51,19 +51,19 @@
     every point to the
     closest point not in the same cluster. The separation index is then
     the mean of the smallest proportion \code{sepprob} (parameter of
-    \code{\link{cqcluster.stats}}, default 0.1) of these. See Hennig (2017).}
+    \code{\link{cqcluster.stats}}, default 0.1) of these. See Hennig (2019).}
   \item{minsep}{minimum cluster separation.}
   \item{asw}{average silhouette
     width. See \code{\link{silhouette}}.}
   \item{dindex}{this index measures to what extent the density decreases
     from the cluster mode to the outskirts; I-densdec in Sec. 3.6 of
-    Hennig (2017); low values are good.}
+    Hennig (2019); low values are good.}
   \item{denscut}{this index measures whether cluster boundaries run
-    through density valleys; I-densbound in Sec. 3.6 of Hennig (2017); low
+    through density valleys; I-densbound in Sec. 3.6 of Hennig (2019); low
     values are good.}
   \item{highdgap}{this measures whether there is a large within-cluster
     gap with high density on both sides; I-highdgap in Sec. 3.6 of
-    Hennig (2017); low values are good.}
+    Hennig (2019); low values are good.}
   \item{pearsongamma}{correlation between distances and a
     0-1-vector where 0 means same cluster, 1 means different clusters.
     "Normalized gamma" in Halkidi et al. (2001).}
@@ -110,15 +110,17 @@
   
 }
 \references{
-  Hennig, C. (2017) Cluster validation by measurement of clustering
+Hennig, C. (2019) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
-  \emph{Proceedings of ASMDA 2017}, 501-520,
-  \url{https://arxiv.org/abs/1703.09282}
+  \emph{Data Analysis and Applications 1: Clustering and Regression,
+  Modeling-estimating, Forecasting and Data Mining, Volume 2}, Wiley,
+  New York 1-24,
+    \url{https://arxiv.org/abs/1703.09282}
 
-  Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings. Accepted
-for
-publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
+Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+\emph{Statistics and Computing}, 30, 1523-1544,
+\url{https://link.springer.com/article/10.1007/s11222-020-09958-2}, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig

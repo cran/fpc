@@ -462,34 +462,35 @@ pdfclustCBI <- function(data,...){
 }
 
 # distr could also be mvt, msn, mst
-emskewCBI <- function(data,k,distr="mst",repeats=100,...){
-  if (requireNamespace("EMMIXskew", quietly = TRUE)) {
-    if (!exists("distr")) distr="mvn" 
-    attempt <- 1
-    repeat{
-      c1 <- EMMIXskew::EmSkew(data,g=k,distr=distr,...)
-      if (!is.null(c1)){
-        if (max(c1$clust)==k)
-          break
-      }
-      attempt <- attempt+1
-      if(attempt>repeats){
-        cat("EmSkew failed after ",repeats," repetitions.")
-        break
-      }
-      if(debug) print("Repeat EmSkew exection")    
-    }
-    partition <- c1$clust
-    nc <- max(partition)
-    cl <- list()
-    for (i in 1:nc) cl[[i]] <- partition == i
-    out <- list(result = c1, nc = nc, clusterlist = cl, partition = partition, 
-          clustermethod = paste("emskew_",distr,sep=""))
-    out
-  }
-  else
-    warning("EMMIXskew could not be loaded")    
-}
+# emskewCBI <- function(data,k,distr="mst",repeats=100,...){
+#   if (requireNamespace("EMMIXskew", quietly = TRUE)) {
+#     if (!exists("distr")) distr="mvn" 
+#     attempt <- 1
+#     repeat{
+# #      c1 <- EMMIXskew::EmSkew(data,g=k,distr=distr,...)
+#       c1 <- EmSkew(data,g=k,distr=distr,...)
+#       if (!is.null(c1)){
+#         if (max(c1$clust)==k)
+#           break
+#       }
+#       attempt <- attempt+1
+#       if(attempt>repeats){
+#         cat("EmSkew failed after ",repeats," repetitions.")
+#         break
+#       }
+#       if(debug) print("Repeat EmSkew exection")    
+#     }
+#     partition <- c1$clust
+#     nc <- max(partition)
+#     cl <- list()
+#     for (i in 1:nc) cl[[i]] <- partition == i
+#     out <- list(result = c1, nc = nc, clusterlist = cl, partition = partition, 
+#           clustermethod = paste("emskew_",distr,sep=""))
+#     out
+#   }
+#   else
+#     warning("EMMIXskew could not be loaded")    
+# }
 
 
 
@@ -995,97 +996,155 @@ disthclusttreeCBI <- function(dmatrix,minlevel=2,method,...){
   out
 }
 
-
-classifnp <- function (data, clustering, method = "centroid", cdist = NULL, 
-    centroids = NULL, nnk = 1) 
-{
-    data <- as.matrix(data)
-    k <- max(clustering)
-    p <- ncol(data)
-    n <- nrow(data)
-    topredict <- clustering < 0
-    if (method == "averagedist") {
-        if (is.null(cdist)) 
-            cdist <- as.matrix(dist(data))
-        else cdist <- as.matrix(cdist)
-        prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
-        for (j in 1:k) prmatrix[, j] <- rowMeans(as.matrix(cdist[topredict, 
-            clustering == j]))
-        clpred <- apply(prmatrix, 1, which.min)
-        clustering[topredict] <- clpred
-    }
-    if (method == "centroid") {
-        if (is.null(centroids)) {
-            centroids <- matrix(NA, ncol = p, nrow = k)
-            grvec <- numeric(0)
-            for (j in 1:k)
-              if (sum(clustering==j)>0){
-                   centroids[j, ] <- colMeans(as.matrix(data[clustering == j, ]))
-                   grvec <- c(grvec,j)
-              }
-        }
-        else
-          grvec <- 1:k
-#        print(centroids)
-        clustering[topredict] <- knn1(centroids[grvec,], data[topredict, 
-            ], grvec)
-    }
-    if (method == "qda") {
-        qq <- try(qda(data[!topredict, ], grouping = as.factor(clustering[!topredict])), 
-            silent = TRUE)
-        if (identical(attr(qq, "class"), "try-error")) 
-            qq <- lda(data[!topredict, ], grouping = as.factor(clustering[!topredict]))
-        clustering[topredict] <- as.integer(predict(qq, data[topredict, 
-            ])$class)
-    }
-    if (method == "knn") 
-        clustering[topredict] <- as.integer(knn(data[!topredict, 
-            ], data[topredict, ], as.factor(clustering[!topredict]), 
-            k = nnk))
-    clustering
-}
-
-
-
-# method centroids doesn't allow centroids=NULL
-classifdist <- function(cdist,clustering,
-                      method="averagedist",
-                      centroids=NULL,nnk=1){
+# New with "fn" method 
+classifdist <- function (cdist, clustering, method = "averagedist", centroids = NULL, nnk = 1) {
   k <- max(clustering)
-  n <- nrow(data)
+  n <- nrow(cdist)
   cdist <- as.matrix(cdist)
-  topredict <- clustering<0
-  if(method=="averagedist"){
-    prmatrix <- matrix(0,ncol=k,nrow=sum(topredict))
-    for (j in 1:k)
-      prmatrix[,j] <- rowMeans(as.matrix(cdist[topredict,clustering==j]))
-    clpred <- apply(prmatrix,1,which.min)
+  topredict <- clustering < 0
+  if (method == "averagedist") {
+    prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+#    print("classifdist")
+#    print(topredict)
+#    print(clustering)
+#    print(prmatrix)
+    for (j in 1:k) {
+#      print(j)
+#      print(cdist[topredict, clustering == j,drop=FALSE])
+      if (sum(clustering==j)>0)
+        prmatrix[, j] <- rowMeans(as.matrix(cdist[topredict, clustering == j,drop=FALSE]))
+      else
+        prmatrix[, j] <- rep(Inf,sum(topredict))
+    }
+    clpred <- apply(prmatrix, 1, which.min)
     clustering[topredict] <- clpred
   }
-# print("centroids&cdist")
-# print(centroids)
-#  print(cdist[topredict,centroids,drop=FALSE])
-  if(method=="centroid")
-    clustering[topredict] <- apply(cdist[topredict,centroids,drop=FALSE],1,which.min)
-  if(method=="knn"){
-    cdist[topredict,topredict] <- max(cdist)+1
-    if (nnk==1){
-      bestobs <- apply(cdist[topredict,,drop=FALSE],1,which.min)
+#  print(method)
+#  print(str(centroids))
+#  print(str(topredict))
+#  print(str(cdist))
+#  print(str(clustering))
+#  if (method == "MSS") {
+#    RowMSS <- function(x) {
+#      rowSums((x - rowMeans(x))^2)
+#    }
+#    prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+#    for (j in 1:k) {
+#      prmatrix[, j] <- RowMSS(as.matrix(cdist[topredict, clustering == j]))
+#    }
+#    clpred <- apply(prmatrix, 1, which.min)
+#    clustering[topredict] <- clpred
+#  }
+  if (method == "centroid"){
+    clustering[topredict] <- apply(cdist[topredict, centroids, 
+                                         drop = FALSE], 1, which.min)
+  }
+  if (method == "knn") {
+    cdist[topredict, topredict] <- max(cdist) + 1
+    if (nnk == 1) {
+      bestobs <- apply(cdist[topredict, , drop = FALSE], 
+                       1, which.min)
       clustering[topredict] <- clustering[bestobs]
     }
-    else{
-      for(i in (1:n)[topredict]){
-        bestobs <- order(cdist[i,])[1:nnk]
+    else {
+      for (i in (1:n)[topredict]) {
+        bestobs <- order(cdist[i, ])[1:k]
         clasum <- numeric(0)
-        for (j in 1:k)
-          clasum[j] <- sum(clustering[bestobs]==j)
+        for (j in 1:k) clasum[j] <- sum(clustering[bestobs] == 
+                                          j)
         clustering[i] <- which.max(clasum)
       }
     }
   }
+  if (method == "fn") {
+    fdist <- matrix(0, nrow=sum(topredict), ncol = k)
+    for (i in 1:k) {
+      if (sum(clustering==i)>0)
+        fdist[,i] <- apply(as.matrix(cdist[topredict, clustering==i, drop=FALSE]), 1, max)
+      else
+        fdist[,i] <- rep(Inf,sum(topredict))      
+    }
+    bestobs1 <- apply(fdist, 1, which.min)
+    clustering[topredict] <- bestobs1
+  }
   clustering
 }
+
+# New with "fn" and "lda" method
+classifnp <- function (data, clustering, method = "centroid", 
+                        cdist = NULL, centroids = NULL, nnk = 1){
+#  require(class)
+#  require(MASS)
+  data <- as.matrix(data)
+  k <- max(clustering)
+  p <- ncol(data)
+  n <- nrow(data)
+  topredict <- clustering < 0
+  
+  ##### Average linkage 
+  if (method == "averagedist") {
+    if (is.null(cdist)) { cdist <- as.matrix(dist(data)) } 
+    else                { cdist <- as.matrix(cdist) }
     
+    prmatrix <- matrix(0, ncol = k, nrow = sum(topredict))
+#    print("classifnp")
+#    print(topredict)
+#    print(clustering)
+    for (j in 1:k){
+      prmatrix[, j] <- rowMeans(as.matrix(cdist[topredict, clustering == j,drop=FALSE]))
+    }
+    clpred <- apply(prmatrix, 1, which.min)
+    clustering[topredict] <- clpred
+  }
+  
+  #### Kmeans, PAM, specc, ...
+  if (method == "centroid") {
+    if (is.null(centroids)) {
+      centroids <- matrix(0, ncol = p, nrow = k)
+      for (j in 1:k) centroids[j, ] <- colMeans(as.matrix(data[clustering == j, ]))
+    }
+#    print(centroids)
+#    print(sum(topredict))
+    clustering[topredict] <- knn1(centroids, data[topredict,], 1:k)
+  }
+  
+  #### Mclust
+  if (method == "qda") {
+    qq <- try(qda(data[!topredict, ], grouping = as.factor(clustering[!topredict])), silent = TRUE)
+    
+    if (identical(attr(qq, "class"), "try-error")) 
+      qq <- lda(data[!topredict, ], grouping = as.factor(clustering[!topredict]))
+    clustering[topredict] <- as.integer(predict(qq, data[topredict, ])$class)
+   
+  }
+  if (method == "lda") {
+      qq <- lda(data[!topredict, ], grouping = as.factor(clustering[!topredict]))
+      clustering[topredict] <- as.integer(predict(qq, data[topredict, ])$class)
+  }
+  ### Single linkage, specClust
+  if (method == "knn"){
+    clustering[topredict] <- as.integer(knn(data[!topredict, ], 
+                                            data[topredict, ], 
+                                            as.factor(clustering[!topredict]), 
+                                            k = nnk))
+  } 
+  
+  #### Complete linkage
+  if (method == "fn") {
+    if (is.null(cdist)){ cdist <- as.matrix(dist(data)) } 
+    else               { cdist <- as.matrix(cdist)      }
+    
+    fdist <- matrix(0, nrow=sum(topredict), ncol = k)
+    for (i in 1:k) {
+      fdist[,i] <- apply(as.matrix(cdist[topredict, clustering==i]), 1, max)
+    }
+    bestobs1 <- apply(fdist, 1, which.min)
+    clustering[topredict] <- bestobs1
+  }
+  clustering
+}
+
+
 # Introduces parameter centroidname to indicate where in CBIoutput$result
 # the centroids can be found (automatically for kmeansCBI, claraCBI);
 # If NULL and data are not distances, mean is computed within classifnp

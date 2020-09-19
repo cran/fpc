@@ -75,7 +75,7 @@ speccCBI(data,k,...)
 
 pdfclustCBI(data,...)
 
-emskewCBI(data,k,distr="mst",repeats=100,...)
+% emskewCBI(data,k,distr="mst",repeats=100,...)
 
 stupidkcentroidsCBI(dmatrix,k,distances=TRUE)
 
@@ -189,14 +189,14 @@ stupidkavenCBI(dmatrix,k)
     \code{method} to \code{\link{mergenormals}}.}
   \item{cutoff}{numeric between 0 and 1, tuning constant for
     \code{\link{mergenormals}}.}
-  \item{distr}{one of \code{"mvn", "mvt", "msn", "mst"}. Defines the
-    family of mixtures (multivariate normal, multivariate t,
-    multivariate skew normal, or multivariate skew t). See
-    \code{\link[EMMIXskew]{EmSkew}}.}, 
-  \item{repeats}{integer. In case that \code{\link[EMMIXskew]{EmSkew}}
-    doesn't give a solution, how often should execution be repeated with
-    new random initialisations? (\code{EmSkew}'s own \code{nrandom}
-    doesn't help if an initialisation leads to a \code{NULL} output.)}
+%  \item{distr}{one of \code{"mvn", "mvt", "msn", "mst"}. Defines the
+%    family of mixtures (multivariate normal, multivariate t,
+%    multivariate skew normal, or multivariate skew t). See
+%    \code{\link[EMMIXskew]{EmSkew}}.}, 
+%  \item{repeats}{integer. In case that \code{\link[EMMIXskew]{EmSkew}}
+%    doesn't give a solution, how often should execution be repeated with
+%    new random initialisations? (\code{EmSkew}'s own \code{nrandom}
+%    doesn't help if an initialisation leads to a \code{NULL} output.)}
   \item{distances}{logical (only for \code{stupidkcentroidsCBI}). If
     \code{FALSE}, \code{dmatrix} is
     interpreted as cases&variables data matrix.}
@@ -290,12 +290,14 @@ stupidkavenCBI(dmatrix,k)
       \code{\link[pdfCluster]{pdfCluster}} for density-based clustering. See
       the \code{\link[pdfCluster]{pdfCluster}} help page for additional tuning
       parameters. This assumes a cases*variables matrix as input.}
-    \item{emskewCBI}{an interface to the function
-      \code{\link[EMMIXskew]{EmSkew}} for clustering with the
-      EM-algorithm based on Gaussian, skew Gaussian, t or skew-t
-      mixtures. See
-      help page of \code{\link[EMMIXskew]{EmSkew}}. This assumes a
-      cases*variables matrix as input.} 
+%    \item{emskewCBI}{an interface to the function
+%      \code{\link[EMMIXskew]{EmSkew}} for clustering with the
+%      EM-algorithm based on Gaussian, skew Gaussian, t or skew-t
+%      mixtures. See
+%      help page of \code{\link[EMMIXskew]{EmSkew}}. This assumes a
+%      cases*variables matrix as input. Note that by September 2020,
+%      package \code{EMMIXskew} is not available on CRAN but only
+%      in the CRAN archives; CRAN states that it needs an update.} 
     \item{stupidkcentroidsCBI}{an interface to the function
       \code{stupidkcentroids} for random centroid-based clustering. See
       the \code{\link{stupidkcentroids}} help page. This can have a
@@ -362,8 +364,8 @@ stupidkavenCBI(dmatrix,k)
   \code{\link[cluster]{clara}},
   \code{\link{dbscan}},
   \code{\link{fixmahal}},
-  \code{\link[tclust]{tclust}}, \code{\link[pdfCluster]{pdfCluster}},
-  \code{\link[EMMIXskew]{EmSkew}}
+  \code{\link[tclust]{tclust}}, \code{\link[pdfCluster]{pdfCluster}}
+%  \code{\link[EMMIXskew]{EmSkew}}
 }
 \examples{
   options(digits=3)

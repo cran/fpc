@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2020-06-23 r78741) -- "Unsuffered Consequences"
+R Under development (unstable) (2020-09-17 r79226) -- "Unsuffered Consequences"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -1362,9 +1362,9 @@ Prediction strength
 Clustering method:  mclustBIC 
 Maximum number of clusters:  4 
 Resampled data sets:  10 
-Mean pred.str. for numbers of clusters:  1 0 0.0214 0.157 
+Mean pred.str. for numbers of clusters:  1 0.815 0.874 0.591 
 Cutoff value:  0.8 
-Largest number of clusters better than cutoff:  1 
+Largest number of clusters better than cutoff:  3 
 > 
 > prediction.strength(dist(x0),M=10,Gmax=4,
 +                            clustermethod=claraCBI,
@@ -1548,4 +1548,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-   6.32    0.08    6.40 
+  6.175   0.052   6.219 

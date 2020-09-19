@@ -98,7 +98,7 @@ cqcluster.stats(d = NULL, clustering, alt.clustering = NULL,
     PAM clustering method); centroids are chosen so that they minimise
     this criterion for the given clustering.}
   \item{dquantile}{numerical between 0 and 1; quantile used for kernel
-    density estimator for density indexes, see Hennig (2017), Sec. 3.6.}
+    density estimator for density indexes, see Hennig (2019), Sec. 3.6.}
   \item{nndist}{logical. If \code{TRUE}, average distance to \code{nnk}th
     nearest neighbour within cluster is computed.}
   \item{nnk}{integer. Number of neighbours used in average and
@@ -277,51 +277,56 @@ cqcluster.stats(d = NULL, clustering, alt.clustering = NULL,
   \item{pamcentroids}{index numbers of cluster centroids.}
   \item{dindex}{this index measures to what extent the density decreases
     from the cluster mode to the outskirts; I-densdec in Sec. 3.6 of
-    Hennig (2017); low values are good.}
+    Hennig (2019); low values are good.}
   \item{denscut}{this index measures whether cluster boundaries run
-    through density valleys; I-densbound in Sec. 3.6 of Hennig (2017); low
+    through density valleys; I-densbound in Sec. 3.6 of Hennig (2019); low
     values are good.}
   \item{highdgap}{this measures whether there is a large within-cluster
     gap with high density on both sides; I-highdgap in Sec. 3.6 of
-    Hennig (2017); low values are good.}
+    Hennig (2019); low values are good.}
   \item{npenalty}{vector of penalties for all clusters that are used
-    in the computation of \code{denscut}, see Hennig (2017) (these are
+    in the computation of \code{denscut}, see Hennig (2019) (these are
     sums of penalties over all points in the cluster).}
   \item{depenalty}{vector of penalties for all clusters that are used in
-    the computation of \code{dindex}, see Hennig (2017) (these are
+    the computation of \code{dindex}, see Hennig (2019) (these are
     sums of several penalties for density increase when going from the
     mode outward in the cluster).}
   \item{withindensp}{distance-based kernel density values for all points
-    as computed in Sec. 3.6 of Hennig (2017).}
+    as computed in Sec. 3.6 of Hennig (2019).}
   \item{densoc}{contribution of points from other clusters than the one
     to which a point is assigned to the density, for all points; called
-    \code{h_o} in Sec. 3.6 of Hennig (2017).}
+    \code{h_o} in Sec. 3.6 of Hennig (2019).}
   \item{pdistto}{list that for all clusters has a sequence of point
     numbers. These are the points already incorporated in the sequence
-    of points constructed in the algorithm in Sec. 3.6 of Hennig (2017) to
+    of points constructed in the algorithm in Sec. 3.6 of Hennig (2019) to
     which the next point to be joined is connected.}
   \item{pclosetomode}{list that for all clusters has a sequence of point
     numbers. Sequence of points to be incorporated in the sequence
     of points constructed in the algorithm in Sec. 3.6 of Hennig
-    (2017).}
+    (2019).}
   \item{distto}{list that for all clusters has a sequence of differences
     between the standardised densities (see \code{percwdens}) at the new
     point added and the point to which
     it is connected (if this is positive, the penalty is this to the
-    square), in the algorithm in Sec. 3.6 of Hennig (2017).}
+    square), in the algorithm in Sec. 3.6 of Hennig (2019).}
   \item{percwdens}{this is \code{withindensp} divided by its maximum.}
   \item{percdensoc}{this is \code{densoc} divided by the maximum of
-   \code{withindensp}, called \code{h_o^*} in Sec. 3.6 of Hennig (2017).}
+   \code{withindensp}, called \code{h_o^*} in Sec. 3.6 of Hennig (2019).}
  \item{parsimony}{number of clusters divided by \code{maxk}.}
  \item{cvnnd}{coefficient of variation of dissimilarities to
    \code{nnk}th nearest within-cluster neighbour, measuring uniformity of
    within-cluster densities, weighted over all clusters, see Sec. 3.7 of
-   Hennig (2017).}
+   Hennig (2019).}
  \item{cvnndc}{vector of cluster-wise coefficients of variation of
    dissimilarities to \code{nnk}th nearest wthin-cluster neighbour as
   required in computation of \code{cvnnd}.}
 }
 \references{
+Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+\emph{Statistics and Computing}, 30, 1523-1544,
+\url{https://link.springer.com/article/10.1007/s11222-020-09958-2}, \url{https://arxiv.org/abs/2002.01822}
+
     Calinski, T., and Harabasz, J. (1974) A Dendrite Method for Cluster 
 Analysis, \emph{Communications in Statistics}, 3, 1-27.
 
@@ -342,11 +347,13 @@ R. Janning (eds.):
 "Data Analysis, Machine Learning and Knowledge Discovery", Springer,
 Berlin, 41-49.
 
-  Hennig, C. (2017) Cluster validation by measurement of clustering
+Hennig, C. (2019) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
-  \emph{Proceedings of ASMDA 2017}, 501-520,
+  \emph{Data Analysis and Applications 1: Clustering and Regression,
+  Modeling-estimating, Forecasting and Data Mining, Volume 2}, Wiley,
+  New York 1-24,
     \url{https://arxiv.org/abs/1703.09282}
-  
+
     Kaufman, L. and Rousseeuw, P.J. (1990). "Finding Groups in Data:
   An Introduction to Cluster Analysis". Wiley, New York.
   

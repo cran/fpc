@@ -7,7 +7,7 @@
   clusters. Then, one by one, the point not yet assigned to any cluster
   that is closest to an already assigned point is assigned to that
   cluster, until all points are assigned. This is called stupid nearest
-  neighbour clustering in Hennig (2017).
+  neighbour clustering in Hennig (2019).
 }
 \usage{
   stupidknn(d,k)
@@ -25,16 +25,17 @@
   behind \code{d}), 
 }
 \references{
-Hennig, C. (2017) Cluster validation by measurement of clustering
+Hennig, C. (2019) Cluster validation by measurement of clustering
   characteristics relevant to the user. In C. H. Skiadas (ed.)
-  \emph{Proceedings of ASMDA 2017}, 501-520,
-  \url{https://arxiv.org/abs/1703.09282}
+  \emph{Data Analysis and Applications 1: Clustering and Regression,
+  Modeling-estimating, Forecasting and Data Mining, Volume 2}, Wiley,
+  New York 1-24,
+    \url{https://arxiv.org/abs/1703.09282}
 
-  Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
-validity indexes for context-adapted comparison of clusterings. Accepted
-for
-publication by Statistics and Computing, \url{https://arxiv.org/abs/2002.01822}
-
+Akhanli, S. and Hennig, C. (2020) Calibrating and aggregating cluster
+validity indexes for context-adapted comparison of clusterings.
+\emph{Statistics and Computing}, 30, 1523-1544,
+\url{https://link.springer.com/article/10.1007/s11222-020-09958-2}, \url{https://arxiv.org/abs/2002.01822}
 
 }
 \author{Christian Hennig
