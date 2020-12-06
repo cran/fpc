@@ -2305,7 +2305,7 @@ $z
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.6
+Package 'mclust' version 5.4.7
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
@@ -2990,7 +2990,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.6
+Package 'mclust' version 5.4.7
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3079,7 +3079,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.6
+Package 'mclust' version 5.4.7
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3138,7 +3138,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.6
+Package 'mclust' version 5.4.7
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -4062,7 +4062,7 @@ $distances
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.6
+Package 'mclust' version 5.4.7
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4160,7 +4160,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.81 0.089 7.898 0 0 
+Time elapsed:  7.615 0.088 7.703 0 0 
 > grDevices::dev.off()
 null device 
           1 

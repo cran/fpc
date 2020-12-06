@@ -1596,6 +1596,42 @@ clusterbenchstats <- function(data,G,diss = inherits(data, "dist"),
     datadist <- as.dist(data)
     data <- datadist
     datanp <- NULL
+    if ("kmeansCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but kmeansCBI doesn't operate on dissimilarities.
+               kmeansCBI shouldn't be used with diss=TRUE")
+    if ("noisemclustCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but noisemclustCBI doesn't operate on dissimilarities.
+               noisemclustCBI shouldn't be used with diss=TRUE")
+    if ("tclustCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but tclustCBI doesn't operate on dissimilarities.
+               tclustCBI shouldn't be used with diss=TRUE")
+    if ("mahalCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but mahalCBI doesn't operate on dissimilarities.
+               mahalCBI shouldn't be used with diss=TRUE")
+    if ("speccCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but speccCBI doesn't operate on dissimilarities.
+               speccCBI shouldn't be used with diss=TRUE")
+    if ("pdfclustCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but pdfclustCBI doesn't operate on dissimilarities.
+               pdfclustCBI shouldn't be used with diss=TRUE")
+    if ("mergenormCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but mergenormCBI doesn't operate on dissimilarities.
+               mergenormCBI shouldn't be used with diss=TRUE")
+    if ("hclusttreeCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but hclusttreeCBI doesn't operate on dissimilarities.
+               hclusttreeCBI shouldn't be used with diss=TRUE")
+    if ("hclustCBI" %in% clustermethod)
+      warning("diss is TRUE, clusterbenchstats expects dissimilarities,
+               but hclustCBI doesn't operate on dissimilarities.
+               With diss=TRUE use disthclustCBI!")
   }
   else{
     datanp <- data

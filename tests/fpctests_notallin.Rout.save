@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2020-09-17 r79226) -- "Unsuffered Consequences"
+R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
 Copyright (C) 2020 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 5.4.6
+Package 'mclust' version 5.4.7
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -949,12 +949,12 @@ $clustermethod
 > noisemclustCBI(face50,G=1:5,emModelNames="VVV",nnk=2)
 $result
 Bayesian Information Criterion (BIC): 
-   EII  VII  EEI  VEI  EVI  VVI  EEE  EVE  VEE  VVE  EEV  VEV  EVV  VVV
+   EII  VII  EEI  VEI  EVI  VVI  EEE  VEE  EVE  VVE  EEV  VEV  EVV  VVV
 1 -521 -521 -506 -506 -506 -506 -525 -525 -525 -525 -525 -525 -525 -525
-2 -498 -501 -501 -477 -464 -466 -505 -467 -481 -470 -467 -470 -470 -473
-3 -468 -467 -480 -466 -476 -461 -482 -479 -470 -465 -480 -468 -486 -469
-4 -449 -448 -485 -449 -445 -449 -488 -439 -452 -452 -486 -482 -444 -455
-5 -456 -452 -456 -454 -444 -458 -460 -448 -458 -462 -451 -485 -456 -469
+2 -498 -501 -501 -477 -464 -466 -505 -481 -467 -470 -467 -470 -470 -473
+3 -468 -467 -480 -466 -476 -461 -482 -470 -479 -465 -480 -468 -486 -469
+4 -449 -448 -485 -449 -445 -449 -488 -452 -439 -452 -486 -482 -444 -455
+5 -456 -452 -456 -454 -444 -458 -460 -458 -448 -462 -451 -485 -456 -469
 
 Top 3 models based on the BIC criterion: 
 EVE,4 EVV,4 EVI,5 
@@ -1026,7 +1026,7 @@ $clustermethod
 +                         mdsdim=2)
 $result
 Bayesian Information Criterion (BIC): 
-   EII VII  EEI VEI EVI VVI  EEE EVE VEE VVE  EEV VEV EVV VVV
+   EII VII  EEI VEI EVI VVI  EEE VEE EVE VVE  EEV VEV EVV VVV
 5 -461  NA -496  NA  NA  NA -500  NA  NA  NA -496  NA  NA  NA
 
 Top 3 models based on the BIC criterion: 
@@ -1548,4 +1548,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  6.175   0.052   6.219 
+  3.418   0.059   3.470 

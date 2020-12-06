@@ -1,9 +1,9 @@
-d7b58714b936b831ac597227071af27b *DESCRIPTION
+5d35e128f6e7eee7671db5f6e8af1d9a *DESCRIPTION
 1125ef47578160408d5075ac0948abcd *NAMESPACE
 aec30efb5a63e14e8987a882e3585a7c *R/addclustermethods.R
 8c8c3adab571a79097b5e0651e155390 *R/clusterboot.R
 9df3134d1f6ad4f8f77a5943e0caec6d *R/clusterindexes.R
-833e022db940898299b8d0f3849379cd *R/cquality20.R
+aeb8f63d57e32fdb53b98c7e7e643219 *R/cquality20.R
 742e9a99e68a078688ab046eba68e97b *R/dbscan.R
 b7c01634910fd6957ef94642398dc4d7 *R/discrproj.R
 d85447226e4ac2c17ce73fc907193176 *R/discrproj2.R
@@ -107,6 +107,6 @@ a9574307de871f231f8342574b9cdb30 *man/valstat.object.Rd
 19cb8bae42e9c79f99e7ec427a2c66ad *man/wfu.Rd
 c895dda06251f6f2c38b2f0669f66874 *man/xtable.Rd
 98033be110c0e6d320a01868fa441d27 *man/zmisclassification.matrix.Rd
-aedb75038fc1aa7563ba4c27cef01ad9 *tests/Examples/fpc-Ex.Rout.save
+28aceaab6735b8062e6584bacdab0940 *tests/Examples/fpc-Ex.Rout.save
 897b000edb7de45128e215b3e7f07a65 *tests/fpctests_notallin.R
-3babd0107a330a2495a876feef8bd26b *tests/fpctests_notallin.Rout.save
+7eeb482eb8aca051e3f18302c31999c5 *tests/fpctests_notallin.Rout.save
