@@ -21,8 +21,12 @@
 % \details{
 % }
 \value{
-  The clustering vector (values 1 to \code{k}, length number of objects
-  behind \code{xdata}), 
+  A list with components
+  \item{partition}{vector if integers 1 to \code{k}, of length equal to
+    number of objects, indicates to which cluster an object belongs.}
+  \item{centroids}{vector of integers of length \code{k}, indicating the
+    centroids of the clusters (observation number).}
+  \item{distances}{as argument \code{distances}.}
 }
 \references{
 

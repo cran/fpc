@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2020-09-17 r79226) -- "Unsuffered Consequences"
-Copyright (C) 2020 The R Foundation for Statistical Computing
+R Under development (unstable) (2023-01-05 r83566) -- "Unsuffered Consequences"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -297,8 +297,6 @@ $sep
 >   clusum$name <- c("kmeansCBI","claraCBI")
 >   clusim <- randomclustersim(dist(face),G=2:3,nnruns=1,kmruns=1,
 +     fnruns=1,avenruns=1,monitor=FALSE)
-[1] "end fnsim"
-[1] "end fnsim"
 >   cgr <- cgrestandard(clusum,clusim,2:3)
 >   cgr2 <- cgrestandard(clusum,clusim,2:3,useallg=TRUE)
 >   cgr3 <- cgrestandard(clusum,clusim,2:3,percentage=TRUE)
@@ -1155,12 +1153,10 @@ comsum  2
 [1] "Simulation"
 2  clusters; nn run  1 
 2  clusters; fn run  1 
-[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; km run  1 
 3  clusters; nn run  1 
 3  clusters; fn run  1 
-[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 [1] "Simulation quantile re-standardisation"
@@ -1259,12 +1255,10 @@ comsum  2
 [1] "Simulation"
 2  clusters; nn run  1 
 2  clusters; fn run  1 
-[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; km run  1 
 3  clusters; nn run  1 
 3  clusters; fn run  1 
-[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 [1] "Simulation quantile re-standardisation"
@@ -2305,7 +2299,7 @@ $z
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.7
+Package 'mclust' version 6.0.0
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
@@ -2990,7 +2984,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.7
+Package 'mclust' version 6.0.0
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3079,7 +3073,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.7
+Package 'mclust' version 6.0.0
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3138,7 +3132,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.7
+Package 'mclust' version 6.0.0
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3375,9 +3369,7 @@ comsum  3
 2  clusters; nn run  1 
 2  clusters; nn run  2 
 2  clusters; fn run  1 
-[1] "end fnsim"
 2  clusters; fn run  2 
-[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; aven run  2 
 2  clusters; km run  1 
@@ -3385,9 +3377,7 @@ comsum  3
 3  clusters; nn run  1 
 3  clusters; nn run  2 
 3  clusters; fn run  1 
-[1] "end fnsim"
 3  clusters; fn run  2 
-[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; aven run  2 
 3  clusters; km run  1 
@@ -3397,7 +3387,7 @@ comsum  3
 >   plot(cbs$stat,cbs$sim)
 >   plot(cbs$stat,cbs$sim,statistic="dindex")
 >   plot(cbs$stat,cbs$sim,statistic="avewithin")
->   print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
+>   pcbs <- print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
 avewithin 
   method     2     3
 1 kmeans -0.56  0.38
@@ -3486,7 +3476,15 @@ aggregate
 > # Some of the values are "NaN" because due to the low number of runs of
 > # the stupid clustering methods there is no variation. If this happens
 > # in a real application, nnruns etc. should be chosen higher than 2.
-> # Also useallg=TRUE in clusterbenchstats may help.  
+> # Also useallg=TRUE in clusterbenchstats may help.
+> #
+> # Finding the best aggregated value:
+>   mpcbs <- as.matrix(pcbs[[17]][,-1])
+>   which(mpcbs==max(mpcbs),arr.ind=TRUE)
+     row col
+[1,]   1   2
+> # row=1 refers to the first clustering method kmeansCBI,
+> # col=2 refers to the second number of clusters, which is 3 in g=2:3.
 > 
 > 
 > 
@@ -3638,14 +3636,12 @@ Largest number of clusters better than cutoff:  3
 2  clusters; nn run  1 
 2  clusters; nn run  2 
 2  clusters; fn run  1 
-[1] "end fnsim"
 2  clusters; aven run  1 
 2  clusters; km run  1 
 2  clusters; km run  2 
 3  clusters; nn run  1 
 3  clusters; nn run  2 
 3  clusters; fn run  1 
-[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
@@ -4062,7 +4058,7 @@ $distances
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 5.4.7
+Package 'mclust' version 6.0.0
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4160,7 +4156,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.615 0.088 7.703 0 0 
+Time elapsed:  7.982 0.072 8.054 0 0 
 > grDevices::dev.off()
 null device 
           1 

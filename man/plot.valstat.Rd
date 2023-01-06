@@ -156,11 +156,17 @@ validity indexes for context-adapted comparison of clusterings.
   plot(cbs$stat,cbs$sim)
   plot(cbs$stat,cbs$sim,statistic="dindex")
   plot(cbs$stat,cbs$sim,statistic="avewithin")
-  print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
+  pcbs <- print(cbs$sstat,aggregate=TRUE,weights=c(1,0,0,0,0,1,0,0,0,0,0,1,0,0,0,0))
 # Some of the values are "NaN" because due to the low number of runs of
 # the stupid clustering methods there is no variation. If this happens
 # in a real application, nnruns etc. should be chosen higher than 2.
-# Also useallg=TRUE in clusterbenchstats may help.  
+# Also useallg=TRUE in clusterbenchstats may help.
+#
+# Finding the best aggregated value:
+  mpcbs <- as.matrix(pcbs[[17]][,-1])
+  which(mpcbs==max(mpcbs),arr.ind=TRUE)
+# row=1 refers to the first clustering method kmeansCBI,
+# col=2 refers to the second number of clusters, which is 3 in g=2:3.
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

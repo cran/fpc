@@ -88,7 +88,7 @@
     \code{\link{distrsimilarity}}, corresponding to \code{dnnk} of
     \code{\link{clusterbenchstats}}.}
   \item{dmode}{aggregated density mode index equal to
-    \code{0.75*dindex+0.25*highdgap} before standardisation.}
+    \code{0.75*dindex+0.25*highdgap} after standardisation by \code{\link{cgrestandard}}.}
 
   Furthermore, a \code{valstat} object
   has the following list components:   

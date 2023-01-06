@@ -1,6 +1,6 @@
 
-R version 4.0.3 (2020-10-10) -- "Bunny-Wunnies Freak Out"
-Copyright (C) 2020 The R Foundation for Statistical Computing
+R Under development (unstable) (2023-01-05 r83566) -- "Unsuffered Consequences"
+Copyright (C) 2023 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu (64-bit)
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 5.4.7
+Package 'mclust' version 6.0.0
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -1398,7 +1398,6 @@ comsum  2
 3  clusters; nn run  1 
 3  clusters; nn run  2 
 3  clusters; fn run  1 
-[1] "end fnsim"
 3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
@@ -1548,4 +1547,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  3.418   0.059   3.470 
+  6.531   0.059   6.585 

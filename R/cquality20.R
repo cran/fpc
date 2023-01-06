@@ -1069,7 +1069,7 @@ randomclustersim <- function(datadist,datanp=NULL,npstats=FALSE,useboot=FALSE,
                               Gmin=g,
                               Gmax=g)$mean.pred[g]
     }
-    print("end fnsim")
+#    print("end fnsim")
     solution
   }
   
