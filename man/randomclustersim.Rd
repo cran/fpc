@@ -132,8 +132,15 @@ validity indexes for context-adapted comparison of clusterings.
   set.seed(20000)
   options(digits=3)
   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
-  randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,
+  rmx <- randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,
     nnruns=2,kmruns=2, fnruns=1,avenruns=1,nnk=2)
+\dontrun{
+  rmx$km # Produces slightly different but basically identical results on ATLAS
+}
+  rmx$aven
+  rmx$fn
+  rmx$nn
+  
 }
 \keyword{multivariate}% at least one, from doc/KEYWORDS
 \keyword{cluster}% __ONLY ONE__ keyword per line

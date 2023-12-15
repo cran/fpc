@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2023-01-05 r83566) -- "Unsuffered Consequences"
+R Under development (unstable) (2023-12-08 r85664) -- "Unsuffered Consequences"
 Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -2299,7 +2299,7 @@ $z
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.0
+Package 'mclust' version 6.0.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
@@ -2737,6 +2737,8 @@ $pp[[2]]
   5 11
 >   dm <- mergenormCBI(face,G=10,modelNames="EEE",nnk=2)
 >   dtc <- tclustCBI(face,6,trim=0.1,restr.fact=500)
+Warning in .tkmeans.warn(O, ret) :
+  Clusters with size <= p found - try reducing k.
 >   table(dm$partition,dtc$partition)
    
      1  2  3  4  5  6  7
@@ -2984,7 +2986,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.0
+Package 'mclust' version 6.0.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3073,7 +3075,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.0
+Package 'mclust' version 6.0.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3132,7 +3134,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.0
+Package 'mclust' version 6.0.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3631,7 +3633,7 @@ Largest number of clusters better than cutoff:  3
 >   set.seed(20000)
 >   options(digits=3)
 >   face <- rFace(10,dMoNo=2,dNoEy=0,p=2)
->   randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,
+>   rmx <- randomclustersim(dist(face),datanp=face,npstats=TRUE,G=2:3,
 +     nnruns=2,kmruns=2, fnruns=1,avenruns=1,nnk=2)
 2  clusters; nn run  1 
 2  clusters; nn run  2 
@@ -3645,66 +3647,46 @@ Largest number of clusters better than cutoff:  3
 3  clusters; aven run  1 
 3  clusters; km run  1 
 3  clusters; km run  2 
-$km
-$km[[1]]
+> ## Not run: 
+> ##D   rmx$km # Produces slightly different but basically identical results on ATLAS
+> ## End(Not run)
+>   rmx$aven
+[[1]]
 NULL
 
-$km[[2]]
-  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
-1     0.683 0.266 0.841      0.2268     0.595 0.2725 0.2725 0.446  1.000
-2     0.557 0.000 0.763      0.0792     0.585 0.0827 0.0827 0.151  0.987
-  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
-1   1.000    0.804        0.771    0.580   0.881 0.796  0.522  0.465
-2   0.995    0.782        0.586    0.281   1.000 0.723  0.780  0.418
-
-$km[[3]]
-  avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
-1     0.715 0.237 0.808       0.493     0.595 0.0908      0 0.177      1
-2     0.650 0.388 0.778       0.221     0.595 0.0949      0 0.123      1
-  denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
-1   0.906    0.804        0.798    0.757   0.817 0.837  0.630  0.368
-2   0.906    0.804        0.722    0.595   0.730 0.796  0.548  0.425
-
-
-$aven
-$aven[[1]]
-NULL
-
-$aven[[2]]
+[[2]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
 1     0.773 0.317  0.97       0.482     0.715  0.405  0.405 0.648      1
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
 1       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
 
-$aven[[3]]
+[[3]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
 1     0.847 0.385 0.969       0.692     0.715  0.317  0.272 0.609      1
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
 1       1    0.862        0.867    0.919    0.96 0.912   0.54  0.505
 
-
-$fn
-$fn[[1]]
+>   rmx$fn
+[[1]]
 NULL
 
-$fn[[2]]
+[[2]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
 1     0.773 0.317  0.97       0.482     0.715  0.405  0.405 0.648      1
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
 1       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
 
-$fn[[3]]
+[[3]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
 1     0.718 0.358 0.719       0.493     0.595 0.0908      0 0.206      1
   denscut highdgap pearsongamma withinss entropy  pamc kdnorm kdunif
 1   0.906    0.804        0.786     0.76   0.865 0.837  0.484  0.376
 
-
-$nn
-$nn[[1]]
+>   rmx$nn
+[[1]]
 NULL
 
-$nn[[2]]
+[[2]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
 1     0.500 0.332  0.82       0.000     0.595  0.285  0.285 0.000  0.847
 2     0.773 0.317  0.97       0.482     0.715  0.405  0.405 0.648  1.000
@@ -3712,7 +3694,7 @@ $nn[[2]]
 1       1    0.608        0.498    0.082   0.469 0.675  0.608  0.558
 2       1    0.862        0.885    0.785   0.971 0.832  0.599  0.541
 
-$nn[[3]]
+[[3]]
   avewithin  mnnd cvnnd maxdiameter widestgap sindex minsep   asw dindex
 1     0.764 0.279 0.980       0.482     0.715  0.190 0.0827 0.403      1
 2     0.838 0.285 0.964       0.661     0.715  0.315 0.2846 0.587      1
@@ -3720,19 +3702,7 @@ $nn[[3]]
 1   0.995    0.862        0.801    0.790   0.817 0.843  0.475  0.448
 2   1.000    0.862        0.857    0.912   0.991 0.913  0.415  0.562
 
-
-$nnruns
-[1] 2
-
-$fnruns
-[1] 1
-
-$avenruns
-[1] 1
-
-$kmruns
-[1] 2
-
+>   
 > 
 > 
 > 
@@ -4058,7 +4028,7 @@ $distances
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.0
+Package 'mclust' version 6.0.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4156,7 +4126,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.982 0.072 8.054 0 0 
+Time elapsed:  7.764 0.08 7.844 0 0 
 > grDevices::dev.off()
 null device 
           1 

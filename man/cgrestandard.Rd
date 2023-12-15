@@ -80,7 +80,7 @@ validity indexes for context-adapted comparison of clusterings.
 }
 
 \seealso{
-  \code{\link{valstat.object}}, \code{\link{clusterbenchstats}}, \code{\link{stupidkcentroids}}, \code{\link{stupidknn}}, \\code{\link{stupidkfn}}, \code{\link{stupidkaven}}, code{\link{clustatsum}}
+  \code{\link{valstat.object}}, \code{\link{clusterbenchstats}}, \code{\link{stupidkcentroids}}, \code{\link{stupidknn}}, \code{\link{stupidkfn}}, \code{\link{stupidkaven}}, \code{\link{clustatsum}}
 }
 
 \examples{

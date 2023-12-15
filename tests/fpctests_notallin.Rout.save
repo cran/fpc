@@ -1,7 +1,7 @@
 
-R Under development (unstable) (2023-01-05 r83566) -- "Unsuffered Consequences"
+R Under development (unstable) (2023-12-08 r85664) -- "Unsuffered Consequences"
 Copyright (C) 2023 The R Foundation for Statistical Computing
-Platform: x86_64-pc-linux-gnu (64-bit)
+Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
 You are welcome to redistribute it under certain conditions.
@@ -21,19 +21,14 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 6.0.0
+Package 'mclust' version 6.0.1
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
 > set.seed(4634)
 > face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
 > grface <- as.integer(attr(face,"grouping"))
-> discrproj(face,grface, clnum=1, method="bc")$units
-[1] "Cluster indicator has more than 2 values"
-        [,1]  [,2]     [,3]
-[1,]  0.1548 0.373  0.49246
-[2,] -0.1981 0.006 -0.00132
-[3,]  0.0482 0.498 -0.66288
+> # discrproj(face,grface, clnum=1, method="bc")$units
 > discrproj(face,grface, clnum=1, method="anc")$units
         [,1]    [,2]    [,3]
 [1,] -1.3912 -0.3093  0.1093
@@ -1547,4 +1542,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  6.531   0.059   6.585 
+  6.340   0.055   6.430 

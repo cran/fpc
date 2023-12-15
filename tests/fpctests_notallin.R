@@ -9,7 +9,7 @@ options(digits=3)
 set.seed(4634)
 face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
 grface <- as.integer(attr(face,"grouping"))
-discrproj(face,grface, clnum=1, method="bc")$units
+# discrproj(face,grface, clnum=1, method="bc")$units
 discrproj(face,grface, clnum=1, method="anc")$units
 discrproj(face,grface, clnum=1, method="awc")$units
 

@@ -3,8 +3,11 @@
 %- Also NEED an `\alias' for EACH other topic documented here.
 \title{Ridgeline computation}
 \description{
-  Computes (alpha*Sigma1^{-1}+(1-alpha)*Sigma2^{-1})^{-1}* 
-  alpha*(Sigma1^{-1}*mu1)+(1-alpha)*(Sigma2^{-1}*mu2)) as required for the
+  Computes \eqn{(\alpha*\Sigma_1^{-1}+(1-\alpha)*\Sigma_2^{-1})^{-1}* 
+    \alpha*(\Sigma_1^{-1}*\mu_1)+(1-\alpha)*(\Sigma_2^{-1}*\mu_2)}{%
+  (alpha*Sigma1^{-1}+(1-alpha)*Sigma2^{-1})^{-1}* 
+    alpha*(Sigma_1^{-1}*mu_1)+(1-alpha)*(Sigma_2^{-1}*mu_2)}
+  as required for the
   computation of the ridgeline (Ray and Lindsay, 2005) to find
   all density extrema of a two-component Gaussian mixture with
   mean vectors mu1 and mu2 and covariance matrices Sigma1, Sigma2.

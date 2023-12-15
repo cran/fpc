@@ -1,4 +1,4 @@
-20b4709d8fc6a88a9ecc8aa0c0530833 *DESCRIPTION
+238ed79982c91dbc0a03d8ea7cfa0af9 *DESCRIPTION
 1125ef47578160408d5075ac0948abcd *NAMESPACE
 aec30efb5a63e14e8987a882e3585a7c *R/addclustermethods.R
 8c8c3adab571a79097b5e0651e155390 *R/clusterboot.R
@@ -9,7 +9,7 @@ b7c01634910fd6957ef94642398dc4d7 *R/discrproj.R
 d85447226e4ac2c17ce73fc907193176 *R/discrproj2.R
 ddd1d4523b35728dd81e26f593895b45 *R/fixreg.R
 9e19a17d18fd66a939c4fa74a0234afd *R/fpc.R
-f3bd1de4fed22c10f86fc6ec93fbec2d *R/lcmixed.R
+05ccaaa9be1507b51a78e56418231ffc *R/lcmixed.R
 9a31672e2d1b0eaa383861dd2b630b23 *R/localshape.R
 20c83aae9aa85787f27ca65bca2c132d *R/mergenormals.R
 b2788e1bba14be4b1e1a1dc22b00b776 *R/rFace.R
@@ -25,7 +25,7 @@ afc86d08fa24b04bdf9a6bfed231f001 *man/bhattacharyya.matrix.Rd
 2b5264ab2e49d9f1a6b69f6b371ba0d4 *man/can.Rd
 168c38d6eaf6f7765492425a77dffb19 *man/cat2bin.Rd
 c1aac2369f3bd407a11f86f17232f919 *man/cdbw.Rd
-b26cc15eaf8d57cd2a079e00e5e7b007 *man/cgrestandard.Rd
+f8207303a74e577b004a128f3e8cb812 *man/cgrestandard.Rd
 7276547ff5b24a46ac9db08b26ef5f22 *man/classifdist.Rd
 388a1c27aeb2abf791c3694e5b6f0362 *man/clucols.Rd
 ab40c02193537ab2cec1a5c3cb848102 *man/clujaccard.Rd
@@ -88,9 +88,9 @@ c1446aacf9806e47031c2bb4f7cb3805 *man/prediction.strength.Rd
 8eda1a69722326ae53f828c691677f6c *man/rFace.Rd
 587846ed6be5faa2de83d952ec75e40d *man/randcmatrix.Rd
 fa4a2d8cf2ab7a0a95c27f487082892e *man/randconf.Rd
-c2168c0b5124fa9aaf41cdc33a278a99 *man/randomclustersim.Rd
+add27cde61e11b21962206fa48710eff *man/randomclustersim.Rd
 50d558a06762eccd46f93e36abfaee6f *man/regmix.Rd
-f17d410af9b50a138e62eb8a1081526c *man/ridgeline.Rd
+de39716505501f20388419b1b6dbf52f *man/ridgeline.Rd
 68593a7a80098f9de2ffefbca6f048e7 *man/ridgeline.diagnosis.Rd
 eff9ad3ea5bbb8fd73203fdad64572b6 *man/simmatrix.Rd
 d6c7f469f0186b49621bcddd3c3fa2e7 *man/solvecov.Rd
@@ -107,6 +107,6 @@ e156cb0ced917fe86298bf3fbb316a25 *man/tonedata.Rd
 19cb8bae42e9c79f99e7ec427a2c66ad *man/wfu.Rd
 c895dda06251f6f2c38b2f0669f66874 *man/xtable.Rd
 98033be110c0e6d320a01868fa441d27 *man/zmisclassification.matrix.Rd
-ac9d031dfe7ce3ff031045bafbf60dc1 *tests/Examples/fpc-Ex.Rout.save
-897b000edb7de45128e215b3e7f07a65 *tests/fpctests_notallin.R
-5034893196a005ce46d262c2cfef3b0a *tests/fpctests_notallin.Rout.save
+acb489df0666236cac04d5a97761478b *tests/Examples/fpc-Ex.Rout.save
+19641842cec18ebe59fc649acc502274 *tests/fpctests_notallin.R
+35fe3c8696409cdb018f09c9e98c51a8 *tests/fpctests_notallin.Rout.save

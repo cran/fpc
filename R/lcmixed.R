@@ -129,7 +129,6 @@ flexmixedruns <- function(x,diagonal=TRUE,xvarsorted=TRUE,
                           continuous,discrete,ppdim=NULL,initial.cluster=NULL,
                           simruns=20,n.cluster=1:20,verbose=TRUE,recode=TRUE,
                           allout=TRUE,control=list(minprior=0.001),silent=TRUE){
-  x <- as.matrix(x)
 #  require(flexmix)
   if (recode){
     drx <- discrete.recode(x,xvarsorted=xvarsorted,
@@ -143,6 +142,7 @@ flexmixedruns <- function(x,diagonal=TRUE,xvarsorted=TRUE,
 #  print(ppdim)      
   }
   else{
+    x <- as.matrix(x)
     if (!xvarsorted){
       x <- x[,c(continuous,discrete)]
       continuous <- length(continuous)
