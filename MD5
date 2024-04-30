@@ -1,4 +1,4 @@
-238ed79982c91dbc0a03d8ea7cfa0af9 *DESCRIPTION
+ebcd0305ab8065e17b47bed83f6751e6 *DESCRIPTION
 1125ef47578160408d5075ac0948abcd *NAMESPACE
 aec30efb5a63e14e8987a882e3585a7c *R/addclustermethods.R
 8c8c3adab571a79097b5e0651e155390 *R/clusterboot.R
@@ -107,6 +107,6 @@ e156cb0ced917fe86298bf3fbb316a25 *man/tonedata.Rd
 19cb8bae42e9c79f99e7ec427a2c66ad *man/wfu.Rd
 c895dda06251f6f2c38b2f0669f66874 *man/xtable.Rd
 98033be110c0e6d320a01868fa441d27 *man/zmisclassification.matrix.Rd
-acb489df0666236cac04d5a97761478b *tests/Examples/fpc-Ex.Rout.save
+9d8d384200f98e6c89a4dcf0bea019bd *tests/Examples/fpc-Ex.Rout.save
 19641842cec18ebe59fc649acc502274 *tests/fpctests_notallin.R
 35fe3c8696409cdb018f09c9e98c51a8 *tests/fpctests_notallin.Rout.save

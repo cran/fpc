@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2023-12-08 r85664) -- "Unsuffered Consequences"
-Copyright (C) 2023 The R Foundation for Statistical Computing
+R Under development (unstable) (2024-04-29 r86495) -- "Unsuffered Consequences"
+Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -2299,7 +2299,7 @@ $z
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.1
+Package 'mclust' version 6.1.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
@@ -2737,15 +2737,13 @@ $pp[[2]]
   5 11
 >   dm <- mergenormCBI(face,G=10,modelNames="EEE",nnk=2)
 >   dtc <- tclustCBI(face,6,trim=0.1,restr.fact=500)
-Warning in .tkmeans.warn(O, ret) :
-  Clusters with size <= p found - try reducing k.
 >   table(dm$partition,dtc$partition)
    
      1  2  3  4  5  6  7
-  1  4  0  0  1  0  0  0
-  2 10  8  7  2  5  0  0
-  3  0  1  0  0  0  0  0
-  4  0  0  2  4  0  1  5
+  1  4  0  0  0  1  0  0
+  2 10  9  8  5  0  0  0
+  3  0  0  1  0  0  0  0
+  4  0  0  0  0  4  3  5
 > 
 > 
 > 
@@ -2986,7 +2984,7 @@ Petal.Width         63257       52444       116040      104828
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.1
+Package 'mclust' version 6.1.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -3075,7 +3073,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.1
+Package 'mclust' version 6.1.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -3134,7 +3132,7 @@ detaching ‘package:mclust’
 >   set.seed(98765)
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.1
+Package 'mclust' version 6.1.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
@@ -4028,7 +4026,7 @@ $distances
 > 
 >   require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.0.1
+Package 'mclust' version 6.1.1
 Type 'citation("mclust")' for citing this R package in publications.
 >   require(MASS)
 Loading required package: MASS
@@ -4126,7 +4124,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  7.764 0.08 7.844 0 0 
+Time elapsed:  8.935 0.104 9.04 0 0 
 > grDevices::dev.off()
 null device 
           1 
