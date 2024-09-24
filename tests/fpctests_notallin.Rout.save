@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2023-12-08 r85664) -- "Unsuffered Consequences"
-Copyright (C) 2023 The R Foundation for Statistical Computing
+R Under development (unstable) (2024-09-11 r87117) -- "Unsuffered Consequences"
+Copyright (C) 2024 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -21,7 +21,7 @@ Type 'q()' to quit R.
 > library(MASS)
 > library(diptest)
 > library(mclust)
-Package 'mclust' version 6.0.1
+Package 'mclust' version 6.1.1
 Type 'citation("mclust")' for citing this R package in publications.
 > options(digits=3)
 > 
@@ -1542,4 +1542,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  6.340   0.055   6.430 
+   6.65    0.08    6.72 

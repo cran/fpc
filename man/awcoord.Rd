@@ -37,7 +37,7 @@ awcoord(xd, clvecd, clnum=1, mahal="square", method="classical",
     "mve", "mcd" or "classical". Covariance matrix used within the
     homogeneous class and for the computation of the Mahalanobis distances.
     "mcd" and "mve" are robust covariance matrices as implemented
-    in \code{\link{cov.rob}}. "classical" refers to the classical
+    in \code{\link[MASS]{cov.rob}}. "classical" refers to the classical
     covariance matrix.}
   \item{clweight}{logical. If \code{FALSE}, only the points of the
     heterogeneous class are weighted. This, together with

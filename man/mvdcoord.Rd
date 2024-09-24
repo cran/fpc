@@ -23,7 +23,7 @@ mvdcoord(xd, clvecd, clnum=1, sphere="mcd", ...)
   \item{sphere}{a covariance matrix or one of
     "mve", "mcd", "classical", "none". The matrix used for sphering the
     data. "mcd" and "mve" are robust covariance matrices as implemented
-    in \code{\link{cov.rob}}. "classical" refers to the classical
+    in \code{\link[MASS]{cov.rob}}. "classical" refers to the classical
     covariance matrix. "none" means no sphering and use of the raw
     data.}
   \item{...}{no effect}

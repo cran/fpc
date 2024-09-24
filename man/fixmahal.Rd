@@ -71,7 +71,7 @@ fpmi(dat, n = nrow(as.matrix(dat)), p = ncol(as.matrix(dat)),
     This is used in Hennig and Christlieb (2002).
     \code{method} can also be \code{"mcd"} or \code{"mve"},
     to enforce the use of robust centers and covariance matrices, see
-    \code{\link{cov.rob}}. This is experimental, not recommended at the
+    \code{\link[MASS]{cov.rob}}. This is experimental, not recommended at the
     moment, may be very slowly and requires library \code{lqs}.
     The default is
     \code{method="fuzzy"}, where weighted means and covariance matrices
@@ -370,7 +370,7 @@ for computation of initial configurations, weights, tuning constants.
 \code{\link{sseg}} for indexing the similarity/intersection vectors
 computed by \code{fixmahal}.
 
-\code{\link{batcoord}}, \code{\link{cov.rob}}, \code{\link{solvecov}},
+\code{\link{batcoord}}, \code{\link[MASS]{cov.rob}}, \code{\link{solvecov}},
 \code{\link{cov.wml}}, \code{\link{plotcluster}}
 for computation of projections, (inverted)
 covariance matrices, plotting.

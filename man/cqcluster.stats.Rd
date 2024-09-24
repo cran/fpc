@@ -235,9 +235,9 @@ cqcluster.stats(d = NULL, clustering, alt.clustering = NULL,
     cluster size.}
   \item{clus.avg.silwidths}{vector of cluster average silhouette
     widths. See
-    \code{\link{silhouette}}.}
+    \code{\link[cluster]{silhouette}}.}
   \item{asw}{average silhouette
-    width. See \code{\link{silhouette}}.}
+    width. See \code{\link[cluster]{silhouette}}.}
   \item{g2}{Goodman and Kruskal's Gamma coefficient. See Milligan and
     Cooper (1985), Gordon (1999, p. 62).}
   \item{g3}{G3 coefficient. See Gordon (1999, p. 62).}
@@ -369,7 +369,7 @@ Hennig, C. (2019) Cluster validation by measurement of clustering
 }
 \seealso{
   \code{\link{cluster.stats}},
-  \code{\link{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
+  \code{\link[cluster]{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
   \code{\link{distcritmulti}}.
   \code{\link{clusterboot}} computes clusterwise stability statistics by
   resampling.

@@ -54,7 +54,7 @@
     \code{\link{cqcluster.stats}}, default 0.1) of these. See Hennig (2019).}
   \item{minsep}{minimum cluster separation.}
   \item{asw}{average silhouette
-    width. See \code{\link{silhouette}}.}
+    width. See \code{\link[cluster]{silhouette}}.}
   \item{dindex}{this index measures to what extent the density decreases
     from the cluster mode to the outskirts; I-densdec in Sec. 3.6 of
     Hennig (2019); low values are good.}

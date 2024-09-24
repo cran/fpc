@@ -132,10 +132,10 @@ cluster.stats(d = NULL, clustering, alt.clustering = NULL,
     cluster size.}
   \item{clus.avg.silwidths}{vector of cluster average silhouette
     widths. See
-    \code{\link{silhouette}}.}
+    \code{\link[cluster]{silhouette}}.}
   \item{avg.silwidth}{average silhouette
     width. See
-    \code{\link{silhouette}}.}
+    \code{\link[cluster]{silhouette}}.}
   \item{g2}{Goodman and Kruskal's Gamma coefficient. See Milligan and
     Cooper (1985), Gordon (1999, p. 62).}
   \item{g3}{G3 coefficient. See Gordon (1999, p. 62).}
@@ -195,7 +195,7 @@ determining the number of clusters. In: Spiliopoulou, L. Schmidt-Thieme, R. Jann
 \seealso{
   \code{\link{cqcluster.stats}} is a more sophisticated version of
   \code{cluster.stats} with more options.
-  \code{\link{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
+  \code{\link[cluster]{silhouette}}, \code{\link{dist}}, \code{\link{calinhara}},
   \code{\link{distcritmulti}}.
   \code{\link{clusterboot}} computes clusterwise stability statistics by
   resampling. 

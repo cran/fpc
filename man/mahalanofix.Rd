@@ -31,7 +31,7 @@ mahalanofuz(x, n = nrow(as.matrix(x)), p = ncol(as.matrix(x)),
     covariance matrix is singular.}
   \item{method}{\code{"ml"}, \code{"classical"},
     \code{"mcd"} or \code{"mve"}. Method to compute the covariance
-    matrix estimator. See \code{\link{cov.rob}}, \code{\link{fixmahal}}.}
+    matrix estimator. See \code{\link[MASS]{cov.rob}}, \code{\link{fixmahal}}.}
   
 }
 \details{
@@ -56,7 +56,7 @@ mahalanofuz(x, n = nrow(as.matrix(x)), p = ncol(as.matrix(x)),
 
 \note{Methods \code{"mcd"} and \code{"mve"} require library \code{lqs}.}
 
-\seealso{\code{\link{fixmahal}}, \code{\link{solvecov}}, \code{\link{cov.rob}}}
+\seealso{\code{\link{fixmahal}}, \code{\link{solvecov}}, \code{\link[MASS]{cov.rob}}}
 
 \examples{
   x <- c(1,2,3,4,5,6,7,8,9,10)

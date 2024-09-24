@@ -30,7 +30,7 @@ ancoord(xd, clvecd, clnum=1, nn=50, method="mcd", countmode=1000, ...)
     "mve", "mcd" or "classical". Covariance matrix used within the
     homogeneous class.
     "mcd" and "mve" are robust covariance matrices as implemented
-    in \code{\link{cov.rob}}. "classical" refers to the classical
+    in \code{\link[MASS]{cov.rob}}. "classical" refers to the classical
     covariance matrix.}
   \item{countmode}{optional positive integer. Every \code{countmode}
     algorithm runs \code{ancoord} shows a message.}

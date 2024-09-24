@@ -161,14 +161,14 @@ stupidkavenCBI(dmatrix,k)
   \item{mdsmethod}{"classical", "kruskal" or "sammon". Determines the
     multidimensional scaling method to compute Euclidean data from a
     dissimilarity matrix. See \code{\link{cmdscale}},
-    \code{\link{isoMDS}} and \code{\link{sammon}}.}
+    \code{\link[MASS]{isoMDS}} and \code{\link[MASS]{sammon}}.}
   \item{mdsdim}{integer. Dimensionality of MDS solution.}
   \item{points.out}{logical. If \code{TRUE}, the matrix of MDS points
     is added as component
     \code{points} to the output of \code{noisemclustCBI}.}
   \item{usepam}{logical. If \code{TRUE}, the function
     \code{\link[cluster]{pam}} is used for clustering, otherwise
-    \code{\link[cluster]{clara}}. \code{\link{pam}} is better,
+    \code{\link[cluster]{clara}}. \code{\link[cluster]{pam}} is better,
     \code{\link[cluster]{clara}} is faster.}
   \item{diss}{logical. If \code{TRUE}, \code{data} will be considered as
     a dissimilarity matrix. In \code{claraCBI}, this requires

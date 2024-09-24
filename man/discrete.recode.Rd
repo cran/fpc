@@ -13,7 +13,8 @@
 }
 %- maybe also `usage' for other objects documented here.
 \arguments{
-  \item{x}{data matrix or data frame. The data need to be organised
+  \item{x}{data matrix or data frame (not a tibble).
+    The data need to be organised
     case-wise, i.e., if there are categorical variables only, and 15
     cases with values c(1,1,2) on the 3 variables, the data matrix needs
     15 rows with values 1 1 2. (Categorical variables could take numbers
