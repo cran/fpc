@@ -191,13 +191,13 @@ Prediction Strength, \emph{Journal of Computational and Graphical
 }
 
 \examples{
-  require(mclust)
+  \dontdiff{require(mclust)}
   require(MASS)
   options(digits=3)
   data(crabs)
   dc <- crabs[,4:8]
   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
-  scm <- summary(cm,crabs[,4:8])
+  scm <- summary.mclustBIC(cm,crabs[,4:8])
   cmnbhat <- mergenormals(crabs[,4:8],scm,method="bhat")
   summary(cmnbhat)
   cmndemp <- mergenormals(crabs[,4:8],scm,method="demp")

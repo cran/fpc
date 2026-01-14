@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2024-09-11 r87117) -- "Unsuffered Consequences"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R Under development (unstable) (2026-01-13 r89301) -- "Unsuffered Consequences"
+Copyright (C) 2026 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -20,9 +20,8 @@ Type 'q()' to quit R.
 > library(fpc)
 > library(MASS)
 > library(diptest)
-> library(mclust)
-Package 'mclust' version 6.1.1
-Type 'citation("mclust")' for citing this R package in publications.
+> # library(mclust)
+> 
 > options(digits=3)
 > 
 > set.seed(4634)
@@ -1277,68 +1276,20 @@ NULL
 > 
 > set.seed(55667788)
 > 
-> data(crabs)
-> dc <- crabs[,4:8]
-> cmo <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
+> # data(crabs)
+> # dc <- crabs[,4:8]
+> # cmo <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
 > # set.seed(12345)
-> cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE",
-+                 initialization=list(noise=(1:200)[sample(200,50)]))
+> # cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE",
+> #                initialization=list(noise=(1:200)[sample(200,50)]))
 > 
 > 
-> scm <- summary(cm,crabs[,4:8])
-> scmo <- summary(cmo,crabs[,4:8])
+> # scm <- summary(cm,crabs[,4:8])
+> # scmo <- summary(cmo,crabs[,4:8])
 > 
-> set.seed(334455)
-> summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
-* Merging Gaussian mixture components *
-
- Method:  ridge.ratio , cutoff value:  0.2 
- Original number of components:  9 
-   (not including noise which is denoted by clustering=0)
- Number of clusters after merging:  1 
- Values at which clusters were merged: 
-     [,1]  [,2]
-[1,]    8 0.828
-[2,]    7 1.000
-[3,]    6 1.000
-[4,]    5 0.888
-[5,]    4 1.000
-[6,]    3 1.000
-[7,]    2 0.784
-[8,]    1 0.845
- Components assigned to clusters: 
-      [,1]
- [1,]    0
- [2,]    1
- [3,]    1
- [4,]    1
- [5,]    1
- [6,]    1
- [7,]    1
- [8,]    1
- [9,]    1
-[10,]    1
-> summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
-* Merging Gaussian mixture components *
-
- Method:  ridge.uni , cutoff value:  1 
- Original number of components:  9 
- Number of clusters after merging:  8 
- Values at which clusters were merged: 
-     [,1]
-[1,]    8
-[2,]    9
- Components assigned to clusters: 
-      [,1]
- [1,]    1
- [2,]    1
- [3,]    2
- [4,]    3
- [5,]    4
- [6,]    5
- [7,]    6
- [8,]    7
- [9,]    8
+> # set.seed(334455)
+> # summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
+> # summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
 > # summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
 > # summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
 > # summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))
@@ -1542,4 +1493,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-   6.65    0.08    6.72 
+  5.138   0.111   5.288 

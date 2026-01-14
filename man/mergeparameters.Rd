@@ -51,10 +51,10 @@
 \examples{
   options(digits=3)
   set.seed(98765)
-  require(mclust)
+  \dontdiff{require(mclust)}
   iriss <- iris[sample(150,20),-5]
   irisBIC <- mclustBIC(iriss)
-  siris <- summary(irisBIC,iriss)
+  siris <- summary.mclustBIC(irisBIC,iriss)
   probs <- siris$parameters$pro
   muarray <- siris$parameters$mean
   Sigmaarray <- siris$parameters$variance$sigma

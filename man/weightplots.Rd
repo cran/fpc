@@ -60,12 +60,12 @@ Hennig, C. (2010) Methods for merging Gaussian mixture components,
 }
 
 \examples{
-  require(mclust)
+  \dontdiff{require(mclust)}
   require(MASS)
   data(crabs)
   dc <- crabs[,4:8]
   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
-  scm <- summary(cm,crabs[,4:8])
+  scm <- summary.mclustBIC(cm,crabs[,4:8])
   weightplots(scm$z,clusternumbers=1:3,ask=FALSE)
   weightplots(scm$z,clusternumbers=1:3,allcol=1:9, ask=FALSE,
               legendposition=c(5,0.7))

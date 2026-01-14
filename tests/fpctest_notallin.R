@@ -3,7 +3,8 @@
 library(fpc)
 library(MASS)
 library(diptest)
-library(mclust)
+# library(mclust)
+
 options(digits=3)
 
 set.seed(4634)
@@ -71,20 +72,20 @@ cluster.stats(dface,complete3,G2=TRUE)
 
 set.seed(55667788)
 
-data(crabs)
-dc <- crabs[,4:8]
-cmo <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
+# data(crabs)
+# dc <- crabs[,4:8]
+# cmo <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
 # set.seed(12345)
-cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE",
-                initialization=list(noise=(1:200)[sample(200,50)]))
+# cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE",
+#                initialization=list(noise=(1:200)[sample(200,50)]))
 
 
-scm <- summary(cm,crabs[,4:8])
-scmo <- summary(cmo,crabs[,4:8])
+# scm <- summary(cm,crabs[,4:8])
+# scmo <- summary(cmo,crabs[,4:8])
 
-set.seed(334455)
-summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
-summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
+# set.seed(334455)
+# summary(mergenormals(crabs[,4:8],scm,method="ridge.ratio",by=0.05))
+# summary(mergenormals(crabs[,4:8],scmo,method="ridge.uni",by=0.05))
 # summary(mergenormals(crabs[,4:8],scm,method="diptantrum",by=0.05))
 # summary(mergenormals(crabs[,4:8],scmo,method="dipuni",by=0.05))
 # summary(mergenormals(crabs[,4:8],scm,method="predictive",M=2))

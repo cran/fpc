@@ -1,6 +1,6 @@
 
-R Under development (unstable) (2024-09-11 r87117) -- "Unsuffered Consequences"
-Copyright (C) 2024 The R Foundation for Statistical Computing
+R Under development (unstable) (2026-01-13 r89301) -- "Unsuffered Consequences"
+Copyright (C) 2026 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu
 
 R is free software and comes with ABSOLUTELY NO WARRANTY.
@@ -2297,13 +2297,15 @@ $z
 > ### ** Examples
 > 
 >   set.seed(98765)
->   require(mclust)
+>   ## IGNORE_RDIFF_BEGIN
+> require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.1.1
+Package 'mclust' version 6.1.2
 Type 'citation("mclust")' for citing this R package in publications.
+> ## IGNORE_RDIFF_END
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
->   siris <- summary(irisBIC,iriss)
+>   siris <- summary.mclustBIC(irisBIC,iriss)
 >   emp <- extract.mixturepars(siris,2)
 >   emp$pro
 [1] 1
@@ -2982,17 +2984,19 @@ Petal.Width         63257       52444       116040      104828
 > 
 > ### ** Examples
 > 
->   require(mclust)
+>   ## IGNORE_RDIFF_BEGIN
+> require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.1.1
+Package 'mclust' version 6.1.2
 Type 'citation("mclust")' for citing this R package in publications.
+> ## IGNORE_RDIFF_END
 >   require(MASS)
 Loading required package: MASS
 >   options(digits=3)
 >   data(crabs)
 >   dc <- crabs[,4:8]
 >   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
->   scm <- summary(cm,crabs[,4:8])
+>   scm <- summary.mclustBIC(cm,crabs[,4:8])
 >   cmnbhat <- mergenormals(crabs[,4:8],scm,method="bhat")
 >   summary(cmnbhat)
 * Merging Gaussian mixture components *
@@ -3071,13 +3075,15 @@ detaching ‘package:MASS’, ‘package:mclust’
 > 
 >   options(digits=3)
 >   set.seed(98765)
->   require(mclust)
+>   ## IGNORE_RDIFF_BEGIN
+> require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.1.1
+Package 'mclust' version 6.1.2
 Type 'citation("mclust")' for citing this R package in publications.
+> ## IGNORE_RDIFF_END
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
->   siris <- summary(irisBIC,iriss)
+>   siris <- summary.mclustBIC(irisBIC,iriss)
 >   probs <- siris$parameters$pro
 >   muarray <- siris$parameters$mean
 >   Sigmaarray <- siris$parameters$variance$sigma
@@ -3130,13 +3136,15 @@ detaching ‘package:mclust’
 > ### ** Examples
 > 
 >   set.seed(98765)
->   require(mclust)
+>   ## IGNORE_RDIFF_BEGIN
+> require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.1.1
+Package 'mclust' version 6.1.2
 Type 'citation("mclust")' for citing this R package in publications.
+> ## IGNORE_RDIFF_END
 >   iriss <- iris[sample(150,20),-5]
 >   irisBIC <- mclustBIC(iriss)
->   siris <- summary(irisBIC,iriss)
+>   siris <- summary.mclustBIC(irisBIC,iriss)
 >   round(mixdens(siris$modelName,iriss,siris$parameters),digits=2)
      59     106      37      22      52      40     149      15     119      76 
 1136.59 3272.04    8.35    1.02 2381.43    0.23   15.95    9.24 3272.04  258.91 
@@ -4024,16 +4032,18 @@ $distances
 > 
 > ### ** Examples
 > 
->   require(mclust)
+>   ## IGNORE_RDIFF_BEGIN
+> require(mclust)
 Loading required package: mclust
-Package 'mclust' version 6.1.1
+Package 'mclust' version 6.1.2
 Type 'citation("mclust")' for citing this R package in publications.
+> ## IGNORE_RDIFF_END
 >   require(MASS)
 Loading required package: MASS
 >   data(crabs)
 >   dc <- crabs[,4:8]
 >   cm <- mclustBIC(crabs[,4:8],G=9,modelNames="EEE")
->   scm <- summary(cm,crabs[,4:8])
+>   scm <- summary.mclustBIC(cm,crabs[,4:8])
 >   weightplots(scm$z,clusternumbers=1:3,ask=FALSE)
 >   weightplots(scm$z,clusternumbers=1:3,allcol=1:9, ask=FALSE,
 +               legendposition=c(5,0.7))
@@ -4124,7 +4134,7 @@ detaching ‘package:MASS’, ‘package:mclust’
 > cleanEx()
 > options(digits = 7L)
 > base::cat("Time elapsed: ", proc.time() - base::get("ptime", pos = 'CheckExEnv'),"\n")
-Time elapsed:  9.043 0.048 9.091 0 0 
+Time elapsed:  10.697 0.116 10.867 0 0 
 > grDevices::dev.off()
 null device 
           1 

@@ -30,10 +30,10 @@
 }
 \examples{
   set.seed(98765)
-  require(mclust)
+  \dontdiff{require(mclust)}
   iriss <- iris[sample(150,20),-5]
   irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
-  siris <- summary(irisBIC,iriss)
+  siris <- summary.mclustBIC(irisBIC,iriss)
   emp <- extract.mixturepars(siris,2)
   emp$pro
   round(emp$mean,digits=1)
