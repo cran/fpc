@@ -1,5 +1,5 @@
 
-R Under development (unstable) (2026-01-13 r89301) -- "Unsuffered Consequences"
+R Under development (unstable) (2026-08-14 r90405) -- "Unsuffered Consequences"
 Copyright (C) 2026 The R Foundation for Statistical Computing
 Platform: x86_64-pc-linux-gnu
 
@@ -23,6 +23,7 @@ Type 'q()' to quit R.
 > # library(mclust)
 > 
 > options(digits=3)
+> options(warn=1)
 > 
 > set.seed(4634)
 > face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
@@ -191,6 +192,7 @@ Number of points (rounded weights) in intersection of representative FPCs
 > set.seed(776655)
 > v1 <- rnorm(100)
 > v2 <- rnorm(100)
+> 
 > d1 <- sample(1:5,100,replace=TRUE)
 > d2 <- sample(1:4,100,replace=TRUE)
 > ldata <- cbind(v1,v2,d1,d2)
@@ -1493,4 +1495,4 @@ aggregate
 > 
 > proc.time()
    user  system elapsed 
-  5.138   0.111   5.288 
+  4.408   0.077   4.477 

@@ -29,12 +29,12 @@
   \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
-  set.seed(98765)
-  \dontdiff{require(mclust)}
-  iriss <- iris[sample(150,20),-5]
-  irisBIC <- mclustBIC(iriss)
-  siris <- summary.mclustBIC(irisBIC,iriss)
-  round(mixdens(siris$modelName,iriss,siris$parameters),digits=2)
+set.seed(98765)
+\dontdiff{require(mclust)}
+iriss <- iris[sample(150,20),-5]
+irisBIC <- mclustBIC(iriss)
+siris <- summary.mclustBIC(irisBIC,iriss)
+round(mixdens(siris$modelName,iriss,siris$parameters),digits=2)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

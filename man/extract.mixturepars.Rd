@@ -29,17 +29,16 @@
   \url{https://www.unibo.it/sitoweb/christian.hennig/en/}
 }
 \examples{
-  set.seed(98765)
-  \dontdiff{require(mclust)}
-  iriss <- iris[sample(150,20),-5]
-  irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
-  siris <- summary.mclustBIC(irisBIC,iriss)
-  emp <- extract.mixturepars(siris,2)
-  emp$pro
-  round(emp$mean,digits=1)
-  emp$variance$modelName
-  round(emp$variance$scale,digits=2)
-  
+set.seed(98765)
+\dontdiff{require(mclust)}
+iriss <- iris[sample(150,20),-5]
+irisBIC <- mclustBIC(iriss,G=5,modelNames="VEV")
+siris <- summary.mclustBIC(irisBIC,iriss)
+emp <- extract.mixturepars(siris,2)
+emp$pro
+round(emp$mean,digits=1)
+emp$variance$modelName
+round(emp$variance$scale,digits=2)
 }
 \keyword{cluster}% at least one, from doc/KEYWORDS
 \keyword{multivariate}

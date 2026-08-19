@@ -1,7 +1,7 @@
 Package: fpc
 Title: Flexible Procedures for Clustering
-Version: 2.2-14
-Date: 2026-01-13
+Version: 2.2-15
+Date: 2026-08-15
 Authors@R: person(given = "Christian",
                     family = "Hennig",
                     role = c("aut", "cre"),
@@ -32,8 +32,8 @@ Description: Various methods for clustering and cluster validation.
 License: GPL
 URL: https://www.unibo.it/sitoweb/christian.hennig/en/
 NeedsCompilation: no
-Packaged: 2026-01-13 23:58:49 UTC; root
+Packaged: 2026-08-15 22:14:23 UTC; root
 Author: Christian Hennig [aut, cre]
 Maintainer: Christian Hennig <christian.hennig@unibo.it>
 Repository: CRAN
-Date/Publication: 2026-01-14 06:10:18 UTC
+Date/Publication: 2026-08-19 16:00:02 UTC

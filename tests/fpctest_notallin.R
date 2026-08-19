@@ -6,6 +6,7 @@ library(diptest)
 # library(mclust)
 
 options(digits=3)
+options(warn=1)
 
 set.seed(4634)
 face <- rFace(300,dMoNo=2,dNoEy=0,p=3)
@@ -31,6 +32,7 @@ summary(ff9)
 set.seed(776655)
 v1 <- rnorm(100)
 v2 <- rnorm(100)
+
 d1 <- sample(1:5,100,replace=TRUE)
 d2 <- sample(1:4,100,replace=TRUE)
 ldata <- cbind(v1,v2,d1,d2)

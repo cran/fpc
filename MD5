@@ -1,4 +1,4 @@
-cda84ae70ad28b20fa6f6891e2c823de *DESCRIPTION
+856cb08502e1aad6120757eb1a3aaf7f *DESCRIPTION
 1125ef47578160408d5075ac0948abcd *NAMESPACE
 aec30efb5a63e14e8987a882e3585a7c *R/addclustermethods.R
 8c8c3adab571a79097b5e0651e155390 *R/clusterboot.R
@@ -54,7 +54,7 @@ d13c67097f7c290f11bf4387aca5eb1a *man/dipp.tantrum.Rd
 356bb125dde6b29300be02bf2e3f0c16 *man/distrsimilarity.Rd
 2fd8c12a19a526bf2838ea5e420df046 *man/dridgeline.Rd
 fbceefe2215ac7b210f3ae58f9242504 *man/dudahart2.Rd
-1f4d486967e23a87cd97e4d395b31f23 *man/extract.mixturepars.Rd
+3c000f24a091dea3875f08617d39bbf7 *man/extract.mixturepars.Rd
 6bf6188e60401384a81b74e7813ae724 *man/findrep.Rd
 9af298038dffe9c45b66d2deb8fdc41f *man/fixmahal.Rd
 ef902926337553264cc8080cc2bfe18d *man/fixreg.Rd
@@ -70,10 +70,10 @@ f8ac0ee0d2969de37064f386b660f3b4 *man/lcmixed.Rd
 1b4c349f88497821c18ba8f07eab9e0e *man/mahalanodisc.Rd
 79dfef5657596ddd14fa54d259e7fc43 *man/mahalanofix.Rd
 91bb05e5be571ca0a58aea51524ce634 *man/mahalconf.Rd
-1149dcfc70d597c01d4a9438d4623091 *man/mergenormals.Rd
-3ad6fbddb12a56aae4b4438ff87c2c93 *man/mergeparameters.Rd
+e325c950246e84c4018e4de71b09615f *man/mergenormals.Rd
+1cf758a95d7e47c78687f7e4ec95bb38 *man/mergeparameters.Rd
 eb4f876ed214aad657300e05732f87f9 *man/minsize.Rd
-026b15d25bd7496f0de1099fa704d9bf *man/mixdens.Rd
+fdc39251250e7b57be3e3f9de7357c79 *man/mixdens.Rd
 9a57a7a77170d60660d9fe6b32d5bee2 *man/mixpredictive.Rd
 2f12f3e1cab6b01d3dfbcbd62fb4e19d *man/mvdcoord.Rd
 19bcb0510dc85e2e78ede077978169ce *man/ncoord.Rd
@@ -103,10 +103,10 @@ e5c96c7b34a1cfb10b0195b15a051741 *man/tdecomp.Rd
 e156cb0ced917fe86298bf3fbb316a25 *man/tonedata.Rd
 1513bc6b3a73bbe9aae8718e5f825b0a *man/unimodal.ind.Rd
 c22b38806cbda0b6c46afd0702ffda27 *man/valstat.object.Rd
-e12fb8e7af9cf41f4bae5b8bf4b2e499 *man/weightplots.Rd
+0591c07c8151903301adb4478eb5fe55 *man/weightplots.Rd
 19cb8bae42e9c79f99e7ec427a2c66ad *man/wfu.Rd
 c895dda06251f6f2c38b2f0669f66874 *man/xtable.Rd
 98033be110c0e6d320a01868fa441d27 *man/zmisclassification.matrix.Rd
-71073e93238ce90be81696d2cb1efc27 *tests/Examples/fpc-Ex.Rout.save
-52f80f36cb11cf3b18dafd72e2aa9d67 *tests/fpctest_notallin.R
-e730bc57ba1e3d0801d41cb0d20d722d *tests/fpctest_notallin.Rout.save
+914347fe7e92efe41630fddc012eb0ec *tests/Examples/fpc-Ex.Rout.save
+f6132aaa901ccad912c9b64c853d03b6 *tests/fpctest_notallin.R
+3871f18302165319a0852bd1d4afac5f *tests/fpctest_notallin.Rout.save
